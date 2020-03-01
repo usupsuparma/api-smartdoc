@@ -36,7 +36,7 @@ class UserRepositories extends BaseRepository implements UserInterface
 			'password' => [
 				'required', 
 				'min:8', 
-				'regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\X])(?=.*[!$#%]).*$/'
+				'regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\X])(?=.*[!@#$%^&*()<>?]).*$/'
 			],
 			'status' => 'required'
 		];
@@ -47,9 +47,11 @@ class UserRepositories extends BaseRepository implements UserInterface
 		
 		Validator::validate($request->all(), $rules, $message);
 		
-		return $this->model->create($request->merge([
+		$this->model->create($request->merge([
             'password' => app('hash')->make($request->password),
-        ])->all())->id;
+		])->all());
+		
+		return ['message' => config('constans.created')];
 	}
 	
 	public function update($request, $id)
@@ -69,7 +71,7 @@ class UserRepositories extends BaseRepository implements UserInterface
 			$rules['password'] = [
 				'required', 
 				'min:8', 
-				'regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\X])(?=.*[!$#%]).*$/'
+				'regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\X])(?=.*[!@#$%^&*()<>?]).*$/'
 			];
 			$message = [
 				'password.regex' => ':attribute harus terdapat nomer, simbol, huruf besar dan kecil .'
@@ -82,14 +84,14 @@ class UserRepositories extends BaseRepository implements UserInterface
 		
 		$this->model->findOrFail($id)->update($input);
 		
-		return $id;
+		return ['message' => config('constans.updated')];
 	}
 	
 	public function delete($id)
     {
-		$query = $this->model->findOrFail($id)->delete();
+		$this->model->findOrFail($id)->delete();
 		
-		return $query;
+		return ['message' => config('constans.deleted')];
     }
     
 }

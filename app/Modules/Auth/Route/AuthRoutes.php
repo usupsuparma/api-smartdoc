@@ -1,4 +1,8 @@
 <?php namespace App\Modules\Auth\Route;
+/**
+ * Class UserRepositories.
+ * @author  Adam Lesmana Ganda Saputra <aelgees.dev@gmail.com>
+ */
 
 use Laravel\Lumen\Application;
 use App\Library\Bases\BaseRoutes;

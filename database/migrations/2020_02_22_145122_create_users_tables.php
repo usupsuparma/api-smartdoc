@@ -13,8 +13,9 @@ class CreateUsersTables extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('smc_users', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->bigInteger('user_core_id')->nullable()->unsigned();
             $table->bigInteger('employee_id')->nullable()->unsigned();
             $table->bigInteger('role_id')->nullable()->unsigned();
             $table->string('email',100);
@@ -41,6 +42,6 @@ class CreateUsersTables extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('smc_users');
     }
 }

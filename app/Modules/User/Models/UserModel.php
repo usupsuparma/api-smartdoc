@@ -20,10 +20,10 @@ class UserModel extends Model implements AuthenticatableContract, AuthorizableCo
 
 	public $transformer = UserTransformer::class;
 	
-	protected $table = 'users';
+	protected $table = 'smc_users';
 	
     protected $fillable   = [
-		'employee_id', 'role_id', 'username' , 'email', 'password', 'remember_token', 'public_token',
+		'user_core_id', 'employee_id', 'role_id', 'username' , 'email', 'password', 'remember_token', 'public_token',
 		'private_token', 'device_id', 'last_login', 'log_date', 'count_login', 'is_banned', 'status',
 	];
 	
@@ -31,5 +31,5 @@ class UserModel extends Model implements AuthenticatableContract, AuthorizableCo
 	
 	protected $hidden = [
         'password',
-    ];
+	];
 }

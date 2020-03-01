@@ -22,6 +22,7 @@ $app = new Laravel\Lumen\Application(
 );
 
 $app->configure('auth');
+$app->configure('constans');
 $app->configure('database');
 $app->configure('filesystems');
 $app->configure('repository');
@@ -94,6 +95,7 @@ $app->routeMiddleware([
 $app->register(App\Modules\Auth\Providers\AuthServiceProvider::class);
 $app->register(App\Modules\Test\Providers\TestServiceProvider::class);
 $app->register(App\Modules\User\Providers\UserServiceProvider::class);
+$app->register(App\Modules\Menu\Providers\MenuServiceProvider::class);
 
 $app->register(App\Providers\AppServiceProvider::class);
 $app->register(App\Providers\AuthServiceProvider::class);
