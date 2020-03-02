@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Modules\User\Models\UserModel;
 use App\Library\Bases\BaseController;
 use App\Modules\User\Repositories\UserRepositories;
-use Auth;
+
 class UserController extends BaseController
 {
 	private $userRepository;

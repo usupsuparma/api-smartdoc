@@ -13,7 +13,7 @@ class MenuModel extends Model {
 
 	public $transformer = MenuTransformer::class;
 	
-    protected $table = 'smc_menus';
+    protected $table = 'menus';
     protected $fillable   = [
         'parent_id', 'name', 'url', 'categories', 'icon' , 'order', 'function', 'status'
 	];

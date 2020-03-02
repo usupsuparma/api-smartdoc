@@ -13,7 +13,7 @@ class CreateMenusTables extends Migration
      */
     public function up()
     {
-        Schema::create('smc_menus', function (Blueprint $table) {
+        Schema::create('menus', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('parent_id')->nullable();
             $table->string('name',100);
@@ -35,6 +35,6 @@ class CreateMenusTables extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('smc_menus');
+        Schema::dropIfExists('menus');
     }
 }

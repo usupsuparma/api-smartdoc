@@ -3,14 +3,9 @@
  * @author  Adam Lesmana Ganda Saputra <aelgees.dev@gmail.com>
  */
 
-use Illuminate\Queue\SerializesModels;
-
 class LogWasUpdate extends Event
 {
-	use SerializesModels;
-	
     public $actionLog;
-    
     /**
      * Create a new event instance.
      *

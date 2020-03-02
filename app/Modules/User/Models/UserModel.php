@@ -20,7 +20,7 @@ class UserModel extends Model implements AuthenticatableContract, AuthorizableCo
 
 	public $transformer = UserTransformer::class;
 	
-	protected $table = 'smc_users';
+	protected $table = 'users';
 	
     protected $fillable   = [
 		'user_core_id', 'employee_id', 'role_id', 'username' , 'email', 'password', 'remember_token', 'public_token',

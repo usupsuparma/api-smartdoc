@@ -42,9 +42,10 @@ class MenuRepositories extends BaseRepository implements MenuInterface
 			'function' => implode(',', $request->function),
 		])->all();
 		
-		if ($this->model->create($input)) {
-			return ['message' => config('constans.created')];
-		}
+		$model = $this->model->create($input);
+		created_log($model);
+		
+		return ['message' => config('constans.success.created')];
 	}
 	
 	public function update($request, $id)
@@ -63,24 +64,29 @@ class MenuRepositories extends BaseRepository implements MenuInterface
 			'function' => implode(',', $request->function),
 		])->all();
 		
-		if ($this->model->findOrFail($id)->update($input)) {
-			return ['message' => config('constans.updated')];
-		}
+		$model = $this->model->findOrFail($id);
+		$model->update($input);
+		
+		updated_log($model);
+		
+		return ['message' => config('constans.success.updated')];
 	}
 	
 	public function delete($id)
     {
-		$this->model->findOrFail($id)->delete();
+		$model = $this->model->findOrFail($id);
+		deleted_log($model);
+		$model->delete();
 		
-		return ['message' => config('constans.deleted')];
+		return ['message' => config('constans.success.deleted')];
 	}
 	
 	public function _tree(array $menus, $parentId = 0) 
 	{
 		$lists = array();
 	
-		foreach ($menus as $menu) {
-	
+		foreach ($menus as $menu) 
+		{
 			if ($menu['parent_id'] == $parentId) {
 				$children = $this->_tree($menus, $menu['id']);
 				if ($children) {
@@ -90,6 +96,7 @@ class MenuRepositories extends BaseRepository implements MenuInterface
 				unset($menu);
 			}
 		}
+		
 		return $lists;
 	}
     

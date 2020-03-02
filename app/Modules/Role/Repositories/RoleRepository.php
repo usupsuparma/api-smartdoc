@@ -1,19 +1,19 @@
-<?php namespace App\Modules\User\Repositories;
+<?php namespace App\Modules\Role\Repositories;
 /**
- * Class UserRepositories.
+ * Class RoleRepositories.
  * @author  Adam Lesmana Ganda Saputra <aelgees.dev@gmail.com>
  */
 
 use Prettus\Repository\Eloquent\BaseRepository;
-use App\Modules\User\Interfaces\UserInterface;
-use App\Modules\User\Models\UserModel;
+use App\Modules\Role\Interfaces\RoleInterface;
+use App\Modules\Role\Models\RoleModel;
 use Validator;
 
-class UserRepositories extends BaseRepository implements UserInterface
+class RoleRepositories extends BaseRepository implements RoleInterface
 {
 	public function model()
 	{
-		return UserModel::class;
+		return RoleModel::class;
 	}
 	
     public function data($request)

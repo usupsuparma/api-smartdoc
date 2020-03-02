@@ -4,8 +4,8 @@
  */
 
 use App\Events\LogWasUpdate;
+use App\Modules\Log\Models\LogModel;
 use Auth;
-
 class LogUpdate
 {
     /**
@@ -22,7 +22,16 @@ class LogUpdate
      * @return void
      */
     public function handle(LogWasUpdate $event)
-    {    
-        
+    {
+        $name = class_basename($event->actionLog);
+        $model = str_replace('Model', '', $name);
+
+        LogModel::create([
+            'user_id' => Auth::user()->id,
+            'model' => $model,
+            'type' => 'updated',
+            'activity' => "Melakukan perubahan pada data {$model} ",
+            'visitor' => app('request')->ip()
+        ]);
     }
 }

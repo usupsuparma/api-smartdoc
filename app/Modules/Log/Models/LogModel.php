@@ -10,7 +10,7 @@ class LogModel extends Model
 {
 	public $transformer = Logransformer::class;
 	
-    protected $table = 'smc_logs';
+    protected $table = 'logs';
     protected $fillable   = [
         'user_id', 'model', 'type', 'activity', 'visitor'
 	];

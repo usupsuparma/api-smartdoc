@@ -4,6 +4,7 @@
  */
 
 use App\Events\LogWasDelete;
+use App\Modules\Log\Models\LogModel;
 use Auth;
 
 class LogDelete
@@ -23,6 +24,15 @@ class LogDelete
      */
     public function handle(LogWasDelete $event)
     {    
-        
+        $name = class_basename($event->actionLog);
+        $model = str_replace('Model', '', $name);
+
+        LogModel::create([
+            'user_id' => Auth::user()->id,
+            'model' => $model,
+            'type' => 'deleted',
+            'activity' => "Melakukan penghapusan pada data {$model} ",
+            'visitor' => app('request')->ip()
+        ]);
     }
 }

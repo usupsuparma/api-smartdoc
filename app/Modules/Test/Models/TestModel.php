@@ -9,7 +9,7 @@ class TestModel extends Model {
 
 	public $transformer = TestTransformer::class;
 	
-    protected $table = 'smc_tests';
+    protected $table = 'tests';
     protected $fillable   = [
         'name','email','description'
 	];

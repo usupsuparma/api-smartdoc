@@ -4,6 +4,7 @@
  */
 
 use App\Events\LogWasCreate;
+use App\Modules\Log\Models\LogModel;
 use Auth;
 
 class LogCreate
@@ -23,6 +24,15 @@ class LogCreate
      */
     public function handle(LogWasCreate $event)
     {    
-        
+        $name = class_basename($event->actionLog);
+        $model = str_replace('Model', '', $name);
+
+        LogModel::create([
+            'user_id' => Auth::user()->id,
+            'model' => $model,
+            'type' => 'created',
+            'activity' => "Melakukan penambahan pada data {$model} ",
+            'visitor' => app('request')->ip()
+        ]);
     }
 }

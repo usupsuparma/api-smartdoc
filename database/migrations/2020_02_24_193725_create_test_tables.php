@@ -13,7 +13,7 @@ class CreateTestTables extends Migration
      */
     public function up()
     {
-        Schema::create('smc_tests', function (Blueprint $table) {
+        Schema::create('tests', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('email');
@@ -30,6 +30,6 @@ class CreateTestTables extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('smc_tests');
+        Schema::dropIfExists('tests');
     }
 }

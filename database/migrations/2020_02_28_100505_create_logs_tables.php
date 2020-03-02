@@ -13,7 +13,7 @@ class CreateLogsTables extends Migration
      */
     public function up()
     {
-        Schema::create('smc_logs', function (Blueprint $table) {
+        Schema::create('logs', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('user_id')->unsigned()->nullable();
             $table->string('model')->nullable();
@@ -31,6 +31,6 @@ class CreateLogsTables extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('smc_logs');
+        Schema::dropIfExists('logs');
     }
 }
