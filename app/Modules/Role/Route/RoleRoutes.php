@@ -8,7 +8,7 @@ class RoleRoutes extends BaseRoutes
 	public function __construct()
 	{
 		$this->controller_ns = 'App\Modules\Role\Controllers';
-		$this->route_prefix = BaseRoutes::GLOBAL_PREFIX . '/Roles';
+		$this->route_prefix = BaseRoutes::GLOBAL_PREFIX . '/roles';
 	}
 
 	public function bind(Application $app)
@@ -26,6 +26,11 @@ class RoleRoutes extends BaseRoutes
 			$app->router->get('/{id}', [
 				'as' => $this->route_prefix . '.show',
 				'uses' => 'RoleController@show'
+			]);
+			
+			$app->router->get('/menus', [
+				'as' => $this->route_prefix . '.show_menu',
+				'uses' => 'RoleController@show_menu'
 			]);
 			
 			$app->router->post('/', [

@@ -26,8 +26,14 @@ class RoleController extends BaseController
 		return $this->showOne(RoleModel::findOrFail($id),200);
 	}
 	
+	public function show_menu()
+	{
+		return $this->successResponse($this->roleRepository->showMenu(),200);
+	}
+	
 	public function create(Request $request)
 	{
+		dd($request->all());
         return $this->successResponse($this->roleRepository->create($request), 200); 
 	}
 	
