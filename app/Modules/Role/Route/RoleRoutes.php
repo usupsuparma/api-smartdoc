@@ -28,7 +28,7 @@ class RoleRoutes extends BaseRoutes
 				'uses' => 'RoleController@show'
 			]);
 			
-			$app->router->get('/menus', [
+			$app->router->get('/menus/list', [
 				'as' => $this->route_prefix . '.show_menu',
 				'uses' => 'RoleController@show_menu'
 			]);
