@@ -19,7 +19,7 @@ class MenuRoutes extends BaseRoutes
 		$app->router->group([
 			'prefix' => $this->route_prefix,
 			'namespace' => $this->controller_ns,
-			'middleware' => ['auth', 'cors']
+			'middleware' => 'auth'
 		], function () use ($app) {
 			$app->router->get('/', [
 				'as' => $this->route_prefix . '.data',
