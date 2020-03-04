@@ -16,6 +16,7 @@ class TestController extends BaseController
 	
 	public function data(Request $request)
 	{
+		dd('test');
 		return $this->showAll($this->testRepository->data($request),200);
 	}
 	
