@@ -22,6 +22,7 @@ $app = new Laravel\Lumen\Application(
 );
 
 $app->configure('auth');
+$app->configure('cors');
 $app->configure('constans');
 $app->configure('database');
 $app->configure('filesystems');
@@ -68,7 +69,7 @@ $app->singleton(
 
 $app->middleware([
     // App\Http\Middleware\CorsMiddleware::class
-    Fruitcake\Cors\HandleCors::class,
+    \Fruitcake\Cors\HandleCors::class,
 ]);
 
 $app->routeMiddleware([
@@ -107,7 +108,7 @@ $app->register(Dusterio\LumenPassport\PassportServiceProvider::class);
 $app->register(Prettus\Repository\Providers\LumenRepositoryServiceProvider::class);
 
 /* CORS */
-$app->register(Fruitcake\Cors\CorsServiceProvider::class);
+$app->register(\Fruitcake\Cors\CorsServiceProvider::class);
 /*
 |--------------------------------------------------------------------------
 | Load The Application Routes
