@@ -17,7 +17,11 @@ class AuthRoutes extends BaseRoutes
 
 	public function bind(Application $app)
 	{
-		$app->router->group(['prefix' => $this->route_prefix, 'namespace' => $this->controller_ns], function () use ($app) {
+		$app->router->group([
+			'prefix' => $this->route_prefix,
+			'namespace' => $this->controller_ns,
+			'middleware' => 'cors'
+		], function () use ($app) {
 			$app->router->post('login', [
 				'as' => $this->route_prefix . '.login',
 				'uses' => 'AuthController@login'

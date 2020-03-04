@@ -16,7 +16,7 @@ class UserRoutes extends BaseRoutes
 		$app->router->group([
 			'prefix' => $this->route_prefix,
 			'namespace' => $this->controller_ns,
-			'middleware' => 'auth'
+			'middleware' => ['auth', 'cors']
 		], function () use ($app) {
 			$app->router->get('/', [
 				'as' => $this->route_prefix . '.data',

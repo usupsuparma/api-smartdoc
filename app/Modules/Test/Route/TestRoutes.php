@@ -13,7 +13,11 @@ class TestRoutes extends BaseRoutes
 
 	public function bind(Application $app)
 	{
-		$app->router->group(['prefix' => $this->route_prefix, 'namespace' => $this->controller_ns], function () use ($app) {
+		$app->router->group([
+			'prefix' => $this->route_prefix,
+			'namespace' => $this->controller_ns,
+			'middleware' => 'cors'
+		], function () use ($app) {
 			$app->router->get('/', [
 				'as' => $this->route_prefix . '.data',
 				'uses' => 'TestController@data'
