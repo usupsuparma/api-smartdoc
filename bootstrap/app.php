@@ -68,12 +68,13 @@ $app->singleton(
 
 $app->middleware([
     // App\Http\Middleware\CorsMiddleware::class
+    Fruitcake\Cors\HandleCors::class,
 ]);
 
 $app->routeMiddleware([
     'auth' => App\Http\Middleware\Authenticate::class,
     'client' => \Laravel\Passport\Http\Middleware\CheckClientCredentials::class,
-    'cors' => App\Http\Middleware\CorsMiddleware::class
+    // 'cors' => App\Http\Middleware\CorsMiddleware::class
 ]);
 
 /*
@@ -104,6 +105,9 @@ $app->register(Dusterio\LumenPassport\PassportServiceProvider::class);
 
 /* Repositories */
 $app->register(Prettus\Repository\Providers\LumenRepositoryServiceProvider::class);
+
+/* CORS */
+$app->register(Fruitcake\Cors\CorsServiceProvider::class);
 /*
 |--------------------------------------------------------------------------
 | Load The Application Routes
