@@ -109,6 +109,9 @@ $app->register(Prettus\Repository\Providers\LumenRepositoryServiceProvider::clas
 
 /* CORS */
 $app->register(\Fruitcake\Cors\CorsServiceProvider::class);
+/* TCPDF */
+$app->register(Elibyy\TCPDF\ServiceProvider::class);
+class_alias(Elibyy\TCPDF\Facades\TCPDF::class, 'PDF');
 /*
 |--------------------------------------------------------------------------
 | Load The Application Routes
