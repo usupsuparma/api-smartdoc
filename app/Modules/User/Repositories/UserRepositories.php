@@ -25,7 +25,7 @@ class UserRepositories extends BaseRepository implements UserInterface
 		}
 		
 		if ($request->has('email') && !empty($request->email)) {
-			$query->orWhere('email', 'like', "%{$request->email}%");
+			$query->where('email', 'like', "%{$request->email}%");
 		}
 		
         return $query->get();

@@ -37,5 +37,10 @@ class TestController extends BaseController
 	public function delete($id)
     {
         $this->successResponse($this->testRepository->delete($id), 200); 
-    }
+	}
+	
+	public function generate(Request $request)
+	{
+		return $this->testRepository->generate($request);
+	}
 }

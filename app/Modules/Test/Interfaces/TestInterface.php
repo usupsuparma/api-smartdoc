@@ -18,4 +18,7 @@ interface TestInterface extends RepositoryInterface
 	public function update($request, $id);
 	
 	public function delete($id);
+	
+	public function generate($request);
+	
 }

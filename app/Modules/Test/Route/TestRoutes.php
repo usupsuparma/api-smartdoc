@@ -41,6 +41,11 @@ class TestRoutes extends BaseRoutes
 				'as' => $this->route_prefix . '.delete',
 				'uses' => 'TestController@delete'
 			]);
+			
+			$app->router->get('/generate/pdf', [
+				'as' => $this->route_prefix . '.generate',
+				'uses' => 'TestController@generate'
+			]);
 	
 		});
 	}
