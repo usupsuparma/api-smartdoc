@@ -20,6 +20,7 @@ class UserTransformer extends TransformerAbstract
 			'role_id' => $data->role_id,
 			'username' => (string) $data->username,
 			'email' => (string) $data->email,
+			'status' => (int) $data->status,
 			'created_at' => $data->created_at->format('d-m-Y'),
 			'updated_at' => $data->updated_at->format('d-m-Y')
 		];
