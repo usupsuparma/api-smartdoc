@@ -20,12 +20,12 @@ class UserRepositories extends BaseRepository implements UserInterface
     {
 		$query = $this->model->where('status', 1);
 		
-		if ($request->has('username')) {
+		if ($request->has('username') && !empty($request->username)) {
 			$query->where('username', 'like', "%{$request->username}%");
 		}
 		
-		if ($request->has('email')) {
-			$query->where('email', 'like', "%{$request->email}%");
+		if ($request->has('email') && !empty($request->email)) {
+			$query->orWhere('email', 'like', "%{$request->email}%");
 		}
 		
         return $query->get();

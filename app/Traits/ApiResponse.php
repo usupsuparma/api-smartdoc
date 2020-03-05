@@ -99,7 +99,7 @@ trait ApiResponse
 		$per_page = 15;
 		$page = LengthAwarePaginator::resolveCurrentPage();
 		
-		if (app('request')->has('per_page')) {
+		if (app('request')->has('per_page') && !empty(app('request')->per_page)) {
 			$per_page = (int) app('request')->per_page;
 		}
 		
