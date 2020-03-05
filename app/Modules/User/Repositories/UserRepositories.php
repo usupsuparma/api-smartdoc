@@ -18,7 +18,7 @@ class UserRepositories extends BaseRepository implements UserInterface
 	
     public function data($request)
     {
-		$query = $this->model->where('status', 1);
+		$query = $this->model->where('status', $request->status);
 		
 		if ($request->has('username') && !empty($request->username)) {
 			$query->where('username', 'like', "%{$request->username}%");
