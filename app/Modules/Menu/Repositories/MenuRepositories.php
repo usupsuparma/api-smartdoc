@@ -17,7 +17,7 @@ class MenuRepositories extends BaseRepository implements MenuInterface
 	
     public function data($request)
     {
-        return $this->model->get();
+        return ['data' => $this->model->get()];
 	}
 	
 	public function show($id)
