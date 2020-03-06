@@ -20,6 +20,7 @@ class MenuTransformer extends TransformerAbstract
 			'name' => (string) $data->name,
 			'url' => (string) $data->url,
 			'component' => !is_null($data->component) ? (string) $data->component : null,
+			'show' => $data->show,
 			'icon' => (string) $data->icon,
 		];
 	 }

@@ -31,6 +31,7 @@ class MenuRepositories extends BaseRepository implements MenuInterface
 			'name' => 'required',
 			'url' => 'required|unique:menus,url',
 			'component' => 'required',
+			'show' => 'required',
 			'function' => 'required|array',
 			'status' => 'required',
 		];
@@ -55,6 +56,7 @@ class MenuRepositories extends BaseRepository implements MenuInterface
 			'name' => 'required',
 			'url' => 'required|unique:menus,url,' . $id,
 			'component' => 'required',
+			'show' => 'required',
 			'function' => 'required|array',
 			'status' => 'required',
 		];
