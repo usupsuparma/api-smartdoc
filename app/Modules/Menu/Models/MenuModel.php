@@ -15,7 +15,7 @@ class MenuModel extends Model {
 	
     protected $table = 'menus';
     protected $fillable   = [
-        'parent_id', 'name', 'url', 'categories', 'icon' , 'order', 'function', 'status'
+        'parent_id', 'name', 'url', 'component', 'categories', 'icon' , 'order', 'function', 'status'
 	];
 	
 	protected $dates = ['deleted_at'];

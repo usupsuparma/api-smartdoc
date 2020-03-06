@@ -17,7 +17,7 @@ class MenuRepositories extends BaseRepository implements MenuInterface
 	
     public function data($request)
     {
-        return ['data' => $this->model->get()];
+        return $this->model->get();
 	}
 	
 	public function show($id)
@@ -30,6 +30,7 @@ class MenuRepositories extends BaseRepository implements MenuInterface
 		$rules = [
 			'name' => 'required',
 			'url' => 'required|unique:menus,url',
+			'component' => 'required',
 			'function' => 'required|array',
 			'status' => 'required',
 		];
@@ -53,6 +54,7 @@ class MenuRepositories extends BaseRepository implements MenuInterface
 		$rules = [
 			'name' => 'required',
 			'url' => 'required|unique:menus,url,' . $id,
+			'component' => 'required',
 			'function' => 'required|array',
 			'status' => 'required',
 		];

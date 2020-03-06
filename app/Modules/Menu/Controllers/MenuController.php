@@ -16,7 +16,7 @@ class MenuController extends BaseController
 	
 	public function data(Request $request)
 	{
-		return $this->successResponse($this->menuRepository->data($request),200);
+		return $this->showAll($this->menuRepository->data($request), 200, false);
 	}
 	
 	public function show($id)

@@ -35,7 +35,7 @@ trait ApiResponse
 	 * @param integer $code Response code.
 	 * @return mixed
 	 */
-	protected function showAll(Collection $collection, $code = 200)
+	protected function showAll(Collection $collection, $code = 200, $paginate = true)
 	{
 		if ($collection->isEmpty()) {
 			return $this->successResponse(['data' => $collection], $code);
@@ -44,7 +44,11 @@ trait ApiResponse
 		$transformer = $collection->first()->transformer;
 		
 		$collection = $this->sortData($collection);
-		$collection = $this->paginated($collection);
+		
+		if ($paginate) {
+			$collection = $this->paginated($collection);
+		}
+		
 		$collection = $this->transformerData($collection, $transformer);
 		
 		return $this->successResponse($collection, $code);
