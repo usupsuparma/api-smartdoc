@@ -1,4 +1,7 @@
 <?php namespace App\Modules\Menu\Interfaces;
+/**
+ * @author  Adam Lesmana Ganda Saputra <aelgees.dev@gmail.com>
+ */
 
 use Prettus\Repository\Contracts\RepositoryInterface;
 
@@ -13,4 +16,6 @@ interface MenuInterface extends RepositoryInterface
 	public function update($request, $id);
 	
 	public function delete($id);
+	
+	public function ordering($request);
 }

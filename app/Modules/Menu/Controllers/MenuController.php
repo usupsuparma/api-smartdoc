@@ -37,5 +37,10 @@ class MenuController extends BaseController
 	public function delete($id)
     {
         return $this->successResponse($this->menuRepository->delete($id), 200); 
-    }
+	}
+	
+	public function ordering(Request $request)
+	{
+        return $this->successResponse($this->menuRepository->ordering($request), 200); 
+	}
 }

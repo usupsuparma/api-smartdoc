@@ -9,7 +9,8 @@ return [
 		'disposition' => 'Berhasil melakukan disposisi surat.',
 		'decline' => 'Data yang diajukan berhasil dikembalikan.',
 		'login' => 'Berhasil login.',
-		'logout' => 'Berhasil logout.'
+		'logout' => 'Berhasil logout.',
+		'ordering' => 'Berhasil melakukan penyusunan menu.',
 	], 
 	'error' => [
 		'logout' => 'Gagal melakukan logout.'

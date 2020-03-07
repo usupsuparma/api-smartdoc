@@ -10,6 +10,8 @@ use Validator;
 
 class MenuRepositories extends BaseRepository implements MenuInterface
 {
+    protected $_temp_ordering = [];
+	
 	public function model()
 	{
 		return MenuModel::class;
@@ -103,5 +105,40 @@ class MenuRepositories extends BaseRepository implements MenuInterface
 		
 		return $lists;
 	}
+	
+	public function ordering($request)
+    {
+		$nestable = $request->nestable_menu;
+
+        if (!empty($nestable)) {
+            $this->parsing_ordering(json_decode($nestable));
+
+            foreach ($this->_temp_ordering as $key => $value) {
+                $this->model->find($key)->update($value);
+            }
+		}
+		
+		return ['message' => config('constans.success.ordering')];
+	}
+	
+	private function parsing_ordering($nestable, $parent = NULL) 
+	{
+        if (is_array($nestable)) {
+            $order = 1;
+
+            foreach ($nestable as $dt) {
+                $this->_temp_ordering[$dt->id] = [
+                    'order' => $order,
+                    'parent_id' => !is_null($parent) ? (int) $parent : 0
+                ];
+
+                if (isset($dt->children)) {
+                    $this->parsing_ordering($dt->children, $dt->id);
+                }
+
+                $order++;
+            }
+        }
+    }
     
 }

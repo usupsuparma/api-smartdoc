@@ -45,7 +45,11 @@ class MenuRoutes extends BaseRoutes
 				'as' => $this->route_prefix . '.delete',
 				'uses' => 'MenuController@delete'
 			]);
-	
+			
+			$app->router->post('/ordering', [
+				'as' => $this->route_prefix . '.ordering',
+				'uses' => 'MenuController@ordering'
+			]);
 		});
 	}
 }
