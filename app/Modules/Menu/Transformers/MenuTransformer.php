@@ -19,6 +19,7 @@ class MenuTransformer extends TransformerAbstract
 			'parent_id' => $data->parent_id > 0 ? (int) $data->parent_id : null,
 			'name' => (string) $data->name,
 			'url' => (string) $data->url,
+			'function' => (string) $data->function,
 			'component' => !is_null($data->component) ? (string) $data->component : null,
 			'show' => $data->show,
 			'icon' => (string) $data->icon,
