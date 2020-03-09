@@ -11,7 +11,7 @@ interface RoleInterface extends RepositoryInterface
 
 	public function show($id);
 	
-    public function showMenu();
+    public function showMenu($request);
     
 	public function create($request);
 	

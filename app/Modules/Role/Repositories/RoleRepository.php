@@ -54,8 +54,13 @@ class RoleRepositories extends BaseRepository implements RoleInterface
         return $this->model->findOrFail($id);
 	}
 	
-	public function showMenu()
+	public function showMenu($request)
     {
+		
+		if (isset($request->id) && !empty($request->id)) {
+            $this->_authorities($request->id);
+		}
+		
 		return $this->_menu(['categories' => $this->_categories]);
 	}
 	
@@ -139,32 +144,49 @@ class RoleRepositories extends BaseRepository implements RoleInterface
         endswitch;
 
         return $actions;
+	}
+	
+	private function _authorities($key = [])
+    {
+        $data = RoleModel::find($key);
+
+        foreach ($data->menu as $dt) {
+            if ($dt->pivot->authority_read == 1)
+                $this->_authorities['authority_read'][] = $dt->pivot->menu_id;
+            if ($dt->pivot->authority_create == 1)
+                $this->_authorities['authority_create'][] = $dt->pivot->menu_id;
+            if ($dt->pivot->authority_update == 1)
+                $this->_authorities['authority_update'][] = $dt->pivot->menu_id;
+            if ($dt->pivot->authority_delete == 1)
+                $this->_authorities['authority_delete'][] = $dt->pivot->menu_id;
+            if ($dt->pivot->authority_import == 1)
+                $this->_authorities['authority_import'][] = $dt->pivot->menu_id;
+            if ($dt->pivot->authority_export == 1)
+                $this->_authorities['authority_export'][] = $dt->pivot->menu_id;
+            if ($dt->pivot->authority_approve == 1)
+				$this->_authorities['authority_approve'][] = $dt->pivot->menu_id;
+			if ($dt->pivot->authority_disposition == 1)
+                $this->_authorities['authority_disposition'][] = $dt->pivot->menu_id;
+
+            $this->_authorities['authority_data'][(string)$dt->id] = $dt->pivot->authority_data;
+        }
     }
 	
 	public function create($request)
     {
 		$rules = [
-			'username' => 'required|min:8|unique:users,username',
-			'email' => 'required|unique:users,email',
-			'password' => [
-				'required', 
-				'min:8', 
-				'regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\X])(?=.*[!@#$%^&*()<>?]).*$/'
-			],
+			'name' => 'required|unique:roles,name',
+			'categories' => 'required',
 			'status' => 'required'
 		];
 		
-		$message = [
-			'password.regex' => ':attribute harus terdapat nomer, simbol, huruf besar dan kecil .'
-		];
+		Validator::validate($request->all(), $rules);
 		
-		Validator::validate($request->all(), $rules, $message);
-		
-		$model = $this->model->create($request->merge([
-            'password' => app('hash')->make($request->password),
-		])->all());
+		$model = $this->model->create($request->all());
 
 		created_log($model);
+		
+		$model->menu()->attach(json_decode($request->authorities, true)[0]);
 		
 		return ['message' => config('constans.success.created')];
 	}
@@ -173,34 +195,19 @@ class RoleRepositories extends BaseRepository implements RoleInterface
     {
 		$input = $request->all();
 		$rules = [
-			// 'employee_id' => 'required',
-			// 'role_id' => 'required',
-			'username' => 'required|min:8|unique:users,username,' . $id,
-			'email' => 'required|unique:users,email,' . $id,
-			'status' => 'required',
+			'name' => 'required|unique:roles,name,' . $id,
+			'categories' => 'required',
+			'status' => 'required'
 		];
 		
-		$message = [];
-		
-		if (!empty($input['password'])) {
-			$rules['password'] = [
-				'required', 
-				'min:8', 
-				'regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\X])(?=.*[!@#$%^&*()<>?]).*$/'
-			];
-			$message = [
-				'password.regex' => ':attribute harus terdapat nomer, simbol, huruf besar dan kecil .'
-			];
-		} else {
-			unset($input['password']);
-		}
-		
-		Validator::validate($input, $rules, $message);
+		Validator::validate($input, $rules);
 		
 		$model = $this->model->findOrFail($id);
 		$model->update($input);
 		
 		updated_log($model);
+		
+		$model->menu()->sync(json_decode($request->authorities, true)[0]);
 		
 		return ['message' => config('constans.success.updated')];
 	}

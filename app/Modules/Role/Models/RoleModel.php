@@ -33,6 +33,7 @@ class RoleModel extends Model
         		'authority_import', 
         		'authority_export', 
         		'authority_approve', 
+        		'authority_disposition', 
         		'authority_data'
         	);
 	}

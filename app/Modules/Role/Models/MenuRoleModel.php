@@ -5,9 +5,10 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-class MenuRoleModel extends BaseModel
+class MenuRoleModel extends Model
 {
-    protected $table = 'menu_roles';
+	protected $table = 'menu_roles';
+	
     protected $fillable   = [
         'menu_id',
         'role_id',
