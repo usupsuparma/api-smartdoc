@@ -68,7 +68,10 @@ class RoleRepositories extends BaseRepository implements RoleInterface
 	{
 		$models =  MenuModel::where($categories)
 							->orderBy('order')->get()->toArray();
-							
+		if (!$models) {
+			return;
+		}
+		
 		return $this->_temp_menu = $this->_list($models);
 		
 	}
@@ -148,7 +151,7 @@ class RoleRepositories extends BaseRepository implements RoleInterface
 	
 	private function _authorities($key = [])
     {
-        $data = RoleModel::find($key);
+        $data = RoleModel::findOrFail($key);
 
         foreach ($data->menu as $dt) {
             if ($dt->pivot->authority_read == 1)

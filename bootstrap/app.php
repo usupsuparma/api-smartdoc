@@ -26,6 +26,7 @@ $app->configure('cors');
 $app->configure('constans');
 $app->configure('database');
 $app->configure('filesystems');
+$app->configure('mail');
 $app->configure('repository');
 
 $app->withFacades();
