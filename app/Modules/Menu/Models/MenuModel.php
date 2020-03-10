@@ -24,4 +24,11 @@ class MenuModel extends Model {
 	{
 		return $query->where('categories', $category);
 	}
+	
+	public function role() 
+	{
+		return $this->belongsToMany('App\Modules\Role\Models\RoleModel','menu_roles','menu_id','role_id')
+					->withPivot('authority_read', 'authority_create', 'authority_update', 'authority_delete', 'authority_import', 'authority_export', 'authority_approve', 'authority_disposition', 'authority_data')
+					->withTimestamps();
+	}
 }

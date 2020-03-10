@@ -50,6 +50,11 @@ class MenuRoutes extends BaseRoutes
 				'as' => $this->route_prefix . '.ordering',
 				'uses' => 'MenuController@ordering'
 			]);
+			
+			$app->router->get('/navigation/roles', [
+				'as' => $this->route_prefix . '.navigation',
+				'uses' => 'MenuController@navigation'
+			]);
 		});
 	}
 }

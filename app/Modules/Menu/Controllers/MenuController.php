@@ -43,4 +43,9 @@ class MenuController extends BaseController
 	{
         return $this->successResponse($this->menuRepository->ordering($request), 200); 
 	}
+	
+	public function navigation()
+	{
+        return $this->successResponse(['data' => $this->menuRepository->navigation()], 200, false);
+	}
 }

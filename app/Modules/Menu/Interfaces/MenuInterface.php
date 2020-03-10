@@ -18,4 +18,6 @@ interface MenuInterface extends RepositoryInterface
 	public function delete($id);
 	
 	public function ordering($request);
+	
+	public function navigation();
 }

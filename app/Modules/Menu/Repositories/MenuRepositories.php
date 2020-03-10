@@ -6,7 +6,7 @@
 use Prettus\Repository\Eloquent\BaseRepository;
 use App\Modules\Menu\Interfaces\MenuInterface;
 use App\Modules\Menu\Models\MenuModel;
-use Validator;
+use Validator,Navigation;
 
 class MenuRepositories extends BaseRepository implements MenuInterface
 {
@@ -141,6 +141,11 @@ class MenuRepositories extends BaseRepository implements MenuInterface
                 $order++;
             }
         }
-    }
+	}
+	
+	public function navigation()
+	{
+		return Navigation::menu();
+	}
     
 }

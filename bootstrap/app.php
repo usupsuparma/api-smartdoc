@@ -29,7 +29,10 @@ $app->configure('filesystems');
 $app->configure('mail');
 $app->configure('repository');
 
-$app->withFacades();
+$app->withFacades(true, [
+    App\Library\Managers\Navigation\Facade\Navigation::class => 'Navigation',
+]);
+
 $app->withEloquent();
 
 $app->bind(\Illuminate\Contracts\Routing\UrlGenerator::class, function ($app) {
@@ -89,6 +92,8 @@ $app->routeMiddleware([
 | totally optional, so you are not required to uncomment this line.
 |
 */
+/* Managers */
+$app->register(App\Library\Managers\Navigation\Providers\NavigationServiceProvider::class);
 
 /* Modules */
 $app->register(App\Modules\Auth\Providers\AuthServiceProvider::class);
