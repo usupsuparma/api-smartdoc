@@ -28,7 +28,7 @@ class RoleController extends BaseController
 	
 	public function show_menu(Request $request)
 	{
-		return $this->successResponse($this->roleRepository->showMenu($request),200);
+		return $this->successResponse(['data' => $this->roleRepository->showMenu($request)],200);
 	}
 	
 	public function create(Request $request)

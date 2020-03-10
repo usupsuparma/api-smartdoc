@@ -67,7 +67,7 @@ class TestRepositories extends BaseRepository implements TestInterface
     {
 		$public = 'file:///Users/aelgees/PIDUITEUN/php/dgsign/public_key.pem';
 		$private = 'file:///Users/aelgees/PIDUITEUN/php/dgsign/private_key.pem';
-		$filekosongan = 'file:///Users/aelgees/PIDUITEUN/php/dgsign/ADAM_TEST_KOSONGAN.pdf';
+		$filekosongan = 'file:///Users/aelgees/PIDUITEUN/php/dgsign/ND - Nota Dinas.pdf';
 		
 		
 		$info = array(
@@ -100,7 +100,7 @@ class TestRepositories extends BaseRepository implements TestInterface
 			PDF::setSignature($public, $private, 'X8HCRIAD', '' , 2, $info);
 		}
 		
-		PDF::Output('ADAM_TEST_HASIL.pdf', 'D');
+		PDF::Output('ND - Nota Dinas.pdf', 'D');
 	}
     
 }

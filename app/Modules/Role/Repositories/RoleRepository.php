@@ -85,12 +85,16 @@ class RoleRepositories extends BaseRepository implements RoleInterface
 			$fields = [];
 			$functions = [];
 			
-			if ($menu['parent_id'] == $parentId) {
+			// if ($menu['parent_id'] == $parentId) {
 				
+				$fields['id'] = $menu['id'];
 				$fields['parent_id'] = $menu['parent_id'];
 				$fields['name'] = $menu['name'];
 				$fields['url'] = $menu['url'];
+				$fields['component'] = $menu['component'];
 				$fields['icon'] = $menu['icon'];
+				$fields['order'] = $menu['order'];
+				$fields['status'] = $menu['status'];
 				
 				$func = !empty($menu['function']) ? explode(',', $menu['function']) : [];
 				
@@ -102,14 +106,14 @@ class RoleRepositories extends BaseRepository implements RoleInterface
 				
 				$fields['function'] = $functions;
 				
-				$children = $this->_list($menus, $menu['id']);
+				// $children = $this->_list($menus, $menu['id']);
 				
-				if ($children) {
-					$fields['children'] = $children;
-				}
+				// if ($children) {
+				// 	$fields['children'] = $children;
+				// }
 				
-				$lists[$menu['id']] = $fields;
-			}
+				$lists[] = $fields;
+			// }
 		}
 		
 		return $lists;
