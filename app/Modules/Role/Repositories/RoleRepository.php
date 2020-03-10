@@ -46,7 +46,13 @@ class RoleRepositories extends BaseRepository implements RoleInterface
 	
     public function data($request)
     {
-        return $this->model->get();
+		$query = $this->model->where('status', $request->status);
+		
+		if ($request->has('name') && !empty($request->name)) {
+			$query->where('name', 'like', "%{$request->name}%");
+		}
+		
+        return $query->get();
 	}
 	
 	public function show($id)
