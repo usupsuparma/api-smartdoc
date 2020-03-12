@@ -31,6 +31,7 @@ class LogDelete
             'user_id' => Auth::user()->id,
             'model' => $model,
             'type' => 'deleted',
+            'reference_id' => $event->actionLog->id,
             'activity' => "Melakukan penghapusan pada data {$model} ",
             'visitor' => app('request')->ip()
         ]);

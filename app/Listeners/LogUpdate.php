@@ -30,6 +30,7 @@ class LogUpdate
             'user_id' => Auth::user()->id,
             'model' => $model,
             'type' => 'updated',
+            'reference_id' => $event->actionLog->id,
             'activity' => "Melakukan perubahan pada data {$model} ",
             'visitor' => app('request')->ip()
         ]);

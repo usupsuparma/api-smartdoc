@@ -12,7 +12,7 @@ class LogModel extends Model
 	
     protected $table = 'logs';
     protected $fillable   = [
-        'user_id', 'model', 'type', 'activity', 'visitor'
+        'user_id', 'model', 'type', 'reference_id', 'activity', 'visitor'
 	];
 	
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLogsTables extends Migration
+class CreateTypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,13 @@ class CreateLogsTables extends Migration
      */
     public function up()
     {
-        if (!Schema::hasTable('logs')) {
-            Schema::create('logs', function (Blueprint $table) {
+        if (!Schema::hasTable('types')) {
+            Schema::create('types', function (Blueprint $table) {
                 $table->bigIncrements('id');
-                $table->bigInteger('user_id')->unsigned()->nullable();
-                $table->string('model')->nullable();
-                $table->string('type')->nullable();
-                $table->text('activity')->nullable();
-                $table->text('visitor')->nullable();
+                $table->string('name',100);
+                $table->boolean('status')->default(1);
                 $table->timestamps();
+                $table->softDeletes();
             });
         }
     }
@@ -33,6 +31,6 @@ class CreateLogsTables extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('logs');
+        Schema::dropIfExists('types');
     }
 }

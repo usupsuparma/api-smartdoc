@@ -23,7 +23,7 @@ class LogCreate
      * @return void
      */
     public function handle(LogWasCreate $event)
-    {    
+    { 
         $name = class_basename($event->actionLog);
         $model = str_replace('Model', '', $name);
 
@@ -31,6 +31,7 @@ class LogCreate
             'user_id' => Auth::user()->id,
             'model' => $model,
             'type' => 'created',
+            'reference_id' => $event->actionLog->id,
             'activity' => "Melakukan penambahan pada data {$model} ",
             'visitor' => app('request')->ip()
         ]);
