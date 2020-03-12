@@ -60,6 +60,10 @@ class Handler extends ExceptionHandler
         }
         
         if ($exception instanceof HttpException) {
+            if ($exception->getStatusCode() === 403) {
+                return $this->errorResponse('Forbiden Access.', 403);
+            }
+            
             return $this->errorResponse('The specified URL cannot be found.', 404);
         }
         

@@ -31,6 +31,7 @@ $app->configure('repository');
 
 $app->withFacades(true, [
     App\Library\Managers\Navigation\Facade\Navigation::class => 'Navigation',
+    App\Library\Managers\Authority\Facade\Authority::class => 'Authority',
 ]);
 
 $app->withEloquent();
@@ -94,6 +95,7 @@ $app->routeMiddleware([
 */
 /* Managers */
 $app->register(App\Library\Managers\Navigation\Providers\NavigationServiceProvider::class);
+$app->register(App\Library\Managers\Authority\Providers\AuthorityServiceProvider::class);
 
 /* Modules */
 $app->register(App\Modules\Auth\Providers\AuthServiceProvider::class);

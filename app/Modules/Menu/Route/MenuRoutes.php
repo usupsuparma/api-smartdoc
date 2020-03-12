@@ -53,7 +53,7 @@ class MenuRoutes extends BaseRoutes
 			
 			$app->router->get('/navigation/roles', [
 				'as' => $this->route_prefix . '.navigation',
-				'uses' => 'MenuController@navigation'
+				'uses' => 'SideMenuController@navigation'
 			]);
 		});
 	}
