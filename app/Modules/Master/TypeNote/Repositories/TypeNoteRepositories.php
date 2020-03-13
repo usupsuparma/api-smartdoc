@@ -35,6 +35,7 @@ class TypeNoteRepositories extends BaseRepository implements TypeNoteInterface
 	public function create($request)
     {
 		$rules = [
+			'code' => 'required|unique:type_notes,code,NULL,id,deleted_at,NULL',
 			'name' => 'required|unique:type_notes,name,NULL,id,deleted_at,NULL',
 			'status' => 'required'
 		];
@@ -52,6 +53,7 @@ class TypeNoteRepositories extends BaseRepository implements TypeNoteInterface
     {
 		$input = $request->all();
 		$rules = [
+			'code' => 'required|unique:type_notes,code,' . $id . ',id,deleted_at,NULL',
 			'name' => 'required|unique:type_notes,name,' . $id . ',id,deleted_at,NULL',
 			'status' => 'required'
 		];

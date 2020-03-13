@@ -16,7 +16,7 @@ class TypeNoteModel extends Model
 	protected $table = 'type_notes';
 	
     protected $fillable   = [
-		'name', 'status'
+		'code', 'name', 'status'
 	];
 	
 	protected $dates = ['deleted_at'];

@@ -16,6 +16,7 @@ class TypeNoteTransformer extends TransformerAbstract
 	 {
 		return [
 			'id' => (int) $data->id,
+			'code' => (string) $data->code,
 			'name' => (string) $data->name,
 			'status' => (int) $data->status,
 			'created_at' => $data->created_at->format('d-m-Y'),

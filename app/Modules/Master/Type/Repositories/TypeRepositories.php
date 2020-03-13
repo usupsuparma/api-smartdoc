@@ -36,6 +36,7 @@ class TypeRepositories extends BaseRepository implements TypeInterface
     {
 		$rules = [
 			'name' => 'required|unique:types,name,NULL,id,deleted_at,NULL',
+			'code' => 'required|unique:types,code,NULL,id,deleted_at,NULL',
 			'status' => 'required'
 		];
 		
@@ -52,6 +53,7 @@ class TypeRepositories extends BaseRepository implements TypeInterface
     {
 		$input = $request->all();
 		$rules = [
+			'code' => 'required|unique:types,code,' . $id . ',id,deleted_at,NULL',
 			'name' => 'required|unique:types,name,' . $id . ',id,deleted_at,NULL',
 			'status' => 'required'
 		];

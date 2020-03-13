@@ -16,7 +16,7 @@ class TypeModel extends Model
 	protected $table = 'types';
 	
     protected $fillable   = [
-		'name', 'status'
+		'code', 'name', 'status'
 	];
 	
 	protected $dates = ['deleted_at'];
