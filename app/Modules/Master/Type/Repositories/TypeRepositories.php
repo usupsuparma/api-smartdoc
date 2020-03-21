@@ -76,5 +76,10 @@ class TypeRepositories extends BaseRepository implements TypeInterface
 		
 		
 		return ['message' => config('constans.success.deleted')];
-    }
+	}
+	
+	public function select_type()
+	{
+		return ['data' => $this->model->isActive()->get()->pluck('full_name', 'id')];
+	}
 }

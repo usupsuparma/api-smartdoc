@@ -21,4 +21,14 @@ class TypeModel extends Model
 	
 	protected $dates = ['deleted_at'];
 	
+	public function getFullNameAttribute()
+	{
+    	return $this->code . ' - ' . $this->name;
+	}
+	
+	public function scopeIsActive($query)
+	{
+		return $query->where('status', 1);
+	}
+	
 }

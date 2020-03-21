@@ -42,6 +42,11 @@ class TypeRoutes extends BaseRoutes
 				'as' => $this->route_prefix . '.delete',
 				'uses' => 'TypeController@delete'
 			]);
+			
+			$app->router->get('/select/data', [
+				'as' => $this->route_prefix . '.select_type',
+				'uses' => 'TypeController@select_type'
+			]);
 	
 		});
 	}

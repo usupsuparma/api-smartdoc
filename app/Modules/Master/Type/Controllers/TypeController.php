@@ -52,5 +52,10 @@ class TypeController extends BaseController
 		Authority::check('delete');
 		
         return $this->successResponse($this->typeRepository->delete($id), 200); 
-    }
+	}
+	
+	public function select_type()
+	{
+		return $this->successResponse($this->typeRepository->select_type(),200);
+	}
 }
