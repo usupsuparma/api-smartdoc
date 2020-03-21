@@ -79,10 +79,12 @@ trait ApiResponse
 	
 	protected function sortData(Collection $collection)
 	{	
-		if (app('request')->has('sort_by')) {
+		if (app('request')->has('sort_by') && !empty(app('request')->sort_by)) {
 			$attribute = app('request')->sort_by;
 			
 			$collection = $collection->sortBy($attribute);
+		} else {
+			$collection = $collection->sortByDesc('created_at');
 		}
 		
 		return $collection;

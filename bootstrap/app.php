@@ -107,6 +107,7 @@ $app->register(App\Modules\Master\Type\Providers\TypeServiceProvider::class);
 $app->register(App\Modules\Master\Classification\Providers\ClassificationServiceProvider::class);
 $app->register(App\Modules\Master\ClassDisposition\Providers\ClassDispositionServiceProvider::class);
 $app->register(App\Modules\Master\TypeNote\Providers\TypeNoteServiceProvider::class);
+$app->register(App\Modules\Setting\Providers\SettingServiceProvider::class);
 
 /* Core */
 $app->register(App\Providers\AppServiceProvider::class);
