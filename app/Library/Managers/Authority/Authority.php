@@ -26,13 +26,13 @@ class Authority
 
 			$query = $query->first();
 			
-			if (empty($query->role->toArray())) {
-				abort(403);
-			}
+			// if (empty($query->role->toArray())) {
+			// 	abort(403);
+			// }
 			
-			if(!$query->role[0]->pivot->authority_read){
-				abort(403);
-			}
+			// if(!$query->role[0]->pivot->authority_read){
+			// 	abort(403);
+			// }
 			
 			$this->authority = [
 				'id' => $query->id,
@@ -51,7 +51,7 @@ class Authority
 			];
 			
 		} else {
-			abort(403);
+			// abort(403);
 		}
 	
 		return $this;
@@ -59,19 +59,19 @@ class Authority
 	
 	public function check($method, $redirect = false)
   	{
-		if (count($this->authority)) {
-
+		if (!empty($this->authority)) {
+			
 			$value = $this->authority[$method];
 			
-			if ($redirect && $value == false) {
+			if ($value == false) {
 				abort(403);
 			} else {
 				return $this->authority[$method];
 			}
 		} else {
-			return false;
+			abort(403);
 		}
-	  }
+	}
 	  
 	public function acl_access($user, $module)
     {
@@ -79,29 +79,29 @@ class Authority
 
 			Authority::init($module, $user);
 			
-            $_auth = [
-                'read',
-                'create',
-                'update',
-                'delete',
-                'import',
-                'export',
-                'approve',
-                'disposition',
-                'data'
-            ];
+            // $_auth = [
+            //     'read',
+            //     'create',
+            //     'update',
+            //     'delete',
+            //     'import',
+            //     'export',
+            //     'approve',
+            //     'disposition',
+            //     'data'
+            // ];
 
-			$accessStatus = 0;
+			// $accessStatus = 0;
 			
-            foreach ($_auth as $value) {
-                if ($this->authority[$value]) {
-                    $accessStatus++;
-                }
-            }
+            // foreach ($_auth as $value) {
+            //     if ($this->authority[$value]) {
+            //         $accessStatus++;
+            //     }
+            // }
 
-            if ($accessStatus == 0) {
-                abort(403, 'Unauthorized action.');
-            }
+            // if ($accessStatus == 0) {
+            //     abort(403, 'Unauthorized action.');
+            // }
         }
     }
 }

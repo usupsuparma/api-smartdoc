@@ -21,14 +21,23 @@ class TypeModel extends Model
 	
 	protected $dates = ['deleted_at'];
 	
-	public function getFullNameAttribute()
-	{
-    	return $this->code . ' - ' . $this->name;
-	}
-	
 	public function scopeIsActive($query)
 	{
 		return $query->where('status', 1);
 	}
+	
+	public function scopeOptions($query, $default = NULL)
+    {
+        $list = [];
+
+        foreach ($query->isActive()->orderBy('name')->get() as $dt) {
+            $list[] = [
+				'id' => $dt->id,
+				'name' => $dt->code . ' - ' . $dt->name,
+			];
+		}
+		
+        return $list;
+    }
 	
 }

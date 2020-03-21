@@ -80,6 +80,6 @@ class TypeRepositories extends BaseRepository implements TypeInterface
 	
 	public function select_type()
 	{
-		return ['data' => $this->model->isActive()->get()->pluck('full_name', 'id')];
+		return ['data' => $this->model->options(setting_by_code('SELECT_TYPE'))];
 	}
 }

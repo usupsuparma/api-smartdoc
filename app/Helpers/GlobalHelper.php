@@ -1,9 +1,23 @@
 <?php
+/**
+ * @author  Adam Lesmana Ganda Saputra <aelgees.dev@gmail.com>
+ */
 
-if (!function_exists('test')) {
+use App\Modules\Setting\Models\SettingModel;
+
+if (!function_exists('setting_by_code')) {
 	
-    function test($actionLog = [])
+    function setting_by_code($code)
     {
-        dd($actionLog);
+        $query = SettingModel::where([
+            'code' => $code,
+            'status' => 1
+        ]);
+        
+        if ($query->exists()) {
+            return $query->first()->value;
+        }
+        
+        return NULL;
     }
 }

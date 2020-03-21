@@ -25,7 +25,7 @@ class TemplateModel extends Model
 	public function type()
 	{
 		return $this->belongsTo(TypeModel::class, 'type_id')
-					->select('code', 'name');
+					->select('id', 'code', 'name');
 	}
 	
 }
