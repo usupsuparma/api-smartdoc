@@ -111,7 +111,22 @@ class AuthRepositories extends BaseRepository implements AuthInterface
 		
         $data = json_decode($response->getBody(), true);
 		
+		$user = UserModel::findByEmail($request->username)->first();
+		$users_info = core_user($user->user_core_id);
+
 		$results = [
+			'user_info' => [
+				'employee' => [
+					'nik' => $users_info->employee->nik,
+					'name' => $users_info->employee->name
+				],
+				'department' => [
+					'name' => $users_info->structure->nama_struktur
+				],
+				'potition' => [
+					'name' => $users_info->position->nama_jabatan
+				]
+			],
 			'token' => $data['access_token'],
 			'refresh_token' => $data['refresh_token'],
 			'message' => 'Berhasil Login',

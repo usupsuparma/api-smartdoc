@@ -32,4 +32,9 @@ class UserModel extends Model implements AuthenticatableContract, AuthorizableCo
 	protected $hidden = [
         'password',
 	];
+	
+	public function scopeFindByEmail($query, $email)
+	{
+		return $query->where('email', $email);
+	}
 }
