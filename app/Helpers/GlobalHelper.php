@@ -34,6 +34,6 @@ if (!function_exists('core_user')) {
             })->first();
         }
         
-        return ExternalUserModel::with('employee', 'structure', 'position')->find($user_id);
+        return ExternalUserModel::with('employee', 'structure', 'position')->findOrFail($user_id);
     }
 }

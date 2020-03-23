@@ -1,11 +1,11 @@
-<?php namespace App\Modules\Master\ClassDisposition\Interfaces;
+<?php namespace App\Modules\OutgoingMail\Interfaces;
 /**
  * @author  Adam Lesmana Ganda Saputra <aelgees.dev@gmail.com>
  */
 
 use Prettus\Repository\Contracts\RepositoryInterface;
 
-interface ClassDispositionInterface extends RepositoryInterface
+interface OutgoingMailInterface extends RepositoryInterface
 {
     public function data($request);
 
@@ -17,5 +17,8 @@ interface ClassDispositionInterface extends RepositoryInterface
 	
 	public function delete($id);
 	
-	public function options();
+	public function approve($request);
+	
+	public function publish($request);
+	
 }

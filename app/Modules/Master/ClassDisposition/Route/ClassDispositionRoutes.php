@@ -42,6 +42,11 @@ class ClassDispositionRoutes extends BaseRoutes
 				'as' => $this->route_prefix . '.delete',
 				'uses' => 'ClassDispositionController@delete'
 			]);
+			
+			$app->router->get('/select/data', [
+				'as' => $this->route_prefix . '.options',
+				'uses' => 'ClassDispositionController@options'
+			]);
 	
 		});
 	}

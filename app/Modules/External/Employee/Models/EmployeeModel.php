@@ -19,4 +19,23 @@ class EmployeeModel extends Model
 	{
 		return $this->belongsTo('App\Modules\External\Users\Models\ExternalUserModel', 'id_employee');
 	}
+	
+	public function scopeIsActive($query)
+	{
+		// return $query->where('status', 1);
+	}
+	
+	public function scopeOptions($query, $default = NULL)
+    {
+        $list = [];
+
+        foreach ($query->isActive()->orderBy('name')->get() as $dt) {
+            $list[] = [
+				'id' => $dt->id_employee,
+				'name' => $dt->nik . ' - ' . $dt->name,
+			];
+		}
+		
+        return $list;
+    }
 }

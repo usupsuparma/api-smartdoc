@@ -1,14 +1,14 @@
-<?php namespace App\Modules\Master\Classification\Route;
+<?php namespace App\Modules\OutgoingMail\Route;
 
 use Laravel\Lumen\Application;
 use App\Library\Bases\BaseRoutes;
 
-class ClassificationRoutes extends BaseRoutes
+class OutgoingMailRoutes extends BaseRoutes
 {
 	public function __construct()
 	{
-		$this->controller_ns = 'App\Modules\Master\Classification\Controllers';
-		$this->route_prefix = BaseRoutes::GLOBAL_PREFIX . '/classifications';
+		$this->controller_ns = 'App\Modules\OutgoingMail\Controllers';
+		$this->route_prefix = BaseRoutes::GLOBAL_PREFIX . '/outgoing-mails';
 	}
 
 	public function bind(Application $app)
@@ -20,32 +20,37 @@ class ClassificationRoutes extends BaseRoutes
 		], function () use ($app) {
 			$app->router->get('/', [
 				'as' => $this->route_prefix . '.data',
-				'uses' => 'ClassificationController@data'
+				'uses' => 'OutgoingMailController@data'
 			]);
 			
 			$app->router->get('/{id}', [
 				'as' => $this->route_prefix . '.data',
-				'uses' => 'ClassificationController@show'
+				'uses' => 'OutgoingMailController@show'
 			]);
 			
 			$app->router->post('/', [
 				'as' => $this->route_prefix . '.create',
-				'uses' => 'ClassificationController@create'
+				'uses' => 'OutgoingMailController@create'
 			]);
 			
 			$app->router->put('/{id}', [
 				'as' => $this->route_prefix . '.update',
-				'uses' => 'ClassificationController@update'
+				'uses' => 'OutgoingMailController@update'
 			]);
 			
 			$app->router->delete('/{id}', [
 				'as' => $this->route_prefix . '.delete',
-				'uses' => 'ClassificationController@delete'
+				'uses' => 'OutgoingMailController@delete'
 			]);
 			
-			$app->router->get('/select/data', [
-				'as' => $this->route_prefix . '.options',
-				'uses' => 'ClassificationController@options'
+			$app->router->post('/approval', [
+				'as' => $this->route_prefix . '.approval',
+				'uses' => 'OutgoingMailController@approval'
+			]);
+			
+			$app->router->post('/publish', [
+				'as' => $this->route_prefix . '.publish',
+				'uses' => 'OutgoingMailController@publish'
 			]);
 	
 		});

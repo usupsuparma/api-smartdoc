@@ -52,5 +52,10 @@ class ClassDispositionController extends BaseController
 		Authority::check('delete');
 		
         return $this->successResponse($this->classDispositionRepository->delete($id), 200); 
-    }
+	}
+	
+	public function options()
+	{
+		return $this->successResponse($this->classDispositionRepository->options(),200);
+	}
 }

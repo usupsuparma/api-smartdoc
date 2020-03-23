@@ -74,5 +74,10 @@ class ClassificationRepositories extends BaseRepository implements Classificatio
 		
 		
 		return ['message' => config('constans.success.deleted')];
-    }
+	}
+	
+	public function options()
+	{
+		return ['data' => $this->model->options()];
+	}
 }

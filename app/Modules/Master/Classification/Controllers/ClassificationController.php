@@ -47,10 +47,8 @@ class ClassificationController extends BaseController
 		return $this->successResponse($this->classificationRepository->update($request, $id), 200); 
 	}
 	
-	public function delete($id)
-    {
-		Authority::check('delete');
-		
-        return $this->successResponse($this->classificationRepository->delete($id), 200); 
-    }
+	public function options()
+	{
+		return $this->successResponse($this->classificationRepository->options(),200);
+	}
 }

@@ -111,11 +111,12 @@ class AuthRepositories extends BaseRepository implements AuthInterface
 		
         $data = json_decode($response->getBody(), true);
 		
+		$detail = [];
 		$user = UserModel::findByEmail($request->username)->first();
 		$users_info = core_user($user->user_core_id);
-
-		$results = [
-			'user_info' => [
+		
+		if ($users_info) {
+			$detail = [
 				'employee' => [
 					'nik' => $users_info->employee->nik,
 					'name' => $users_info->employee->name
@@ -126,7 +127,11 @@ class AuthRepositories extends BaseRepository implements AuthInterface
 				'potition' => [
 					'name' => $users_info->position->nama_jabatan
 				]
-			],
+			];
+		}
+		
+		$results = [
+			'user_info' => $detail,
 			'token' => $data['access_token'],
 			'refresh_token' => $data['refresh_token'],
 			'message' => 'Berhasil Login',

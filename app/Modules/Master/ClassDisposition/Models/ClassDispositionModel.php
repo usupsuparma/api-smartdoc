@@ -21,4 +21,22 @@ class ClassDispositionModel extends Model
 	
 	protected $dates = ['deleted_at'];
 	
+	public function scopeIsActive($query)
+	{
+		return $query->where('status', 1);
+	}
+	
+	public function scopeOptions($query)
+    {
+        $list = [];
+
+        foreach ($query->isActive()->orderBy('name')->get() as $dt) {
+            $list[] = [
+				'id' => $dt->id,
+				'name' => $dt->name,
+			];
+		}
+		
+        return $list;
+    }
 }

@@ -111,6 +111,9 @@ $app->register(App\Modules\Master\ClassDisposition\Providers\ClassDispositionSer
 $app->register(App\Modules\Master\TypeNote\Providers\TypeNoteServiceProvider::class);
 $app->register(App\Modules\Master\Template\Providers\TemplateServiceProvider::class);
 
+/* External */
+$app->register(App\Modules\External\Employee\Providers\EmployeeServiceProvider::class);
+
 /* Core */
 $app->register(App\Providers\AppServiceProvider::class);
 $app->register(App\Providers\AuthServiceProvider::class);

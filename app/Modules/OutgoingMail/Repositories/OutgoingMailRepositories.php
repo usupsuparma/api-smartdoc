@@ -1,19 +1,19 @@
-<?php namespace App\Modules\Master\ClassDisposition\Repositories;
+<?php namespace App\Modules\OutgoingModel\Repositories;
 /**
- * Class ClassDispositionRepositories.
+ * Class OutgoingModelRepositories.
  * @author  Adam Lesmana Ganda Saputra <aelgees.dev@gmail.com>
  */
 
 use Prettus\Repository\Eloquent\BaseRepository;
-use App\Modules\Master\ClassDisposition\Interfaces\ClassDispositionInterface;
-use App\Modules\Master\ClassDisposition\Models\ClassDispositionModel;
+use App\Modules\OutgoingModel\Interfaces\OutgoingModelInterface;
+use App\Modules\OutgoingModel\Models\OutgoingModelModel;
 use Validator;
 
-class ClassDispositionRepositories extends BaseRepository implements ClassDispositionInterface
+class OutgoingModelRepositories extends BaseRepository implements OutgoingModelInterface
 {
 	public function model()
 	{
-		return ClassDispositionModel::class;
+		return OutgoingModelModel::class;
 	}
 	
     public function data($request)
@@ -22,6 +22,7 @@ class ClassDispositionRepositories extends BaseRepository implements ClassDispos
 		
 		if ($request->has('name') && !empty($request->name)) {
 			$query->where('name', 'like', "%{$request->name}%");
+			$query->orWhere('code', 'like', "%{$request->name}%");
 		}
 		
 		return $query->get();
@@ -35,7 +36,9 @@ class ClassDispositionRepositories extends BaseRepository implements ClassDispos
 	public function create($request)
     {
 		$rules = [
-			'name' => 'required|unique:class_disposition,name,NULL,id,deleted_at,NULL',
+			'name' => 'required|unique:settings,name,NULL,id,deleted_at,NULL',
+			// 'code' => 'required|unique:settings,code,NULL,id,deleted_at,NULL',
+			'value' => 'required',
 			'status' => 'required'
 		];
 		
@@ -52,7 +55,9 @@ class ClassDispositionRepositories extends BaseRepository implements ClassDispos
     {
 		$input = $request->all();
 		$rules = [
-			'name' => 'required|unique:class_disposition,name,' . $id . ',id,deleted_at,NULL',
+			'name' => 'required|unique:settings,name,' . $id . ',id,deleted_at,NULL',
+			// 'code' => 'required|unique:settings,code,' . $id . ',id,deleted_at,NULL',
+			'value' => 'required',
 			'status' => 'required'
 		];
 		
@@ -71,12 +76,7 @@ class ClassDispositionRepositories extends BaseRepository implements ClassDispos
 		$model = $this->model->findOrFail($id);
 		deleted_log($model);
 		$model->delete();
-
+		
 		return ['message' => config('constans.success.deleted')];
-	}
-	
-	public function options()
-	{
-		return ['data' => $this->model->options()];
-	}
+    }
 }
