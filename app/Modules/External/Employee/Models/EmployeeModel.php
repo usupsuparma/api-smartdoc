@@ -14,4 +14,9 @@ class EmployeeModel extends Model
     protected $fillable   = [
 		'nik', 'name'
 	];
+	
+	public function user()
+	{
+		return $this->belongsTo('App\Modules\External\Users\Models\ExternalUserModel', 'id_employee');
+	}
 }

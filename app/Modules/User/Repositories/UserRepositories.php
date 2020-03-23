@@ -95,6 +95,7 @@ class UserRepositories extends BaseRepository implements UserInterface
 		Validator::validate($input, $rules, $message);
 		
 		$model = $this->model->findOrFail($id);
+		$input['password'] = app('hash')->make($request->password);
 		$model->update($input);
 		
 		updated_log($model);

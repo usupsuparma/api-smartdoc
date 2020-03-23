@@ -21,6 +21,7 @@ class UserController extends BaseController
 	
 	public function data(Request $request)
 	{
+		dd(core_user(Auth::user()->user_core_id));
 		Authority::check('read');
 		
 		return $this->showAll($this->userRepository->data($request),200);
