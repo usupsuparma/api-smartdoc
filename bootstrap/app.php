@@ -28,10 +28,13 @@ $app->configure('database');
 $app->configure('filesystems');
 $app->configure('mail');
 $app->configure('repository');
+$app->configure('queue');
 
 $app->withFacades(true, [
     App\Library\Managers\Navigation\Facade\Navigation::class => 'Navigation',
     App\Library\Managers\Authority\Facade\Authority::class => 'Authority',
+    Illuminate\Support\Facades\Mail::class => 'Mail'
+    
 ]);
 
 $app->withEloquent();
@@ -104,6 +107,7 @@ $app->register(App\Modules\User\Providers\UserServiceProvider::class);
 $app->register(App\Modules\Menu\Providers\MenuServiceProvider::class);
 $app->register(App\Modules\Role\Providers\RoleServiceProvider::class);
 $app->register(App\Modules\Setting\Providers\SettingServiceProvider::class);
+$app->register(App\Modules\OutgoingMail\Providers\OutgoingMailServiceProvider::class);
 
 $app->register(App\Modules\Master\Type\Providers\TypeServiceProvider::class);
 $app->register(App\Modules\Master\Classification\Providers\ClassificationServiceProvider::class);
@@ -118,7 +122,7 @@ $app->register(App\Modules\External\Employee\Providers\EmployeeServiceProvider::
 $app->register(App\Providers\AppServiceProvider::class);
 $app->register(App\Providers\AuthServiceProvider::class);
 $app->register(App\Providers\EventServiceProvider::class);
-
+$app->register(Illuminate\Mail\MailServiceProvider::class);
 /* Passport */
 $app->register(Laravel\Passport\PassportServiceProvider::class);
 $app->register(Dusterio\LumenPassport\PassportServiceProvider::class);

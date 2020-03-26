@@ -13,15 +13,17 @@ class CreateTemplatesTable extends Migration
      */
     public function up()
     {
-        Schema::create('templates', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('name', 100);
-            $table->bigInteger('type_id')->unsigned();
-            $table->longText('template');
-            $table->boolean('status')->default(1);
-            $table->timestamps();
-            $table->softDeletes();
-        });
+        if (!Schema::hasTable('templates')) {
+            Schema::create('templates', function (Blueprint $table) {
+                $table->bigIncrements('id');
+                $table->string('name', 100);
+                $table->bigInteger('type_id')->unsigned();
+                $table->longText('template');
+                $table->boolean('status')->default(1);
+                $table->timestamps();
+                $table->softDeletes();
+            });
+        }
     }
 
     /**

@@ -27,5 +27,11 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\LogWasDisposition' => [
             'App\Listeners\LogDisposition',
         ],
+        'App\Events\LogWasApprove' => [
+            'App\Listeners\LogApprove',
+        ],
+        'App\Events\LogWasPublish' => [
+            'App\Listeners\LogPublish',
+        ]
     ];
 }

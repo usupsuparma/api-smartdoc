@@ -1,28 +1,27 @@
-<?php namespace App\Modules\OutgoingModel\Repositories;
+<?php namespace App\Modules\OutgoingMail\Repositories;
 /**
- * Class OutgoingModelRepositories.
+ * Class OutgoingMailRepositories.
  * @author  Adam Lesmana Ganda Saputra <aelgees.dev@gmail.com>
  */
 
 use Prettus\Repository\Eloquent\BaseRepository;
-use App\Modules\OutgoingModel\Interfaces\OutgoingModelInterface;
-use App\Modules\OutgoingModel\Models\OutgoingModelModel;
+use App\Modules\OutgoingMail\Interfaces\OutgoingMailInterface;
+use App\Modules\OutgoingMail\Models\OutgoingMailModel;
 use Validator;
 
-class OutgoingModelRepositories extends BaseRepository implements OutgoingModelInterface
+class OutgoingMailRepositories extends BaseRepository implements OutgoingMailInterface
 {
 	public function model()
 	{
-		return OutgoingModelModel::class;
+		return OutgoingMailModel::class;
 	}
 	
     public function data($request)
     {
 		$query = $this->model->where('status', $request->status);
 		
-		if ($request->has('name') && !empty($request->name)) {
-			$query->where('name', 'like', "%{$request->name}%");
-			$query->orWhere('code', 'like', "%{$request->name}%");
+		if ($request->has('keyword') && !empty($request->keyword)) {
+			$query->where('subject_letter', 'like', "%{$request->keyword}%");
 		}
 		
 		return $query->get();
@@ -36,13 +35,23 @@ class OutgoingModelRepositories extends BaseRepository implements OutgoingModelI
 	public function create($request)
     {
 		$rules = [
-			'name' => 'required|unique:settings,name,NULL,id,deleted_at,NULL',
-			// 'code' => 'required|unique:settings,code,NULL,id,deleted_at,NULL',
-			'value' => 'required',
-			'status' => 'required'
+			'subject_letter' => 'required',
+			'type_id' => 'required',
+			'classification_id' => 'required',
+			'letter_date' => 'required',
+			'from_employee_id' => 'required',
+			'body' => 'required'
 		];
 		
-		Validator::validate($request->all(), $rules);
+		$message = [
+			'subject_letter.required' => 'perihal surat wajib diisi',
+			'type_id.required' => 'jenis surat wajib diisi',
+			'classification_id.required' => 'klasifikasi surat wajib diisi',
+			'from_employee_id.required' => 'pengirim surat wajib diisi',
+			'letter_date.required' => 'tanggal surat wajib diisi',
+		];
+		
+		Validator::validate($request->all(), $rules, $message);
 		
 		$model = $this->model->create($request->all());
 
@@ -55,13 +64,23 @@ class OutgoingModelRepositories extends BaseRepository implements OutgoingModelI
     {
 		$input = $request->all();
 		$rules = [
-			'name' => 'required|unique:settings,name,' . $id . ',id,deleted_at,NULL',
-			// 'code' => 'required|unique:settings,code,' . $id . ',id,deleted_at,NULL',
-			'value' => 'required',
-			'status' => 'required'
+			'subject_letter' => 'required',
+			'type_id' => 'required',
+			'classification_id' => 'required',
+			'letter_date' => 'required',
+			'from_employee_id' => 'required',
+			'body' => 'required'
 		];
 		
-		Validator::validate($input, $rules);
+		$message = [
+			'subject_letter.required' => 'perihal surat wajib diisi',
+			'type_id.required' => 'jenis surat wajib diisi',
+			'classification_id.required' => 'klasifikasi surat wajib diisi',
+			'from_employee_id.required' => 'pengirim surat wajib diisi',
+			'letter_date.required' => 'tanggal surat wajib diisi',
+		];
+		
+		Validator::validate($input, $rules, $message);
 		
 		$model = $this->model->findOrFail($id);
 		$model->update($input);
@@ -78,5 +97,15 @@ class OutgoingModelRepositories extends BaseRepository implements OutgoingModelI
 		$model->delete();
 		
 		return ['message' => config('constans.success.deleted')];
-    }
+	}
+	
+	public function approve($request)
+	{
+		
+	}
+	
+	public function publish($request)
+	{
+		
+	}
 }

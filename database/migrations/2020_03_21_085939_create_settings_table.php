@@ -13,16 +13,18 @@ class CreateSettingsTable extends Migration
      */
     public function up()
     {
-        Schema::create('settings', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('name', 100);
-            $table->string('code', 100);
-            $table->string('value');
-            $table->string('description');
-            $table->boolean('status')->default(1);
-            $table->timestamps();
-            $table->softDeletes();
-        });
+        if (!Schema::hasTable('settings')) {
+            Schema::create('settings', function (Blueprint $table) {
+                $table->bigIncrements('id');
+                $table->string('name', 100);
+                $table->string('code', 100);
+                $table->string('value');
+                $table->string('description');
+                $table->boolean('status')->default(1);
+                $table->timestamps();
+                $table->softDeletes();
+            });
+        }
     }
 
     /**
