@@ -29,6 +29,7 @@ $app->configure('filesystems');
 $app->configure('mail');
 $app->configure('repository');
 $app->configure('queue');
+// $app->configure('services');
 
 $app->withFacades(true, [
     App\Library\Managers\Navigation\Facade\Navigation::class => 'Navigation',
@@ -122,7 +123,13 @@ $app->register(App\Modules\External\Employee\Providers\EmployeeServiceProvider::
 $app->register(App\Providers\AppServiceProvider::class);
 $app->register(App\Providers\AuthServiceProvider::class);
 $app->register(App\Providers\EventServiceProvider::class);
+
+/* Mail */
 $app->register(Illuminate\Mail\MailServiceProvider::class);
+$app->alias('mailer', Illuminate\Mail\Mailer::class);
+$app->alias('mailer', Illuminate\Contracts\Mail\Mailer::class);
+$app->alias('mailer', Illuminate\Contracts\Mail\MailQueue::class);
+
 /* Passport */
 $app->register(Laravel\Passport\PassportServiceProvider::class);
 $app->register(Dusterio\LumenPassport\PassportServiceProvider::class);

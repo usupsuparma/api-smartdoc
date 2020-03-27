@@ -8,9 +8,6 @@ use App\Library\Bases\BaseController;
 use App\Modules\OutgoingMail\Models\OutgoingMailModel;
 use App\Modules\OutgoingMail\Repositories\OutgoingMailRepositories;
 use Authority, Auth;
-use App\Jobs\SendEmailReminderJob;
-use App\Mail\SendEmailReminder;
-use Mail;
 
 class OutgoingMailController extends BaseController 
 {
@@ -38,10 +35,6 @@ class OutgoingMailController extends BaseController
 	
 	public function create(Request $request)
 	{
-		// $template = new SendEmailReminder([]);
-        // Mail::to('aelgees.dev@gmail.com', 'Adam Lesmana')->send($template);
-		$this->dispatch(new SendEmailReminderJob([]));
-		dd('a');
 		// Authority::check('create');
 		
         return $this->successResponse($this->outgoingMailRepository->create($request), 200); 

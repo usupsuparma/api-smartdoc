@@ -173,7 +173,7 @@
     <table bgcolor="#F5F5F5" align="center" class="full" border="0" cellpadding="0" cellspacing="0">
         <tr>
             <td>
-                <table bgcolor="#304050" align="center" width="750" class="margin-full" style="background-size:cover; background-position:center;" border="0" cellpadding="0" cellspacing="0" background="img/module02-bg01.png">
+                <table bgcolor="#126b97" align="center" width="750" class="margin-full" style="background-size:cover; background-position:center;" border="0" cellpadding="0" cellspacing="0" background="img/module02-bg01.png">
                     <tr>
                         <td>
                             <table width="600" align="center" class="margin-pad" border="0" cellpadding="0" cellspacing="0">
@@ -183,7 +183,7 @@
                                 <!-- subtitle -->
                                 <tr>
                                     <td class="res-center" style="text-align: center; color: white; font-family: 'Raleway', Arial, Sans-serif; font-size: 14px; letter-spacing: 2px; word-break: break-word; font-weight: 600;">
-                                        THIS MARCH
+                                        NOTIFICATION
                                     </td>
                                 </tr>
                                 <!-- subtitle end -->
@@ -193,7 +193,7 @@
                                 <!-- title -->
                                 <tr>
                                     <td class="res-center" style="text-align: center; color: white; font-family: 'Raleway', Arial, Sans-serif; font-size: 35px; letter-spacing: 0.7px; word-break: break-word; font-weight: 300;">
-                                        Trending Events
+                                        Review {{ isset($details['type_name']) ? $details['type_name'] : '-' }} {{ isset($details['organization']) ? $details['organization'] : '-' }}
                                     </td>
                                 </tr>
                                 <!-- title end -->
@@ -236,13 +236,32 @@
                                         <table align="center" class="res-full" border="0" cellpadding="0" cellspacing="0">
                                             <tr>
                                                 <td>
-                                                    <table align="center" bgcolor="#4B546C" style="border: 1.5px solid white; border-radius: 4px;" border="0" cellpadding="0" cellspacing="0">
+                                                    <table align="left" border="0" cellpadding="0" cellspacing="0">
                                                         <tr>
-                                                            <td height="43" style="padding: 0 23px; text-align: center;">
-                                                                <a href="https://example.com" style="color: white; letter-spacing: 1px; font-size: 17px; font-family: 'Nunito', Arial, Sans-serif; text-decoration: none; text-align: center; line-height: 24px; word-break: break-word;">
-																Grab Tickets
-															</a>
+                                                            <!--[endif]-->
+                                                            <td style="padding: 10px 23px; border: 1.5px solid white; border-radius: 25px; background: white;">
+                                                                <!-- image -->
+                                                                <table align="left" class="res-full" border="0" cellpadding="0" cellspacing="0">
+                                                                    <tr >
+                                                                        <td style="padding-left: 10px;">
+                                                                            <table align="center" border="0" cellpadding="0" cellspacing="0">
+                                                                                <!-- link -->
+                                                                                <tr >
+                                                                                    <td class="res-center" style="text-align: center;" >
+                                                                                        <a href="https://example.com" style="color: #707070; font-family: 'Nunito', Arial, Sans-serif; font-size: 17px; letter-spacing: 0.7px; text-decoration: none; word-break: break-word;" >
+                                                                                            Grab Ticket
+                                                                                        </a>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <!-- link end -->
+                                                                            </table>
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                                <!-- image end -->
                                                             </td>
+                                                            <td width="10" style="font-size:0px">&nbsp;</td>
+                                                            <!--[if !((gte mso 9)|(IE))]-->
                                                         </tr>
                                                     </table>
                                                 </td>

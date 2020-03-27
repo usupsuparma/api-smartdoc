@@ -4,6 +4,9 @@ use Illuminate\Http\Request;
 use App\Modules\Test\Models\TestModel;
 use App\Library\Bases\BaseController;
 use App\Modules\Test\Repositories\TestRepositories;
+use App\Jobs\SendEmailReminderJob;
+use App\Mail\SendEmailReminder;
+use Mail;
 
 class TestController extends BaseController
 {
@@ -42,5 +45,12 @@ class TestController extends BaseController
 	public function generate(Request $request)
 	{
 		return $this->testRepository->generate($request);
+	}
+	
+	public function send_email()
+	{
+		// $template = new SendEmailReminder([]);
+        // Mail::to('aelgees.dev@gmail.com', 'Adam Lesmana')->send($template);
+		$this->dispatch(new SendEmailReminderJob([]));
 	}
 }
