@@ -14,4 +14,18 @@ class OrganizationModel extends Model
     protected $fillable   = [
 		'nama_struktur', 'parent_id', 'kode_struktur'
 	];
+	
+	public function scopeOptions($query, $default = NULL)
+    {
+        $list = [];
+
+        foreach ($query->orderBy('nama_struktur')->get() as $dt) {
+            $list[] = [
+				'id' => $dt->id,
+				'name' => $dt->kode_struktur . ' - ' . $dt->nama_struktur,
+			];
+		}
+		
+        return $list;
+    }
 }

@@ -52,5 +52,6 @@ class TestController extends BaseController
 		// $template = new SendEmailReminder([]);
         // Mail::to('aelgees.dev@gmail.com', 'Adam Lesmana')->send($template);
 		$this->dispatch(new SendEmailReminderJob([]));
+		dd('a');
 	}
 }

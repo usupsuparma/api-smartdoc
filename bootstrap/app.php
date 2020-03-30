@@ -34,8 +34,8 @@ $app->configure('queue');
 $app->withFacades(true, [
     App\Library\Managers\Navigation\Facade\Navigation::class => 'Navigation',
     App\Library\Managers\Authority\Facade\Authority::class => 'Authority',
-    Illuminate\Support\Facades\Mail::class => 'Mail'
-    
+    Illuminate\Support\Facades\Mail::class => 'Mail',
+    App\Library\Managers\Smartdoc\Facade\Smartdoc::class => 'Smartdoc'
 ]);
 
 $app->withEloquent();
@@ -100,6 +100,7 @@ $app->routeMiddleware([
 /* Managers */
 $app->register(App\Library\Managers\Navigation\Providers\NavigationServiceProvider::class);
 $app->register(App\Library\Managers\Authority\Providers\AuthorityServiceProvider::class);
+$app->register(App\Library\Managers\Smartdoc\Providers\SmartdocServiceProvider::class);
 
 /* Modules */
 $app->register(App\Modules\Auth\Providers\AuthServiceProvider::class);
@@ -109,6 +110,7 @@ $app->register(App\Modules\Menu\Providers\MenuServiceProvider::class);
 $app->register(App\Modules\Role\Providers\RoleServiceProvider::class);
 $app->register(App\Modules\Setting\Providers\SettingServiceProvider::class);
 $app->register(App\Modules\OutgoingMail\Providers\OutgoingMailServiceProvider::class);
+$app->register(App\Modules\Review\Providers\ReviewServiceProvider::class);
 
 $app->register(App\Modules\Master\Type\Providers\TypeServiceProvider::class);
 $app->register(App\Modules\Master\Classification\Providers\ClassificationServiceProvider::class);
@@ -118,6 +120,7 @@ $app->register(App\Modules\Master\Template\Providers\TemplateServiceProvider::cl
 
 /* External */
 $app->register(App\Modules\External\Employee\Providers\EmployeeServiceProvider::class);
+$app->register(App\Modules\External\Organization\Providers\OrganizationServiceProvider::class);
 
 /* Core */
 $app->register(App\Providers\AppServiceProvider::class);

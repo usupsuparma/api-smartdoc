@@ -35,7 +35,7 @@ class SettingController extends BaseController
 	
 	public function create(Request $request)
 	{
-		// Authority::check('create');
+		Authority::check('create');
 		
         return $this->successResponse($this->settingRepository->create($request), 200); 
 	}

@@ -29,6 +29,8 @@ class SendEmailReminder extends Mailable
      */
     public function build()
     {
-        return $this->subject('Testing')->view('emails.reminder-review');
+        return $this->subject('Testing')
+                    ->from(setting_by_code('MAIL_FROM_EMAIL'), setting_by_code('MAIL_FROM_NAME'))
+                    ->view('emails.reminder-review');
     }
 }

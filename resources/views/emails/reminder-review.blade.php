@@ -297,7 +297,7 @@
                                 <!-- title -->
                                 <tr>
                                     <td class="res-center" style="text-align: center; color: #505050; font-family: 'Raleway', Arial, Sans-serif; font-size: 22px; letter-spacing: 0.7px; word-break: break-word">
-                                        PT Bandarudara Internasional Jawa Barat (PERSERODA)
+                                        {{ setting_by_code('COMPANY_NAME') }}
                                     </td>
                                 </tr>
                                 <!-- title end -->
@@ -327,25 +327,25 @@
                                 <!-- paragraph -->
                                 <tr>
                                     <td class="res-center" style="text-align: center; color: #707070; font-family: 'Nunito', Arial, Sans-serif; font-size: 13px; letter-spacing: 0.4px; line-height: 23px; word-break: break-word">
-                                        Lantai 2 Terminal Domestik (Area Perkantoran)
+                                        {{ setting_by_code('COMPANY_ADDRESS_1') }}
                                     </td>
                                 </tr>
 
                                 <tr>
                                     <td class="res-center" style="text-align: center; color: #707070; font-family: 'Nunito', Arial, Sans-serif; font-size: 13px; letter-spacing: 0.4px; line-height: 23px; word-break: break-word">
-                                        Bandara Internasional Jawa Barat Kertajati
+                                        {{ setting_by_code('COMPANY_ADDRESS_2') }}
                                     </td>
                                 </tr>
 
                                 <tr>
                                     <td class="res-center" style="text-align: center; color: #707070; font-family: 'Nunito', Arial, Sans-serif; font-size: 13px; letter-spacing: 0.4px; line-height: 23px; word-break: break-word">
-                                        Kertajati, Majalengka, Jawa Barat, 45457
+                                        {{ setting_by_code('COMPANY_ADDRESS_3') }}
                                     </td>
                                 </tr>
 
                                 <tr>
                                     <td class="res-center" style="text-align: center; color: #707070; font-family: 'Nunito', Arial, Sans-serif; font-size: 13px; letter-spacing: 0.4px; line-height: 23px; word-break: break-word">
-                                        (0231) 3000301 | info@bijb.co.id | bijb.co.id
+                                        {{ setting_by_code('COMPANY_CONTACT') }}
                                     </td>
                                 </tr>
 
