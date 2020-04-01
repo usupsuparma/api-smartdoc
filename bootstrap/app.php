@@ -35,7 +35,8 @@ $app->withFacades(true, [
     App\Library\Managers\Navigation\Facade\Navigation::class => 'Navigation',
     App\Library\Managers\Authority\Facade\Authority::class => 'Authority',
     Illuminate\Support\Facades\Mail::class => 'Mail',
-    App\Library\Managers\Smartdoc\Facade\Smartdoc::class => 'Smartdoc'
+    App\Library\Managers\Smartdoc\Facade\Smartdoc::class => 'Smartdoc',
+    App\Library\Managers\Upload\Facade\Upload::class => 'Upload'
 ]);
 
 $app->withEloquent();
@@ -101,6 +102,7 @@ $app->routeMiddleware([
 $app->register(App\Library\Managers\Navigation\Providers\NavigationServiceProvider::class);
 $app->register(App\Library\Managers\Authority\Providers\AuthorityServiceProvider::class);
 $app->register(App\Library\Managers\Smartdoc\Providers\SmartdocServiceProvider::class);
+$app->register(App\Library\Managers\Upload\Providers\UploadServiceProvider::class);
 
 /* Modules */
 $app->register(App\Modules\Auth\Providers\AuthServiceProvider::class);
@@ -111,6 +113,7 @@ $app->register(App\Modules\Role\Providers\RoleServiceProvider::class);
 $app->register(App\Modules\Setting\Providers\SettingServiceProvider::class);
 $app->register(App\Modules\OutgoingMail\Providers\OutgoingMailServiceProvider::class);
 $app->register(App\Modules\Review\Providers\ReviewServiceProvider::class);
+$app->register(App\Modules\Signature\Providers\SignatureServiceProvider::class);
 
 $app->register(App\Modules\Master\Type\Providers\TypeServiceProvider::class);
 $app->register(App\Modules\Master\Classification\Providers\ClassificationServiceProvider::class);
@@ -142,9 +145,11 @@ $app->register(Prettus\Repository\Providers\LumenRepositoryServiceProvider::clas
 
 /* CORS */
 $app->register(\Fruitcake\Cors\CorsServiceProvider::class);
+
 /* TCPDF */
 $app->register(Elibyy\TCPDF\ServiceProvider::class);
 class_alias(Elibyy\TCPDF\Facades\TCPDF::class, 'PDF');
+
 /*
 |--------------------------------------------------------------------------
 | Load The Application Routes

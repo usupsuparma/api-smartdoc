@@ -20,5 +20,15 @@ class SettingModel extends Model
 	];
 	
 	protected $dates = ['deleted_at'];
-	
+
+	public function scopeByCode($query, $code)
+	{
+		$m = $query->where('code', $code)->first();
+		
+		if (!empty($m)) {
+			return $m->value;
+		}
+		
+		return NULL;
+	}
 }

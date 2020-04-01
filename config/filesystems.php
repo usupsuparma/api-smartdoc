@@ -68,9 +68,19 @@ return [
             'host' => env('FTP_HOST'),
             'username' => env('FTP_USERNAME'),
             'password' => env('FTP_PASSWORD'),
-            'root' => '/smartdoc/storage/',
+            // 'root' => env('FTP_PATH', ''),
+            // 'port' => env('FTP_PORT'),
+        ],
+        'sftp' => [
+            'driver' => 'sftp',
+            'host' => env('FTP_HOST'),
+            'username' => env('FTP_USERNAME'),
+            'password' => env('FTP_PASSWORD'),
+            'visibility' => 'public',
+            'permPublic' => 0755,
+            // 'root' => env('FTP_PATH', ''),
+            // 'port' => env('FTP_PORT'),
         ]
-
     ],
 
 ];

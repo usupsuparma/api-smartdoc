@@ -11,6 +11,8 @@
         "fruitcake/laravel-cors": "^1.0",
         "illuminate/mail": "6.*",
         "laravel/lumen-framework": "^6.0",
+        "league/flysystem": "^1.0",
+        "league/flysystem-sftp": "^1.0",
         "prettus/l5-repository": "^2.6",
         "setasign/fpdi": "^2.0",
         "spatie/laravel-fractal": "^5.6"

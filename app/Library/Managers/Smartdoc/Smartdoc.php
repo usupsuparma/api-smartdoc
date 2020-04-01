@@ -50,7 +50,8 @@ class Smartdoc extends PDF
 			PDF::setSignature($public, $private, 'X8HCRIAD', '' , 2, $info);
 		}
 		
-		PDF::Output('ND - Nota Dinas.pdf', 'D');
+		PDF::Output('/Users/aelgees/PIDUITEUN/php/dgsign/BABA.pdf', 'F');
 	}
+	
 
 }

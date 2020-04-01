@@ -3,6 +3,9 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Storage;
+use League\Flysystem\Filesystem;
+use League\Flysystem\Sftp\SftpAdapter;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -15,6 +18,10 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->singleton('mailer', function ($app) { 
             return $app->loadComponent('mail', 'Illuminate\Mail\MailServiceProvider', 'mailer'); 
+        });
+        
+        Storage::extend('sftp', function ($app, $config) {
+            return new Filesystem(new SftpAdapter($config));
         });
     }
 }

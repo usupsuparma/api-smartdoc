@@ -11,6 +11,7 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use App\Traits\ApiResponse;
 use Illuminate\Auth\AuthenticationException;
+use League\Flysystem\Sftp\ConnectionErrorException;
 
 class Handler extends ExceptionHandler
 {
@@ -77,6 +78,10 @@ class Handler extends ExceptionHandler
         
         if ($exception instanceof AuthorizationException) {
             return $this->errorResponse($exception->getMessages(), 403);
+        }
+        
+        if ($exception instanceof ConnectionErrorException) {
+            return $this->errorResponse('Error Connection to FTP server', 500);
         }
         
         if(env('APP_DEBUG')) {

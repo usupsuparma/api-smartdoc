@@ -11,6 +11,7 @@ return [
 		'login' => 'Berhasil login.',
 		'logout' => 'Berhasil logout.',
 		'ordering' => 'Berhasil melakukan penyusunan menu.',
+		'download' => 'Berhasil melakukan download file.',
 	], 
 	'error' => [
 		'logout' => 'Gagal melakukan logout.'

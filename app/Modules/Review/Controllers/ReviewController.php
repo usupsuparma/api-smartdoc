@@ -41,7 +41,8 @@ class ReviewController extends BaseController
 	
 	public function show_detail($review_id, $id)
 	{
-		Authority::check('read');
+		// Authority::check('read');
+		
 		return $this->showOne($this->reviewRepository->show_detail($id), 200);
 	}
 	
