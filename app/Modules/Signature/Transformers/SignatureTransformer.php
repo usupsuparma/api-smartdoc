@@ -16,7 +16,7 @@ class SignatureTransformer extends TransformerAbstract
 		return [
 			'id' => (int) $data->id,
 			'employee' => !empty($data->employees) ? $data->employees : [],
-			'path_to_file' => (string) setting_by_code('FTP_DIRECTORY_ROOT'). $data->path_to_file,
+			// 'path_to_file' => (string) setting_by_code('FTP_DIRECTORY_ROOT'). $data->path_to_file,
 			'status' => (int) $data->status,
 			'created_at' => $data->created_at->format('d-m-Y'),
 			'updated_at' => $data->updated_at->format('d-m-Y')

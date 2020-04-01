@@ -15,12 +15,12 @@ class SignatureController extends BaseController
 	public function __construct(SignatureRepositories $signatureRepository) 
 	{
 		$this->signatureRepository = $signatureRepository;
-		Authority::acl_access(Auth::user(), 'digital-signatures');
+		// Authority::acl_access(Auth::user(), 'digital-signatures');
 	}
 	
 	public function data(Request $request)
 	{
-		Authority::check('read');
+		// Authority::check('read');
 		
 		return $this->showAll($this->signatureRepository->data($request),200);
 	}
