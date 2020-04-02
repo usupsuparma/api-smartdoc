@@ -56,7 +56,7 @@ class Upload
 		/* Check File Exist in FTP */
 		if (Storage::disk('sftp')->exists($ftp_path. $file_path)) {
 			/* Check File Exist in Local Storage */
-			if (Storage::disk('public')->exists($file_path)) {
+			if (Storage::disk('public')->exists($ftp_path. $file_path)) {
 				/* Move file from FTP to Local Storage */
 				Storage::disk('public')->put($file_path, Storage::disk('sftp')->get($ftp_path. $file_path));	
 			}
