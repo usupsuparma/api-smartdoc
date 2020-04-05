@@ -60,5 +60,10 @@ class RoleController extends BaseController
 		Authority::check('delete');
 		
         return $this->successResponse($this->roleRepository->delete($id), 200); 
-    }
+	}
+	
+	public function options()
+	{
+		return $this->successResponse($this->roleRepository->options(), 200);
+	}
 }

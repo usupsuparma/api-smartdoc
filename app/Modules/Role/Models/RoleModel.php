@@ -38,6 +38,20 @@ class RoleModel extends Model
         	);
 	}
 	
+	public function scopeOptions($query, $default = NULL)
+    {
+        $list = [];
+
+        foreach ($query->orderBy('name')->get() as $dt) {
+            $list[] = [
+				'id' => $dt->id,
+				'name' => $dt->name,
+			];
+		}
+		
+		return $list;
+	}
+	
 	protected static function boot()
 	{
 	   parent::boot();

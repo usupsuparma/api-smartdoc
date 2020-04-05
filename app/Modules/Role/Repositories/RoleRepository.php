@@ -233,6 +233,11 @@ class RoleRepositories extends BaseRepository implements RoleInterface
 		
 		
 		return ['message' => config('constans.success.deleted')];
-    }
+	}
+	
+	public function options()
+	{
+		return ['data' => $this->model->options()];
+	}
     
 }

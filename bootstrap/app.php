@@ -29,6 +29,7 @@ $app->configure('filesystems');
 $app->configure('mail');
 $app->configure('repository');
 $app->configure('queue');
+$app->configure('tcpdf');
 // $app->configure('services');
 
 $app->withFacades(true, [
@@ -149,6 +150,10 @@ $app->register(\Fruitcake\Cors\CorsServiceProvider::class);
 /* TCPDF */
 $app->register(Elibyy\TCPDF\ServiceProvider::class);
 class_alias(Elibyy\TCPDF\Facades\TCPDF::class, 'PDF');
+
+/* QRcode */
+$app->register(SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class);
+class_alias(SimpleSoftwareIO\QrCode\Facades\QrCode::class, 'QrCode');
 
 /*
 |--------------------------------------------------------------------------

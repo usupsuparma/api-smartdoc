@@ -8,7 +8,7 @@ return [
     'font_directory'        => '',
     'image_directory'       => '',
     'tcpdf_throw_exception' => false,
-    'use_fpdi'              => false,
+    'use_fpdi'              => true,
     'use_original_header'   => false,
     'use_original_footer'   => false,
     'pdfa'                  => false, // Options: false, 1, 3
@@ -22,7 +22,7 @@ return [
     //    'header_logo_width'   => '', // PDF_HEADER_LOGO_WIDTH
     //    'path_cache'          => '', // K_PATH_CACHE
     //    'blank_image'         => '', // K_BLANK_IMAGE
-    //    'creator'             => '', // PDF_CREATOR
+       'creator'             => 'PT Bandarudara Internasional Jawa Barat (PERSERODA)', // PDF_CREATOR
     //    'author'              => '', // PDF_AUTHOR
     //    'header_title'        => '', // PDF_HEADER_TITLE
     //    'header_string'       => '', // PDF_HEADER_STRING

@@ -47,6 +47,11 @@ class RoleRoutes extends BaseRoutes
 				'as' => $this->route_prefix . '.delete',
 				'uses' => 'RoleController@delete'
 			]);
+			
+			$app->router->get('/select/data', [
+				'as' => $this->route_prefix . '.options',
+				'uses' => 'RoleController@options'
+			]);
 	
 		});
 	}

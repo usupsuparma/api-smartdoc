@@ -5,6 +5,7 @@ use App\Modules\Test\Interfaces\TestInterface;
 use App\Modules\Test\Models\TestModel;
 use Validator;
 use Smartdoc;
+use Upload;
 
 /**
  * Class TestRepositories.
@@ -65,7 +66,20 @@ class TestRepositories extends BaseRepository implements TestInterface
 	
 	public function generate($request)
     {
-		return Smartdoc::generate();
+		$data_qr = [
+			'type' => setting_by_code('SURAT_KELUAR'),
+			'url' => 'http://tokopedia.com'
+		];
+		
+		$createQR = Upload::create_qr_code($data_qr);
+		
+		$data = [
+			'image_qr' => $createQR
+		];
+		
+		Smartdoc::outgoing_mail($data);
+		
+		Upload::delete_qr_code($createQR);
 	}
     
 }

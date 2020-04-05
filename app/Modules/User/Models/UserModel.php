@@ -12,6 +12,8 @@ use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Laravel\Passport\HasApiTokens;
 use Laravel\Lumen\Auth\Authorizable;
+use App\Modules\External\Users\Models\ExternalUserModel;
+use App\Modules\Role\Models\RoleModel;
 
 class UserModel extends Model implements AuthenticatableContract, AuthorizableContract
 {
@@ -32,6 +34,16 @@ class UserModel extends Model implements AuthenticatableContract, AuthorizableCo
 	protected $hidden = [
         'password',
 	];
+	
+	public function user_core()
+	{
+		return $this->belongsTo(ExternalUserModel::class, 'user_core_id');
+	}
+	
+	public function role()
+	{
+		return $this->belongsTo(RoleModel::class, 'role_id')->select('id','name');
+	}
 	
 	public function scopeFindByEmail($query, $email)
 	{

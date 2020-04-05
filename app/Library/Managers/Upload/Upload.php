@@ -5,7 +5,7 @@
 
 use Illuminate\Support\Facades\Storage;
 use GlobalHelper;
-
+use QRcode;
 class Upload
 {	
 	public static function uploads($path, $file)
@@ -61,5 +61,35 @@ class Upload
 				Storage::disk('public')->put($file_path, Storage::disk('sftp')->get($ftp_path. $file_path));	
 			}
 		}
+	}
+	
+	public static function create_qr_code($data)
+	{
+		$qr_path = setting_by_code('PATH_QR_CODE');
+		
+		$QR = QrCode::format('png')->merge('/public/assets/img/logo_qr.jpg', .2)
+				->size(300)->errorCorrection('H')
+				->generate($data['url']);
+		
+		$output_file = $qr_path. $data['type']. '-' . time() . '.png';
+		
+		Storage::disk('public')->put($output_file, $QR);
+		
+		return $output_file;
+	}
+	
+	public static function delete_qr_code($file)
+	{
+		if (Storage::disk('public')->exists($file)) {
+			$process = Storage::disk('public')->delete($file);
+			
+			if ($process) {
+				return true;
+			}
+			
+			return false;
+		}
+
+		return true;
 	}
 }

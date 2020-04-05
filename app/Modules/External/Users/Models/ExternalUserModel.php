@@ -21,16 +21,19 @@ class ExternalUserModel extends Model
 	
 	public function employee()
 	{
-		return $this->belongsTo(EmployeeModel::class, 'id_employee', 'id_employee');
+		return $this->belongsTo(EmployeeModel::class, 'id_employee', 'id_employee')
+					->select('id_employee', 'nik', 'name');
 	}
 	
 	public function structure()
 	{
-		return $this->belongsTo(OrganizationModel::class, 'kode_struktur', 'kode_struktur');
+		return $this->belongsTo(OrganizationModel::class, 'kode_struktur', 'kode_struktur')
+					->select('id', 'nama_struktur', 'kode_struktur');
 	}
 	
 	public function position()
 	{
-		return $this->belongsTo(PositionModel::class, 'kode_jabatan');
+		return $this->belongsTo(PositionModel::class, 'kode_jabatan')
+					->select('id', 'nama_jabatan');
 	}
 }
