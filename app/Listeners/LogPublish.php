@@ -30,7 +30,7 @@ class LogPublish
         LogModel::create([
             'user_id' => Auth::user()->id,
             'model' => $model,
-            'type' => 'created',
+            'type' => 'publish',
             'reference_id' => $event->actionLog->id,
             'activity' => "Melakukan publish pada data {$model} ",
             'visitor' => app('request')->ip()

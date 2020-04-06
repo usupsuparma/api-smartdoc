@@ -3,11 +3,11 @@
  * @author  Adam Lesmana Ganda Saputra <aelgees.dev@gmail.com>
  */
 
-use App\Events\LogWasApprove;
+use App\Events\LogWasReject;
 use App\Modules\Log\Models\LogModel;
 use Auth;
 
-class LogApprove
+class LogReject
 {
     /**
      * Create the event listener.
@@ -22,7 +22,7 @@ class LogApprove
      * @param  LogWasApprove  $event
      * @return void
      */
-    public function handle(LogWasApprove $event)
+    public function handle(LogWasReject $event)
     { 
         $name = class_basename($event->actionLog);
         $model = str_replace('Model', '', $name);
@@ -30,9 +30,9 @@ class LogApprove
         LogModel::create([
             'user_id' => Auth::user()->id,
             'model' => $model,
-            'type' => 'approved',
+            'type' => 'rejected',
             'reference_id' => $event->actionLog->id,
-            'activity' => "Melakukan persetujuan pada data {$model} ",
+            'activity' => "Melakukan pembatalan persetujuan pada data {$model} ",
             'visitor' => app('request')->ip()
         ]);
     }

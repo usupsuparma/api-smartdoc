@@ -32,6 +32,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         'App\Events\LogWasPublish' => [
             'App\Listeners\LogPublish',
+        ],
+        'App\Events\LogWasReject' => [
+            'App\Listeners\LogReject',
         ]
     ];
 }

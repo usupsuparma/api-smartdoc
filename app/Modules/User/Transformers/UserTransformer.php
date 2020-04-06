@@ -16,10 +16,10 @@ class UserTransformer extends TransformerAbstract
 	 {
 		return [
 			'id' => (int) $data->id,
-			'employee' => !empty($data->user_core->employee) ? $data->user_core->employee : [],
-			'structure' => !empty($data->user_core->structure) ? $data->user_core->structure : [],
-			'position' => !empty($data->user_core->position) ? $data->user_core->position : [],
-			'role' => !empty($data->role) ? $data->role : [],
+			'employee' => !empty($data->user_core->employee) ? $data->user_core->employee : NULL,
+			'structure' => !empty($data->user_core->structure) ? $data->user_core->structure : NULL,
+			'position' => !empty($data->user_core->position) ? $data->user_core->position : NULL,
+			'role' => !empty($data->role) ? $data->role : NULL,
 			'username' => (string) $data->username,
 			'email' => (string) $data->email,
 			'status' => (int) $data->status,
