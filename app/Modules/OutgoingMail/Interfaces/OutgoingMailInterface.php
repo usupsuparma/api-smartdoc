@@ -17,6 +17,8 @@ interface OutgoingMailInterface extends RepositoryInterface
 	
 	public function delete($id);
 	
+	public function delete_attachment($attachment_id);
+	
 	public function approve($request);
 	
 	public function publish($request);

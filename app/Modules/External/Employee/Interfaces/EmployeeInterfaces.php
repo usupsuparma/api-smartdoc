@@ -8,4 +8,6 @@ use Prettus\Repository\Contracts\RepositoryInterface;
 interface EmployeeInterface extends RepositoryInterface
 {	
 	public function options();
+	
+	public function option_hierarchy();	
 }

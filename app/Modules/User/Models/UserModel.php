@@ -42,7 +42,7 @@ class UserModel extends Model implements AuthenticatableContract, AuthorizableCo
 	
 	public function role()
 	{
-		return $this->belongsTo(RoleModel::class, 'role_id')->select('id','name');
+		return $this->belongsTo(RoleModel::class, 'role_id')->select('id', 'name', 'categories');
 	}
 	
 	public function scopeFindByEmail($query, $email)

@@ -68,7 +68,7 @@ class TestRepositories extends BaseRepository implements TestInterface
     {
 		$data_qr = [
 			'type' => setting_by_code('SURAT_KELUAR'),
-			'url' => 'http://tokopedia.com'
+			'url' => setting_by_code('BASE_URL_FRONT_END')
 		];
 		
 		$createQR = Upload::create_qr_code($data_qr);

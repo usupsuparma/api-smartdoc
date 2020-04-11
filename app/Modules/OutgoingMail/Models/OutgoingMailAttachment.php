@@ -4,7 +4,7 @@
  */
 
 use Illuminate\Database\Eloquent\Model;
-
+use Upload;
 class OutgoingMailAttachment extends Model
 {
 	
@@ -13,4 +13,14 @@ class OutgoingMailAttachment extends Model
     protected $fillable   = [
 		'outgoing_mail_id', 'attachment_name', 'attachment_order', 'path_to_file', 'status'
 	];
+	
+	protected static function boot() 
+    {
+		parent::boot();
+
+		static::deleting(function($attachment) {
+			/* Remove attachment file*/
+			Upload::delete($attachment->path_to_file);
+		});
+    }
 }

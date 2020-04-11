@@ -21,8 +21,8 @@ class Authority
 		$query = MenuModel::where('modules', $modules)->with(['role' => function($q) use ($role) {
 				  $q->find($role);
 		}]);
-		
-		if ($query->count() > 0) {
+
+		if ($query->count() > 0 && !empty($query->first()->role[0])) {
 
 			$query = $query->first();
 			

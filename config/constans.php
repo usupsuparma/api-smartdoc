@@ -1,4 +1,5 @@
 <?php 
+use App\Modules\OutgoingMail\Constans\OutgoingMailStatusConstants;
 
 return [
 	'success' => [
@@ -14,6 +15,17 @@ return [
 		'download' => 'Berhasil melakukan download file.',
 	], 
 	'error' => [
-		'logout' => 'Gagal melakukan logout.'
+		'logout' => 'Gagal melakukan logout.',
+		'created' => 'Gagal melakukan menyimpan data.',
+		'updated' => 'Gagal melakukan pembaharuan data.',
+		'deleted' => 'Gagal melakukan penghapusan data.',
+	],
+	'status-action' => [
+		OutgoingMailStatusConstants::DRAFT => 'Draft',
+		OutgoingMailStatusConstants::SEND_TO_REVIEW => 'Menunggu Pemeriksaan',
+		OutgoingMailStatusConstants::REVIEW => 'Sedang Diperiksa Oleh',
+		OutgoingMailStatusConstants::APPROVED => 'Sudah Disetujui',
+		OutgoingMailStatusConstants::SIGNED => 'Sudah Ditandatangan',
+		OutgoingMailStatusConstants::PUBLISH => 'Diterbitkan'
 	]
 ];

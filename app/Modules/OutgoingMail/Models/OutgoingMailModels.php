@@ -9,6 +9,10 @@ use App\Modules\OutgoingMail\Transformers\OutgoingMailTransformer;
 use App\Modules\OutgoingMail\Models\OutgoingMailAttachment;
 use App\Modules\OutgoingMail\Models\OutgoingMailApproval;
 use App\Modules\OutgoingMail\Models\OutgoingMailForward;
+use App\Modules\Master\Type\Models\TypeModel;
+use App\Modules\Master\Classification\Models\ClassificationModel;
+use App\Modules\External\Employee\Models\EmployeeModel;
+use Auth;
 
 class OutgoingMailModel extends Model
 {
@@ -20,24 +24,60 @@ class OutgoingMailModel extends Model
 	
     protected $fillable   = [
 		'subject_letter', 'number_letter', 'type_id', 'classification_id', 'letter_date', 'to_employee_id',
-		'from_employee_id','body', 'status', 'signed', 'retension_date', 'path_to_file', 'approval_id', 'created_by_employee','created_by_structure'
+		'from_employee_id','body', 'status', 'signed', 'retension_date', 'path_to_file', 'current_approval_employee_id', 'current_approval_structure_id', 'created_by_employee','created_by_structure', 'publish_by_employee', 'publish_date'
 	];
 	
 	protected $dates = ['deleted_at'];
 	
 	public function attachments()
 	{
-		return $this->hasMany(OutgoingMailAttachment::class, 'outgoing_mail_id');
+		return $this->hasMany(OutgoingMailAttachment::class, 'outgoing_mail_id', 'id');
 	}
 	
 	public function approvals()
 	{
-		return $this->hasMany(OutgoingMailApproval::class, 'outgoing_mail_id');
+		return $this->hasMany(OutgoingMailApproval::class, 'outgoing_mail_id', 'id');
 	}
 	
 	public function forwards()
 	{
-		return $this->hasMany(OutgoingMailForward::class, 'outgoing_mail_id');
+		return $this->hasMany(OutgoingMailForward::class, 'outgoing_mail_id', 'id');
+	}
+	
+	public function type()
+	{
+		return $this->belongsTo(TypeModel::class, 'type_id');
+	}
+	
+	public function classification()
+	{
+		return $this->belongsTo(ClassificationModel::class, 'classification_id');
+	}
+	
+	public function to_employee()
+	{
+		return $this->belongsTo(EmployeeModel::class, 'to_employee_id', 'id_employee');
+	}
+	
+	public function from_employee()
+	{
+		return $this->belongsTo(EmployeeModel::class, 'from_employee_id', 'id_employee');
+	}
+	
+	public function created_by()
+	{
+		return $this->belongsTo(EmployeeModel::class, 'created_by_employee', 'id_employee');
+	}
+	
+	public function scopeAuthorityData($query)
+	{
+		$structure_id = Auth::user()->user_core->structure->id;
+		
+		if (Auth::user()->role->categories === 'management') {
+			return $query->where('created_by_structure', $structure_id);
+		} 
+		
+		return $query;
 	}
 	
 	protected static function boot() 

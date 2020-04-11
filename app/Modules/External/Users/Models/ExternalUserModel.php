@@ -28,7 +28,7 @@ class ExternalUserModel extends Model
 	public function structure()
 	{
 		return $this->belongsTo(OrganizationModel::class, 'kode_struktur', 'kode_struktur')
-					->select('id', 'nama_struktur', 'kode_struktur');
+					->select('id', 'nama_struktur', 'kode_struktur', 'parent_id');
 	}
 	
 	public function position()
@@ -36,4 +36,10 @@ class ExternalUserModel extends Model
 		return $this->belongsTo(PositionModel::class, 'kode_jabatan')
 					->select('id', 'nama_jabatan');
 	}
+	
+	public function scopeIsActive($query)
+	{
+		
+	}
+	
 }

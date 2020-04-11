@@ -24,7 +24,7 @@ class OutgoingMailRoutes extends BaseRoutes
 			]);
 			
 			$app->router->get('/{id}', [
-				'as' => $this->route_prefix . '.data',
+				'as' => $this->route_prefix . '.show',
 				'uses' => 'OutgoingMailController@show'
 			]);
 			
@@ -51,6 +51,11 @@ class OutgoingMailRoutes extends BaseRoutes
 			$app->router->post('/publish', [
 				'as' => $this->route_prefix . '.publish',
 				'uses' => 'OutgoingMailController@publish'
+			]);
+			
+			$app->router->delete('/attachment/{id}', [
+				'as' => $this->route_prefix . '.delete_attachment',
+				'uses' => 'OutgoingMailController@delete_attachment'
 			]);
 	
 		});
