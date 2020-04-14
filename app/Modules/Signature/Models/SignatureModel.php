@@ -16,7 +16,8 @@ class SignatureModel extends Model
 	protected $table = 'digital_signatures';
 	
     protected $fillable   = [
-		'employee_id', 'path_to_file', 'status'
+		'employee_id', 'path_to_file', 'path_public_key',
+		'path_private_key', 'credential_key', 'status'
 	];
 	
 	public function employees()

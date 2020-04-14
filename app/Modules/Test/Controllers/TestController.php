@@ -50,8 +50,23 @@ class TestController extends BaseController
 	public function send_email()
 	{
 		// $template = new SendEmailReminder([]);
-        // Mail::to('aelgees.dev@gmail.com', 'Adam Lesmana')->send($template);
-		$this->dispatch(new SendEmailReminderJob([]));
+		// Mail::to('aelgees.dev@gmail.com', 'Adam Lesmana')->send($template);
+		
+		$body = config('constans.email.'. 2);
+		$origin = ["#category#", "#subject#"];
+		$replace   = ["Surat Masuk", "Ini Subject"];
+		$newBody = str_replace($origin, $replace, $body);
+		
+		$data = [
+			'email' => 'aelgees.dev@gmail.com',
+			'name'  => 'Adam Lesmana',
+			'notification_action' => config('constans.notif-email.'. 2),
+			'body' => $newBody,
+			'button' => true,
+			'url' => 'https://google.com',
+		];
+		
+		$this->dispatch(new SendEmailReminderJob($data));
 		dd('a');
 	}
 }

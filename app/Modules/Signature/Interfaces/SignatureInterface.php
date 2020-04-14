@@ -18,4 +18,6 @@ interface SignatureInterface extends RepositoryInterface
 	public function delete($id);
 	
 	public function download($id);
+	
+	public function generate($request, $id);
 }

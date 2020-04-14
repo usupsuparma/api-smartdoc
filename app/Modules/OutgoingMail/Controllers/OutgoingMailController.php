@@ -36,8 +36,14 @@ class OutgoingMailController extends BaseController
 	public function create(Request $request)
 	{
 		Authority::check('create');
-	
-        return $this->successResponse($this->outgoingMailRepository->create($request), 200);
+		
+		$results = $this->outgoingMailRepository->create($request);
+		
+		if (!$results['status']) {
+			return $this->errorResponse($results, 422);
+		}
+		
+        return $this->successResponse($results, 200);
 	}
 	
 	public function update(Request $request,$id)

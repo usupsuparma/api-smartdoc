@@ -58,5 +58,16 @@ class SignatureController extends BaseController
 		$path = storage_path('app/public'. $this->signatureRepository->download($id));
 
 		return response()->download($path);
+	}
+	
+	public function generate(Request $request, $employee_id)
+    {
+		$results = $this->signatureRepository->generate($request, $employee_id);
+		
+		if (!$results['status']) {
+			return $this->errorResponse($results, 500);
+		}
+		
+		return $this->successResponse($results, 200); 
     }
 }

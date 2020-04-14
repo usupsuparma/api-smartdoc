@@ -78,5 +78,16 @@ class TemplateRepositories extends BaseRepository implements TemplateInterface
 		
 		
 		return ['message' => config('constans.success.deleted')];
+	}
+	
+	public function template_by_type($type_id)
+    {
+		$model = $this->model->byType($type_id)->first();
+		
+		if ($model) {
+			return ['data' => $model->template];
+		}
+		
+		return NULL;
     }
 }

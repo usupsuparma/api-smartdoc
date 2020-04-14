@@ -16,4 +16,6 @@ interface TemplateInterface extends RepositoryInterface
 	public function update($request, $id);
 	
 	public function delete($id);
+	
+	public function template_by_type($type_id);
 }

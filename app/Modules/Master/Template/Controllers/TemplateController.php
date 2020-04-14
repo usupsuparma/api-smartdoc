@@ -52,5 +52,10 @@ class TemplateController extends BaseController
 		Authority::check('delete');
 		
         return $this->successResponse($this->templateRepository->delete($id), 200); 
+	}
+	
+	public function template_by_type($type_id)
+    {	
+        return $this->successResponse($this->templateRepository->template_by_type($type_id), 200); 
     }
 }

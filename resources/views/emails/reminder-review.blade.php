@@ -183,7 +183,7 @@
                                 <!-- subtitle -->
                                 <tr>
                                     <td class="res-center" style="text-align: center; color: white; font-family: 'Raleway', Arial, Sans-serif; font-size: 14px; letter-spacing: 2px; word-break: break-word; font-weight: 600;">
-                                        NOTIFICATION
+                                        PEMBERITAHUAN
                                     </td>
                                 </tr>
                                 <!-- subtitle end -->
@@ -192,8 +192,8 @@
                                 </tr>
                                 <!-- title -->
                                 <tr>
-                                    <td class="res-center" style="text-align: center; color: white; font-family: 'Raleway', Arial, Sans-serif; font-size: 35px; letter-spacing: 0.7px; word-break: break-word; font-weight: 300;">
-                                        Review {{ isset($details['type_name']) ? $details['type_name'] : '-' }} {{ isset($details['organization']) ? $details['organization'] : '-' }}
+                                    <td class="res-center" style="text-align: center; color: white; font-family: 'Raleway', Arial, Sans-serif; font-size: 25px; letter-spacing: 0.7px; word-break: break-word; font-weight: 300;">
+                                        {{ $details['notification_action'] }}
                                     </td>
                                 </tr>
                                 <!-- title end -->
@@ -223,7 +223,7 @@
                                 <!-- paragraph -->
                                 <tr>
                                     <td class="res-center" style="text-align: center; color: white; font-family: 'Nunito', Arial, Sans-serif; font-size: 17px; letter-spacing: 0.4px; line-height: 23px; word-break: break-word">
-                                        Integer scelerisque sem justo sit amet elementum velit pulvinar suscipit. Aenean ullamcorper venen vivamus vulputate commodo
+                                        {{ $details['body'] }}
                                     </td>
                                 </tr>
                                 <!-- paragraph end -->
@@ -247,11 +247,13 @@
                                                                             <table align="center" border="0" cellpadding="0" cellspacing="0">
                                                                                 <!-- link -->
                                                                                 <tr >
+                                                                                    @if ($details['button'])
                                                                                     <td class="res-center" style="text-align: center;" >
-                                                                                        <a href="https://example.com" style="color: #707070; font-family: 'Nunito', Arial, Sans-serif; font-size: 17px; letter-spacing: 0.7px; text-decoration: none; word-break: break-word;" >
-                                                                                            Grab Ticket
+                                                                                    <a href="{{ $details['url'] }}" style="color: #707070; font-family: 'Nunito', Arial, Sans-serif; font-size: 17px; letter-spacing: 0.7px; text-decoration: none; word-break: break-word;" >
+                                                                                            Klik
                                                                                         </a>
                                                                                     </td>
+                                                                                    @endif
                                                                                 </tr>
                                                                                 <!-- link end -->
                                                                             </table>

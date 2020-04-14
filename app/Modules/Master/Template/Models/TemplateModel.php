@@ -28,4 +28,8 @@ class TemplateModel extends Model
 					->select('id', 'code', 'name');
 	}
 	
+	public function scopeByType($query, $type_id)
+	{
+		return $query->where('type_id', $type_id);
+	}
 }

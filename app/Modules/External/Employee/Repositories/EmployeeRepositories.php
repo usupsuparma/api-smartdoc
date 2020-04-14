@@ -40,7 +40,10 @@ class EmployeeRepositories extends BaseRepository implements EmployeeInterface
 		$org = OrganizationModel::whereIn('id', $this->parents)->pluck('kode_struktur');
 		
 		/* Search User By Code Structure */
-		$users = ExternalUserModel::isActive()->whereIn('kode_struktur', $org)->get();
+		$users = ExternalUserModel::isActive()
+					->whereIn('kode_struktur', $org)
+					->whereIn('kode_jabatan', unserialize(setting_by_code('ALLOW_ROLE_POSITION_USER')))
+					->get();
 		
 		if (!empty($users)) {
 			foreach ($users as $user) {

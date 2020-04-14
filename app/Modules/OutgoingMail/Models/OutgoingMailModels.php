@@ -64,6 +64,11 @@ class OutgoingMailModel extends Model
 		return $this->belongsTo(EmployeeModel::class, 'from_employee_id', 'id_employee');
 	}
 	
+	public function current_approval_employee()
+	{
+		return $this->belongsTo(EmployeeModel::class, 'current_approval_employee_id', 'id_employee');
+	}
+	
 	public function created_by()
 	{
 		return $this->belongsTo(EmployeeModel::class, 'created_by_employee', 'id_employee');

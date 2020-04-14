@@ -13,7 +13,8 @@ class OutgoingMailApproval extends Model
 	protected $table = 'outgoing_mails_approval';
 	
     protected $fillable   = [
-		'outgoing_mail_id', 'structure_id', 'employee_id', 'status_approval', 'description'
+		'outgoing_mail_id', 'structure_id', 'employee_id', 'status_approval', 'description',
+		'is_review', 'status'
 	];
 	
 	public function employee()

@@ -5,7 +5,7 @@
 
 use PDF;
 use GlobalHelper;
-use QRcode;
+
 class Smartdoc extends PDF
 {
 	protected $company_name;
@@ -52,11 +52,20 @@ class Smartdoc extends PDF
 
 		/* Footer */
 		PDF::setFooterCallback(function($pdf) {
-
+			
+			$signed = false;
+			$footerSigned = 'Sesuai dengan ketentuan yang berlaku, '. setting_by_code('COMPANY_NAME').' mengatur bahwa Surat ini telah ditandatangani secara elektronik. Sehingga tidak diperlukan tanda tangan basah pada Surat ini.';
+			
 			$pdf->SetY(-15);
 			$pdf->SetFont('helvetica', 'I', 6);
-			$pdf->Cell(0, 5, 'Halaman Ke - '.$pdf->getAliasNumPage().' / '.$pdf->getAliasNbPages(), 'T', false, 'R', 0, '', 0, false, 'T', 'M');
-
+			
+			if ($signed) {
+				$pdf->MultiCell(150, 5, $footerSigned, 0, 'L', 0, 0, '', '', true);
+				$pdf->Cell(0, 2, 'Halaman Ke - '.$pdf->getAliasNumPage().' / '.$pdf->getAliasNbPages(), false, false, 'R', 0, '', 0, false, 'T', 'M');
+			} else {
+				$pdf->Cell(0, 5, 'Halaman Ke - '.$pdf->getAliasNumPage().' / '.$pdf->getAliasNbPages(), 'T', false, 'R', 0, '', 0, false, 'T', 'M');
+				
+			}
 		});
 		
 		PDF::SetCreator(PDF_CREATOR);
@@ -79,18 +88,7 @@ class Smartdoc extends PDF
 		
 		PDF::AddPage();
 		
-		$text = '<h2 style="text-align: center;">What is Lorem Ipsum?</h2>
-		<p><strong>&nbsp; &nbsp; &nbsp; &nbsp; Lorem Ipsum</strong>&nbsp;is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-		<h2>What is Lorem Ipsum?</h2>
-		<p style="text-align: justify;"><strong>Lorem Ipsum</strong>&nbsp;is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-		<p style="text-align: justify;"><strong>Lorem Ipsum</strong>&nbsp;is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-		<p style="text-align: justify;"><strong>Lorem Ipsum</strong>&nbsp;is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-		<p style="text-align: justify;"><strong>Lorem Ipsum</strong>&nbsp;is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-		<p style="text-align: justify;"><strong>Lorem Ipsum</strong>&nbsp;is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-		<p style="text-align: justify;"><strong>Lorem Ipsum</strong>&nbsp;is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-		<p style="text-align: justify;"><strong>Lorem Ipsum</strong>&nbsp;is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-		<p style="text-align: justify;"><strong>Lorem Ipsum</strong>&nbsp;is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-		<p style="text-align: justify;"><strong>Lorem Ipsum</strong>&nbsp;is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>';
+		$text = 'test';
 		
 
 		PDF::writeHTML($text, true, 0, true, 0);
@@ -109,42 +107,47 @@ class Smartdoc extends PDF
 	
 	public function generate()
     {
-		$public = 'file:///Users/aelgees/PIDUITEUN/php/dgsign/public_key.pem';
-		$private = 'file:///Users/aelgees/PIDUITEUN/php/dgsign/private_key.pem';
+		$public = 'file:///Users/aelgees/PIDUITEUN/php/dgsign/test_public_key.pem';
+		$private = 'file:///Users/aelgees/PIDUITEUN/php/dgsign/test_private_key.pem';
 		$filekosongan = 'file:///Users/aelgees/PIDUITEUN/php/dgsign/ND - Nota Dinas.pdf';
 		
+		PDF::SetCreator(PDF_CREATOR);
+		PDF::SetAuthor('Adam Lesamana Ganda Saputra');
+		PDF::SetTitle('Surat Keluar');
+		PDF::SetSubject('Subject');
 		
+		$address = setting_by_code('COMPANY_NAME'). ' '. setting_by_code('COMPANY_ADDRESS_1') .' '.setting_by_code('COMPANY_ADDRESS_1').' '.setting_by_code('COMPANY_ADDRESS_3');
 		$info = array(
-			'Name' => 'ADAM LESMANA',
-			'Location' => 'TEST',
-			'Reason' => 'TEST',
-			'ContactInfo' => 'aelgees.dev@gmail.com',
+			'Name' => PDF_CREATOR,
+			'Location' => $address,
+			'Reason' => 'Surat Keluar',
+			'ContactInfo' => '',
 			);
 			
 		/* Signature */
 		
-		// PDF::setSignature($public, $private, 'X8HCRIAD', '' , 2, $info);
-		// PDF::SetFont('helvetica', '', 12);
-		// PDF::AddPage();
-		// $text = 'This is a <b color="#FF0000">Clean and add digitally signed document</b> ADAM LESMANA GANDA SAPUTRA';
-		// PDF::writeHTML($text, true, 0, true, 0);
-		// // PDF::Image('images/tcpdf_signature.png', 180, 60, 15, 15, 'PNG');
-		// PDF::setSignatureAppearance(180, 60, 15, 15);
-		// PDF::addEmptySignatureAppearance(180, 80, 15, 15);
+		PDF::setSignature($public, $private, 'X8HCRIAD', '' , 2, $info);
+		PDF::SetFont('helvetica', '', 12);
+		PDF::AddPage();
+		$text = 'This is a <b color="#FF0000">Clean and add digitally signed document</b> ADAM LESMANA GANDA SAPUTRA';
+		PDF::writeHTML($text, true, 0, true, 0);
+		// PDF::Image('images/tcpdf_signature.png', 180, 60, 15, 15, 'PNG');
+		PDF::setSignatureAppearance(180, 60, 15, 15);
+		PDF::addEmptySignatureAppearance(180, 80, 15, 15);
 		
 		/* Kosongan */
 		
-		$pages = PDF::setSourceFile($filekosongan);
+		// $pages = PDF::setSourceFile($filekosongan);
 		
-		for ($i = 1; $i <= $pages; $i++)
-    	{
-			PDF::AddPage();
-			$page = PDF::importPage($i);
-			PDF::useTemplate($page, 0, 0);
-			PDF::setSignature($public, $private, 'X8HCRIAD', '' , 2, $info);
-		}
+		// for ($i = 1; $i <= $pages; $i++)
+    	// {
+		// 	PDF::AddPage();
+		// 	$page = PDF::importPage($i);
+		// 	PDF::useTemplate($page, 0, 0);
+		// 	PDF::setSignature($public, $private, 'X8HCRIAD', '' , 2, $info);
+		// }
 		
-		PDF::Output('/Users/aelgees/PIDUITEUN/php/dgsign/BABA.pdf', 'F');
+		PDF::Output('/Users/aelgees/PIDUITEUN/php/dgsign/TEST TAI.pdf', 'F');
 	}
 	
 

@@ -26,6 +26,6 @@ class SendEmailReminderJob extends Job
     public function handle()
     {
         $email = new SendEmailReminder($this->details);
-        Mail::to('aelgees.dev@gmail.com', 'Adam Lesmana')->send($email);
+        Mail::to($this->details['email'], $this->details['name'])->send($email);
     }
 }

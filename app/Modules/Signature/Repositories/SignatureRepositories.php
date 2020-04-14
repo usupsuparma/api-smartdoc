@@ -8,7 +8,7 @@ use Prettus\Repository\Eloquent\BaseRepository;
 use App\Modules\Signature\Interfaces\SignatureInterface;
 use App\Modules\Signature\Models\SignatureModel;
 use Validator;
-use Upload;
+use Upload, DigitalSign;
 
 class SignatureRepositories extends BaseRepository implements SignatureInterface
 {
@@ -74,7 +74,6 @@ class SignatureRepositories extends BaseRepository implements SignatureInterface
 	
 	public function update($request, $id)
     {
-		
 		Validator::extend('validate_file_p12', function ($attribute, $value, $parameters) use ($request) {
 			if ($request->hasFile('attachment')) {
 				if ($request->attachment->getClientMimeType() === 'application/x-pkcs12') {
@@ -133,5 +132,29 @@ class SignatureRepositories extends BaseRepository implements SignatureInterface
 		Upload::download($model->path_to_file);
 		
 		return $model->path_to_file;
+	}
+	
+	public function generate($request, $employee_id)
+    {
+		$rules = [
+			'credential_key' => 'required',
+		];
+		
+		$message = [
+			'credential_key.required' => 'Kunci Rahasia wajib diisi'	
+		];
+		
+		Validator::validate($request->all(), $rules, $message);
+		
+		$model = $this->model->where('employee_id', $employee_id)->firstOrFail();
+		
+		Upload::download($model->path_to_file);
+		$generate = DigitalSign::generate_ca($model, $request);
+		
+		if (!$generate) {
+			return ['message' => config('constans.error.generate'), 'status' => false];
+		}
+		
+		return ['message' => config('constans.success.generate'), 'status' => true];
     }
 }

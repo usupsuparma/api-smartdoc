@@ -33,7 +33,7 @@ class OutgoingMailRoutes extends BaseRoutes
 				'uses' => 'OutgoingMailController@create'
 			]);
 			
-			$app->router->put('/{id}', [
+			$app->router->post('/update/{id}', [
 				'as' => $this->route_prefix . '.update',
 				'uses' => 'OutgoingMailController@update'
 			]);

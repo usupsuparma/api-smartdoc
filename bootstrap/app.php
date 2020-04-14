@@ -37,7 +37,8 @@ $app->withFacades(true, [
     App\Library\Managers\Authority\Facade\Authority::class => 'Authority',
     Illuminate\Support\Facades\Mail::class => 'Mail',
     App\Library\Managers\Smartdoc\Facade\Smartdoc::class => 'Smartdoc',
-    App\Library\Managers\Upload\Facade\Upload::class => 'Upload'
+    App\Library\Managers\Upload\Facade\Upload::class => 'Upload',
+    App\Library\Managers\DigitalSign\Facade\DigitalSign::class => 'DigitalSign',
 ]);
 
 $app->withEloquent();
@@ -104,6 +105,7 @@ $app->register(App\Library\Managers\Navigation\Providers\NavigationServiceProvid
 $app->register(App\Library\Managers\Authority\Providers\AuthorityServiceProvider::class);
 $app->register(App\Library\Managers\Smartdoc\Providers\SmartdocServiceProvider::class);
 $app->register(App\Library\Managers\Upload\Providers\UploadServiceProvider::class);
+$app->register(App\Library\Managers\DigitalSign\Providers\DigitalSignServiceProvider::class);
 
 /* Modules */
 $app->register(App\Modules\Auth\Providers\AuthServiceProvider::class);

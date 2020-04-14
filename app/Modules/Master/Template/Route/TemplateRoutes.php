@@ -42,6 +42,11 @@ class TemplateRoutes extends BaseRoutes
 				'as' => $this->route_prefix . '.delete',
 				'uses' => 'TemplateController@delete'
 			]);
+			
+			$app->router->get('/type/{type_id}', [
+				'as' => $this->route_prefix . '.template_by_type',
+				'uses' => 'TemplateController@template_by_type'
+			]);
 	
 		});
 	}

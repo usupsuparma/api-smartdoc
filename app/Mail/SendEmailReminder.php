@@ -29,8 +29,14 @@ class SendEmailReminder extends Mailable
      */
     public function build()
     {
-        return $this->subject('Testing')
+        return $this->subject('Smartdoc Notification')
                     ->from(setting_by_code('MAIL_FROM_EMAIL'), setting_by_code('MAIL_FROM_NAME'))
-                    ->view('emails.reminder-review');
+                    ->view('emails.reminder-review')
+                    ->with([
+                        'notification_action' => $this->details['notification_action'],
+                        'body' => $this->details['body'],
+                        'button' => $this->details['button'],
+                        'url' => $this->details['url'],
+                    ]);
     }
 }

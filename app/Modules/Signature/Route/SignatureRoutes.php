@@ -47,6 +47,11 @@ class SignatureRoutes extends BaseRoutes
 				'as' => $this->route_prefix . '.download',
 				'uses' => 'SignatureController@download'
 			]);
+			
+			$app->router->post('/generate/{employee_id}', [
+				'as' => $this->route_prefix . '.generate',
+				'uses' => 'SignatureController@generate'
+			]);
 		});
 	}
 }
