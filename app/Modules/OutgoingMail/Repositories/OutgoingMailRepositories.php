@@ -273,6 +273,7 @@ class OutgoingMailRepositories extends BaseRepository implements OutgoingMailInt
 				
 				$model->update([
 					'current_approval_structure_id' => $reviews[0]['structure_id'],
+					'current_approval_employee_id' => $reviews[0]['employee_id'],
 					'status' => OutgoingMailStatusConstants::REVIEW,
 				]);
 			}
