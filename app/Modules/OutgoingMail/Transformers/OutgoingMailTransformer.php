@@ -18,6 +18,7 @@ class OutgoingMailTransformer extends TransformerAbstract
 			'number_letter' => !empty($data->number_letter) ? $data->number_letter : null,
 			'subject_letter' => !empty($data->subject_letter) ? $data->subject_letter : null,
 			'letter_date' => $data->letter_date,
+			'retension_date' => $data->retension_date,
 			'type' => [
 				'id' => !empty($data->type) ? $data->type->id : null,
 				'name' => !empty($data->type) ? $data->type->name : null,
@@ -81,6 +82,7 @@ class OutgoingMailTransformer extends TransformerAbstract
 			'number_letter' => !empty($data->number_letter) ? $data->number_letter : null,
 			'subject_letter' => !empty($data->subject_letter) ? $data->subject_letter : null,
 			'letter_date' => $data->letter_date,
+			'retension_date' => $data->retension_date,
 			'type' => [
 				'id' => !empty($data->type) ? $data->type->id : null,
 				'name' => !empty($data->type) ? $data->type->name : null,
