@@ -80,4 +80,11 @@ class OutgoingMailController extends BaseController
 		
         return $this->successResponse($this->outgoingMailRepository->publish($request), 200); 
 	}
+	
+	public function download_attachment($attachment_id)
+    {
+		$path = storage_path('app/public'. $this->outgoingMailRepository->download_attachment($attachment_id));
+
+		return response()->download($path);
+	}
 }

@@ -42,7 +42,7 @@ class OutgoingMailTransformer extends TransformerAbstract
 			],
 			'status' => [
 				'action' => config('constans.status-action.'. $data->status),
-				'employee_name' => $data->current_approval_employee->name
+				'employee_name' => !empty($data->current_approval_employee) ? $data->current_approval_employee->name : '',
 			],
 			'created_at' => $data->created_at->format('d-m-Y'),
 			'updated_at' => $data->updated_at->format('d-m-Y')

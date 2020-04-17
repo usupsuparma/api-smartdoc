@@ -380,9 +380,17 @@ class OutgoingMailRepositories extends BaseRepository implements OutgoingMailInt
 			'notification_action' => config('constans.notif-email.'. EmailConstants::REVIEW),
 			'body' => $body,
 			'button' => true,
-			'url' => 'https://google.com',
+			'url' => setting_by_code('URL_APPROVAL_OUTGOING_MAIL')
 		];
 		
 		dispatch(new SendEmailReminderJob($data));
+	}
+	
+	public function download_attachment($attachment_id)
+    {
+		$model = OutgoingMailAttachment::findOrFail($attachment_id);
+		Upload::download($model->path_to_file);
+		
+		return $model->path_to_file;
 	}
 }
