@@ -65,7 +65,7 @@ class OutgoingMailRepositories extends BaseRepository implements OutgoingMailInt
 			'retension_date.required' => 'tanggal retensi wajib diisi',
 		];
 		
-		if (!empty($request->attachments)) {
+		if (isset($request->attachments)) {
 			foreach ($request->attachments as $key => $attachment) {
 				$rules['attachments.'.$key.'.attachment_name'] = ['required'];
 				$rules['attachments.'.$key.'.file'] = [
@@ -80,7 +80,7 @@ class OutgoingMailRepositories extends BaseRepository implements OutgoingMailInt
 			}
 		} 
 		
-		if (!empty($request->copy_of_letter)) {
+		if (isset($request->copy_of_letter)) {
 			foreach ($request->copy_of_letter as $key => $col) {
 				$rules['copy_of_letter.'.$key] = ['required'];
 				$message['copy_of_letter.'.$key.'.required'] = 'Tembusan '.$key. ' wajib diisi';
@@ -118,11 +118,13 @@ class OutgoingMailRepositories extends BaseRepository implements OutgoingMailInt
 				'created_by_structure' => Auth::user()->user_core->structure->id,
 			])->all());
 			
-			foreach ($request->copy_of_letter as $copy) {
-				$model->forwards()->create(['employee_id' => $copy]);
+			if (isset($request->copy_of_letter)) {
+				foreach ($request->copy_of_letter as $copy) {
+					$model->forwards()->create(['employee_id' => $copy]);
+				}
 			}
 			
-			if (!empty($request->attachments)) {
+			if (isset($request->attachments)) {
 				foreach ($request->attachments as $k => $attach) {
 					$upload = Upload::uploads(setting_by_code('PATH_DIGITAL_OUTGOING_MAIL'), $attach['file']);
 					
@@ -185,7 +187,7 @@ class OutgoingMailRepositories extends BaseRepository implements OutgoingMailInt
 			'letter_date.required' => 'tanggal surat wajib diisi',
 		];
 		
-		if (!empty($request->copy_of_letter)) {
+		if (isset($request->copy_of_letter)) {
 			foreach ($request->copy_of_letter as $key => $col) {
 				$rules['copy_of_letter.'.$key] = ['required'];
 				$message['copy_of_letter.'.$key.'.required'] = 'Tembusan '.$key. ' wajib diisi';
@@ -224,9 +226,8 @@ class OutgoingMailRepositories extends BaseRepository implements OutgoingMailInt
 				->whereNotIn('employee_id', $request->copy_of_letter)
 				->delete();
 				
-			if (count($request->copy_of_letter) > 0) {
+			if (isset($request->copy_of_letter) && count($request->copy_of_letter) > 0) {
 				foreach ($request->copy_of_letter as $col) {
-
 					$datas = [
 						'outgoing_mail_id' => $id,
 						'employee_id' => $col
@@ -243,7 +244,7 @@ class OutgoingMailRepositories extends BaseRepository implements OutgoingMailInt
 				}
 			}
 			
-			if (!empty($request->attachments)) {
+			if (isset($request->attachments)) {
 				foreach ($request->attachments as $k => $attach) {
 					$upload = Upload::uploads(setting_by_code('PATH_DIGITAL_OUTGOING_MAIL'), $attach['file']);
 					
