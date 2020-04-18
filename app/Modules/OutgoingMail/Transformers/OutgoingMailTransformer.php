@@ -43,6 +43,7 @@ class OutgoingMailTransformer extends TransformerAbstract
 			'status' => [
 				'action' => config('constans.status-action.'. $data->status),
 				'employee_name' => !empty($data->current_approval_employee) ? $data->current_approval_employee->name : '',
+				'status_code' => (int) $data->status
 			],
 			'created_at' => $data->created_at->format('d-m-Y'),
 			'updated_at' => $data->updated_at->format('d-m-Y')
@@ -120,8 +121,8 @@ class OutgoingMailTransformer extends TransformerAbstract
 			],
 			'history_approvals' => !empty($history_approvals) ? $history_approvals : null,
 			'body' => $data->body,
-			'forwards' => $data_forwards,
-		   	'attachments' => $data_attachments,
+			'forwards' => !empty($data_forwards) ? $data_forwards : null,
+		   	'attachments' => !empty($data_attachments) ? $data_attachments : null,
 	   	];
 	}
 }
