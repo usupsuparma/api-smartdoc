@@ -38,7 +38,6 @@ class OutgoingMailController extends BaseController
 		Authority::check('create');
 		
 		$results = $this->outgoingMailRepository->create($request);
-		dd($results);
 		
 		if (!$results['status']) {
 			return $this->errorResponse($results, 422);
