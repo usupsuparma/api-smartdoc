@@ -123,6 +123,7 @@ class OutgoingMailTransformer extends TransformerAbstract
 			'body' => $data->body,
 			'forwards' => !empty($data_forwards) ? $data_forwards : null,
 		   	'attachments' => !empty($data_attachments) ? $data_attachments : null,
+		   	'status' => $data->status
 	   	];
 	}
 }
