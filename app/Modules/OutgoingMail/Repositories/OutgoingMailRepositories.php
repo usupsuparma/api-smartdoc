@@ -280,12 +280,13 @@ class OutgoingMailRepositories extends BaseRepository implements OutgoingMailInt
 					'status' => OutgoingMailStatusConstants::REVIEW,
 				]);
 			}
-			
+
 			$model->update($request->all());
 			
 			if ($request->button_action == OutgoingMailStatusConstants::SEND_TO_REVIEW) {
 				$this->send_email($model);
 			}
+			
             DB::commit();
         } catch (\Exception $ex) {
 			DB::rollback();
@@ -293,7 +294,7 @@ class OutgoingMailRepositories extends BaseRepository implements OutgoingMailInt
 			
 			return ['message' => config('constans.error.updated')];
 		}
-		$this->send_email($model);
+
 		updated_log($model);
 		
 		return [
