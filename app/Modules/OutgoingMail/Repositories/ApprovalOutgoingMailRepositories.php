@@ -68,6 +68,7 @@ class ApprovalOutgoingMailRepositories extends BaseRepository implements Approva
 		}
 		
 		DB::beginTransaction();
+		
         try {
 			$modelApproval = OutgoingMailApproval::where([
 				'outgoing_mail_id' => $id,
