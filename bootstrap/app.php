@@ -115,6 +115,10 @@ $app->register(App\Modules\Menu\Providers\MenuServiceProvider::class);
 $app->register(App\Modules\Role\Providers\RoleServiceProvider::class);
 $app->register(App\Modules\Setting\Providers\SettingServiceProvider::class);
 $app->register(App\Modules\OutgoingMail\Providers\OutgoingMailServiceProvider::class);
+$app->register(App\Modules\OutgoingMail\Providers\AdminOutgoingMailServiceProvider::class);
+$app->register(App\Modules\OutgoingMail\Providers\ApprovalOutgoingMailServiceProvider::class);
+$app->register(App\Modules\OutgoingMail\Providers\SignedOutgoingMailServiceProvider::class);
+
 $app->register(App\Modules\Review\Providers\ReviewServiceProvider::class);
 $app->register(App\Modules\Signature\Providers\SignatureServiceProvider::class);
 

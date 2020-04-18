@@ -57,6 +57,7 @@ class OutgoingMailTransformer extends TransformerAbstract
 	{
 	   	$data_attachments = [];
 	   	$data_forwards = [];
+	   	$history_approvals = [];
 	   
 	   	if (!empty($data->attachments)) {
 			foreach ($data->attachments as $attach) {
@@ -76,7 +77,25 @@ class OutgoingMailTransformer extends TransformerAbstract
 				];
 			}
 		}
-		   
+		
+		if (!empty($data->history_approvals)) {
+			foreach ($data->history_approvals as $history) {
+				$history_approvals[] = [
+					'employee' => [
+						'nik' => !empty($history->employee) ? $history->employee->nik : '',
+						'name' => !empty($history->employee) ? $history->employee->name : '',
+					],
+					'structure_name' => !empty($history->structure) ? $history->structure->nama_struktur : '',
+					'notes' => $history->description,
+					'status' => [
+						'status_code' => (int) $history->status_approval,
+						'status_name' => config('constans.status-approval.'. $history->status_approval),
+					],
+					'create_at' => $data->updated_at->format('d M Y H:i:s'),
+				];
+			}
+		}
+		
 	   	return [
 			'id' => (int) $data->id,
 			'number_letter' => !empty($data->number_letter) ? $data->number_letter : null,
@@ -99,6 +118,7 @@ class OutgoingMailTransformer extends TransformerAbstract
 				'id' => !empty($data->from_employee) ? $data->from_employee->id_employee : null,
 				'name' => !empty($data->from_employee) ? $data->from_employee->name : null,
 			],
+			'history_approvals' => !empty($history_approvals) ? $history_approvals : null,
 			'body' => $data->body,
 			'forwards' => $data_forwards,
 		   	'attachments' => $data_attachments,

@@ -1,7 +1,7 @@
 <?php 
 use App\Modules\OutgoingMail\Constans\OutgoingMailStatusConstants;
 use App\Constants\EmailConstants;
-
+use App\Constants\StatusApprovalConstants;
 return [
 	'success' => [
 		'created' => 'Data berhasil disimpan.',
@@ -15,20 +15,22 @@ return [
 		'ordering' => 'Berhasil melakukan penyusunan menu.',
 		'download' => 'Berhasil melakukan download file.',
 		'generate' => 'Berhasil membuat sertifikat file.',
+		'reject' => 'Data berhasil dikembalikan.'
 	], 
 	'error' => [
 		'logout' => 'Gagal melakukan logout.',
 		'created' => 'Gagal melakukan menyimpan data.',
 		'updated' => 'Gagal melakukan pembaharuan data.',
 		'deleted' => 'Gagal melakukan penghapusan data.',
+		'approve' => 'Gagal melakukan persetujuan data.',
 		'generate' => 'Kunci Rahasia yang anda masukan salah. ',
 	],
 	'status-action' => [
 		OutgoingMailStatusConstants::DRAFT => 'Draft',
 		OutgoingMailStatusConstants::SEND_TO_REVIEW => 'Menunggu Pemeriksaan',
-		OutgoingMailStatusConstants::REVIEW => 'Sedang Diperiksa Oleh',
-		OutgoingMailStatusConstants::APPROVED => 'Sudah Disetujui',
-		OutgoingMailStatusConstants::SIGNED => 'Sudah Ditandatangan',
+		OutgoingMailStatusConstants::REVIEW => 'Menunggu Diperiksa',
+		OutgoingMailStatusConstants::APPROVED => 'Menunggu Ditandatangani',
+		OutgoingMailStatusConstants::SIGNED => 'Menunggu Diterbitkan',
 		OutgoingMailStatusConstants::PUBLISH => 'Diterbitkan'
 	],
 	'email' => [
@@ -44,5 +46,9 @@ return [
 		EmailConstants::SIGNED => 'Tanda Tangan Digital Surat',
 		EmailConstants::PUBLISH => 'Penerbitan Surat',
 		EmailConstants::REJECT => 'Surat Ditolak' 
+	],
+	'status-approval' => [
+		StatusApprovalConstants::REJECT => 'Reject',
+		StatusApprovalConstants::APPROVED => 'Approve'
 	]
 ];

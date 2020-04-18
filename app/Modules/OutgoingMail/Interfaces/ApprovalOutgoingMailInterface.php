@@ -5,21 +5,11 @@
 
 use Prettus\Repository\Contracts\RepositoryInterface;
 
-interface OutgoingMailInterface extends RepositoryInterface
+interface ApprovalOutgoingMailInterface extends RepositoryInterface
 {
     public function data($request);
 
     public function show($id);
     
-	public function create($request);
-	
 	public function update($request, $id);
-	
-	public function delete($id);
-	
-	public function delete_attachment($attachment_id);
-	
-	public function download_attachment($attachment_id);
-	
-	
 }

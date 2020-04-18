@@ -26,4 +26,19 @@ class OutgoingMailApproval extends Model
 	{
 		return $this->belongsTo(OrganizationModel::class, 'structure_id');
 	}
+	
+	public function scopeByMailId($query, $outgoing_mail_id)
+	{
+		return $query->where('outgoing_mail_id', $outgoing_mail_id);
+	}
+	
+	public function scopeNextApproval($query, $outgoing_mail_id)
+	{
+		$model = $query->byMailId($outgoing_mail_id)
+				->where('status', true)
+				->whereNull('status_approval')
+				->get();
+		
+		return $model;
+	}
 }

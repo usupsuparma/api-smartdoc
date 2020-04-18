@@ -100,7 +100,7 @@ class OutgoingMailRepositories extends BaseRepository implements OutgoingMailInt
 			} else {
 				$reviews = review_list_non_director($hierarchy_orgs);
 			}
-			
+
 			if (!$reviews) {
 				return [
 					'message' => 'Tidak Terdapat User yang akan memeriksa surat ini. silahkan set terlebih dahulu !',
@@ -194,6 +194,8 @@ class OutgoingMailRepositories extends BaseRepository implements OutgoingMailInt
 		
 		Validator::validate($request->all(), $rules, $message);
 		
+		$model = $this->model->findOrFail($id);
+		
 		$hierarchy_orgs = $this->bottom_to_top($request);
 		$check_director_level = $this->structure_from_employee($request);
 
@@ -214,7 +216,6 @@ class OutgoingMailRepositories extends BaseRepository implements OutgoingMailInt
 			}
 		}
 		
-		$model = $this->model->findOrFail($id);
 		
 		DB::beginTransaction();
 
@@ -314,16 +315,6 @@ class OutgoingMailRepositories extends BaseRepository implements OutgoingMailInt
 		$model->delete();
 		
 		return ['message' => config('constans.success.deleted')];
-	}
-	
-	public function approve($request)
-	{
-		
-	}
-	
-	public function publish($request)
-	{
-		
 	}
 	
 	private function structure_from_employee($request)

@@ -74,6 +74,12 @@ class OutgoingMailModel extends Model
 		return $this->belongsTo(EmployeeModel::class, 'created_by_employee', 'id_employee');
 	}
 	
+	public function history_approvals()
+	{
+		return $this->hasMany(OutgoingMailApproval::class, 'outgoing_mail_id', 'id')
+					->whereNotNull('status_approval');
+	}
+	
 	public function scopeAuthorityData($query)
 	{
 		$structure_id = Auth::user()->user_core->structure->id;
@@ -83,6 +89,13 @@ class OutgoingMailModel extends Model
 		} 
 		
 		return $query;
+	}
+	
+	public function scopeByEmployeId($query)
+	{
+		$employee_id = Auth::user()->user_core->employee->id_employee;
+		
+		return $query->where('current_approval_employee_id', $employee_id);
 	}
 	
 	protected static function boot() 
