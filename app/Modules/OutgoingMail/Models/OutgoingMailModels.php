@@ -12,7 +12,8 @@ use App\Modules\OutgoingMail\Models\OutgoingMailForward;
 use App\Modules\Master\Type\Models\TypeModel;
 use App\Modules\Master\Classification\Models\ClassificationModel;
 use App\Modules\External\Employee\Models\EmployeeModel;
-use Auth;
+use App\Modules\External\Organization\Models\OrganizationModel;
+use Auth, DB;
 
 class OutgoingMailModel extends Model
 {
@@ -74,6 +75,11 @@ class OutgoingMailModel extends Model
 		return $this->belongsTo(EmployeeModel::class, 'created_by_employee', 'id_employee');
 	}
 	
+	public function structure_by()
+	{
+		return $this->belongsTo(OrganizationModel::class, 'created_by_structure');
+	}
+	
 	public function history_approvals()
 	{
 		return $this->hasMany(OutgoingMailApproval::class, 'outgoing_mail_id', 'id')
@@ -96,6 +102,14 @@ class OutgoingMailModel extends Model
 		$employee_id = Auth::user()->user_core->employee->id_employee;
 		
 		return $query->where('current_approval_employee_id', $employee_id);
+	}
+	
+	public function scopeMaxNumber($query, $format)
+	{
+		return $query->select(DB::raw('max(number_letter) as max_number'))
+			->where('number_letter', 'like', "%{$format}%")
+			->whereYear('created_at', date('Y'))
+			->first();
 	}
 	
 	protected static function boot() 

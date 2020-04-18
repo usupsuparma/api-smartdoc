@@ -5,6 +5,7 @@
 
 use PDF;
 use GlobalHelper;
+use App\Modules\OutgoingMail\Models\OutgoingMailModel;
 
 class Smartdoc extends PDF
 {
@@ -150,5 +151,21 @@ class Smartdoc extends PDF
 		PDF::Output('/Users/aelgees/PIDUITEUN/php/dgsign/TEST TAI.pdf', 'F');
 	}
 	
+	public function render_code_outgoing($model)
+	{
+		$type_code = $model->type->code;
+		$structure_code = $model->structure_by->kode_struktur;
+		$format = '/'. $type_code. '-'. $structure_code. '/BIJB/';
+		$str_number = '/'. $type_code. '-'. $structure_code. '/BIJB/'. date('m'). '/'. date('Y');
+		
+		$query = OutgoingMailModel::maxNumber($format);
+		
+		$max_number = (!empty($query) ? $query->max_number : '');
+		$number = (int) substr($max_number, 0, 4);
+		$number++;
+		$number_letter = sprintf("%04s", $number). $str_number;
+		
+		return $number_letter;							
+	}
 
 }
