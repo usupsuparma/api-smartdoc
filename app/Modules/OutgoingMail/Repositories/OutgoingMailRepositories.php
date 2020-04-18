@@ -222,11 +222,12 @@ class OutgoingMailRepositories extends BaseRepository implements OutgoingMailInt
 		DB::beginTransaction();
 
         try {	
-			OutgoingMailForward::where('outgoing_mail_id', $model->id)
-				->whereNotIn('employee_id', $request->copy_of_letter)
-				->delete();
-				
-			if (isset($request->copy_of_letter) && count($request->copy_of_letter) > 0) {
+			
+			if (isset($request->copy_of_letter)) {
+				OutgoingMailForward::where('outgoing_mail_id', $model->id)
+					->whereNotIn('employee_id', $request->copy_of_letter)
+					->delete();
+					
 				foreach ($request->copy_of_letter as $col) {
 					$datas = [
 						'outgoing_mail_id' => $id,
