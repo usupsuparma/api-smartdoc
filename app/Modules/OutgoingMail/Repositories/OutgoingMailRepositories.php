@@ -41,7 +41,7 @@ class OutgoingMailRepositories extends BaseRepository implements OutgoingMailInt
     {
 		$data =  $this->model->findOrFail($id);
 		
-		return OutgoingMailTransformer::customTransform($data);
+		return ['data' => OutgoingMailTransformer::customTransform($data)];
 	}
 	
 	public function create($request)
