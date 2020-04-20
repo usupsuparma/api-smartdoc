@@ -32,11 +32,11 @@ class SignedOutgoingMailController extends BaseController
 		return $this->successResponse($this->signedOutgoingMailRepository->show($id),200);
 	}
 	
-	public function create(Request $request)
+	public function update(Request $request, $id)
 	{
-		Authority::check('create');
+		Authority::check('approve');
 		
-		$results = $this->signedOutgoingMailRepository->create($request);
+		$results = $this->signedOutgoingMailRepository->update($request, $id);
 		
 		if (!$results['status']) {
 			return $this->errorResponse($results, 422);

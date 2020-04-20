@@ -28,9 +28,9 @@ class SignedOutgoingMailRoutes extends BaseRoutes
 				'uses' => 'SignedOutgoingMailController@show'
 			]);
 			
-			$app->router->post('/', [
-				'as' => $this->route_prefix . '.create',
-				'uses' => 'SignedOutgoingMailController@create'
+			$app->router->put('/{id}', [
+				'as' => $this->route_prefix . '.update',
+				'uses' => 'SignedOutgoingMailController@update'
 			]);
 	
 		});

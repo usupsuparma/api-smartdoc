@@ -92,4 +92,22 @@ class Upload
 
 		return true;
 	}
+	
+	public static function upload_local_to_ftp($file_path)
+	{
+		$ftp_path = setting_by_code('FTP_DIRECTORY_ROOT');
+		
+		if (Storage::disk('public')->exists($file_path)) {
+			/* Move file from FTP to Local Storage */
+			$process = Storage::disk('sftp')->put($ftp_path. $file_path, Storage::disk('public')->get($file_path));	
+			
+			if ($process) {
+				return true;
+			}
+			
+			return false;
+		}
+
+		return true;
+	}
 }

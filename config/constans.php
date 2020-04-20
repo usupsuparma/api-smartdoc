@@ -15,7 +15,9 @@ return [
 		'ordering' => 'Berhasil melakukan penyusunan menu.',
 		'download' => 'Berhasil melakukan download file.',
 		'generate' => 'Berhasil membuat sertifikat file.',
-		'reject' => 'Data berhasil dikembalikan.'
+		'reject' => 'Data berhasil dikembalikan.',
+		'publish' => 'Data berhasil diterbitkan.',
+		'signed' => 'Berhasil melakukan tanda tangan.',
 	], 
 	'error' => [
 		'logout' => 'Gagal melakukan logout.',
@@ -24,6 +26,7 @@ return [
 		'deleted' => 'Gagal melakukan penghapusan data.',
 		'approve' => 'Gagal melakukan persetujuan data.',
 		'generate' => 'Kunci Rahasia yang anda masukan salah. ',
+		'publish' => 'Gagal melakukan penerbitan data. ',
 	],
 	'status-action' => [
 		OutgoingMailStatusConstants::DRAFT => 'Draft',

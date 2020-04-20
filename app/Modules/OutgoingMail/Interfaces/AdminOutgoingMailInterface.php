@@ -11,6 +11,8 @@ interface AdminOutgoingMailInterface extends RepositoryInterface
 
     public function show($id);
     
-	public function create($request);
+    public function update($request, $id);
+    
+    public function download($id);
 	
 }

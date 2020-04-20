@@ -28,9 +28,14 @@ class AdminOutgoingMailRoutes extends BaseRoutes
 				'uses' => 'AdminOutgoingMailController@show'
 			]);
 			
-			$app->router->post('/', [
-				'as' => $this->route_prefix . '.create',
-				'uses' => 'AdminOutgoingMailController@create'
+			$app->router->put('/{id}', [
+				'as' => $this->route_prefix . '.update',
+				'uses' => 'AdminOutgoingMailController@update'
+			]);
+			
+			$app->router->get('/download/{id}', [
+				'as' => $this->route_prefix . '.download',
+				'uses' => 'AdminOutgoingMailController@download'
 			]);
 	
 		});

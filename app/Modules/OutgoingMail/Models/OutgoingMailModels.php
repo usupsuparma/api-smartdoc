@@ -13,6 +13,8 @@ use App\Modules\Master\Type\Models\TypeModel;
 use App\Modules\Master\Classification\Models\ClassificationModel;
 use App\Modules\External\Employee\Models\EmployeeModel;
 use App\Modules\External\Organization\Models\OrganizationModel;
+use App\Modules\OutgoingMail\Constans\OutgoingMailStatusConstants;
+use App\Modules\Signature\Models\SignatureModel;
 use Auth, DB;
 
 class OutgoingMailModel extends Model
@@ -80,6 +82,11 @@ class OutgoingMailModel extends Model
 		return $this->belongsTo(OrganizationModel::class, 'created_by_structure');
 	}
 	
+	public function signature()
+	{
+		return $this->belongsTo(SignatureModel::class, 'from_employee_id', 'employee_id');
+	}
+	
 	public function history_approvals()
 	{
 		return $this->hasMany(OutgoingMailApproval::class, 'outgoing_mail_id', 'id')
@@ -110,6 +117,23 @@ class OutgoingMailModel extends Model
 			->where('number_letter', 'like', "%{$format}%")
 			->whereYear('created_at', date('Y'))
 			->first();
+	}
+	
+	public function scopeSignedEmployee($query)
+	{
+		$employee_id = Auth::user()->user_core->employee->id_employee;
+		
+		return $query->where([
+			'from_employee_id' => $employee_id,
+			'status' => OutgoingMailStatusConstants::APPROVED,
+		]);
+	}
+	
+	public function scopeReadyPublish($query)
+	{	
+		return $query->where([
+			'status' => OutgoingMailStatusConstants::SIGNED,
+		]);
 	}
 	
 	protected static function boot() 

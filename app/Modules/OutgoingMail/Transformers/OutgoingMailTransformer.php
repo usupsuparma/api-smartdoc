@@ -119,11 +119,12 @@ class OutgoingMailTransformer extends TransformerAbstract
 				'id' => !empty($data->from_employee) ? $data->from_employee->id_employee : null,
 				'name' => !empty($data->from_employee) ? $data->from_employee->name : null,
 			],
-			'history_approvals' => !empty($history_approvals) ? $history_approvals : null,
 			'body' => $data->body,
 			'forwards' => !empty($data_forwards) ? $data_forwards : null,
 		   	'attachments' => !empty($data_attachments) ? $data_attachments : null,
-		   	'status' => $data->status
+			'status' => $data->status,
+			'history_approvals' => !empty($history_approvals) ? $history_approvals : null,
+			'signature_available' => !empty($data->signature) ? true : false,
 	   	];
 	}
 }

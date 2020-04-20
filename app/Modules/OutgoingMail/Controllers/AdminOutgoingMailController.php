@@ -32,16 +32,23 @@ class AdminOutgoingMailController extends BaseController
 		return $this->successResponse($this->adminOutgoingMailRepository->show($id),200);
 	}
 	
-	public function create(Request $request)
+	public function update(Request $request, $id)
 	{
-		Authority::check('create');
+		Authority::check('approve');
 		
-		$results = $this->adminOutgoingMailRepository->create($request);
+		$results = $this->adminOutgoingMailRepository->update($request, $id);
 		
 		if (!$results['status']) {
 			return $this->errorResponse($results, 422);
 		}
 		
         return $this->successResponse($results, 200);
+	}
+	
+	public function download($id)
+    {
+		$path = storage_path('app/public'. $this->adminOutgoingMailRepository->download($id));
+
+		return response()->download($path, basename($path));
 	}
 }

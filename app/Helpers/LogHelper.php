@@ -5,6 +5,8 @@ use App\Events\LogWasUpdate;
 use App\Events\LogWasDelete;
 use App\Events\LogWasApprove;
 use App\Events\LogWasReject;
+use App\Events\LogWasSigned;
+use App\Events\LogWasPublish;
 use App\Events\LogWasDisposition;
 
 if (!function_exists('created_log')) {
@@ -44,5 +46,21 @@ if (!function_exists('reject_log')) {
     function reject_log($actionLog = [])
     {
         event(new LogWasReject($actionLog));
+    }
+}
+
+if (!function_exists('signed_log')) {
+	
+    function signed_log($actionLog = [])
+    {
+        event(new LogWasSigned($actionLog));
+    }
+}
+
+if (!function_exists('publish_log')) {
+	
+    function publish_log($actionLog = [])
+    {
+        event(new LogWasPublish($actionLog));
     }
 }
