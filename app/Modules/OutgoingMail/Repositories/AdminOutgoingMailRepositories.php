@@ -39,7 +39,7 @@ class AdminOutgoingMailRepositories extends BaseRepository implements AdminOutgo
     {
 		$data =  $this->model->findOrFail($id);
 		
-		return OutgoingMailTransformer::customTransform($data);
+		return ['data' => OutgoingMailTransformer::customTransform($data)];
 	}
 	
 	public function update($request, $id)

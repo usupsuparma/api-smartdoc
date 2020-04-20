@@ -39,7 +39,7 @@ class ApprovalOutgoingMailRepositories extends BaseRepository implements Approva
     {
 		$data =  $this->model->findOrFail($id);
 		
-		return OutgoingMailTransformer::customTransform($data);
+		return ['data' => OutgoingMailTransformer::customTransform($data)];
 	}
 	
 	public function update($request, $id)
