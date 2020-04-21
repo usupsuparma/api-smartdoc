@@ -94,13 +94,12 @@ if (!function_exists('review_list')) {
             $details = !empty($review->details) ? $review->details : [];
             
             foreach ($details as $dt) {
-                $orgs[] = $dt->organizations->kode_struktur;
+                $orgs[] = $dt->organizations->id;
             }
         }
-
         $users = ExternalUserModel::isActive()
-                    ->whereIn('kode_struktur', $orgs)
-                    ->whereIn('kode_jabatan', unserialize(setting_by_code('ALLOW_ROLE_POSITION_USER')));
+            ->whereIn('kode_struktur', $orgs)
+            ->whereIn('kode_jabatan', unserialize(setting_by_code('ALLOW_ROLE_POSITION_USER')));
         
         if (!$users->exists()) {
             return false;
@@ -110,7 +109,7 @@ if (!function_exists('review_list')) {
         
         foreach ($details as $dt) {
             foreach ($collections as $col) {
-                if ($dt->organizations->kode_struktur === $col->kode_struktur) {
+                if ($dt->organizations->kode_struktur === $col->structure->kode_struktur) {
                     $results[] = [
                         'structure_id' => $dt->structure_id,
                         'employee_id' => $col->id_employee
@@ -131,16 +130,15 @@ if (!function_exists('review_list_non_director')) {
         $orgs = [];
         
         if (!empty($list_code_hierarchy)) {
-            $details = !empty($review->details) ? $review->details : [];
             
             foreach ($list_code_hierarchy as $dt) {
-                $orgs[] = $dt->kode_struktur;
+                $orgs[] = $dt->id;
             }
         }
-
+        
         $users = ExternalUserModel::isActive()
-                    ->whereIn('kode_struktur', $orgs)
-                    ->whereIn('kode_jabatan', unserialize(setting_by_code('ALLOW_ROLE_POSITION_USER')));
+                ->whereIn('kode_struktur', $orgs)
+                ->whereIn('kode_jabatan', unserialize(setting_by_code('ALLOW_ROLE_POSITION_USER')));
         
         if (!$users->exists()) {
             return false;
@@ -150,7 +148,7 @@ if (!function_exists('review_list_non_director')) {
         
         foreach ($list_code_hierarchy as $dt) {
             foreach ($collections as $col) {
-                if ($dt->kode_struktur === $col->kode_struktur) {
+                if ($dt->kode_struktur === $col->structure->kode_struktur) {
                     $results[] = [
                         'structure_id' => $dt->id,
                         'employee_id' => $col->id_employee

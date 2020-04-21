@@ -37,7 +37,7 @@ class ApprovalOutgoingMailRepositories extends BaseRepository implements Approva
 	
 	public function show($id)
     {
-		$data =  $this->model->findOrFail($id);
+		$data =  $this->model->byEmployeId()->where('id', $id)->firstOrFail();
 		
 		return ['data' => OutgoingMailTransformer::customTransform($data)];
 	}
@@ -59,7 +59,7 @@ class ApprovalOutgoingMailRepositories extends BaseRepository implements Approva
 		$nextApprovalEmployee = NULL;
 		$nextApprovalStructure = NULL;
 		
-		$model = $this->model->findOrFail($id);
+		$model = $this->model->byEmployeId()->where('id', $id)->firstOrFail();
 		$nextApproval = $this->next_approval($id);
 		
 		if (!empty($nextApproval)) {

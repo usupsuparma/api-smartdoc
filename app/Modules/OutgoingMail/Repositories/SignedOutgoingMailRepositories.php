@@ -33,14 +33,14 @@ class SignedOutgoingMailRepositories extends BaseRepository implements SignedOut
 	
 	public function show($id)
     {
-		$data =  $this->model->findOrFail($id);
+		$data =  $this->model->signedEmployee()->where('id', $id)->firstOrFail();
 		
 		return ['data' => OutgoingMailTransformer::customTransform($data)];
 	}
 	
 	public function update($request, $id)
     {
-		$model = $this->model->findOrFail($id);
+		$model = $this->model->signedEmployee()->where('id', $id)->firstOrFail();
 		
 		if ($request->signature_available) {
 			$rules = [

@@ -15,7 +15,7 @@ use App\Modules\OutgoingMail\Models\OutgoingMailForward;
 use App\Constants\EmailConstants;
 use App\Jobs\SendEmailReminderJob;
 use Validator, DB, Auth;
-use Upload;
+use Upload, Smartdoc;
 
 class OutgoingMailRepositories extends BaseRepository implements OutgoingMailInterface
 {
@@ -117,6 +117,10 @@ class OutgoingMailRepositories extends BaseRepository implements OutgoingMailInt
 				'created_by_employee' => Auth::user()->user_core->id_employee,
 				'created_by_structure' => Auth::user()->user_core->structure->id,
 			])->all());
+			
+			$model->update([
+				'number_letter' => Smartdoc::render_code_outgoing($model)
+			]);
 			
 			if (isset($request->copy_of_letter)) {
 				foreach ($request->copy_of_letter as $copy) {
@@ -325,8 +329,8 @@ class OutgoingMailRepositories extends BaseRepository implements OutgoingMailInt
 		$employee = employee_user($request->from_employee_id);
 		
 		$director_level = unserialize(setting_by_code('DIRECTOR_LEVEL_STRUCTURE'));
-		
-		if (in_array($employee->user->kode_struktur, $director_level)) {
+
+		if (in_array($employee->user->structure->kode_struktur, $director_level)) {
 			return true;
 		}
 		

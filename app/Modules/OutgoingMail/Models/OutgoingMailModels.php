@@ -115,6 +115,7 @@ class OutgoingMailModel extends Model
 	{
 		return $query->select(DB::raw('max(number_letter) as max_number'))
 			->where('number_letter', 'like', "%{$format}%")
+			->whereMonth('created_at', date('m'))
 			->whereYear('created_at', date('Y'))
 			->first();
 	}

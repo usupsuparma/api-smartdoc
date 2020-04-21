@@ -269,7 +269,7 @@ class Smartdoc extends PDF
 	{
 		$type_code = $model->type->code;
 		$structure_code = $model->structure_by->kode_struktur;
-		$format = '/'. $type_code. '-'. $structure_code. '/BIJB/';
+		$format = '/'. $type_code. '-';
 		$str_number = '/'. $type_code. '-'. $structure_code. '/BIJB/'. date('m'). '/'. date('Y');
 		
 		$query = OutgoingMailModel::maxNumber($format);
@@ -288,7 +288,7 @@ class Smartdoc extends PDF
 		$forwards = '';
 		
 		if (!empty($model->forwards)) {
-			$forwards .= '<p>Tembusan Tyh: </p>';
+			$forwards .= '<p>Tembusan Yth: </p>';
 			$forwards .= '<ol>';
 			foreach ($model->forwards as $fw) {
 				$forwards .= '<li>'. $fw->employee->name .'</li>';

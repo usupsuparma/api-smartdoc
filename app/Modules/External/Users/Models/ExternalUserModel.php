@@ -28,7 +28,7 @@ class ExternalUserModel extends Model
 	
 	public function structure()
 	{
-		return $this->belongsTo(OrganizationModel::class, 'kode_struktur', 'kode_struktur')
+		return $this->belongsTo(OrganizationModel::class, 'kode_struktur', 'id')
 					->select('id', 'nama_struktur', 'kode_struktur', 'parent_id');
 	}
 	
