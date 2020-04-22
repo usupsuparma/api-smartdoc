@@ -39,7 +39,7 @@ class SignedOutgoingMailController extends BaseController
 		$results = $this->signedOutgoingMailRepository->update($request, $id);
 		
 		if (!$results['status']) {
-			return $this->errorResponse($results, 422);
+			return $this->errorResponse($results, 404);
 		}
 		
         return $this->successResponse($results, 200);

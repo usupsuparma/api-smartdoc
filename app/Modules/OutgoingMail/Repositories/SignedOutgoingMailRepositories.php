@@ -54,7 +54,7 @@ class SignedOutgoingMailRepositories extends BaseRepository implements SignedOut
 			Validator::validate($request->all(), $rules, $message);
 		}
 		
-		$signatureModel = SignatureModel::where('employee_id', $model->from_employee_id)->firstOrFail();
+		$signatureModel = SignatureModel::where('employee_id', $model->from_employee_id)->first();
 		
 		if (!empty($signatureModel)) {
 			Upload::download($signatureModel->path_to_file);
@@ -65,10 +65,10 @@ class SignedOutgoingMailRepositories extends BaseRepository implements SignedOut
 			}
 		}
 		
-		if (!$request->signature_available) {
-			$document = Smartdoc::outgoing_mail($model);
-		}else{
+		if ($request->signature_available == 'true' && !empty($signatureModel)) {
 			$document = Smartdoc::outgoing_mail_signature($model);
+		}else{
+			$document = Smartdoc::outgoing_mail($model);
 		}
 		
 		$model->update([

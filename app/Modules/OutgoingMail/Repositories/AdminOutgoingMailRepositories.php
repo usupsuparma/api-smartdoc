@@ -107,7 +107,7 @@ class AdminOutgoingMailRepositories extends BaseRepository implements AdminOutgo
 				'number_letter' => Smartdoc::render_code_outgoing($model)
 			]);
 
-			if ($request->signature_available) {
+			if ($request->signature_available == 'true') {
 				$document = Smartdoc::outgoing_mail_signature($model, $qr_code);
 			}else{
 				$document = Smartdoc::outgoing_mail($model, $qr_code);
@@ -123,7 +123,7 @@ class AdminOutgoingMailRepositories extends BaseRepository implements AdminOutgo
 			Upload::delete_local($createQR);
 			
 			/* Remove certificate */
-			if ($request->signature_available) {
+			if ($request->signature_available == 'true') {
 				DigitalSign::delete_ca($model->signature);
 			}
 			
