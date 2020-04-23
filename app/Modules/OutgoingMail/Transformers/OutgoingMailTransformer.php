@@ -119,6 +119,7 @@ class OutgoingMailTransformer extends TransformerAbstract
 				'id' => !empty($data->from_employee) ? $data->from_employee->id_employee : null,
 				'name' => !empty($data->from_employee) ? $data->from_employee->name : null,
 			],
+			'structure_name' => !empty($data->structure_by) ? $data->structure_by->nama_struktur : null,
 			'body' => $data->body,
 			'forwards' => !empty($data_forwards) ? $data_forwards : null,
 		   	'attachments' => !empty($data_attachments) ? $data_attachments : null,
