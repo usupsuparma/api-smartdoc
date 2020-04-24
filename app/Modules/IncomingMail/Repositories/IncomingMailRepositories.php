@@ -1,29 +1,28 @@
-<?php namespace App\Modules\OutgoingMail\Repositories;
+<?php namespace App\Modules\IncomingMail\Repositories;
 /**
- * Class OutgoingMailRepositories.
+ * Class IncomingMailRepositories.
  * @author  Adam Lesmana Ganda Saputra <aelgees.dev@gmail.com>
  */
 
 use Prettus\Repository\Eloquent\BaseRepository;
-use App\Modules\OutgoingMail\Interfaces\OutgoingMailInterface;
-use App\Modules\OutgoingMail\Models\OutgoingMailModel;
-use App\Modules\OutgoingMail\Constans\OutgoingMailStatusConstants;
-use App\Modules\OutgoingMail\Transformers\OutgoingMailTransformer;
-use App\Modules\OutgoingMail\Models\OutgoingMailAttachment;
+use App\Modules\IncomingMail\Interfaces\IncomingMailInterface;
+use App\Modules\IncomingMail\Models\IncomingMailModel;
+use App\Modules\IncomingMail\Transformers\IncomingMailTransformer;
+use App\Modules\IncomingMail\Models\IncomingMailAttachment;
 use App\Modules\External\Organization\Models\OrganizationModel;
-use App\Modules\OutgoingMail\Models\OutgoingMailForward;
+use App\Modules\IncomingMail\Models\IncomingMailFollowUp;
 use App\Constants\EmailConstants;
 use App\Jobs\SendEmailReminderJob;
 use Validator, DB, Auth;
 use Upload, Smartdoc;
 
-class OutgoingMailRepositories extends BaseRepository implements OutgoingMailInterface
+class IncomingMailRepositories extends BaseRepository implements IncomingMailInterface
 {
 	protected $parents;
 	
 	public function model()
 	{
-		return OutgoingMailModel::class;
+		return IncomingMailModel::class;
 	}
 	
     public function data($request)
@@ -47,10 +46,6 @@ class OutgoingMailRepositories extends BaseRepository implements OutgoingMailInt
 				$query->whereBetween('letter_date', [$request->start_date, $request->end_date]);	
 			}
 		}
-		
-		if ($request->has('status') && !empty($request->status)) {
-			$query->where('status', $request->status);
-		}
 
 		return $query->get();
 	}
@@ -59,28 +54,40 @@ class OutgoingMailRepositories extends BaseRepository implements OutgoingMailInt
     {
 		$data =  $this->model->findOrFail($id);
 		
-		return ['data' => OutgoingMailTransformer::customTransform($data)];
+		return ['data' => $data];
 	}
 	
 	public function create($request)
     {
 		$rules = [
 			'subject_letter' => 'required',
+			'number_letter' => 'required',
 			'type_id' => 'required',
 			'classification_id' => 'required',
 			'letter_date' => 'required',
-			'from_employee_id' => 'required',
+			'recieved_date' => 'required',
+			'sender_name' => 'required',
+			'receiver_name' => 'required',
+			'to_employee_id' => 'required',
+			'structure_id' => 'required',
 			'retension_date' => 'required',
-			'body' => 'required'
+			'file' => 'required|mimes:pdf,xlsx,xls,doc,docx|max:2048',
 		];
 		
 		$message = [
 			'subject_letter.required' => 'perihal surat wajib diisi',
+			'number_letter.required' => 'nomor surat wajib diisi',
 			'type_id.required' => 'jenis surat wajib diisi',
 			'classification_id.required' => 'klasifikasi surat wajib diisi',
-			'from_employee_id.required' => 'pengirim surat wajib diisi',
 			'letter_date.required' => 'tanggal surat wajib diisi',
+			'recieved_letter.required' => 'tanggal diterima surat wajib diisi',
+			'sender_name.required' => 'pengirim surat wajib diisi',
+			'receiver_name.required' => 'penerima surat wajib diisi',
+			'to_employee_id.required' => 'pegawai wajib diisi',
+			'structure_id.required' => 'struktur wajib diisi',
 			'retension_date.required' => 'tanggal retensi wajib diisi',
+			'file.required' => 'file wajib diisi',
+			'file.mimes' => 'file harus berupa berkas berjenis: pdf, xlsx, xls, doc, docx.',
 		];
 		
 		if (isset($request->attachments)) {
@@ -98,35 +105,8 @@ class OutgoingMailRepositories extends BaseRepository implements OutgoingMailInt
 			}
 		} 
 		
-		if (isset($request->copy_of_letter)) {
-			foreach ($request->copy_of_letter as $key => $col) {
-				$rules['copy_of_letter.'.$key] = ['required'];
-				$message['copy_of_letter.'.$key.'.required'] = 'Tembusan '.$key. ' wajib diisi';
-			}
-		} 
-		
 		Validator::validate($request->all(), $rules, $message);
 		
-		$hierarchy_orgs = $this->bottom_to_top($request);
-		$check_director_level = $this->structure_from_employee($request);
-
-		if ($request->button_action == OutgoingMailStatusConstants::SEND_TO_REVIEW)
-		{
-			if ($check_director_level) {
-				/* check list review hierarchy director*/
-				$reviews = review_list(setting_by_code('SURAT_KELUAR'));
-			} else {
-				$reviews = review_list_non_director($hierarchy_orgs);
-			}
-
-			if (!$reviews) {
-				return [
-					'message' => 'Tidak Terdapat User yang akan memeriksa surat ini. silahkan set terlebih dahulu !',
-					'status' => false
-				];	
-			}
-		}
-
 		DB::beginTransaction();
 
         try {
@@ -135,6 +115,10 @@ class OutgoingMailRepositories extends BaseRepository implements OutgoingMailInt
 				'created_by_employee' => Auth::user()->user_core->id_employee,
 				'created_by_structure' => Auth::user()->user_core->structure->id,
 			])->all());
+			
+			$model->update([
+				'number_letter' => Smartdoc::render_code_outgoing($model)
+			]);
 			
 			if (isset($request->copy_of_letter)) {
 				foreach ($request->copy_of_letter as $copy) {
