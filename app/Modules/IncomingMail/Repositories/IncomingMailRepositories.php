@@ -9,12 +9,12 @@ use App\Modules\IncomingMail\Interfaces\IncomingMailInterface;
 use App\Modules\IncomingMail\Models\IncomingMailModel;
 use App\Modules\IncomingMail\Transformers\IncomingMailTransformer;
 use App\Modules\IncomingMail\Models\IncomingMailAttachment;
-use App\Modules\External\Organization\Models\OrganizationModel;
 use App\Modules\IncomingMail\Models\IncomingMailFollowUp;
-use App\Constants\EmailConstants;
+use App\Modules\IncomingMail\Constans\IncomingMailStatusConstans;
+use App\Constants\EmailInConstants;
 use App\Jobs\SendEmailReminderJob;
 use Validator, DB, Auth;
-use Upload, Smartdoc;
+use Upload;
 
 class IncomingMailRepositories extends BaseRepository implements IncomingMailInterface
 {
@@ -54,7 +54,7 @@ class IncomingMailRepositories extends BaseRepository implements IncomingMailInt
     {
 		$data =  $this->model->findOrFail($id);
 		
-		return ['data' => $data];
+		return ['data' => IncomingMailTransformer::customTransform($data)];
 	}
 	
 	public function create($request)
@@ -110,25 +110,11 @@ class IncomingMailRepositories extends BaseRepository implements IncomingMailInt
 		DB::beginTransaction();
 
         try {
-			$model = $this->model->create($request->merge([
-				'status' => OutgoingMailStatusConstants::DRAFT,
-				'created_by_employee' => Auth::user()->user_core->id_employee,
-				'created_by_structure' => Auth::user()->user_core->structure->id,
-			])->all());
-			
-			$model->update([
-				'number_letter' => Smartdoc::render_code_outgoing($model)
-			]);
-			
-			if (isset($request->copy_of_letter)) {
-				foreach ($request->copy_of_letter as $copy) {
-					$model->forwards()->create(['employee_id' => $copy]);
-				}
-			}
-			
+			$model = $this->model->create($request->all());
+
 			if (isset($request->attachments)) {
 				foreach ($request->attachments as $k => $attach) {
-					$upload = Upload::uploads(setting_by_code('PATH_DIGITAL_OUTGOING_MAIL'), $attach['file']);
+					$upload = Upload::uploads(setting_by_code('PATH_DIGITAL_INCOMING_MAIL'), $attach['file']);
 					
 					$model->attachments()->create([
 						'attachment_name' => $attach['attachment_name'],
@@ -138,19 +124,19 @@ class IncomingMailRepositories extends BaseRepository implements IncomingMailInt
 				}
 			}
 			
-			if ($request->button_action == OutgoingMailStatusConstants::SEND_TO_REVIEW) {
-				foreach ($reviews as $review) {
-					$model->approvals()->create([
-						'structure_id' => $review['structure_id'],
-						'employee_id' => $review['employee_id'],
-						'status' => true
-					]);
-				}
-				
+			$upload_main = Upload::uploads(setting_by_code('PATH_DIGITAL_INCOMING_MAIL'), $request->file);
+			
+			$model->update([
+				'status' => false,
+				'path_to_file' => !empty($upload_main) ? $upload_main : null
+			]);
+			
+			if ($request->button_action == IncomingMailStatusConstans::SEND) {
 				$model->update([
-					'current_approval_structure_id' => $reviews[0]['structure_id'],
-					'status' => OutgoingMailStatusConstants::REVIEW,
+					'status' => IncomingMailStatusConstans::SEND
 				]);
+				
+				$this->send_email($model);
 			}
 	
             DB::commit();
@@ -172,84 +158,57 @@ class IncomingMailRepositories extends BaseRepository implements IncomingMailInt
 	
 	public function update($request, $id)
     {
+		$model = $this->model->findOrFail($id);
+		
 		$rules = [
 			'subject_letter' => 'required',
+			'number_letter' => 'required',
 			'type_id' => 'required',
 			'classification_id' => 'required',
 			'letter_date' => 'required',
-			'from_employee_id' => 'required',
-			'body' => 'required'
+			'recieved_date' => 'required',
+			'sender_name' => 'required',
+			'receiver_name' => 'required',
+			'to_employee_id' => 'required',
+			'structure_id' => 'required',
+			'retension_date' => 'required'
 		];
 		
 		$message = [
 			'subject_letter.required' => 'perihal surat wajib diisi',
+			'number_letter.required' => 'nomor surat wajib diisi',
 			'type_id.required' => 'jenis surat wajib diisi',
 			'classification_id.required' => 'klasifikasi surat wajib diisi',
-			'from_employee_id.required' => 'pengirim surat wajib diisi',
 			'letter_date.required' => 'tanggal surat wajib diisi',
+			'recieved_letter.required' => 'tanggal diterima surat wajib diisi',
+			'sender_name.required' => 'pengirim surat wajib diisi',
+			'receiver_name.required' => 'penerima surat wajib diisi',
+			'to_employee_id.required' => 'pegawai wajib diisi',
+			'structure_id.required' => 'struktur wajib diisi',
+			'retension_date.required' => 'tanggal retensi wajib diisi'
 		];
 		
-		if (isset($request->copy_of_letter)) {
-			foreach ($request->copy_of_letter as $key => $col) {
-				$rules['copy_of_letter.'.$key] = ['required'];
-				$message['copy_of_letter.'.$key.'.required'] = 'Tembusan '.$key. ' wajib diisi';
-			}
-		} 
+		if ($request->hasFile('file')) {
+			$rules['file'] = ['mimes:pdf,xlsx,xls,doc,docx|max:2048'];
+			$message['file.mimes'] = 'file harus berupa berkas berjenis: pdf, xlsx, xls, doc, docx.';
+		}
 		
 		Validator::validate($request->all(), $rules, $message);
 		
-		$model = $this->model->findOrFail($id);
-		
-		$hierarchy_orgs = $this->bottom_to_top($request);
-		$check_director_level = $this->structure_from_employee($request);
-
-		if ($request->button_action == OutgoingMailStatusConstants::SEND_TO_REVIEW)
-		{
-			if ($check_director_level) {
-				/* check list review hierarchy director*/
-				$reviews = review_list(setting_by_code('SURAT_KELUAR'));
-			} else {
-				$reviews = review_list_non_director($hierarchy_orgs);
-			}
-			
-			if (!$reviews) {
-				return [
-					'message' => 'Tidak Terdapat User yang akan memeriksa surat ini. silahkan set terlebih dahulu !',
-					'status' => false
-				];	
-			}
-		}
-		
-		
 		DB::beginTransaction();
 
-        try {	
+        try {
 			
-			if (isset($request->copy_of_letter)) {
-				OutgoingMailForward::where('outgoing_mail_id', $model->id)
-					->whereNotIn('employee_id', $request->copy_of_letter)
-					->delete();
-					
-				foreach ($request->copy_of_letter as $col) {
-					$datas = [
-						'outgoing_mail_id' => $id,
-						'employee_id' => $col
-					];
-
-					$check_forwards = OutgoingMailForward::where($datas)->first();
-
-					if (!empty($check_forwards)) {
-						OutgoingMailForward::where('id',$check_forwards->id)->update($datas);
-					}else{
-
-						OutgoingMailForward::create($datas);
-					}
-				}
+			$upload_main = $model->path_to_file;
+		
+			if ($request->hasFile('file')) {
+				Upload::delete($upload_main);
+				$upload_main = Upload::uploads(setting_by_code('PATH_DIGITAL_INCOMING_MAIL'), $request->file);
 			}
 			
 			if (isset($request->attachments)) {
 				foreach ($request->attachments as $k => $attach) {
-					$upload = Upload::uploads(setting_by_code('PATH_DIGITAL_OUTGOING_MAIL'), $attach['file']);
+					$upload = Upload::uploads(setting_by_code('PATH_DIGITAL_INCOMING_MAIL'), $attach['file']);
 					
 					$model->attachments()->create([
 						'attachment_name' => $attach['attachment_name'],
@@ -258,34 +217,16 @@ class IncomingMailRepositories extends BaseRepository implements IncomingMailInt
 					]);
 				}
 			}
+		
+			$model->update($request->merge([
+				'path_to_file' => !empty($upload_main) ? $upload_main : null
+			])->all());
 			
-			if ($request->button_action == OutgoingMailStatusConstants::SEND_TO_REVIEW) {
-				if ($model->from_employee_id != $request->from_employee_id) {
-					$model->approvals()->delete();
-				} else {
-					foreach ($model->approvals as $appro) {
-						$appro->update(['status' => 0]);
-					}
-				}
-				
-				foreach ($reviews as $review) {
-					$model->approvals()->create([
-						'structure_id' => $review['structure_id'],
-						'employee_id' => $review['employee_id'],
-						'status' => true
-					]);
-				}
-				
+			if ($request->button_action == IncomingMailStatusConstans::SEND) {
 				$model->update([
-					'current_approval_structure_id' => $reviews[0]['structure_id'],
-					'current_approval_employee_id' => $reviews[0]['employee_id'],
-					'status' => OutgoingMailStatusConstants::REVIEW,
+					'status' => IncomingMailStatusConstans::SEND
 				]);
-			}
-
-			$model->update($request->all());
-			
-			if ($request->button_action == OutgoingMailStatusConstants::SEND_TO_REVIEW) {
+				
 				$this->send_email($model);
 			}
 			
@@ -316,77 +257,76 @@ class IncomingMailRepositories extends BaseRepository implements IncomingMailInt
 	
 	public function delete_attachment($attachment_id)
     {
-		$model = OutgoingMailAttachment::findOrFail($attachment_id);
+		$model = IncomingMailAttachment::findOrFail($attachment_id);
 		$model->delete();
 		
 		return ['message' => config('constans.success.deleted')];
 	}
 	
-	private function structure_from_employee($request)
-	{
-		$employee = employee_user($request->from_employee_id);
+	public function download_attachment($attachment_id)
+    {
+		$model = IncomingMailAttachment::findOrFail($attachment_id);
+		Upload::download($model->path_to_file);
 		
-		$director_level = unserialize(setting_by_code('DIRECTOR_LEVEL_STRUCTURE'));
-
-		if (in_array($employee->user->structure->kode_struktur, $director_level)) {
-			return true;
-		}
-		
-		return false;
+		return $model->path_to_file;
 	}
 	
-	private function bottom_to_top($request)
-	{
-		$parent_id = Auth::user()->user_core->structure->parent_id;
-		$this->parents[] = Auth::user()->user_core->structure->id;
-		$employee = employee_user($request->from_employee_id);
+	public function download_attachment_main($id)
+    {
+		$model = $this->model->findOrFail($id);
+		Upload::download($model->path_to_file);
 		
-		if ($employee->user->structure->id != Auth::user()->user_core->structure->id) {
-			/* Search Hierarchy Structure Bottom to Top */
-			$this->get_parent(OrganizationModel::find($parent_id), $employee->user->structure->id);
-			/* Search Structure By Hierarchy Code */
-		}
-
-		return OrganizationModel::select('id','kode_struktur')
-				->whereIn('id', $this->parents)
-				->orderBy('id', 'DESC')
-				->get();
+		return $model->path_to_file;
 	}
 	
-	private function get_parent($org, $end_structure)
-	{
-		if ($org) {
-			$this->parents[] = $org->id;
-			
-			if ($org->id === $end_structure) {
-				return;
-			}
-			
-			$this->get_parent(OrganizationModel::find($org->parent_id), $end_structure);
-		}
-	}
 	
 	private function send_email($model)
 	{
-		$body = body_email($model, setting_name_by_code('SURAT_KELUAR'), EmailConstants::REVIEW);
-		$email = smartdoc_user($model->current_approval_employee->user->user_id);
+		$body = body_email_in($model, setting_name_by_code('SURAT_MASUK'), EmailInConstants::SEND);
+		$email = smartdoc_user($model->to_employee->user->user_id);
 		$data = [
 			'email' => !empty($email) ? $email->email : NULL,
-			'name'  => $model->current_approval_employee->name,
-			'notification_action' => config('constans.notif-email.'. EmailConstants::REVIEW),
+			'name'  => $model->to_employee->name,
+			'notification_action' => config('constans.notif-email-in.'. EmailInConstants::SEND),
 			'body' => $body,
 			'button' => true,
-			'url' => setting_by_code('URL_APPROVAL_OUTGOING_MAIL')
+			'url' => setting_by_code('URL_SEND_INCOMING_MAIL')
 		];
 		
 		dispatch(new SendEmailReminderJob($data));
 	}
 	
-	public function download_attachment($attachment_id)
-    {
-		$model = OutgoingMailAttachment::findOrFail($attachment_id);
-		Upload::download($model->path_to_file);
+	public function follow_up($request, $id)
+	{
+		$model = $this->model->followUpEmployee()->firstOrFail();
 		
-		return $model->path_to_file;
+		$rules = [
+			'description' => 'required'
+		];
+		
+		$message = [
+			'description.required' => 'catatan tindak lanjut wajib diisi'
+		];
+		
+		if ($request->hasFile('file')) {
+			$rules['file'] = ['mimes:pdf,xlsx,xls,doc,docx|max:2048'];
+			$message['file.mimes'] = 'file harus berupa berkas berjenis: pdf, xlsx, xls, doc, docx.';
+		}
+		
+		Validator::validate($request->all(), $rules, $message);
+		
+		$upload = Upload::uploads(setting_by_code('PATH_DIGITAL_INCOMING_MAIL'), $request->file);
+		
+		$model->update([
+			'status' => IncomingMailStatusConstans::DONE
+		]);
+		
+		$model->follow_ups()->create([
+			'employee_id' => Auth::user()->user_core->id_employee,
+			'description' => $request->description,
+			'path_to_file' => !empty($upload) ? $upload : null
+		]);
+		
+		return ['message' => config('constans.success.follow-up')];
 	}
 }

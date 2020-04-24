@@ -50,7 +50,7 @@ class OutgoingMailTransformer extends TransformerAbstract
 		];
 	 }
 	 
-	 /** 
+	/** 
 	 * OutgoingMail Transformer Custom
 	 * @return array
 	 */

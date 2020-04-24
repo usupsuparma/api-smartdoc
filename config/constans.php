@@ -1,6 +1,8 @@
 <?php 
 use App\Modules\OutgoingMail\Constans\OutgoingMailStatusConstants;
+use App\Modules\IncomingMail\Constans\IncomingMailStatusConstans;
 use App\Constants\EmailConstants;
+use App\Constants\EmailInConstants;
 use App\Constants\StatusApprovalConstants;
 return [
 	'success' => [
@@ -18,6 +20,7 @@ return [
 		'reject' => 'Data berhasil dikembalikan.',
 		'publish' => 'Data berhasil diterbitkan.',
 		'signed' => 'Berhasil melakukan tanda tangan.',
+		'follow-up' => 'Berhasil melakukan tindak lanjut surat.',
 	], 
 	'error' => [
 		'logout' => 'Gagal melakukan logout.',
@@ -49,6 +52,19 @@ return [
 		EmailConstants::SIGNED => 'Tanda Tangan Digital Surat',
 		EmailConstants::PUBLISH => 'Penerbitan Surat',
 		EmailConstants::REJECT => 'Surat Ditolak' 
+	],
+	'status-action-in' => [
+		IncomingMailStatusConstans::DRAFT => 'Draft',
+		IncomingMailStatusConstans::SEND => 'Menunggu Tindak Lanjut',
+		IncomingMailStatusConstans::DISPOSITION => 'Disposisi',
+		IncomingMailStatusConstans::FOLLOW_UP => 'Menunggu Tindak Lanjut',
+		IncomingMailStatusConstans::DONE => 'Selesai'
+	],
+	'email-in' => [
+		EmailInConstants::SEND => 'Permintaan untuk proses tindak lanjut #category# (#subject#). Jika anda akan melakukan proses tinak lanjut, klik tombol di bawah ini. ',
+	],
+	'notif-email-in' => [
+		EmailInConstants::SEND => 'Tindak Lanjut Surat'
 	],
 	'status-approval' => [
 		StatusApprovalConstants::REJECT => 'Reject',

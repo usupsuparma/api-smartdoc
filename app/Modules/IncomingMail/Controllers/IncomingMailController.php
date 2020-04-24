@@ -59,17 +59,40 @@ class IncomingMailController extends BaseController
         return $this->successResponse($this->incomingMailRepositories->delete($id), 200); 
 	}
 	
-	public function delete_attachment($id)
+	public function delete_attachment_main($id)
     {
 		Authority::check('delete');
 		
-        return $this->successResponse($this->incomingMailRepositories->delete_attachment($id), 200); 
+        return $this->successResponse($this->incomingMailRepositories->delete_attachment_main($id), 200); 
+	}
+	
+	public function download_attachment_main($id)
+    {
+		Authority::check('export');
+		
+		$path = storage_path('app/public'. $this->incomingMailRepositories->download_attachment_main($id));
+
+		return response()->download($path, basename($path));
+	}
+	
+	public function delete_attachment($attachment_id)
+    {
+		Authority::check('delete');
+		
+        return $this->successResponse($this->incomingMailRepositories->delete_attachment($attachment_id), 200); 
 	}
 	
 	public function download_attachment($attachment_id)
     {
+		Authority::check('export');
+		
 		$path = storage_path('app/public'. $this->incomingMailRepositories->download_attachment($attachment_id));
 
 		return response()->download($path, basename($path));
+	}
+	
+	public function follow_up(Request $request,$id)
+    {	
+		return $this->successResponse($this->incomingMailRepositories->follow_up($request, $id), 200); 
 	}
 }

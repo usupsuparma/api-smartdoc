@@ -6,8 +6,12 @@
 use Illuminate\Support\Facades\Storage;
 use GlobalHelper;
 use QRcode;
+use Illuminate\Support\Str;
+
 class Upload
 {	
+	const STR_RANDOM = 32;
+	
 	public static function uploads($path, $file)
 	{
 		$original_name = $file->getClientOriginalName();
@@ -15,7 +19,7 @@ class Upload
 		
         $file_extension = $file->getClientOriginalExtension();
 		$real_path = $file->getRealPath();
-		$custom_file_name = $file_name. '_' . date('Ymdhis') . '.' . $file_extension;
+		$custom_file_name = $file_name. '_' . Str::random(self::STR_RANDOM) . '.' . $file_extension;
 		
 		/* Path Folder Modules */
 		$ftp_path = setting_by_code('FTP_DIRECTORY_ROOT');

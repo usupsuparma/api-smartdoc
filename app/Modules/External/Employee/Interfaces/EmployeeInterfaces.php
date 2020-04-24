@@ -10,4 +10,6 @@ interface EmployeeInterface extends RepositoryInterface
 	public function options();
 	
 	public function option_hierarchy();	
+	
+	public function option_structure($id);	
 }

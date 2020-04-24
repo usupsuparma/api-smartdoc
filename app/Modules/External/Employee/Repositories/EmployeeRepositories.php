@@ -57,6 +57,26 @@ class EmployeeRepositories extends BaseRepository implements EmployeeInterface
 		return ['data' => $results];
 	}
 	
+	public function option_structure($id)
+	{
+		$results = [];
+
+		$employee = $this->model->whereHas('user', function ($q) use ($id) {
+			$q->where('kode_struktur', $id);
+		})->get();
+		
+		if (!empty($employee)) {
+			foreach ($employee as $em) {
+				$results[] = [
+					'id' => $em->id_employee,
+					'name' => $em->nik .' - '. $em->name
+				];
+			}
+		}
+		
+		return ['data' => $results];
+	}
+	
 	private function get_parent($org)
 	{
 		if ($org) {

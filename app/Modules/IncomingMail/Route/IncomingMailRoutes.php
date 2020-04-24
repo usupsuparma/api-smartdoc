@@ -43,12 +43,17 @@ class IncomingMailRoutes extends BaseRoutes
 				'uses' => 'IncomingMailController@delete'
 			]);
 			
-			$app->router->post('/update/followup/{id}', [
-				'as' => $this->route_prefix . '.update_follow_up',
-				'uses' => 'IncomingMailController@update_follow_up'
+			$app->router->post('/update/follow-up/{id}', [
+				'as' => $this->route_prefix . '.follow_up',
+				'uses' => 'IncomingMailController@follow_up'
 			]);
 			
-			$app->router->delete('/attachment/{id}', [
+			$app->router->get('/download/attachment-main/{id}', [
+				'as' => $this->route_prefix . '.download_attachment_main',
+				'uses' => 'IncomingMailController@download_attachment_main'
+			]);
+			
+			$app->router->delete('/attachment/{attachment_id}', [
 				'as' => $this->route_prefix . '.delete_attachment',
 				'uses' => 'IncomingMailController@delete_attachment'
 			]);

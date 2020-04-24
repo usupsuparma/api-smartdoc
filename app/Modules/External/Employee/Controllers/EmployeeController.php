@@ -27,4 +27,9 @@ class EmployeeController extends BaseController
 	{
 		return $this->successResponse($this->employeeRepository->option_hierarchy(),200);
 	}
+	
+	public function option_structure($id)
+	{
+		return $this->successResponse($this->employeeRepository->option_structure($id),200);
+	}
 }

@@ -12,7 +12,8 @@ use App\Modules\Master\Type\Models\TypeModel;
 use App\Modules\Master\Classification\Models\ClassificationModel;
 use App\Modules\External\Employee\Models\EmployeeModel;
 use App\Modules\External\Organization\Models\OrganizationModel;
-use Auth;
+use App\Modules\IncomingMail\Constans\IncomingMailStatusConstans;
+use Auth, Upload;
 
 class IncomingMailModel extends Model
 {
@@ -37,7 +38,7 @@ class IncomingMailModel extends Model
 	
 	public function follow_ups()
 	{
-		return $this->hasMany(IncomingMailFollowUp::class, 'outgoing_mail_id', 'id');
+		return $this->hasMany(IncomingMailFollowUp::class, 'incoming_mail_id', 'id');
 	}
 	
 	public function type()
@@ -57,18 +58,28 @@ class IncomingMailModel extends Model
 	
 	public function structure()
 	{
-		return $this->belongsTo(OrganizationModel::class, 'created_by_structure');
+		return $this->belongsTo(OrganizationModel::class, 'structure_id');
 	}
 	
 	public function scopeAuthorityData($query)
 	{
-		$structure_id = Auth::user()->user_core->structure->id;
+		$employee_id = Auth::user()->user_core->id_employee;
 		
 		if (Auth::user()->role->categories === 'management') {
-			return $query->where('structure_id', $structure_id);
+			return $query->where('to_employee_id', $employee_id);
 		} 
 		
 		return $query;
+	}
+	
+	public function scopeFollowUpEmployee($query)
+	{
+		$employee_id = Auth::user()->user_core->employee->id_employee;
+		
+		return $query->where([
+			'to_employee_id' => $employee_id,
+			'status' => IncomingMailStatusConstans::SEND,
+		]);
 	}
 	
 	protected static function boot() 
@@ -76,6 +87,9 @@ class IncomingMailModel extends Model
 		parent::boot();
 
 		static::deleting(function($mails) {
+			/* Remove main file*/
+			Upload::delete($mails->path_to_file);
+			
 			/* Remove relation attachment */
 			foreach ($mails->attachments()->get() as $attachment) {
 				$attachment->delete();

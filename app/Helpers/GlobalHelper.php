@@ -172,3 +172,15 @@ if (!function_exists('body_email')) {
 		return str_replace($origin, $replace, $body);
     }
 }
+
+if (!function_exists('body_email_in')) {
+	
+    function body_email_in($model, $category, $action_mail)
+    {
+        $body = config('constans.email-in.'. $action_mail);
+		$origin = ['#category#', '#subject#'];
+        $replace   = [$category, $model->subject_letter];
+        
+		return str_replace($origin, $replace, $body);
+    }
+}

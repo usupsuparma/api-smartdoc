@@ -24,6 +24,11 @@ class EmployeeRoutes extends BaseRoutes
 				'uses' => 'EmployeeController@options'
 			]);
 			
+			$app->router->get('/select/data-structure/{id}', [
+				'as' => $this->route_prefix . '.option_structure',
+				'uses' => 'EmployeeController@option_structure'
+			]);
+			
 			$app->router->get('/select/hierarchy', [
 				'as' => $this->route_prefix . '.option_hierarchy',
 				'uses' => 'EmployeeController@option_hierarchy'

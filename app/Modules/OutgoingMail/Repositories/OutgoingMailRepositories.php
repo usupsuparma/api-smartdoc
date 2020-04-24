@@ -168,6 +168,10 @@ class OutgoingMailRepositories extends BaseRepository implements OutgoingMailInt
 					'status' => OutgoingMailStatusConstants::REVIEW,
 				]);
 			}
+			
+			if ($request->button_action == OutgoingMailStatusConstants::SEND_TO_REVIEW) {
+				$this->send_email($model);
+			}
 	
             DB::commit();
         } catch (\Exception $ex) {
