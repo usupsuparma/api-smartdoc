@@ -31,6 +31,7 @@ class IncomingMailRepositories extends BaseRepository implements IncomingMailInt
 		
 		if ($request->has('keyword') && !empty($request->keyword)) {
 			$query->where('subject_letter', 'like', "%{$request->keyword}%");
+			$query->orWhere('number_letter', 'like', "%{$request->keyword}%");
 		}
 		
 		if ($request->has('type_id') && !empty($request->type_id)) {
