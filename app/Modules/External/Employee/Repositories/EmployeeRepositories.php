@@ -29,7 +29,6 @@ class EmployeeRepositories extends BaseRepository implements EmployeeInterface
 	public function option_hierarchy()
 	{
 		$results = [];
-		
 		$parent_id = Auth::user()->user_core->structure->parent_id;
 		$this->parents[] = Auth::user()->user_core->structure->id;
 		
@@ -37,7 +36,7 @@ class EmployeeRepositories extends BaseRepository implements EmployeeInterface
 		$this->get_parent(OrganizationModel::find($parent_id), $parent_id);
 		
 		/* Search Structure By Hierarchy Code */
-		$org = OrganizationModel::whereIn('id', $this->parents)->pluck('kode_struktur');
+		$org = OrganizationModel::whereIn('id', $this->parents)->pluck('id');
 		
 		/* Search User By Code Structure */
 		$users = ExternalUserModel::isActive()
