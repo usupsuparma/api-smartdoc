@@ -77,7 +77,7 @@ class TestRepositories extends BaseRepository implements TestInterface
 			'image_qr' => $createQR
 		];
 		
-		Smartdoc::generate($data);
+		Smartdoc::generate($data, $request->body);
 		
 		Upload::delete_local($createQR);
 	}

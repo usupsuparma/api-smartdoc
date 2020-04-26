@@ -42,7 +42,7 @@ class TestRoutes extends BaseRoutes
 				'uses' => 'TestController@delete'
 			]);
 			
-			$app->router->get('/generate/pdf', [
+			$app->router->post('/generate/pdf', [
 				'as' => $this->route_prefix . '.generate',
 				'uses' => 'TestController@generate'
 			]);
