@@ -62,6 +62,11 @@ class OutgoingMailRoutes extends BaseRoutes
 				'as' => $this->route_prefix . '.download_attachment',
 				'uses' => 'OutgoingMailController@download_attachment'
 			]);
+			
+			$app->router->get('/download/attachment-main/{id}', [
+				'as' => $this->route_prefix . '.download_attachment_main',
+				'uses' => 'OutgoingMailController@download_attachment_main'
+			]);
 	
 		});
 	}

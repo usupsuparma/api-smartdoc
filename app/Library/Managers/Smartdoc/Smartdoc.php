@@ -222,6 +222,7 @@ class Smartdoc extends PDF
 	
 	public function generate()
     {
+		
 		$public = 'file:///Users/aelgees/PIDUITEUN/php/dgsign/test_public_key.pem';
 		$private = 'file:///Users/aelgees/PIDUITEUN/php/dgsign/test_private_key.pem';
 		$filekosongan = 'file:///Users/aelgees/PIDUITEUN/php/dgsign/ND - Nota Dinas.pdf';
@@ -244,7 +245,28 @@ class Smartdoc extends PDF
 		PDF::setSignature($public, $private, 'X8HCRIAD', '' , 2, $info);
 		PDF::SetFont('helvetica', '', 12);
 		PDF::AddPage();
-		$text = 'This is a <b color="#FF0000">Clean and add digitally signed document</b> ADAM LESMANA GANDA SAPUTRA';
+		$text = '<p><strong>Lorem Ipsum</strong>&nbsp;is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+		<p>&nbsp;</p>
+		<table style="border-collapse: collapse; width: 100.206%; height: 106px;">
+		<tbody>
+		<tr style="height: 21px;">
+		<td style="width: 12.4672%; height: 21px;">Nama</td>
+		<td style="width: 2.72302%; text-align: right; height: 21px;">:</td>
+		<td style="width: 84.8097%; height: 21px;">Adam Lesmana</td>
+		</tr>
+		<tr style="height: 21px;">
+		<td style="width: 12.4672%; height: 21px;">Nik</td>
+		<td style="width: 2.72302%; text-align: right; height: 21px;">:</td>
+		<td style="width: 84.8097%; height: 21px;">12012012121</td>
+		</tr>
+		<tr style="height: 21px;">
+		<td style="width: 12.4672%; height: 21px;">Jabatan</td>
+		<td style="width: 2.72302%; text-align: right; height: 21px;">:</td>
+		<td style="width: 84.8097%; height: 21px;">Customer Service</td>
+		</tr>
+		</tbody>
+		</table>
+		<p>&nbsp;</p>';
 		PDF::writeHTML($text, true, 0, true, 0);
 		// PDF::Image('images/tcpdf_signature.png', 180, 60, 15, 15, 'PNG');
 		PDF::setSignatureAppearance(180, 60, 15, 15);
@@ -262,7 +284,7 @@ class Smartdoc extends PDF
 		// 	PDF::setSignature($public, $private, 'X8HCRIAD', '' , 2, $info);
 		// }
 		
-		PDF::Output('/Users/aelgees/PIDUITEUN/php/dgsign/TEST TAI.pdf', 'F');
+		PDF::Output('/Users/aelgees/PIDUITEUN/php/dgsign/TEST TAI.pdf', 'I');
 	}
 	
 	public function render_code_outgoing($model)

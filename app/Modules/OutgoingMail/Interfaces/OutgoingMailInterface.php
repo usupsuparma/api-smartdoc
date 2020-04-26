@@ -21,5 +21,7 @@ interface OutgoingMailInterface extends RepositoryInterface
 	
 	public function download_attachment($attachment_id);
 	
+	public function download_attachment_main($id);
+	
 	
 }

@@ -67,23 +67,16 @@ class OutgoingMailController extends BaseController
         return $this->successResponse($this->outgoingMailRepository->delete_attachment($id), 200); 
 	}
 	
-	public function approval(Request $request)
-	{
-		Authority::check('approve');
-		
-        return $this->successResponse($this->outgoingMailRepository->approval($request), 200); 
-	}
-	
-	public function publish(Request $request)
-	{
-		Authority::check('approve');
-		
-        return $this->successResponse($this->outgoingMailRepository->publish($request), 200); 
-	}
-	
 	public function download_attachment($attachment_id)
     {
 		$path = storage_path('app/public'. $this->outgoingMailRepository->download_attachment($attachment_id));
+
+		return response()->download($path, basename($path));
+	}
+	
+	public function download_attachment_main($id)
+    {
+		$path = storage_path('app/public'. $this->outgoingMailRepository->download_attachment_main($id));
 
 		return response()->download($path, basename($path));
 	}

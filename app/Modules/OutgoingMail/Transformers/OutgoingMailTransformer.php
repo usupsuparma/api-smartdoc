@@ -4,6 +4,7 @@
  */
 
 use League\Fractal\TransformerAbstract;
+use App\Modules\OutgoingMail\Constans\OutgoingMailStatusConstants;
 
 class OutgoingMailTransformer extends TransformerAbstract
 {
@@ -13,6 +14,12 @@ class OutgoingMailTransformer extends TransformerAbstract
 	 */
 	 public function transform($data) 
 	 {
+		$file = false;
+		
+		if ($data->status == (OutgoingMailStatusConstants::PUBLISH || OutgoingMailStatusConstants::SIGNED)) {
+			$file = true;
+		}
+		
 		return [
 			'id' => (int) $data->id,
 			'number_letter' => !empty($data->number_letter) ? $data->number_letter : null,
@@ -45,6 +52,7 @@ class OutgoingMailTransformer extends TransformerAbstract
 				'employee_name' => !empty($data->current_approval_employee) ? $data->current_approval_employee->name : '',
 				'status_code' => (int) $data->status
 			],
+			'file' => $file,
 			'created_at' => $data->created_at->format('d-m-Y'),
 			'updated_at' => $data->updated_at->format('d-m-Y')
 		];

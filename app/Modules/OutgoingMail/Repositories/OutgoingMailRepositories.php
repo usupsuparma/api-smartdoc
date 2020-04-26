@@ -409,4 +409,12 @@ class OutgoingMailRepositories extends BaseRepository implements OutgoingMailInt
 		
 		return $model->path_to_file;
 	}
+	
+	public function download_attachment_main($id)
+    {
+		$model = $this->model->findOrFail($id);
+		Upload::download($model->path_to_file);
+		
+		return $model->path_to_file;
+	}
 }
