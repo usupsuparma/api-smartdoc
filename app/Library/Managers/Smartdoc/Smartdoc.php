@@ -64,7 +64,7 @@ class Smartdoc extends PDF
 		PDF::SetTitle('Surat Keluar');
 		PDF::SetSubject($model->subject_letter);
 		
-		PDF::SetAutoPageBreak(TRUE, 20);
+		PDF::SetAutoPageBreak(TRUE, 10);
 		
 		PDF::SetProtection([
 			'modify', 
@@ -89,7 +89,7 @@ class Smartdoc extends PDF
 		if (PDF::getPage() === PDF::getNumPages()) {
 			if (isset($data['image_qr'])) {
 				$image_file = storage_path('app/public'. $data['image_qr']);
-				PDF::Image($image_file, 15, 240, 30, 30, 'PNG');
+				PDF::Image($image_file, 182, 260, 20, 20, 'PNG');
 			}
 		}
 		
@@ -165,7 +165,7 @@ class Smartdoc extends PDF
 		PDF::SetTitle('Surat Keluar');
 		PDF::SetSubject($model->subject_letter);
 		
-		PDF::SetAutoPageBreak(TRUE, 20);
+		PDF::SetAutoPageBreak(TRUE, 10);
 		
 		PDF::SetProtection([
 			'modify', 
@@ -199,7 +199,7 @@ class Smartdoc extends PDF
 		if (PDF::getPage() === PDF::getNumPages()) {
 			if (isset($data['image_qr'])) {
 				$image_file = storage_path('app/public'. $data['image_qr']);
-				PDF::Image($image_file, 15, 240, 30, 30, 'PNG');
+				PDF::Image($image_file, 182, 260, 20, 20, 'PNG');
 			}
 		}
 		
@@ -278,7 +278,7 @@ class Smartdoc extends PDF
 		// 	'Reason' => 'Surat Keluar',
 		// 	'ContactInfo' => '',
 		// 	);
-			PDF::SetAutoPageBreak(TRUE, 20);
+			PDF::SetAutoPageBreak(TRUE, 10);
 		
 			PDF::SetProtection([
 				'modify', 
@@ -326,7 +326,7 @@ class Smartdoc extends PDF
 		if (PDF::getPage() === PDF::getNumPages()) {
 			if (isset($data['image_qr'])) {
 				$image_file = storage_path('app/public'. $data['image_qr']);
-				PDF::Image($image_file, 15, 240, 30, 30, 'PNG');
+				PDF::Image($image_file, 182, 260, 20, 20, 'PNG');
 			}
 		}
 		
