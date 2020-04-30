@@ -53,6 +53,7 @@ class DispositionTransformer extends TransformerAbstract
 	public static function customTransform($data) 
 	{
 	   	$data_assigns = [];
+	   	$progress = $data->assign->count();
 	   
 	   	if (!empty($data->assign)) {
 			foreach ($data->assign as $assign) {
@@ -73,7 +74,7 @@ class DispositionTransformer extends TransformerAbstract
 				];
 			}
 		}
-		 
+		
 	   	return [
 			'id' => (int) $data->id,
 			'incoming_mail' => [
@@ -90,6 +91,8 @@ class DispositionTransformer extends TransformerAbstract
 				'name' => !empty($data->employee) ? $data->employee->name : null,
 			],
 		   	'assigns' => !empty($data_assigns) ? $data_assigns : null,
+		   	'progress' => $progress,
+		   	'signature_available' => !empty($data->signature) ? true : false,
 			'status' => $data->status,
 	   	];
 	}

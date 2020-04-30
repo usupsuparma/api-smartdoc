@@ -43,19 +43,19 @@ class DispositionRoutes extends BaseRoutes
 				'uses' => 'DispositionController@delete'
 			]);
 			
-			$app->router->post('/update/follow-up/{id}', [
-				'as' => $this->route_prefix . '.follow_up',
-				'uses' => 'DispositionController@follow_up'
-			]);
-			
 			$app->router->get('/download/attachment-main/{id}', [
-				'as' => $this->route_prefix . '.download_attachment_main',
-				'uses' => 'DispositionController@download_attachment_main'
+				'as' => $this->route_prefix . '.download_main',
+				'uses' => 'DispositionController@download_main'
 			]);
 			
-			$app->router->get('/download/attachment/{attachment_id}', [
-				'as' => $this->route_prefix . '.download_attachment',
-				'uses' => 'DispositionController@download_attachment'
+			$app->router->get('/download/attachment-incoming/{incoming_mail_id}', [
+				'as' => $this->route_prefix . '.download_incoming',
+				'uses' => 'DispositionController@download_incoming'
+			]);
+			
+			$app->router->get('/download/attachment-follow/{follow_id}', [
+				'as' => $this->route_prefix . '.download_follow',
+				'uses' => 'DispositionController@download_follow'
 			]);
 	
 		});

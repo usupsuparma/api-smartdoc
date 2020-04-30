@@ -54,22 +54,35 @@ class DispositionController extends BaseController
 	
 	public function delete($id)
     {
-		Authority::check('delete');
+		// Authority::check('delete');
 		
         return $this->successResponse($this->dispositionRepositories->delete($id), 200); 
 	}
 	
-	public function download_attachment($attachment_id)
+	public function download_incoming($incoming_mail_id)
     {
-		Authority::check('export');
+		// Authority::check('export');
 		
-		$path = storage_path('app/public'. $this->dispositionRepositories->download_attachment($attachment_id));
+		$path = storage_path('app/public'. $this->dispositionRepositories->download_incoming($incoming_mail_id));
 
 		return response()->download($path, basename($path));
 	}
 	
-	public function follow_up(Request $request,$id)
-    {	
-		return $this->successResponse($this->dispositionRepositories->follow_up($request, $id), 200); 
+	public function download_main($id)
+    {
+		// Authority::check('export');
+		
+		$path = storage_path('app/public'. $this->dispositionRepositories->download_main($id));
+
+		return response()->download($path, basename($path));
+	}
+	
+	public function download_follow($follow_up_id)
+    {
+		// Authority::check('export');
+		
+		$path = storage_path('app/public'. $this->dispositionRepositories->download_follow($follow_up_id));
+
+		return response()->download($path, basename($path));
 	}
 }

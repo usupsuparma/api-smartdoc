@@ -12,6 +12,7 @@ use App\Modules\Disposition\Models\DispositionAssign;
 use App\Modules\Disposition\Models\DispositionFollowUp;
 use App\Modules\Signature\Models\SignatureModel;
 use App\Modules\IncomingMail\Constans\IncomingMailStatusConstans;
+use App\Modules\IncomingMail\Models\IncomingMailModel;
 use App\Constants\EmailInConstants;
 use App\Jobs\SendEmailReminderJob;
 use Illuminate\Support\Facades\Crypt;
@@ -255,9 +256,8 @@ class DispositionRepositories extends BaseRepository implements DispositionInter
 						'number_disposition' => Smartdoc::render_code_disposition($structure_code_user),
 					]);
 				}
-		
-				$document = Smartdoc::disposition_mail($model, $qr_code);
 				
+				$document = Smartdoc::disposition_mail($model, $qr_code);
 				/* Upload document local data to FTP */
 				Upload::upload_local_to_ftp($document);
 				
@@ -315,14 +315,16 @@ class DispositionRepositories extends BaseRepository implements DispositionInter
 				);
 				$ids[] = $check_assign->id;
 			}else{
-				$q = DispositionAssign::create($datas);
+				$q = DispositionAssign::create(
+					array_merge($datas, ['classification_disposition_id' => $assign['classification_disposition_id']])
+				);
 				$ids[] = $q->id;
 			}
 		}
 		
 		DispositionAssign::where('disposition_id', $model->id)
-					->whereNotIn('id', $ids)
-					->delete();
+			->whereNotIn('id', $ids)
+			->delete();
 	}
 	
 	public function delete($id)
@@ -334,23 +336,7 @@ class DispositionRepositories extends BaseRepository implements DispositionInter
 		return ['message' => config('constans.success.deleted')];
 	}
 	
-	public function delete_attachment($attachment_id)
-    {
-		$model = IncomingMailAttachment::findOrFail($attachment_id);
-		$model->delete();
-		
-		return ['message' => config('constans.success.deleted')];
-	}
-	
-	public function download_attachment($attachment_id)
-    {
-		$model = IncomingMailAttachment::findOrFail($attachment_id);
-		Upload::download($model->path_to_file);
-		
-		return $model->path_to_file;
-	}
-	
-	public function download_attachment_main($id)
+	public function download_main($id)
     {
 		$model = $this->model->findOrFail($id);
 		Upload::download($model->path_to_file);
@@ -358,6 +344,21 @@ class DispositionRepositories extends BaseRepository implements DispositionInter
 		return $model->path_to_file;
 	}
 	
+	public function download_incoming($incoming_mail_id)
+    {
+		$model = IncomingMailModel::findOrFail($incoming_mail_id);
+		Upload::download($model->path_to_file);
+		
+		return $model->path_to_file;
+	}
+	
+	public function download_follow($follow_id)
+    {
+		$model = DispositionFollowUp::findOrFail($follow_id);
+		Upload::download($model->path_to_file);
+		
+		return $model->path_to_file;
+	}
 	
 	private function send_email($model)
 	{
