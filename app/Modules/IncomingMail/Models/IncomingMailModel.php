@@ -82,6 +82,22 @@ class IncomingMailModel extends Model
 		]);
 	}
 	
+	public function scopeOptions($query, $default = NULL)
+    {
+        $list = [];
+		$query->where('to_employee_id', Auth::user()->user_core->employee->id_employee);
+		
+        foreach ($query->orderBy('number_letter')->get() as $dt) {
+            $list[] = [
+				'id' => $dt->id,
+				'number_letter' => $dt->number_letter,
+				'subject_letter' => $dt->subject_letter,
+			];
+		}
+		
+        return $list;
+    }
+	
 	protected static function boot() 
     {
 		parent::boot();

@@ -15,26 +15,26 @@ class DispositionFollowController extends BaseController
 	public function __construct(DispositionFollowRepositories $dispositionFollowRepository) 
 	{
 		$this->dispositionFollowRepository = $dispositionFollowRepository;
-		// Authority::acl_access(Auth::user(), 'dispositions-follow');
+		Authority::acl_access(Auth::user(), 'dispositions-follow');
 	}
 	
 	public function data(Request $request)
 	{
-		// Authority::check('read');
+		Authority::check('read');
 		
 		return $this->showAll($this->dispositionFollowRepository->data($request),200);
 	}
 	
 	public function show($id)
 	{
-		// Authority::check('read');
+		Authority::check('read');
 		
 		return $this->successResponse($this->dispositionFollowRepository->show($id),200);
 	}
 	
 	public function follow_up(Request $request, $id)
 	{
-		// Authority::check('create');
+		Authority::check('create');
 		
 		$results = $this->dispositionFollowRepository->follow_up($request, $id);
 		

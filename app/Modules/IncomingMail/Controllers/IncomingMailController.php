@@ -95,4 +95,9 @@ class IncomingMailController extends BaseController
     {	
 		return $this->successResponse($this->incomingMailRepositories->follow_up($request, $id), 200); 
 	}
+	
+	public function options()
+	{
+		return $this->successResponse($this->incomingMailRepositories->options(),200);
+	}
 }

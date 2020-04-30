@@ -62,6 +62,11 @@ class IncomingMailRoutes extends BaseRoutes
 				'as' => $this->route_prefix . '.download_attachment',
 				'uses' => 'IncomingMailController@download_attachment'
 			]);
+			
+			$app->router->get('/select/data', [
+				'as' => $this->route_prefix . '.options',
+				'uses' => 'IncomingMailController@options'
+			]);
 	
 		});
 	}

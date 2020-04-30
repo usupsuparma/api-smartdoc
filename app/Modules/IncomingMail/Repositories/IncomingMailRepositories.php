@@ -330,4 +330,9 @@ class IncomingMailRepositories extends BaseRepository implements IncomingMailInt
 		
 		return ['message' => config('constans.success.follow-up')];
 	}
+	
+	public function options()
+	{
+		return ['data' => $this->model->options()];
+	}
 }
