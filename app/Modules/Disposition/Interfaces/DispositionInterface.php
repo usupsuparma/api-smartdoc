@@ -13,9 +13,9 @@ interface DispositionInterface extends RepositoryInterface
     
 	public function create($request);
 	
-	public function update($request, $id);
+	// public function update($request, $id);
 	
-	public function delete($id);
+	// public function delete($id);
 	
-	public function download_attachment($id);
+	// public function download_attachment($id);
 }

@@ -23,6 +23,11 @@ class OrganizationRoutes extends BaseRoutes
 				'as' => $this->route_prefix . '.options',
 				'uses' => 'OrganizationController@options'
 			]);
+			
+			$app->router->get('/select/disposition', [
+				'as' => $this->route_prefix . '.option_disposition',
+				'uses' => 'OrganizationController@option_disposition'
+			]);
 	
 		});
 	}

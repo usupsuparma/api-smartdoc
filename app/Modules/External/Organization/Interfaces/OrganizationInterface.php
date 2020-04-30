@@ -8,4 +8,6 @@ use Prettus\Repository\Contracts\RepositoryInterface;
 interface OrganizationInterface extends RepositoryInterface
 {	
 	public function options();
+	
+	public function option_disposition($incoming_mail_id);
 }

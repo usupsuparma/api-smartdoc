@@ -59,8 +59,8 @@ class IncomingMailTransformer extends TransformerAbstract
 		];
 	 }
 	 
-	 /** 
-	 * OutgoingMail Transformer Custom
+	/** 
+	 * IncomingMail Transformer Custom
 	 * @return array
 	 */
 	public static function customTransform($data) 

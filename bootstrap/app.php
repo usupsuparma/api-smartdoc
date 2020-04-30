@@ -30,6 +30,7 @@ $app->configure('mail');
 $app->configure('repository');
 $app->configure('queue');
 $app->configure('tcpdf');
+$app->configure('onesignal');
 // $app->configure('services');
 
 $app->withFacades(true, [
@@ -119,6 +120,7 @@ $app->register(App\Modules\OutgoingMail\Providers\AdminOutgoingMailServiceProvid
 $app->register(App\Modules\OutgoingMail\Providers\ApprovalOutgoingMailServiceProvider::class);
 $app->register(App\Modules\OutgoingMail\Providers\SignedOutgoingMailServiceProvider::class);
 $app->register(App\Modules\IncomingMail\Providers\IncomingMailServiceProvider::class);
+$app->register(App\Modules\Disposition\Providers\DispositionServiceProvider::class);
 
 $app->register(App\Modules\Review\Providers\ReviewServiceProvider::class);
 $app->register(App\Modules\Signature\Providers\SignatureServiceProvider::class);
@@ -161,6 +163,10 @@ class_alias(Elibyy\TCPDF\Facades\TCPDF::class, 'PDF');
 /* QRcode */
 $app->register(SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class);
 class_alias(SimpleSoftwareIO\QrCode\Facades\QrCode::class, 'QrCode');
+
+/* OneSignal */
+$app->register(Berkayk\OneSignal\OneSignalServiceProvider::class);
+class_alias(Berkayk\OneSignal\OneSignalFacade::class, 'OneSignal');
 
 /*
 |--------------------------------------------------------------------------

@@ -7,7 +7,7 @@
 use Prettus\Repository\Eloquent\BaseRepository;
 use App\Modules\External\Organization\Interfaces\OrganizationInterface;
 use App\Modules\External\Organization\Models\OrganizationModel;
-use Validator;
+use App\Modules\IncomingMail\Models\IncomingMailModel;
 
 class OrganizationRepositories extends BaseRepository implements OrganizationInterface
 {
@@ -17,6 +17,11 @@ class OrganizationRepositories extends BaseRepository implements OrganizationInt
 	}
 	
 	public function options()
+	{
+		return ['data' => $this->model->options()];
+	}
+	
+	public function option_disposition($incoming_mail_id)
 	{
 		return ['data' => $this->model->options()];
 	}
