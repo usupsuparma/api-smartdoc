@@ -4,7 +4,6 @@
  */
 
 use League\Fractal\TransformerAbstract;
-use Auth;
 
 class DispositionTransformer extends TransformerAbstract
 {
@@ -14,13 +13,16 @@ class DispositionTransformer extends TransformerAbstract
 	 */
 	 public function transform($data) 
 	 {
-		$follow_up = false;
+		$count = 0;
+	   	if (!empty($data->assign)) {
+			foreach ($data->assign as $assign) {
+				if (!empty($assign->follow_ups[0])) {
+					$count++;
+				}
+			}
+		}
 		
-		// if ($data->follow_ups->isEmpty() && $data->status == IncomingMailStatusConstans::SEND) {
-		// 	if ($data->to_employee_id == Auth::user()->user_core->id_employee) {
-		// 		$follow_up = true;
-		// 	}
-		// }
+		$progress = $count .' / '. $data->assign->count();
 		
 		return [
 			'id' => (int) $data->id,
@@ -40,7 +42,7 @@ class DispositionTransformer extends TransformerAbstract
 				'action' => config('constans.status-action-in.'. $data->status),
 				'status_code' => (int) $data->status
 			],
-			// 'follow_up' =>$follow_up,
+			'progress' => $progress,
 			'created_at' => $data->created_at->format('d-m-Y'),
 			'updated_at' => $data->updated_at->format('d-m-Y')
 		];
@@ -53,7 +55,6 @@ class DispositionTransformer extends TransformerAbstract
 	public static function customTransform($data) 
 	{
 	   	$data_assigns = [];
-	   	$progress = $data->assign->count();
 	   
 	   	if (!empty($data->assign)) {
 			foreach ($data->assign as $assign) {
@@ -71,6 +72,7 @@ class DispositionTransformer extends TransformerAbstract
 						'id' => !empty($assign->class_disposition) ? $assign->class_disposition->id : null,
 						'name' => !empty($assign->class_disposition) ? $assign->class_disposition->name : null,
 					],
+					'follow_up' => !empty($assign->follow_ups[0]) ? $assign->follow_ups[0] : null,
 				];
 			}
 		}
@@ -91,7 +93,6 @@ class DispositionTransformer extends TransformerAbstract
 				'name' => !empty($data->employee) ? $data->employee->name : null,
 			],
 		   	'assigns' => !empty($data_assigns) ? $data_assigns : null,
-		   	'progress' => $progress,
 		   	'signature_available' => !empty($data->signature) ? true : false,
 			'status' => $data->status,
 	   	];

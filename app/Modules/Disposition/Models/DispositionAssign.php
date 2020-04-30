@@ -26,7 +26,7 @@ class DispositionAssign extends Model
 	
 	public function follow_ups()
 	{
-		return $this->belongsTo(DispositionFollowUp::class, 'disposition_assign_id');
+		return $this->hasMany(DispositionFollowUp::class, 'dispositions_assign_id');
 	}
 	
 	public function employee()

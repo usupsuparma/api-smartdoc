@@ -14,7 +14,7 @@ class DispositionFollowUp extends Model
 	protected $table = 'dispositions_follow_up';
 	
     protected $fillable   = [
-		'disposition_assign_id', 'employee_id', 'description', 'path_to_file', 'status'
+		'dispositions_assign_id', 'employee_id', 'description', 'path_to_file', 'status'
 	];
 	
 	public function employee()

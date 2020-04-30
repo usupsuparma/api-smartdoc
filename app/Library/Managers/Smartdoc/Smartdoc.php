@@ -393,6 +393,8 @@ class Smartdoc extends PDF
 	
 	private function body_disposition($model) 
 	{
+		Carbon::setLocale('id');
+		
 		$body = '<h2 style="text-align: center;"><span style="text-decoration: underline;"><strong>DISPOSISI</strong></span></h2><p>&nbsp;</p><table style="border-collapse: collapse; width: 100%; height: 84px;" border="0"><tbody><tr style="height: 21px;"><td style="width: 16.601%; height: 21px;">No. Disposisi</td><td style="width: 2.91993%; height: 21px;">:</td><td style="width: 80.4789%; height: 21px;">'.$model->number_disposition.'</td></tr><tr style="height: 21px;"><td style="width: 16.601%; height: 21px;">Tanggal</td><td style="width: 2.91993%; height: 21px;">:</td><td style="width: 80.4789%; height: 21px;">'. Carbon::parse($model->disposition_date)->translatedFormat('l j F Y').'</td></tr><tr style="height: 21px;"><td style="width: 16.601%; height: 21px;">Dari</td><td style="width: 2.91993%; height: 21px;">:</td><td style="width: 80.4789%; height: 21px;">'. $model->incoming->sender_name .'</td></tr><tr style="height: 21px;"><td style="width: 16.601%; height: 21px;">No. Surat Masuk</td><td style="width: 2.91993%; height: 21px;">:</td><td style="width: 80.4789%; height: 21px;">'. $model->incoming->number_letter .'</td></tr><tr style="height: 21px;"><td style="width: 16.601%; height: 21px;">Perihal</td><td style="width: 2.91993%; height: 21px;">:</td><td style="width: 80.4789%; height: 21px;">'. $model->subject_disposition .'</td></tr></tbody></table><p>&nbsp;</p><p>Ditujukan untuk :&nbsp;</p><table style="border-collapse: collapse; width: 100%; border-color: #95a5a6;" border="0.5" cellpadding="5"><tbody>';
 		
 		$num = 1;

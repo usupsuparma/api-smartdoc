@@ -10,6 +10,7 @@ use App\Modules\External\Employee\Models\EmployeeModel;
 use App\Modules\Disposition\Models\DispositionAssign;
 use App\Modules\Signature\Models\SignatureModel;
 use App\Modules\IncomingMail\Models\IncomingMailModel;
+use App\Modules\IncomingMail\Constans\IncomingMailStatusConstans;
 use Auth, Upload, DB;
 
 class DispositionModel extends Model
@@ -62,9 +63,10 @@ class DispositionModel extends Model
 	{
 		$employee_id = Auth::user()->user_core->employee->id_employee;
 		
-		return $query->where([
-			'to_employee_id' => $employee_id,
-			'status' => IncomingMailStatusConstans::SEND,
+		return $query->whereHas('assign', function ($q) use ($employee_id) {
+			$q->where('employee_id', $employee_id);
+		})->where([
+			'status' => IncomingMailStatusConstans::DISPOSITION,
 		]);
 	}
 	
