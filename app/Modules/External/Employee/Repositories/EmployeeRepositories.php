@@ -48,7 +48,9 @@ class EmployeeRepositories extends BaseRepository implements EmployeeInterface
 			foreach ($users as $user) {
 				$results[] = [
 					'id' => $user->employee->id_employee,
-					'name' => $user->employee->nik .' - '. $user->employee->name
+					'name' => $user->employee->nik .' - '. $user->employee->name,
+					'structure_name' => $user->structure->kode_struktur .' - '. $user->structure->nama_struktur,
+					'position_name' => $user->position->nama_jabatan,
 				];
 			}
 		}
@@ -68,7 +70,9 @@ class EmployeeRepositories extends BaseRepository implements EmployeeInterface
 			foreach ($employee as $em) {
 				$results[] = [
 					'id' => $em->id_employee,
-					'name' => $em->nik .' - '. $em->name
+					'name' => $em->nik .' - '. $em->name,
+					'structure_name' => $em->user->structure->kode_struktur .' - '. $em->user->structure->nama_struktur,
+					'position_name' => $em->user->position->nama_jabatan,
 				];
 			}
 		}

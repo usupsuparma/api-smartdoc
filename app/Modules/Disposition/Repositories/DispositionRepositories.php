@@ -97,11 +97,13 @@ class DispositionRepositories extends BaseRepository implements DispositionInter
 		Validator::validate($request->all(), $rules, $message);
 				
 		if (!empty($signatureModel)) {
-			Upload::download($signatureModel->path_to_file);
-			$generate = DigitalSign::generate_ca($signatureModel, $request);
-			
-			if (!$generate) {
-				return ['message' => config('constans.error.generate'), 'status' => false];
+			if ($request->button_action == IncomingMailStatusConstans::SEND) {
+				Upload::download($signatureModel->path_to_file);
+				$generate = DigitalSign::generate_ca($signatureModel, $request);
+				
+				if (!$generate) {
+					return ['message' => config('constans.error.generate'), 'status' => false];
+				}
 			}
 		}
 
@@ -231,11 +233,13 @@ class DispositionRepositories extends BaseRepository implements DispositionInter
 		Validator::validate($request->all(), $rules, $message);
 				
 		if (!empty($signatureModel)) {
-			Upload::download($signatureModel->path_to_file);
-			$generate = DigitalSign::generate_ca($signatureModel, $request);
-			
-			if (!$generate) {
-				return ['message' => config('constans.error.generate'), 'status' => false];
+			if ($request->button_action == IncomingMailStatusConstans::SEND) {
+				Upload::download($signatureModel->path_to_file);
+				$generate = DigitalSign::generate_ca($signatureModel, $request);
+				
+				if (!$generate) {
+					return ['message' => config('constans.error.generate'), 'status' => false];
+				}
 			}
 		}
 
