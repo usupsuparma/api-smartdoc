@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Library\Bases\BaseController;
 use App\Modules\Signature\Repositories\SignatureRepositories;
 use Authority, Auth, Storage;
+use App\Modules\Signature\Models\SignatureModel;
 
 class SignatureController extends BaseController 
 {
@@ -69,5 +70,10 @@ class SignatureController extends BaseController
 		}
 		
 		return $this->successResponse($results, 200); 
+	}
+	
+	public function check()
+    {	
+		return $this->successResponse($this->signatureRepository->check_available_sign(), 200); 
     }
 }

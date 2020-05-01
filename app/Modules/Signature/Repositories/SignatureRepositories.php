@@ -156,5 +156,16 @@ class SignatureRepositories extends BaseRepository implements SignatureInterface
 		}
 		
 		return ['message' => config('constans.success.generate'), 'status' => true];
-    }
+	}
+	
+	public function check_available_sign()
+	{
+		$avail = $this->model->checkAvailableSignature();
+
+		if ($avail->exists()) {
+			return ['status' => true];
+		}
+		
+		return ['status' => false];
+	}
 }

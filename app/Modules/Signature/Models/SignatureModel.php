@@ -6,7 +6,7 @@
 use Illuminate\Database\Eloquent\Model;
 use App\Modules\Signature\Transformers\SignatureTransformer;
 use App\Modules\External\Employee\Models\EmployeeModel;
-use Upload;
+use Upload, Auth;
 
 class SignatureModel extends Model
 {
@@ -23,6 +23,11 @@ class SignatureModel extends Model
 	public function employees()
 	{
 		return $this->belongsTo(EmployeeModel::class, 'employee_id', 'id_employee');
+	}
+	
+	public function scopeCheckAvailableSignature($query)
+	{
+		return $query->where('employee_id', Auth::user()->user_core->id_employee);
 	}
 	
 	protected static function boot() 

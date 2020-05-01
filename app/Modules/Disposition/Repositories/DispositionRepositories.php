@@ -55,6 +55,8 @@ class DispositionRepositories extends BaseRepository implements DispositionInter
 	
 	public function create($request)
     {
+		$signatureModel = SignatureModel::checkAvailableSignature()->first();
+		
 		$rules = [
 			'incoming_mail_id' => 'required',
 			'subject_disposition' => 'required',
@@ -68,6 +70,12 @@ class DispositionRepositories extends BaseRepository implements DispositionInter
 			'disposition_date.required' => 'tanggal disposisi surat wajib diisi',
 			'description.required' => 'keterangan surat disposisi wajib diisi',
 		];
+		
+		if ($request->button_action == IncomingMailStatusConstans::SEND && !empty($signatureModel)) {
+			$rules['credential_key'] = ['required'];
+			$message['credential_key.required'] = 'Kunci Rahasia wajib diisi';
+			
+		}
 		
 		if (isset($request->assigns)) {
 			foreach ($request->assigns as $key => $assign) {
@@ -87,9 +95,7 @@ class DispositionRepositories extends BaseRepository implements DispositionInter
 		}
 		
 		Validator::validate($request->all(), $rules, $message);
-		
-		$signatureModel = SignatureModel::where('employee_id', Auth::user()->user_core->id_employee)->first();
-		
+				
 		if (!empty($signatureModel)) {
 			Upload::download($signatureModel->path_to_file);
 			$generate = DigitalSign::generate_ca($signatureModel, $request);
@@ -183,6 +189,7 @@ class DispositionRepositories extends BaseRepository implements DispositionInter
 	public function update($request, $id)
     {
 		$model = $this->model->findOrFail($id);
+		$signatureModel = SignatureModel::checkAvailableSignature()->first();
 		
 		$rules = [
 			'incoming_mail_id' => 'required',
@@ -197,6 +204,12 @@ class DispositionRepositories extends BaseRepository implements DispositionInter
 			'disposition_date.required' => 'tanggal disposisi surat wajib diisi',
 			'description.required' => 'keterangan surat disposisi wajib diisi',
 		];
+		
+		if ($request->button_action == IncomingMailStatusConstans::SEND && !empty($signatureModel)) {
+			$rules['credential_key'] = ['required'];
+			$message['credential_key.required'] = 'Kunci Rahasia wajib diisi';
+			
+		}
 		
 		if (isset($request->assigns)) {
 			foreach ($request->assigns as $key => $assign) {
@@ -216,9 +229,7 @@ class DispositionRepositories extends BaseRepository implements DispositionInter
 		}
 		
 		Validator::validate($request->all(), $rules, $message);
-		
-		$signatureModel = SignatureModel::where('employee_id', Auth::user()->user_core->id_employee)->first();
-		
+				
 		if (!empty($signatureModel)) {
 			Upload::download($signatureModel->path_to_file);
 			$generate = DigitalSign::generate_ca($signatureModel, $request);

@@ -52,6 +52,11 @@ class SignatureRoutes extends BaseRoutes
 				'as' => $this->route_prefix . '.generate',
 				'uses' => 'SignatureController@generate'
 			]);
+			
+			$app->router->get('/check/available-signature', [
+				'as' => $this->route_prefix . '.check',
+				'uses' => 'SignatureController@check'
+			]);
 		});
 	}
 }

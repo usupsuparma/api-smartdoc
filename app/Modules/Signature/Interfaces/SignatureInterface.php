@@ -20,4 +20,6 @@ interface SignatureInterface extends RepositoryInterface
 	public function download($id);
 	
 	public function generate($request, $id);
+	
+	public function check_available_sign();
 }
