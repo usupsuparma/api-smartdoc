@@ -1,6 +1,6 @@
 <?php namespace App\Modules\Auth\Repositories;
 /**
- * Class UserRepositories.
+ * Class AuthRepositories.
  * @author  Adam Lesmana Ganda Saputra <aelgees.dev@gmail.com>
  */
 
@@ -97,12 +97,22 @@ class AuthRepositories extends BaseRepository implements AuthInterface
 		$guzzle = new Client;
 		$web_client_id = env('GRANT_CLIENT_ID');
 		$web_client_secret = env('GRANT_CLIENT_SECRET');
+		$mobile_client_id = env('MOBILE_CLIENT_ID');
+		$mobile_client_secret = env('MOBILE_CLIENT_SECRET');
+
+		if (isset($request->grant) && $request->grant == 'm') {
+			$client_id = $mobile_client_id;
+			$client_secret = $mobile_client_secret;
+		} else {
+			$client_id = $web_client_id;
+			$client_secret = $web_client_secret;
+		}
 		
 		$response = $guzzle->post(env('APP_LOCAL_URL', 'http://localhost') . '/api/v1/oauth/token', [
             'form_params' => [
                 'grant_type' => 'password',
-                'client_id' => $web_client_id,
-                'client_secret' => $web_client_secret,
+                'client_id' => $client_id,
+                'client_secret' => $client_secret,
                 'username' => $request->username,
                 'password' => $request->password,
                 'scope' => '*',
@@ -114,6 +124,10 @@ class AuthRepositories extends BaseRepository implements AuthInterface
 		$detail = [];
 		$user = UserModel::findByEmail($request->username)->first();
 		$users_info = core_user($user->user_core_id);
+		
+		if (isset($request->grant) && $request->grant == 'm') {
+			$user->update(['device_id' => $request->device_id]);
+		}
 		
 		if ($users_info) {
 			$detail = [
