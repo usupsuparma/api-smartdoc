@@ -182,7 +182,7 @@ class DispositionRepositories extends BaseRepository implements DispositionInter
         } catch (\Exception $ex) {
 			DB::rollback();
 			
-			return ['message' => config('constans.error.created'), 'status' => false];
+			return ['message' => $ex->getMessage(), 'status' => false];
 		}
 
 		created_log($model);
@@ -306,7 +306,7 @@ class DispositionRepositories extends BaseRepository implements DispositionInter
             DB::commit();
         } catch (\Exception $ex) {
 			DB::rollback();
-            return ['message' => config('constans.error.created'), 'status' => false];
+            return ['message' => $ex->getMessage(), 'status' => false];
 		}
 
 		updated_log($model);

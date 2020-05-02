@@ -85,7 +85,10 @@ class IncomingMailModel extends Model
 	public function scopeOptions($query, $default = NULL)
     {
         $list = [];
-		$query->where('to_employee_id', Auth::user()->user_core->employee->id_employee);
+		$query->where([
+			'to_employee_id' => Auth::user()->user_core->employee->id_employee,
+			'status' => IncomingMailStatusConstans::DONE,
+		]);
 		
         foreach ($query->orderBy('number_letter')->get() as $dt) {
             $list[] = [
