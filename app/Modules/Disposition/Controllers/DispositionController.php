@@ -49,7 +49,13 @@ class DispositionController extends BaseController
     {
 		Authority::check('update');
 		
-		return $this->successResponse($this->dispositionRepositories->update($request, $id), 200); 
+		$results = $this->dispositionRepositories->update($request, $id);
+		
+		if (!$results['status']) {
+			return $this->errorResponse($results['message'], 404);
+		}
+		
+        return $this->successResponse($results, 200); 
 	}
 	
 	public function delete($id)

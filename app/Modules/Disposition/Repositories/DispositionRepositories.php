@@ -42,6 +42,12 @@ class DispositionRepositories extends BaseRepository implements DispositionInter
 				$query->whereBetween('disposition_date', [$request->start_date, $request->end_date]);	
 			}
 		}
+		
+		if ($request->has('status')) {
+			if (!empty($request->status)) {
+				$query->where('status', $request->status);	
+			}
+		}
 
 		return $query->get();
 	}

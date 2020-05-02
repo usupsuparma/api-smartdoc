@@ -45,12 +45,25 @@ class EmployeeRepositories extends BaseRepository implements EmployeeInterface
 					->get();
 		
 		if (!empty($users)) {
-			foreach ($users as $user) {
+			foreach ($users as $dt) {
+				$cd_structure = '';
+				$name_structure = '';
+				$name_position = '';
+				
+				if (!empty($dt->structure)) {
+					$cd_structure = $dt->structure->kode_struktur;
+					$name_structure = $dt->structure->nama_struktur;
+				}
+				
+				if (!empty($dt->position)) {
+					$name_position = $dt->position->nama_jabatan;
+				}
+				
 				$results[] = [
-					'id' => $user->employee->id_employee,
-					'name' => $user->employee->nik .' - '. $user->employee->name,
-					'structure_name' => $user->structure->kode_struktur .' - '. $user->structure->nama_struktur,
-					'position_name' => $user->position->nama_jabatan,
+					'id' => $dt->employee->id_employee,
+					'name' => $dt->employee->nik .' - '. $dt->employee->name,
+					'structure_name' => $cd_structure .' - '. $name_structure,
+					'position_name' => $name_position,
 				];
 			}
 		}
@@ -67,12 +80,25 @@ class EmployeeRepositories extends BaseRepository implements EmployeeInterface
 		})->get();
 		
 		if (!empty($employee)) {
-			foreach ($employee as $em) {
+			foreach ($employee as $dt) {
+				$cd_structure = '';
+				$name_structure = '';
+				$name_position = '';
+				
+				if (!empty($dt->user->structure)) {
+					$cd_structure = $dt->user->structure->kode_struktur;
+					$name_structure = $dt->user->structure->nama_struktur;
+				}
+				
+				if (!empty($dt->user->position)) {
+					$name_position = $dt->user->position->nama_jabatan;
+				}
+				
 				$results[] = [
-					'id' => $em->id_employee,
-					'name' => $em->nik .' - '. $em->name,
-					'structure_name' => $em->user->structure->kode_struktur .' - '. $em->user->structure->nama_struktur,
-					'position_name' => $em->user->position->nama_jabatan,
+					'id' => $dt->id_employee,
+					'name' => $dt->nik .' - '. $dt->name,
+					'structure_name' => $cd_structure .' - '. $name_structure,
+					'position_name' => $name_position,
 				];
 			}
 		}

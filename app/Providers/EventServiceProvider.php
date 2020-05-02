@@ -38,6 +38,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         'App\Events\LogWasSigned' => [
             'App\Listeners\LogSigned',
+        ],
+        'App\Events\Notification' => [
+            'App\Listeners\Notification',
         ]
     ];
 }
