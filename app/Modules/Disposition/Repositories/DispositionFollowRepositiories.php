@@ -80,7 +80,11 @@ class DispositionFollowRepositories extends BaseRepository implements Dispositio
 		
 		Validator::validate($request->all(), $rules, $message);
 		
-		$upload = Upload::uploads(setting_by_code('PATH_DIGITAL_DISPOSITION'), $request->file);
+		$upload = null;
+		
+		if ($request->hasFile('file')) {
+			$upload = Upload::uploads(setting_by_code('PATH_DIGITAL_DISPOSITION'), $request->file);
+		}
 		
 		DispositionFollowUp::create([
 			'dispositions_assign_id' => $results->id,

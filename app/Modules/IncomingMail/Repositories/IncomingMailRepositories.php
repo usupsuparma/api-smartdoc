@@ -298,7 +298,7 @@ class IncomingMailRepositories extends BaseRepository implements IncomingMailInt
 	}
 	
 	public function follow_up($request, $id)
-	{
+	{		
 		$model = $this->model->followUpEmployee()->firstOrFail();
 		
 		$rules = [
@@ -316,7 +316,11 @@ class IncomingMailRepositories extends BaseRepository implements IncomingMailInt
 		
 		Validator::validate($request->all(), $rules, $message);
 		
-		$upload = Upload::uploads(setting_by_code('PATH_DIGITAL_INCOMING_MAIL'), $request->file);
+		$upload = null;
+		
+		if ($request->hasFile('file')) {
+			$upload = Upload::uploads(setting_by_code('PATH_DIGITAL_INCOMING_MAIL'), $request->file);
+		}
 		
 		$model->update([
 			'status' => IncomingMailStatusConstans::DONE
