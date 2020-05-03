@@ -69,15 +69,18 @@ class UserRepositories extends BaseRepository implements UserInterface
 	public function update($request, $id)
     {
 		$input = $request->all();
+
 		$rules = [
 			// 'employee_id' => 'required',
-			// 'role_id' => 'required',
-			'username' => 'required|min:8|unique:users,username,' . $id,
-			'email' => 'required|unique:users,email,' . $id,
-			'status' => 'required',
+			'role_id' => 'required',
+			// 'username' => 'required|min:8|unique:users,username,' . $id,
+			// 'email' => 'required|unique:users,email,' . $id,
+			// 'status' => 'required',
 		];
 		
-		$message = [];
+		$message = [
+			'role_id.required' => 'Role user wajib diisi . '
+		];
 		
 		if (!empty($input['password'])) {
 			$rules['password'] = [
@@ -95,7 +98,7 @@ class UserRepositories extends BaseRepository implements UserInterface
 		Validator::validate($input, $rules, $message);
 		
 		$model = $this->model->findOrFail($id);
-		$input['password'] = app('hash')->make($request->password);
+		// $input['password'] = app('hash')->make($request->password);
 		$model->update($input);
 		
 		updated_log($model);
