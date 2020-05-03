@@ -12,6 +12,7 @@ use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use App\Traits\ApiResponse;
 use Illuminate\Auth\AuthenticationException;
 use League\Flysystem\Sftp\ConnectionErrorException;
+use Illuminate\Contracts\Encryption\DecryptException;
 
 class Handler extends ExceptionHandler
 {
@@ -82,6 +83,10 @@ class Handler extends ExceptionHandler
         
         if ($exception instanceof ConnectionErrorException) {
             return $this->errorResponse('Error Connection to FTP server', 500);
+        }
+        
+        if ($exception instanceof DecryptException) {
+            return $this->errorResponse('Failed render hash .', 500);
         }
         
         if(env('APP_DEBUG')) {

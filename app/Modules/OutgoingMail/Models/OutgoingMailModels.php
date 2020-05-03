@@ -137,6 +137,13 @@ class OutgoingMailModel extends Model
 		]);
 	}
 	
+	public function scopeIsPublish($query)
+	{	
+		return $query->where([
+			'status' => OutgoingMailStatusConstants::PUBLISH,
+		]);
+	}
+	
 	protected static function boot() 
     {
 		parent::boot();

@@ -79,6 +79,16 @@ class DispositionModel extends Model
 			->first();
 	}
 	
+	public function scopeIsDisposition($query, $id)
+	{	
+		return $query->whereIn(
+			'status', [
+				IncomingMailStatusConstans::DISPOSITION,
+				IncomingMailStatusConstans::DONE,
+			]
+		)->where('id', $id);
+	}
+	
 	protected static function boot() 
     {
 		parent::boot();
