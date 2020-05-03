@@ -13,9 +13,11 @@ use App\Modules\OutgoingMail\Models\OutgoingMailAttachment;
 use App\Modules\External\Organization\Models\OrganizationModel;
 use App\Modules\OutgoingMail\Models\OutgoingMailForward;
 use App\Constants\EmailConstants;
+use App\Events\Notif;
+use App\Constants\MailCategoryConstants;
 use App\Jobs\SendEmailReminderJob;
 use Validator, DB, Auth;
-use Upload, Smartdoc;
+use Upload;
 
 class OutgoingMailRepositories extends BaseRepository implements OutgoingMailInterface
 {
@@ -165,20 +167,28 @@ class OutgoingMailRepositories extends BaseRepository implements OutgoingMailInt
 				
 				$model->update([
 					'current_approval_structure_id' => $reviews[0]['structure_id'],
+					'current_approval_employee_id' => $reviews[0]['employee_id'],
 					'status' => OutgoingMailStatusConstants::REVIEW,
 				]);
 			}
 			
 			if ($request->button_action == OutgoingMailStatusConstants::SEND_TO_REVIEW) {
 				$this->send_email($model);
+				
+				$this->send_notification([
+					'model' => $model, 
+					'heading' => MailCategoryConstants::SURAT_KELUAR,
+					'title' => 'approval', 
+					'receiver' => $reviews[0]['employee_id']
+				]);
 			}
 	
             DB::commit();
         } catch (\Exception $ex) {
 			DB::rollback();
-            return response()->json(['error' => $ex->getMessage()], 500);
+            return ['message' => $ex->getMessage(), 'status' => false];
 			
-			return ['message' => config('constans.error.created')];
+			// return ['message' => config('constans.error.created')];
 		}
 
 		created_log($model);
@@ -307,6 +317,12 @@ class OutgoingMailRepositories extends BaseRepository implements OutgoingMailInt
 			
 			if ($request->button_action == OutgoingMailStatusConstants::SEND_TO_REVIEW) {
 				$this->send_email($model);
+				$this->send_notification([
+					'model' => $model, 
+					'heading' => MailCategoryConstants::SURAT_KELUAR,
+					'title' => 'approval', 
+					'receiver' => $reviews[0]['employee_id']
+				]);
 			}
 			
             DB::commit();
@@ -386,6 +402,22 @@ class OutgoingMailRepositories extends BaseRepository implements OutgoingMailInt
 		}
 	}
 	
+	public function download_attachment($attachment_id)
+    {
+		$model = OutgoingMailAttachment::findOrFail($attachment_id);
+		Upload::download($model->path_to_file);
+		
+		return $model->path_to_file;
+	}
+	
+	public function download_attachment_main($id)
+    {
+		$model = $this->model->findOrFail($id);
+		Upload::download($model->path_to_file);
+		
+		return $model->path_to_file;
+	}
+	
 	private function send_email($model)
 	{
 		$body = body_email($model, setting_name_by_code('SURAT_KELUAR'), EmailConstants::REVIEW);
@@ -402,19 +434,21 @@ class OutgoingMailRepositories extends BaseRepository implements OutgoingMailInt
 		dispatch(new SendEmailReminderJob($data));
 	}
 	
-	public function download_attachment($attachment_id)
-    {
-		$model = OutgoingMailAttachment::findOrFail($attachment_id);
-		Upload::download($model->path_to_file);
+	private function send_notification($notif)
+	{
+		$data_notif = [
+			'heading' => $notif['heading'],
+			'title'  => $notif['title'],
+			'subject' => $notif['model']->subject_letter,
+			'data' => serialize([
+				'id' => $notif['model']->id,
+				'subject_letter' => $notif['model']->subject_letter
+			]),
+			'redirect_web' => setting_by_code('URL_APPROVAL_OUTGOING_MAIL'),
+			'redirect_mobile' => '',
+			'receiver_id' => $notif['receiver']
+		];
 		
-		return $model->path_to_file;
-	}
-	
-	public function download_attachment_main($id)
-    {
-		$model = $this->model->findOrFail($id);
-		Upload::download($model->path_to_file);
-		
-		return $model->path_to_file;
+		event(new Notif($data_notif));
 	}
 }

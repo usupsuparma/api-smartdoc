@@ -5,7 +5,7 @@
 
 use League\Fractal\TransformerAbstract;
 use App\Modules\OutgoingMail\Constans\OutgoingMailStatusConstants;
-
+use Carbon\Carbon;
 class OutgoingMailTransformer extends TransformerAbstract
 {
 	/** 
@@ -87,6 +87,8 @@ class OutgoingMailTransformer extends TransformerAbstract
 			}
 		}
 		
+		Carbon::setLocale('id');
+		
 		if (!empty($data->history_approvals)) {
 			foreach ($data->history_approvals as $history) {
 				$history_approvals[] = [
@@ -100,7 +102,7 @@ class OutgoingMailTransformer extends TransformerAbstract
 						'status_code' => (int) $history->status_approval,
 						'status_name' => config('constans.status-approval.'. $history->status_approval),
 					],
-					'create_at' => $data->updated_at->format('d M Y H:i:s'),
+					'create_at' => Carbon::createFromFormat('Y-m-d H:i:s', $data->updated_at)->format('d M Y H:i:s'),
 				];
 			}
 		}

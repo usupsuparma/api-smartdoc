@@ -10,6 +10,8 @@ use App\Modules\OutgoingMail\Interfaces\AdminOutgoingMailInterface;
 use App\Modules\OutgoingMail\Models\OutgoingMailModel;
 use App\Modules\OutgoingMail\Transformers\OutgoingMailTransformer;
 use App\Modules\OutgoingMail\Constans\OutgoingMailStatusConstants;
+use App\Events\Notif;
+use App\Constants\MailCategoryConstants;
 use Illuminate\Support\Facades\Crypt;
 use App\Jobs\SendEmailReminderJob;
 use Upload, DigitalSign, Smartdoc;
@@ -100,6 +102,15 @@ class AdminOutgoingMailRepositories extends BaseRepository implements AdminOutgo
 			
 			$this->send_email($model, $data_email, EmailConstants::REJECT);
 			
+			$this->send_notification([
+				'model' => $model, 
+				'heading' => MailCategoryConstants::SURAT_KELUAR,
+				'title' => 'reject',
+				'redirect_web' => setting_by_code('URL_OUTGOING_MAIL'),
+				'redirect_mobile' => '',
+				'receiver' => $model->created_by_employee
+			]);
+			
 			reject_log($model);
 			
 			return [
@@ -161,6 +172,15 @@ class AdminOutgoingMailRepositories extends BaseRepository implements AdminOutgo
 			
 			$this->send_email($model, $data_email, EmailConstants::PUBLISH);
 			
+			$this->send_notification([
+				'model' => $model, 
+				'heading' => MailCategoryConstants::SURAT_KELUAR,
+				'title' => 'publish',
+				'redirect_web' => setting_by_code('URL_OUTGOING_MAIL'),
+				'redirect_mobile' => '',
+				'receiver' => $model->created_by_employee
+			]);
+			
 			publish_log($model);
 			
 			return [
@@ -190,5 +210,23 @@ class AdminOutgoingMailRepositories extends BaseRepository implements AdminOutgo
 		$data['notification_action'] = config('constans.notif-email.'. $email_action);
 		
 		dispatch(new SendEmailReminderJob($data));
+	}
+	
+	private function send_notification($notif)
+	{
+		$data_notif = [
+			'heading' => $notif['heading'],
+			'title'  => $notif['title'],
+			'subject' => $notif['model']->subject_letter,
+			'data' => serialize([
+				'id' => $notif['model']->id,
+				'subject_letter' => $notif['model']->subject_letter
+			]),
+			'redirect_web' => $notif['redirect_web'],
+			'redirect_mobile' => $notif['redirect_mobile'],
+			'receiver_id' => $notif['receiver']
+		];
+		
+		event(new Notif($data_notif));
 	}
 }

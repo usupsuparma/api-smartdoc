@@ -3,12 +3,12 @@
  * @author  Adam Lesmana Ganda Saputra <aelgees.dev@gmail.com>
  */
 
-use App\Events\Notification;
+use App\Events\Notif;
 use App\Modules\Notification\Models\NotificationModel;
 use App\Constants\MailCategoryConstants;
 use Auth;
 
-class Notification
+class NotifSender
 {
     /**
      * Create the event listener.
@@ -20,14 +20,15 @@ class Notification
     /**
      * Handle the event.
      *
-     * @param  Notification  $event
+     * @param  Notif  $event
      * @return void
      */
-    public function handle(Notification $event)
+    public function handle(Notif $event)
     { 
         $notif = $event->notif;
+        $subject = $notif['subject'];
         
-        switch ($notif->heading) {
+        switch ($notif['heading']) {
             case MailCategoryConstants::SURAT_KELUAR :
                 $heading = '[SURAT KELUAR]';
                 break;
@@ -39,36 +40,41 @@ class Notification
                 break;
         }
         
-        switch ($notif->title) {
+        switch ($notif['title']) {
             case 'approval' :
                 $title = 'Approval';
-                $subject = $notif['subject'];
-                $message = $subject .' memerlukan persetujuan anda .';
+                $message = "({$subject}) memerlukan persetujuan anda .";
                 break;
+                
             case 'signed' :
                 $title = 'Signed';
-                $subject = '';
-                $message = $subject .' memerlukan tanda tangan anda .';
+                $message = "({$subject}) memerlukan tanda tangan anda .";
                 break;
+                
+            case 'pre-publish' :
+                $title = 'Publish' ;
+                $message = "({$subject}) memerlukan pemeriksaan anda .";
+                break;
+            
             case 'publish' :
                 $title = 'Publish' ;
-                $subject = '';
-                $message = $subject .' sudah diterbitkan .';
+                $message = "({$subject}) sudah diterbitkan .";
                 break;
+                
             case 'follow-up-incoming' :
                 $title = 'Follow Up' ;
-                $subject = '';
-                $message = $subject .' memerlukan tindak lanjut anda .';
+                $message = "({$subject}) memerlukan tindak lanjut anda .";
                 break;
+                
             case 'follow-up-disposition' :
                 $title = 'Follow Up' ;
-                $subject = '';
-                $message = $subject .' memerlukan tindak lanjut anda .';
+                $message = "({$subject}) memerlukan tindak lanjut anda .";
                 break;
+                
             case 'reject' :
                 $title = 'Reject' ;
-                $subject = '';
-                $message = $subject .' ditolak , harap periksa kembali umpan balik untuk surat tersebut.';
+                $subject = $notif['subject'];
+                $message = "({$subject}) ditolak , harap periksa kembali umpan balik untuk surat tersebut.";
                 break;
         }
 
@@ -76,10 +82,11 @@ class Notification
             'heading' => $heading,
             'title' => $title,
             'content' => $message,
-            'redirect_web' => $redirect_web,
-            'redirect_mobile' => $redirect_mobile,
+            'data' => serialize($notif['data']),
+            'redirect_web' => $notif['redirect_web'],
+            'redirect_mobile' => $notif['redirect_mobile'],
             'sender_id' => Auth::user()->user_core->id_employee,
-            'receiver_id' => $receiver_id,
+            'receiver_id' => $notif['receiver_id'],
             'is_read' => false
         ]);
     }

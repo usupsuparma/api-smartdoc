@@ -40,7 +40,7 @@ class Upload
 	{
 		$ftp_path = setting_by_code('FTP_DIRECTORY_ROOT');
 
-		if (Storage::disk('sftp')->exists($ftp_path. $file_path)) {
+		if (Storage::disk('sftp')->exists($ftp_path. $file_path) && !empty($file_path)) {
 			$process = Storage::disk('sftp')->delete($ftp_path. $file_path);
 			
 			if ($process) {

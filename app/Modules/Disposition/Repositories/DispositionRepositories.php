@@ -16,6 +16,8 @@ use App\Modules\IncomingMail\Models\IncomingMailModel;
 use App\Constants\EmailInConstants;
 use App\Jobs\SendEmailReminderJob;
 use Illuminate\Support\Facades\Crypt;
+use App\Events\Notif;
+use App\Constants\MailCategoryConstants;
 use Validator, DB, Auth;
 use Upload, DigitalSign, Smartdoc;
 
@@ -101,7 +103,7 @@ class DispositionRepositories extends BaseRepository implements DispositionInter
 		}
 		
 		Validator::validate($request->all(), $rules, $message);
-				
+			
 		if (!empty($signatureModel)) {
 			if ($request->button_action == IncomingMailStatusConstans::SEND) {
 				Upload::download($signatureModel->path_to_file);
@@ -174,6 +176,17 @@ class DispositionRepositories extends BaseRepository implements DispositionInter
 					'status' => IncomingMailStatusConstans::DISPOSITION,
 					'path_to_file' => $document
 				]);
+				
+				if (isset($model->assign)) {
+					foreach ($model->assign as $assign) {
+						$this->send_notification([
+							'model' => $model, 
+							'heading' => MailCategoryConstants::SURAT_DISPOSISI,
+							'title' => 'follow-up-disposition', 
+							'receiver' => $assign['employee_id']
+						]);
+					}
+				}
 				
 				// $this->send_email($model);
 			}
@@ -300,6 +313,17 @@ class DispositionRepositories extends BaseRepository implements DispositionInter
 					'path_to_file' => $document
 				])->all());
 				
+				if (isset($model->assign)) {
+					foreach ($model->assign as $assign) {
+						$this->send_notification([
+							'model' => $model, 
+							'heading' => MailCategoryConstants::SURAT_DISPOSISI,
+							'title' => 'follow-up-disposition', 
+							'receiver' => $assign['employee_id']
+						]);
+					}
+				}
+				
 				// $this->send_email($model);
 			}
 			
@@ -397,37 +421,22 @@ class DispositionRepositories extends BaseRepository implements DispositionInter
 		dispatch(new SendEmailReminderJob($data));
 	}
 	
-	public function follow_up($request, $id)
+	private function send_notification($notif)
 	{
-		$model = $this->model->followUpEmployee()->firstOrFail();
-		
-		$rules = [
-			'description' => 'required'
+		$data_notif = [
+			'heading' => $notif['heading'],
+			'title'  => $notif['title'],
+			'subject' => $notif['model']->number_disposition,
+			'data' => serialize([
+				'id' => $notif['model']->id,
+				'subject_disposition' => $notif['model']->subject_disposition,
+				'number_disposition' => $notif['model']->number_disposition
+			]),
+			'redirect_web' => setting_by_code('URL_DISPOSITION_FOLLOW'),
+			'redirect_mobile' => '',
+			'receiver_id' => $notif['receiver']
 		];
 		
-		$message = [
-			'description.required' => 'catatan tindak lanjut wajib diisi'
-		];
-		
-		if ($request->hasFile('file')) {
-			$rules['file'] = ['mimes:pdf,xlsx,xls,doc,docx|max:2048'];
-			$message['file.mimes'] = 'file harus berupa berkas berjenis: pdf, xlsx, xls, doc, docx.';
-		}
-		
-		Validator::validate($request->all(), $rules, $message);
-		
-		$upload = Upload::uploads(setting_by_code('PATH_DIGITAL_INCOMING_MAIL'), $request->file);
-		
-		$model->update([
-			'status' => IncomingMailStatusConstans::DONE
-		]);
-		
-		$model->follow_ups()->create([
-			'employee_id' => Auth::user()->user_core->id_employee,
-			'description' => $request->description,
-			'path_to_file' => !empty($upload) ? $upload : null
-		]);
-		
-		return ['message' => config('constans.success.follow-up')];
+		event(new Notif($data_notif));
 	}
 }

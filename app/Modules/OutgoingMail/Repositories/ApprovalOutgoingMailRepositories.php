@@ -13,6 +13,8 @@ use App\Constants\StatusApprovalConstants;
 use App\Modules\OutgoingMail\Constans\OutgoingMailStatusConstants;
 use App\Constants\EmailConstants;
 use App\Jobs\SendEmailReminderJob;
+use App\Events\Notif;
+use App\Constants\MailCategoryConstants;
 use Validator, DB, Auth;
 
 class ApprovalOutgoingMailRepositories extends BaseRepository implements ApprovalOutgoingMailInterface
@@ -58,6 +60,15 @@ class ApprovalOutgoingMailRepositories extends BaseRepository implements Approva
 	
 	public function update($request, $id)
     {
+		$model = $this->model->byEmployeId()->where('id', $id)->firstOrFail();
+		
+		$modelApproval = OutgoingMailApproval::where([
+			'outgoing_mail_id' => $id,
+			'employee_id' => Auth::user()->user_core->employee->id_employee,
+			'structure_id' => Auth::user()->user_core->structure->id,
+			'status' => true
+		])->firstOrFail();
+		
 		$rules = [
 			'status_approval' => 'required',
 			'description' => 'required',
@@ -73,7 +84,6 @@ class ApprovalOutgoingMailRepositories extends BaseRepository implements Approva
 		$nextApprovalEmployee = NULL;
 		$nextApprovalStructure = NULL;
 		
-		$model = $this->model->byEmployeId()->where('id', $id)->firstOrFail();
 		$nextApproval = $this->next_approval($id);
 		
 		if (!empty($nextApproval)) {
@@ -84,12 +94,6 @@ class ApprovalOutgoingMailRepositories extends BaseRepository implements Approva
 		DB::beginTransaction();
 		
         try {
-			$modelApproval = OutgoingMailApproval::where([
-				'outgoing_mail_id' => $id,
-				'employee_id' => Auth::user()->user_core->employee->id_employee,
-				'structure_id' => Auth::user()->user_core->structure->id,
-				'status' => true
-			])->first();
 			
 			if ((int) $request->status_approval === StatusApprovalConstants::APPROVED) {
 				if (!empty($nextApproval)) {
@@ -97,6 +101,10 @@ class ApprovalOutgoingMailRepositories extends BaseRepository implements Approva
 						'current_approval_employee_id' => $nextApprovalEmployee,
 						'current_approval_structure_id' => $nextApprovalStructure,
 					];
+					
+					$title = 'approval';
+					$receiver_id = $nextApprovalEmployee;
+					
 				} else {
 					$data = [
 						'current_approval_employee_id' => NULL,
@@ -104,8 +112,19 @@ class ApprovalOutgoingMailRepositories extends BaseRepository implements Approva
 						'status' => OutgoingMailStatusConstants::APPROVED
 					];
 					
-					
+					$title = 'signed';
+					$receiver_id = $model->from_employee_id;
 				}
+				
+				$this->send_notification([
+					'model' => $model, 
+					'heading' => MailCategoryConstants::SURAT_KELUAR,
+					'title' => $title,
+					'redirect_web' => setting_by_code('URL_APPROVAL_OUTGOING_MAIL'),
+					'redirect_mobile' => '',
+					'receiver' => $receiver_id
+				]);
+				
 				approve_log($model);
 				
 			} else {
@@ -118,6 +137,15 @@ class ApprovalOutgoingMailRepositories extends BaseRepository implements Approva
 				foreach ($model->approvals as $appro) {
 					$appro->update(['status' => false]);
 				}
+				
+				$this->send_notification([
+					'model' => $model, 
+					'heading' => MailCategoryConstants::SURAT_KELUAR,
+					'title' => 'reject',
+					'redirect_web' => setting_by_code('URL_OUTGOING_MAIL'),
+					'redirect_mobile' => '',
+					'receiver' => $model->created_by_employee
+				]);
 				
 				reject_log($model);
 			}
@@ -156,4 +184,23 @@ class ApprovalOutgoingMailRepositories extends BaseRepository implements Approva
 
 		return $filtered->first();
 	}
+	
+	private function send_notification($notif)
+	{
+		$data_notif = [
+			'heading' => $notif['heading'],
+			'title'  => $notif['title'],
+			'subject' => $notif['model']->subject_letter,
+			'data' => serialize([
+				'id' => $notif['model']->id,
+				'subject_letter' => $notif['model']->subject_letter
+			]),
+			'redirect_web' => $notif['redirect_web'],
+			'redirect_mobile' => $notif['redirect_mobile'],
+			'receiver_id' => $notif['receiver']
+		];
+		
+		event(new Notif($data_notif));
+	}
 }
+

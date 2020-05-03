@@ -122,6 +122,7 @@ $app->register(App\Modules\OutgoingMail\Providers\SignedOutgoingMailServiceProvi
 $app->register(App\Modules\IncomingMail\Providers\IncomingMailServiceProvider::class);
 $app->register(App\Modules\Disposition\Providers\DispositionServiceProvider::class);
 $app->register(App\Modules\Disposition\Providers\DispositionFollowServiceProvider::class);
+$app->register(App\Modules\Notification\Providers\NotificationServiceProvider::class);
 
 $app->register(App\Modules\Review\Providers\ReviewServiceProvider::class);
 $app->register(App\Modules\Signature\Providers\SignatureServiceProvider::class);

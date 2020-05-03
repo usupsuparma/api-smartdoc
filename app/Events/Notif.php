@@ -5,7 +5,7 @@
 
 use Illuminate\Queue\SerializesModels;
 
-class Notification extends Event
+class Notif extends Event
 {
 	use SerializesModels;
 	

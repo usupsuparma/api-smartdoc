@@ -11,6 +11,8 @@ use App\Modules\IncomingMail\Transformers\IncomingMailTransformer;
 use App\Modules\IncomingMail\Models\IncomingMailAttachment;
 use App\Modules\IncomingMail\Models\IncomingMailFollowUp;
 use App\Modules\IncomingMail\Constans\IncomingMailStatusConstans;
+use App\Events\Notif;
+use App\Constants\MailCategoryConstants;
 use App\Constants\EmailInConstants;
 use App\Jobs\SendEmailReminderJob;
 use Validator, DB, Auth;
@@ -138,6 +140,13 @@ class IncomingMailRepositories extends BaseRepository implements IncomingMailInt
 				]);
 				
 				$this->send_email($model);
+				
+				$this->send_notification([
+					'model' => $model, 
+					'heading' => MailCategoryConstants::SURAT_MASUK,
+					'title' => 'follow-up-incoming', 
+					'receiver' => $model->to_employee_id
+				]);
 			}
 	
             DB::commit();
@@ -229,6 +238,13 @@ class IncomingMailRepositories extends BaseRepository implements IncomingMailInt
 				]);
 				
 				$this->send_email($model);
+				
+				$this->send_notification([
+					'model' => $model, 
+					'heading' => MailCategoryConstants::SURAT_MASUK,
+					'title' => 'follow-up-incoming', 
+					'receiver' => $model->to_employee_id
+				]);
 			}
 			
             DB::commit();
@@ -338,5 +354,23 @@ class IncomingMailRepositories extends BaseRepository implements IncomingMailInt
 	public function options()
 	{
 		return ['data' => $this->model->options()];
+	}
+	
+	private function send_notification($notif)
+	{
+		$data_notif = [
+			'heading' => $notif['heading'],
+			'title'  => $notif['title'],
+			'subject' => $notif['model']->subject_letter,
+			'data' => serialize([
+				'id' => $notif['model']->id,
+				'subject_letter' => $notif['model']->subject_letter
+			]),
+			'redirect_web' => setting_by_code('URL_INCOMING_MAIL'),
+			'redirect_mobile' => '',
+			'receiver_id' => $notif['receiver']
+		];
+		
+		event(new Notif($data_notif));
 	}
 }
