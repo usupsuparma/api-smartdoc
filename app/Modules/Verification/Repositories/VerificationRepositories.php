@@ -59,6 +59,10 @@ class VerificationRepositories extends BaseRepository implements VerificationInt
 			];
 		}
 		
-		return ['data' => $data, 'status' => true]; 
+		return [
+			'data' => $data,
+			'verify_type' => $request->scode,
+			'status' => true
+		]; 
 	}
 }
