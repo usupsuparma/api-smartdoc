@@ -39,16 +39,22 @@ class VerificationRepositories extends BaseRepository implements VerificationInt
 		}
 		
 		$id = Crypt::decrypt($request->skey);
-		
+		$data = [];
 		switch ($request->scode) {
 			case 'OM':
 				$query = OutgoingMailModel::isPublish()->find($id);
-				$data = OMTransformer::customTransform($query);
+				if (!empty($query)) {
+					$data = OMTransformer::customTransform($query);
+				}
+				
 				break;
 			
 			case 'DISPO':
 				$query = DispositionModel::isDisposition($id)->first();
-				$data = DISPOTransformer::customTransform($query);
+				
+				if (!empty($query)) {
+					$data = DISPOTransformer::customTransform($query);
+				}
 				
 				break;
 		}
