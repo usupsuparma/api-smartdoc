@@ -39,7 +39,6 @@ class DISPOTransformer extends TransformerAbstract
 			'number_disposition' => !empty($data->number_disposition) ? $data->number_disposition : null,
 			'subject_disposition' => !empty($data->subject_disposition) ? $data->subject_disposition : null,
 			'disposition_date' => !empty($data->disposition_date) ? $data->disposition_date : null,
-			'description' => !empty($data->description) ? $data->description : null,
 			'employee' => [
 				'name' => !empty($data->employee) ? $data->employee->name : null,
 			],
