@@ -16,11 +16,16 @@ class IncomingMailTransformer extends TransformerAbstract
 	 public function transform($data) 
 	 {
 		$follow_up = false;
+		$disposition = false;
 		
 		if ($data->follow_ups->isEmpty() && $data->status == IncomingMailStatusConstans::SEND) {
 			if ($data->to_employee_id == Auth::user()->user_core->id_employee) {
 				$follow_up = true;
 			}
+		}
+
+		if ($data->to_employee_id == Auth::user()->user_core->id_employee && empty($data->disposition)) {
+			$disposition = true;
 		}
 		
 		return [
@@ -53,7 +58,8 @@ class IncomingMailTransformer extends TransformerAbstract
 				'employee_name' => !empty($data->to_employee) ? $data->to_employee->name : '',
 				'status_code' => (int) $data->status
 			],
-			'follow_up' =>$follow_up,
+			'follow_up' => $follow_up,
+			'disposition' => $disposition,
 			'created_at' => $data->created_at->format('d-m-Y'),
 			'updated_at' => $data->updated_at->format('d-m-Y')
 		];

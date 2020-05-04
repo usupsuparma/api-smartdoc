@@ -12,6 +12,7 @@ use App\Modules\Master\Type\Models\TypeModel;
 use App\Modules\Master\Classification\Models\ClassificationModel;
 use App\Modules\External\Employee\Models\EmployeeModel;
 use App\Modules\External\Organization\Models\OrganizationModel;
+use App\Modules\Disposition\Models\DispositionModel;
 use App\Modules\IncomingMail\Constans\IncomingMailStatusConstans;
 use Auth, Upload;
 
@@ -59,6 +60,11 @@ class IncomingMailModel extends Model
 	public function structure()
 	{
 		return $this->belongsTo(OrganizationModel::class, 'structure_id');
+	}
+	
+	public function disposition()
+	{
+		return $this->hasOne(DispositionModel::class, 'incoming_mail_id');
 	}
 	
 	public function scopeAuthorityData($query)
