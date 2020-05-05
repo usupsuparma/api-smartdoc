@@ -17,6 +17,11 @@ class IncomingMailTransformer extends TransformerAbstract
 	 {
 		$follow_up = false;
 		$disposition = false;
+		$status = false;
+		
+		if ($data->status != IncomingMailStatusConstans::DRAFT || $data->status != IncomingMailStatusConstans::SEND) {
+			$status = true;
+		}
 		
 		if ($data->follow_ups->isEmpty() && $data->status == IncomingMailStatusConstans::SEND) {
 			if ($data->to_employee_id == Auth::user()->user_core->id_employee) {
@@ -55,7 +60,7 @@ class IncomingMailTransformer extends TransformerAbstract
 			],
 			'status' => [
 				'action' => config('constans.status-action-in.'. $data->status),
-				'employee_name' => !empty($data->to_employee) ? $data->to_employee->name : '',
+				'employee_name' => ($status ? (!empty($data->to_employee) ? $data->to_employee->name : '') : null),
 				'status_code' => (int) $data->status
 			],
 			'follow_up' => $follow_up,
