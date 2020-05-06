@@ -33,8 +33,8 @@ class NotificationTransformer extends TransformerAbstract
 				'position_name' => $data->receiver->user->position->nama_jabatan,
 			],
 			'is_read' => (bool) $data->is_read,
-			'created_at' => $data->created_at->format('d-m-Y'),
-			'updated_at' => $data->updated_at->format('d-m-Y')
+			'created_at' => $data->created_at->format('Y-m-d H:i:s'),
+			'updated_at' => $data->updated_at->format('Y-m-d H:i:s')
 		];
 	 }
 }
