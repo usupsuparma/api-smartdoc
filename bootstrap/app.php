@@ -127,6 +127,7 @@ $app->register(App\Modules\Verification\Providers\VerificationServiceProvider::c
 
 $app->register(App\Modules\Review\Providers\ReviewServiceProvider::class);
 $app->register(App\Modules\Signature\Providers\SignatureServiceProvider::class);
+$app->register(App\Modules\MappingStructure\Providers\MappingStructureServiceProvider::class);
 
 $app->register(App\Modules\Master\Type\Providers\TypeServiceProvider::class);
 $app->register(App\Modules\Master\Classification\Providers\ClassificationServiceProvider::class);
