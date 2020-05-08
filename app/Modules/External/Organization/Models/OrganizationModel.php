@@ -21,6 +21,11 @@ class OrganizationModel extends Model
 		return $this->belongsTo(MappingStructureDetailModel::class, 'structure_id');
 	}
 	
+	public function scopeIsActive($query)
+	{
+		
+	}
+	
 	public function scopeOptions($query, $default = NULL)
     {
         $list = [];

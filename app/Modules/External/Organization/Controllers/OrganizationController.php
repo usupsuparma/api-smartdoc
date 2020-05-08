@@ -23,8 +23,8 @@ class OrganizationController extends BaseController
 		return $this->successResponse($this->organizationRepository->options(),200);
 	}
 	
-	public function option_disposition($incoming_mail_id)
+	public function option_disposition()
 	{
-		return $this->successResponse($this->organizationRepository->option_disposition($incoming_mail_id),200);
+		return $this->successResponse($this->organizationRepository->option_disposition(),200);
 	}
 }

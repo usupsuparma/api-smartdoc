@@ -9,5 +9,5 @@ interface OrganizationInterface extends RepositoryInterface
 {	
 	public function options();
 	
-	public function option_disposition($incoming_mail_id);
+	public function option_disposition();
 }

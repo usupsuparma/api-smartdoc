@@ -297,3 +297,22 @@ if (!function_exists('body_email_in')) {
 		return str_replace($origin, $replace, $body);
     }
 }
+
+if (!function_exists('flat_array')) {
+	
+    function flat_array($a, $flat = [])
+    {
+        $entry = [];
+		foreach ($a as $key => $el) {
+			if (is_array($el)) {
+				$flat = flat_array($el, $flat);
+			} else {
+				$entry[$key] = $el;
+			}
+		}
+		if (!empty($entry)) {
+			$flat[] = $entry;
+		}
+		return $flat;
+    }
+}
