@@ -296,7 +296,6 @@ class IncomingMailRepositories extends BaseRepository implements IncomingMailInt
 		return $model->path_to_file;
 	}
 	
-	
 	private function send_email($model)
 	{
 		$body = body_email_in($model, setting_name_by_code('SURAT_MASUK'), EmailInConstants::SEND);

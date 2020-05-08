@@ -14,7 +14,7 @@ class OutgoingMailApproval extends Model
 	
     protected $fillable   = [
 		'outgoing_mail_id', 'structure_id', 'employee_id', 'status_approval', 'description',
-		'is_review', 'status'
+		'path_to_file', 'is_review', 'status'
 	];
 	
 	public function employee()

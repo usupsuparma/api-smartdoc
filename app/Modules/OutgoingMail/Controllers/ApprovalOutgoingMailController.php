@@ -40,4 +40,11 @@ class ApprovalOutgoingMailController extends BaseController
 		
         return $this->successResponse($results, 200);
 	}
+	
+	public function download_attachment_approval($approval_id)
+    {	
+		$path = storage_path('app/public'. $this->approvalOutgoingMailRepository->download_attachment_approval($approval_id));
+
+		return response()->download($path, basename($path));
+	}
 }

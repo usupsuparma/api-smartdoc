@@ -98,6 +98,7 @@ class OutgoingMailTransformer extends TransformerAbstract
 					],
 					'structure_name' => !empty($history->structure) ? $history->structure->nama_struktur : '',
 					'notes' => $history->description,
+					'attachment' => !empty($history->path_to_file) ? true : false,
 					'status' => [
 						'status_code' => (int) $history->status_approval,
 						'status_name' => config('constans.status-approval.'. $history->status_approval),

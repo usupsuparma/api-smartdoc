@@ -15,7 +15,8 @@ use App\Constants\EmailConstants;
 use App\Jobs\SendEmailReminderJob;
 use App\Events\Notif;
 use App\Constants\MailCategoryConstants;
-use Validator, DB, Auth;
+use Validator, DB, Auth, Upload;
+use Illuminate\Support\Facades\Crypt;
 
 class ApprovalOutgoingMailRepositories extends BaseRepository implements ApprovalOutgoingMailInterface
 {
@@ -79,7 +80,14 @@ class ApprovalOutgoingMailRepositories extends BaseRepository implements Approva
 			'description.required' => 'Catatan wajib diisi',
 		]; 
 		
+		if ($request->hasFile('file')) {
+			$rules['file'] = ['mimes:pdf,xlsx,xls,doc,docx|max:2048'];
+			$message['file.mimes'] = 'file harus berupa berkas berjenis: pdf, xlsx, xls, doc, docx.';
+		}
+		
 		Validator::validate($request->all(), $rules, $message);
+		
+		$upload = null;
 		
 		$nextApprovalEmployee = NULL;
 		$nextApprovalStructure = NULL;
@@ -90,10 +98,14 @@ class ApprovalOutgoingMailRepositories extends BaseRepository implements Approva
 			$nextApprovalEmployee = !empty($nextApproval->employee) ? $nextApproval->employee->id_employee : '';
 			$nextApprovalStructure = !empty($nextApproval->employee->user) ? $nextApproval->employee->user->structure->id : '';
 		}
-		
+
 		DB::beginTransaction();
 		
         try {
+			
+			if ($request->hasFile('file')) {
+				$upload = Upload::uploads(setting_by_code('PATH_DIGITAL_OUTGOING_MAIL'), $request->file);
+			}
 			
 			if ((int) $request->status_approval === StatusApprovalConstants::APPROVED) {
 				if (!empty($nextApproval)) {
@@ -104,7 +116,18 @@ class ApprovalOutgoingMailRepositories extends BaseRepository implements Approva
 					
 					$title = 'approval';
 					$receiver_id = $nextApprovalEmployee;
+					$redirect_web = setting_by_code('URL_APPROVAL_OUTGOING_MAIL');
 					
+					/* Send Email  next approval */
+					$email = smartdoc_user($nextApprovalEmployee);
+					$const_email = EmailConstants::APPROVED;
+					$data_email = [
+						'name'  => $email->user_core->employee->name,
+						'button' => true,
+						'email' => !empty($email) ? $email->email : NULL,
+						'url' => $redirect_web. '?type=OM&skey='. Crypt::encrypt($id)
+					];
+										
 				} else {
 					$data = [
 						'current_approval_employee_id' => NULL,
@@ -114,13 +137,26 @@ class ApprovalOutgoingMailRepositories extends BaseRepository implements Approva
 					
 					$title = 'signed';
 					$receiver_id = $model->from_employee_id;
+					$redirect_web = setting_by_code('URL_SIGNED_OUTGOING_MAIL');
+					
+					/* Send Email to Signed */
+					$email = smartdoc_user($model->from_employee->user->user_id);
+					$const_email = EmailConstants::SIGNED;
+					$data_email = [
+						'name'  => $model->from_employee->name,
+						'button' => true,
+						'email' => !empty($email) ? $email->email : NULL,
+						'url' => $redirect_web. '?type=OM&skey='. Crypt::encrypt($id)
+					];
 				}
+				
+				$this->send_email($model, $data_email, $const_email);
 				
 				$this->send_notification([
 					'model' => $model, 
 					'heading' => MailCategoryConstants::SURAT_KELUAR,
 					'title' => $title,
-					'redirect_web' => setting_by_code('URL_APPROVAL_OUTGOING_MAIL'),
+					'redirect_web' => $redirect_web,
 					'redirect_mobile' => '',
 					'receiver' => $receiver_id
 				]);
@@ -138,6 +174,18 @@ class ApprovalOutgoingMailRepositories extends BaseRepository implements Approva
 					$appro->update(['status' => false]);
 				}
 				
+				/* Send Email to Draft */
+				$email = smartdoc_user($model->created_by->user->user_id);
+				$const_email = EmailConstants::REJECT;
+				$data_email = [
+					'name'  => $model->created_by->name,
+					'button' => true,
+					'email' => !empty($email) ? $email->email : NULL,
+					'url' => setting_by_code('URL_OUTGOING_MAIL'). '?type=OM&skey='. Crypt::encrypt($id)
+				];
+				
+				$this->send_email($model, $data_email, $const_email);
+				
 				$this->send_notification([
 					'model' => $model, 
 					'heading' => MailCategoryConstants::SURAT_KELUAR,
@@ -150,7 +198,10 @@ class ApprovalOutgoingMailRepositories extends BaseRepository implements Approva
 				reject_log($model);
 			}
 		
-			$modelApproval->update($request->all());
+			$modelApproval->update($request->merge([
+				'path_to_file' => !empty($upload) ? $upload : null
+			])->all());
+			 
 			$model->update($data);
 			
             DB::commit();
@@ -185,6 +236,15 @@ class ApprovalOutgoingMailRepositories extends BaseRepository implements Approva
 		return $filtered->first();
 	}
 	
+	private function send_email($model, $data, $email_action)
+	{
+		$body = body_email($model, setting_name_by_code('SURAT_KELUAR'), $email_action);
+		$data['body'] = $body;
+		$data['notification_action'] = config('constans.notif-email.'. $email_action);
+		
+		dispatch(new SendEmailReminderJob($data));
+	}
+	
 	private function send_notification($notif)
 	{
 		$data_notif = [
@@ -201,6 +261,14 @@ class ApprovalOutgoingMailRepositories extends BaseRepository implements Approva
 		];
 		
 		event(new Notif($data_notif));
+	}
+	
+	public function download_attachment_approval($approval_id)
+    {
+		$model = OutgoingMailApproval::findOrFail($approval_id);
+		Upload::download($model->path_to_file);
+		
+		return $model->path_to_file;
 	}
 }
 

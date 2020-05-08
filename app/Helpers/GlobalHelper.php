@@ -126,29 +126,52 @@ if (!function_exists('review_list')) {
         $collections = $users->orderBy('kode_jabatan', 'DESC')->get();
         
         foreach ($details as $dt) {
-            foreach ($collections as $col) {
-                if ($dt->organizations->kode_struktur === $col->structure->kode_struktur) {
-                    $map_struct = MappingStructureDetailModel::where('structure_id', $dt->organizations->id)->first();
-                    $structure = $map_struct->map_structure;
-                    
-                    // if (!empty($map_struct)) {
-                    //     if (!empty($structure->primary_top_level_id)) {
-                    //         if ($structure->primary_top_level_id == $col->kode_jabatan) {
-                    //             $results[] = [
-                    //                 'structure_id' => $dt->structure_id,
-                    //                 'employee_id' => $col->id_employee
-                    //             ];
-                    //         }
+            $primary = false;
+            $secondary = false;
+            $arr_primary = [];
+            $arr_secondary = [];
+            if (!empty($collections)) {
+                foreach ($collections as $key => $col) {
+                    if ($dt->organizations->kode_struktur === $col->structure->kode_struktur) {
+                        $map_struct = MappingStructureDetailModel::where('structure_id', $dt->organizations->id)->first();
+                        $structure = $map_struct->map_structure;
+                        
+                        if (!empty($map_struct)) {
                             
-                    //     } else {
-                    //         if ($structure->secondary_top_level_id == $col->kode_jabatan) {
-                                $results[] = [
-                                    'structure_id' => $dt->structure_id,
-                                    'employee_id' => $col->id_employee
-                                ];
-                    //         }
-                    //     }
-                    // }
+                            if (!empty($structure->primary_top_level_id)) {
+                                if ($structure->primary_top_level_id == $col->kode_jabatan) {
+                                    $pr = [
+                                        'structure_id' => $dt->structure_id,
+                                        'employee_id' => $col->id_employee
+                                    ];
+                                    
+                                    $primary = true;
+                                    $arr_primary[] = $pr;
+                                }
+                                
+                            }
+                            
+                            if (!empty($structure->primary_top_level_id)) {
+                                if ($structure->secondary_top_level_id == $col->kode_jabatan) {
+                                    $sr = [
+                                        'structure_id' => $dt->structure_id,
+                                        'employee_id' => $col->id_employee
+                                    ];
+                                    
+                                    $secondary = true;
+                                    $arr_secondary[] = $sr;
+                                }
+                            }
+                        }
+                    }
+                    
+                    if ($primary) {
+                        $results[] = $arr_primary[0];
+                        break;
+                    } else if (empty($arr_primary) && $secondary && $key == count($collections) - 1){
+                        $results[] = $arr_secondary[0];
+                        break;
+                    }
                 }
             }
         }
@@ -163,17 +186,32 @@ if (!function_exists('review_list_non_director')) {
     {
         $results = [];
         $orgs = [];
+        $positions = [];
         
         if (!empty($list_code_hierarchy)) {
             
             foreach ($list_code_hierarchy as $dt) {
+                $map_struct = MappingStructureDetailModel::where('structure_id', $dt->id)->first();
+                if (!empty($map_struct)) {
+                    $structure = $map_struct->map_structure;
+                    
+                    if (!empty($structure->primary_top_level_id)) {
+                        array_push($positions, $structure->primary_top_level_id);
+                    }
+                    
+                    if (!empty($structure->secondary_top_level_id)) {
+                        array_push($positions, $structure->secondary_top_level_id);
+                    }
+                }
                 $orgs[] = $dt->id;
             }
         }
+        /* Remove duplicate array position */
+        $list_position = collect($positions)->unique()->values()->all();
         
         $users = ExternalUserModel::isActive()
                 ->whereIn('kode_struktur', $orgs)
-                ->whereIn('kode_jabatan', unserialize(setting_by_code('ALLOW_ROLE_POSITION_USER')));
+                ->whereIn('kode_jabatan', $list_position);
         
         if (!$users->exists()) {
             return false;
@@ -181,13 +219,53 @@ if (!function_exists('review_list_non_director')) {
         
         $collections = $users->orderBy('kode_jabatan', 'DESC')->get();
         
-        foreach ($list_code_hierarchy as $dt) {
-            foreach ($collections as $col) {
-                if ($dt->kode_struktur === $col->structure->kode_struktur) {
-                    $results[] = [
-                        'structure_id' => $dt->id,
-                        'employee_id' => $col->id_employee
-                    ];
+        foreach ($list_code_hierarchy as $dt) {$primary = false;
+            $primary = false;
+            $secondary = false;
+            $arr_primary = [];
+            $arr_secondary = [];
+            if (!empty($collections)) {
+                foreach ($collections as $key => $col) {
+                    if ($dt->kode_struktur === $col->structure->kode_struktur) {
+                        $map_struct = MappingStructureDetailModel::where('structure_id', $dt->id)->first();
+                        $structure = $map_struct->map_structure;
+                        
+                        if (!empty($map_struct)) {
+                            
+                            if (!empty($structure->primary_top_level_id)) {
+                                if ($structure->primary_top_level_id == $col->kode_jabatan) {
+                                    $pr = [
+                                        'structure_id' => $dt->id,
+                                        'employee_id' => $col->id_employee
+                                    ];
+                                    
+                                    $primary = true;
+                                    $arr_primary[] = $pr;
+                                }
+                                
+                            }
+                            
+                            if (!empty($structure->primary_top_level_id)) {
+                                if ($structure->secondary_top_level_id == $col->kode_jabatan) {
+                                    $sr = [
+                                        'structure_id' => $dt->id,
+                                        'employee_id' => $col->id_employee
+                                    ];
+                                    
+                                    $secondary = true;
+                                    $arr_secondary[] = $sr;
+                                }
+                            }
+                        }
+                    }
+                    
+                    if ($primary) {
+                        $results[] = $arr_primary[0];
+                        break;
+                    } else if (empty($arr_primary) && $secondary && $key == count($collections) - 1){
+                        $results[] = $arr_secondary[0];
+                        break;
+                    }
                 }
             }
         }

@@ -28,9 +28,14 @@ class ApprovalOutgoingMailRoutes extends BaseRoutes
 				'uses' => 'ApprovalOutgoingMailController@show'
 			]);
 			
-			$app->router->put('/{id}', [
+			$app->router->post('/{id}', [
 				'as' => $this->route_prefix . '.update',
 				'uses' => 'ApprovalOutgoingMailController@update'
+			]);
+			
+			$app->router->get('/download/attachment-approval/{approval_id}', [
+				'as' => $this->route_prefix . '.download_attachment_approval',
+				'uses' => 'ApprovalOutgoingMailController@download_attachment_approval'
 			]);
 	
 		});
