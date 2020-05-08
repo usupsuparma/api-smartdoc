@@ -242,8 +242,8 @@ class Smartdoc extends PDF
 	{
 		Carbon::setLocale('id');
 		$forwards = '';
-		
-		if (!empty($model->forwards)) {
+
+		if (!$model->forwards->isEmpty()) {
 			$forwards .= '<p>Tembusan Yth: </p>';
 			$forwards .= '<ol>';
 			foreach ($model->forwards as $fw) {

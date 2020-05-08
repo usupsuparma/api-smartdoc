@@ -37,6 +37,11 @@ class ApprovalOutgoingMailRoutes extends BaseRoutes
 				'as' => $this->route_prefix . '.download_attachment_approval',
 				'uses' => 'ApprovalOutgoingMailController@download_attachment_approval'
 			]);
+			
+			$app->router->get('/download/review-outgoing-mail/{id}', [
+				'as' => $this->route_prefix . '.download_review_outgoing_mail',
+				'uses' => 'ApprovalOutgoingMailController@download_review_outgoing_mail'
+			]);
 	
 		});
 	}

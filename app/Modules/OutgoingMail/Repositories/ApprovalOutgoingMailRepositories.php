@@ -5,6 +5,7 @@
  */
 
 use Prettus\Repository\Eloquent\BaseRepository;
+use Illuminate\Support\Facades\Crypt;
 use App\Modules\OutgoingMail\Interfaces\ApprovalOutgoingMailInterface;
 use App\Modules\OutgoingMail\Models\OutgoingMailModel;
 use App\Modules\OutgoingMail\Transformers\OutgoingMailTransformer;
@@ -15,8 +16,7 @@ use App\Constants\EmailConstants;
 use App\Jobs\SendEmailReminderJob;
 use App\Events\Notif;
 use App\Constants\MailCategoryConstants;
-use Validator, DB, Auth, Upload;
-use Illuminate\Support\Facades\Crypt;
+use Validator, DB, Auth, Upload, Smartdoc;
 
 class ApprovalOutgoingMailRepositories extends BaseRepository implements ApprovalOutgoingMailInterface
 {
@@ -269,6 +269,14 @@ class ApprovalOutgoingMailRepositories extends BaseRepository implements Approva
 		Upload::download($model->path_to_file);
 		
 		return $model->path_to_file;
+	}
+	
+	public function download_review_outgoing_mail($id)
+    {
+		$model = $this->model->findOrFail($id);
+		$document = Smartdoc::outgoing_mail($model, []);
+		
+		return $document;
 	}
 }
 

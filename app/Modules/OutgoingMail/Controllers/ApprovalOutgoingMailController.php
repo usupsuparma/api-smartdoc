@@ -47,4 +47,11 @@ class ApprovalOutgoingMailController extends BaseController
 
 		return response()->download($path, basename($path));
 	}
+	
+	public function download_review_outgoing_mail($id)
+    {	
+		$path = storage_path('app/public'. $this->approvalOutgoingMailRepository->download_review_outgoing_mail($id));
+
+		return response()->download($path, basename($path));
+	}
 }
