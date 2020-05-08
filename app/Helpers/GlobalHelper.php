@@ -8,7 +8,7 @@ use App\Modules\External\Users\Models\ExternalUserModel;
 use App\Modules\External\Employee\Models\EmployeeModel;
 use App\Modules\Review\Models\ReviewModel;
 use App\Modules\User\Models\UserModel;
-
+use App\Modules\MappingStructure\Models\MappingStructureDetailModel;
 if (!function_exists('setting_by_code')) {
 	
     function setting_by_code($code)
@@ -87,6 +87,7 @@ if (!function_exists('review_list')) {
     {
         $results = [];
         $orgs = [];
+        $positions = [];
         
         $review = ReviewModel::where('code', $code_review)->first();
         
@@ -94,12 +95,29 @@ if (!function_exists('review_list')) {
             $details = !empty($review->details) ? $review->details : [];
             
             foreach ($details as $dt) {
+                /* check mapping structure top level position */
+                $map_struct = MappingStructureDetailModel::where('structure_id', $dt->organizations->id)->first();
+                if (!empty($map_struct)) {
+                    $structure = $map_struct->map_structure;
+                    
+                    if (!empty($structure->primary_top_level_id)) {
+                        array_push($positions, $structure->primary_top_level_id);
+                    }
+                    
+                    if (!empty($structure->secondary_top_level_id)) {
+                        array_push($positions, $structure->secondary_top_level_id);
+                    }
+                }
                 $orgs[] = $dt->organizations->id;
             }
         }
+        
+        /* Remove duplicate array position */
+        $list_position = collect($positions)->unique()->values()->all();
+
         $users = ExternalUserModel::isActive()
             ->whereIn('kode_struktur', $orgs)
-            ->whereIn('kode_jabatan', unserialize(setting_by_code('ALLOW_ROLE_POSITION_USER')));
+            ->whereIn('kode_jabatan', $list_position);
         
         if (!$users->exists()) {
             return false;
@@ -110,10 +128,27 @@ if (!function_exists('review_list')) {
         foreach ($details as $dt) {
             foreach ($collections as $col) {
                 if ($dt->organizations->kode_struktur === $col->structure->kode_struktur) {
-                    $results[] = [
-                        'structure_id' => $dt->structure_id,
-                        'employee_id' => $col->id_employee
-                    ];
+                    $map_struct = MappingStructureDetailModel::where('structure_id', $dt->organizations->id)->first();
+                    $structure = $map_struct->map_structure;
+                    
+                    // if (!empty($map_struct)) {
+                    //     if (!empty($structure->primary_top_level_id)) {
+                    //         if ($structure->primary_top_level_id == $col->kode_jabatan) {
+                    //             $results[] = [
+                    //                 'structure_id' => $dt->structure_id,
+                    //                 'employee_id' => $col->id_employee
+                    //             ];
+                    //         }
+                            
+                    //     } else {
+                    //         if ($structure->secondary_top_level_id == $col->kode_jabatan) {
+                                $results[] = [
+                                    'structure_id' => $dt->structure_id,
+                                    'employee_id' => $col->id_employee
+                                ];
+                    //         }
+                    //     }
+                    // }
                 }
             }
         }

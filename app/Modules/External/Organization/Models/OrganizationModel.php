@@ -4,6 +4,7 @@
  */
 
 use Illuminate\Database\Eloquent\Model;
+use App\Modules\MappingStructure\Models\MappingStructureDetailModel;
 
 class OrganizationModel extends Model 
 {
@@ -14,6 +15,11 @@ class OrganizationModel extends Model
     protected $fillable   = [
 		'nama_struktur', 'parent_id', 'kode_struktur'
 	];
+	
+	public function mapping()
+	{
+		return $this->belongsTo(MappingStructureDetailModel::class, 'structure_id');
+	}
 	
 	public function scopeOptions($query, $default = NULL)
     {

@@ -138,6 +138,7 @@ $app->register(App\Modules\Master\Template\Providers\TemplateServiceProvider::cl
 /* External */
 $app->register(App\Modules\External\Employee\Providers\EmployeeServiceProvider::class);
 $app->register(App\Modules\External\Organization\Providers\OrganizationServiceProvider::class);
+$app->register(App\Modules\External\Position\Providers\PositionServiceProvider::class);
 
 /* Core */
 $app->register(App\Providers\AppServiceProvider::class);

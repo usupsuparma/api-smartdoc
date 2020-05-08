@@ -14,4 +14,18 @@ class PositionModel extends Model
     protected $fillable   = [
 		'nama_jabatan'
 	];
+	
+	public function scopeOptions($query, $default = NULL)
+    {
+        $list = [];
+
+        foreach ($query->orderBy('nama_jabatan')->get() as $dt) {
+            $list[] = [
+				'id' => $dt->id,
+				'name' => $dt->nama_jabatan,
+			];
+		}
+		
+        return $list;
+    }
 }

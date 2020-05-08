@@ -16,12 +16,12 @@ class MappingStructureDetailModel extends Model
 	protected $table = 'mapping_structure_detail';
 	
     protected $fillable   = [
-		'mapping_structure_detail_id', 'structure_id'
+		'mapping_structure_id', 'structure_id'
 	];
 	
 	public function map_structure()
 	{
-		return $this->belongsTo(MappingStructureModel::class, 'mapping_structure_detail_id');
+		return $this->belongsTo(MappingStructureModel::class, 'mapping_structure_id');
 	}
 	
 	public function structure()
