@@ -92,6 +92,7 @@ class OutgoingMailTransformer extends TransformerAbstract
 		if (!empty($data->history_approvals)) {
 			foreach ($data->history_approvals as $history) {
 				$history_approvals[] = [
+					'id' => $history->id,
 					'employee' => [
 						'nik' => !empty($history->employee) ? $history->employee->nik : '',
 						'name' => !empty($history->employee) ? $history->employee->name : '',
