@@ -311,8 +311,9 @@ if (!function_exists('flat_array')) {
 			}
 		}
 		if (!empty($entry)) {
-			$flat[] = $entry;
-		}
+			$flat[] = (object) $entry;
+        }
+
 		return $flat;
     }
 }

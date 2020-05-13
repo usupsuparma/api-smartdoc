@@ -59,8 +59,8 @@ class OrganizationRepositories extends BaseRepository implements OrganizationInt
 				'kode_struktur' => $collection->kode_struktur
 			]);
 		}
-
-		$parsing = collect(flat_array($search))->sortBy('nama_struktur')->toArray();
+		
+		$parsing = collect(flat_array($search))->sortBy('nama_struktur')->values();
 		
 		return ['data' => $parsing];
 	}
