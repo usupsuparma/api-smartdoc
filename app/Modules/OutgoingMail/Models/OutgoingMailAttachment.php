@@ -20,7 +20,9 @@ class OutgoingMailAttachment extends Model
 
 		static::deleting(function($attachment) {
 			/* Remove attachment file*/
-			Upload::delete($attachment->path_to_file);
+			if (!empty($attachment->path_to_file)) {
+				Upload::delete($attachment->path_to_file);
+			}
 		});
     }
 }

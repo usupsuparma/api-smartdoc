@@ -135,6 +135,9 @@ $app->register(App\Modules\Master\ClassDisposition\Providers\ClassDispositionSer
 $app->register(App\Modules\Master\TypeNote\Providers\TypeNoteServiceProvider::class);
 $app->register(App\Modules\Master\Template\Providers\TemplateServiceProvider::class);
 
+/* Report */
+$app->register(App\Modules\Report\Outgoing\Providers\ReportOutgoingServiceProvider::class);
+
 /* External */
 $app->register(App\Modules\External\Employee\Providers\EmployeeServiceProvider::class);
 $app->register(App\Modules\External\Organization\Providers\OrganizationServiceProvider::class);

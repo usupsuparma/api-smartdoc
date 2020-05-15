@@ -36,7 +36,9 @@ class SignatureModel extends Model
 
 		static::deleting(function($signature) {
 			/* Remove relation attachment */
-			Upload::delete($signature->path_to_file);
+			if (!empty($signature->path_to_file)) {
+				Upload::delete($signature->path_to_file);
+			}
 		});
     }
 }

@@ -33,7 +33,9 @@ class DispositionFollowUp extends Model
 
 		static::deleting(function($followup) {
 			/* Remove attachment file*/
-			Upload::delete($followup->path_to_file);
+			if (!empty($followup->path_to_file)) {
+				Upload::delete($followup->path_to_file);
+			}
 		});
     }
 }

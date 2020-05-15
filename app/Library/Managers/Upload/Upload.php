@@ -84,7 +84,7 @@ class Upload
 	
 	public static function delete_local($file)
 	{
-		if (Storage::disk('public')->exists($file)) {
+		if (Storage::disk('public')->exists($file) && !empty($file_path)) {
 			$process = Storage::disk('public')->delete($file);
 			
 			if ($process) {

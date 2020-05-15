@@ -144,6 +144,18 @@ class OutgoingMailModel extends Model
 		]);
 	}
 	
+	public function scopeCategoryReport($query)
+	{
+		$category = [
+			OutgoingMailStatusConstants::REVIEW,
+			OutgoingMailStatusConstants::APPROVED,
+			OutgoingMailStatusConstants::SIGNED,
+			OutgoingMailStatusConstants::PUBLISH
+		];
+		
+		return $query->whereIn('status', $category);
+	}
+	
 	protected static function boot() 
     {
 		parent::boot();
