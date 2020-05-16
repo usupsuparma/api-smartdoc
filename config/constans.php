@@ -69,5 +69,11 @@ return [
 	'status-approval' => [
 		StatusApprovalConstants::REJECT => 'Reject',
 		StatusApprovalConstants::APPROVED => 'Approve'
-	]
+	],
+	'action-status' => [
+		OutgoingMailStatusConstants::REVIEW => 'Review',
+		OutgoingMailStatusConstants::APPROVED => 'Approved',
+		OutgoingMailStatusConstants::SIGNED => 'Signed',
+		OutgoingMailStatusConstants::PUBLISH => 'Publish'
+	],
 ];

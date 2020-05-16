@@ -14,6 +14,7 @@ use Carbon\Carbon;
 class ReportOutgoingRepositories extends BaseRepository implements ReportOutgoingInterface
 {	
 	const STR_RANDOM = 8;
+	const CHUNK_SIZE = 100;
 	
 	public function model()
 	{
@@ -22,7 +23,13 @@ class ReportOutgoingRepositories extends BaseRepository implements ReportOutgoin
 	
     public function data($request)
     {
-		$query = $this->model->categoryReport();
+		$query = $this->model->with([
+			'type',
+			'classification',
+			'to_employee',
+			'from_employee',
+			'structure_by',
+		])->categoryReport();
 		
 		if ($request->has('type_id') && !empty($request->type_id)) {
 			$query->where('type_id', $request->type_id);
@@ -73,20 +80,20 @@ class ReportOutgoingRepositories extends BaseRepository implements ReportOutgoin
 			$pdf->SetFont('helvetica', 'B', 15);
 			$pdf->SetAlpha(0.7);
 			$pdf->SetTextColor(0);
-			$pdf->Ln(10); 
+			$pdf->Ln(5);
 			
 			$pdf->Cell(0, 15, 'LAPORAN', 0, false, 'C', 0, '', 0, false, 'M', 'M');
-			$pdf->Ln(7);
+			$pdf->Ln(5);
 			
 			$pdf->SetFont('helvetica', 'B', 12);
 			
 			$pdf->Cell(0, 15, 'SURAT KELUAR', 0, false, 'C', 0, '', 0, false, 'M', 'M');
-			$pdf->Ln(7); 
+			$pdf->Ln(5); 
 			
 			$pdf->SetFont('helvetica', 'B', 10);
 			$pdf->SetTextColor(18, 107, 151);
 			$pdf->Cell(0, 15, setting_by_code('COMPANY_NAME'), 0, false, 'C', 0, '', 0, false, 'M', 'M');
-			$pdf->Ln(7); 
+			$pdf->Ln(10); 
 			
 			$pdf->SetFont('helvetica', '', 8);
 			$pdf->SetTextColor(0);
@@ -117,11 +124,53 @@ class ReportOutgoingRepositories extends BaseRepository implements ReportOutgoin
 		
 		PDF::SetMargins(10, 40, 10);
 			
-		PDF::SetFont('helvetica', '', 10);
+		PDF::SetFont('helvetica', '', 6);
 		
-		PDF::AddPage();
+		PDF::AddPage('L', 'A4');
+		$i = 0;
+		$html = '<table cellspacing="1" bgcolor="#666666" cellpadding="2">
+				<tr bgcolor="#f0f0f0">
+					<th width="3%" align="center">No</th>
+					<th width="30%" align="center">Nomor & Perihal Surat</th>
+					<th width="8%" align="center">Tipe</th>
+					<th width="8%" align="center">Klasifikasi</th>
+					<th width="5%" align="center">Tanggal Surat</th>
+					<th width="10%" align="center">Kepada</th>
+					<th width="10%" align="center">Dari</th>
+					<th width="12%" align="center">Diterbitkan</th>
+					<th width="9%" align="center">Pembuat Surat</th>
+					<th width="5%" align="center">Status</th>
+				</tr>';
+		foreach($data->chunk(self::CHUNK_SIZE) as $chunks) {
+			foreach ($chunks as $dt) 
+			{
+				$i++;
+				$number = !empty($dt->number_letter) ? '('. $dt->number_letter.') ' : '';
+				$type = !empty($dt->type) ? $dt->type->name : 'N/A';
+				$classification = !empty($dt->classification) ? $dt->classification->name : 'N/A';
+				$to = !empty($dt->to_employee) ? $dt->to_employee->name : 'N/A';
+				$from = !empty($dt->from_employee) ? $dt->from_employee->name : 'N/A';
+				$structure_by = !empty($dt->structure_by) ? $dt->structure_by->nama_struktur : 'N/A';
+				$created_by = !empty($dt->created_by) ? $dt->created_by->name : 'N/A';
+				
+				$html .='<tr bgcolor="#ffffff">
+						<td align="center">'.$i.'</td>
+						<td>'.$number. $dt->subject_letter.'</td>
+						<td>'.$type.'</td>
+						<td align="center">'.$classification.'</td>
+						<td align="center">'.Carbon::parse($dt->letter_date)->format('d-m-Y').'</td>
+						<td align="center">'.$to.'</td>
+						<td align="center">'.$from.'</td>
+						<td align="center">'.$structure_by.'</td>
+						<td align="center">'.$created_by.'</td>
+						<td align="center" >'.config('constans.action-status.'. $dt->status).'</td>
+					</tr>';
+			}
+		}
 		
-		PDF::writeHTML('', true, 0, true, 0);
+		$html .='</table>';
+		
+		PDF::writeHTML($html, true, 0, true, 0);
 		
 		PDF::Output('REPORT_SURAT_KELUAR_'.Str::random(self::STR_RANDOM).'.pdf', 'I');
 	}
