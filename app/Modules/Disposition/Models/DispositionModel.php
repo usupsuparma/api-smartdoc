@@ -89,6 +89,16 @@ class DispositionModel extends Model
 		)->where('id', $id);
 	}
 	
+	public function scopeCategoryReport($query)
+	{
+		$category = [
+			IncomingMailStatusConstans::DISPOSITION,
+			IncomingMailStatusConstans::DONE
+		];
+		
+		return $query->whereIn('status', $category);
+	}
+	
 	protected static function boot() 
     {
 		parent::boot();

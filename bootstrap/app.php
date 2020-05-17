@@ -138,6 +138,7 @@ $app->register(App\Modules\Master\Template\Providers\TemplateServiceProvider::cl
 /* Report */
 $app->register(App\Modules\Report\Outgoing\Providers\ReportOutgoingServiceProvider::class);
 $app->register(App\Modules\Report\Incoming\Providers\ReportIncomingServiceProvider::class);
+$app->register(App\Modules\Report\Disposition\Providers\ReportDispositionServiceProvider::class);
 
 /* External */
 $app->register(App\Modules\External\Employee\Providers\EmployeeServiceProvider::class);

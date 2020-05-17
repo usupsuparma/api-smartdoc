@@ -76,4 +76,8 @@ return [
 		OutgoingMailStatusConstants::SIGNED => 'Signed',
 		OutgoingMailStatusConstants::PUBLISH => 'Publish'
 	],
+	'action-status-disposition' => [
+		IncomingMailStatusConstans::DISPOSITION => 'In Progress',
+		IncomingMailStatusConstans::DONE => 'Done'
+	],
 ];

@@ -45,7 +45,7 @@ class ReportIncomingRepositories extends BaseRepository implements ReportIncomin
 		}
 
 		if ($request->has('structure_id') && !empty($request->structure_id)) {
-			$query->where('created_by_structure', $request->structure_id);
+			$query->where('structure_id', $request->structure_id);
 		}
 
 		return $query->get();
