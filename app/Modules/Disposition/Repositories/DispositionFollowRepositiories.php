@@ -117,7 +117,7 @@ class DispositionFollowRepositories extends BaseRepository implements Dispositio
     {
 		$model = $this->model->findOrFail($id);
 		
-		if (!empty($model->subject_letter)) {
+		if (!empty($model->path_to_file)) {
 			Upload::download($model->path_to_file);
 		}
 		
