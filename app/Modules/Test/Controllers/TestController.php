@@ -71,16 +71,7 @@ class TestController extends BaseController
 	}
 	
 	public function notification_signal()
-	{
-		// OneSignal::sendNotificationCustom([
-		// 	'api_id' => env('ONESIGNAL_APP_ID'),
-		// 	'api_key' => env('ONESIGNAL_API_KEY'),
-		// 	'include_player_ids' => ['e0aac846-417d-43f6-b236-b70cc2c78c64'],
-		// 	'collapse_id' => '1',
-		// 	'headings' => ['en' => 'Title Heading Test'],
-		// 	'contents' => ['en' => 'Ini Testing Message']
-		// ]);
-		
+	{		
 		push_notif([
 			'device_id' => 'e0aac846-417d-43f6-b236-b70cc2c78c64',
 			'data' => null,
