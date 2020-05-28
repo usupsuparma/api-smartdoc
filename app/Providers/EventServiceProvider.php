@@ -41,6 +41,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         'App\Events\Notif' => [
             'App\Listeners\NotifSender',
+        ],
+        'App\Events\NotificationMobile' => [
+            'App\Listeners\NotifMobile',
         ]
     ];
 }

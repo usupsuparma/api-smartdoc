@@ -9,6 +9,8 @@ use App\Modules\External\Employee\Models\EmployeeModel;
 use App\Modules\Review\Models\ReviewModel;
 use App\Modules\User\Models\UserModel;
 use App\Modules\MappingStructure\Models\MappingStructureDetailModel;
+use App\Events\NotificationMobile;
+
 if (!function_exists('setting_by_code')) {
 	
     function setting_by_code($code)
@@ -315,5 +317,13 @@ if (!function_exists('flat_array')) {
         }
 
 		return $flat;
+    }
+}
+
+if (!function_exists('push_notif')) {
+	
+    function push_notif($notification_data = [])
+    {
+        event(new NotificationMobile($notification_data));
     }
 }

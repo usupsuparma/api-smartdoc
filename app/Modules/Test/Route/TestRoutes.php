@@ -51,6 +51,11 @@ class TestRoutes extends BaseRoutes
 				'as' => $this->route_prefix . '.send_email',
 				'uses' => 'TestController@send_email'
 			]);
+			
+			$app->router->get('/notification/signal', [
+				'as' => $this->route_prefix . '.notification_signal',
+				'uses' => 'TestController@notification_signal'
+			]);
 	
 		});
 	}
