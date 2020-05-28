@@ -108,7 +108,7 @@ class ReportDispositionRepositories extends BaseRepository implements ReportDisp
 
 		/* Footer */
 		PDF::setFooterCallback(function($pdf) {
-			$footerSigned = 'Laporan ini resmi dikeluarkan oleh '. setting_by_code('COMPANY_NAME');
+			$footerSigned = 'Laporan ini dikeluarkan oleh SmartDoc '. setting_by_code('COMPANY_NAME');
 			$pdf->SetY(-15);
 			$pdf->SetFont('helvetica', 'I', 6);
 			$pdf->MultiCell(150, 5, $footerSigned, 0, 'L', 0, 0, '', '', true);
@@ -166,7 +166,7 @@ class ReportDispositionRepositories extends BaseRepository implements ReportDisp
 					
 					$html .= '<tr bgcolor="#ffffff">
 					<td colspan="8"><table cellspacing="1" bgcolor="#666666" cellpadding="2">
-					<tr bgcolor="#f1e3cb">
+					<tr bgcolor="#f0f0f0">
 						<th width="3%" align="center">No</th>
 						<th width="21%" align="center">Organisasi</th>
 						<th width="25%" align="center">Pegawai</th>
