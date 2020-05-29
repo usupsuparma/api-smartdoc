@@ -15,15 +15,20 @@ class ReportOutgoingController extends BaseController
 	public function __construct(ReportOutgoingRepositories $reportOutgoingRepositories)
 	{
 		$this->reportOutgoingRepository = $reportOutgoingRepositories;
+		Authority::acl_access(Auth::user(), 'report-outgoing');
 	}
 	
 	public function data(Request $request)
 	{
+		Authority::check('read');
+		
 		return $this->showAll($this->reportOutgoingRepository->data($request), 200);
 	}
 	
 	public function export_data(Request $request)
 	{
+		Authority::check('export');
+		
 		return $this->successResponse($this->reportOutgoingRepository->export_data($request), 200);
 	}
 }

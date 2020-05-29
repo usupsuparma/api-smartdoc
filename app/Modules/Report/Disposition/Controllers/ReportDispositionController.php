@@ -15,15 +15,20 @@ class ReportDispositionController extends BaseController
 	public function __construct(ReportDispositionRepositories $reportDispositionRepositories)
 	{
 		$this->reportDispositionRepository = $reportDispositionRepositories;
+		Authority::acl_access(Auth::user(), 'report-disposition');
 	}
 	
 	public function data(Request $request)
 	{
+		Authority::check('read');
+		
 		return $this->showAll($this->reportDispositionRepository->data($request), 200);
 	}
 	
 	public function export_data(Request $request)
 	{
+		Authority::check('export');
+		
 		return $this->successResponse($this->reportDispositionRepository->export_data($request), 200);
 	}
 }
