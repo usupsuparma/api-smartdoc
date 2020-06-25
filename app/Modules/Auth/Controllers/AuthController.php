@@ -33,4 +33,11 @@ class AuthController extends BaseController
 	{
 		return $this->successResponse($this->authRepository->logout(), 200);
 	}
+	
+	public function refresh_token(Request $request)
+	{
+		$results = $this->authRepository->refresh_token($request);
+		
+        return $this->successResponse($results, 200);
+	} 
 }

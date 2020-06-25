@@ -30,6 +30,12 @@ class AuthRoutes extends BaseRoutes
 				'as' => $this->route_prefix . '.logout',
 				'uses' => 'AuthController@logout'
 			]);
+			
+			$app->router->post('refresh_token', [
+				'middleware' => 'auth',
+				'as' => $this->route_prefix . '.refresh_token',
+				'uses' => 'AuthController@refresh_token'
+			]);
 		});
 	}
 }

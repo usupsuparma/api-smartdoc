@@ -8,6 +8,8 @@ use Prettus\Repository\Contracts\RepositoryInterface;
 interface AuthInterface extends RepositoryInterface
 {
     public function login($request);
+    
+    public function refresh_token($request);
 
     public function logout();
 }

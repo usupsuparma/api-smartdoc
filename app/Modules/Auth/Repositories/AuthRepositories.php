@@ -132,14 +132,14 @@ class AuthRepositories extends BaseRepository implements AuthInterface
 		if ($users_info) {
 			$detail = [
 				'employee' => [
-					'nik' => $users_info->employee->nik,
-					'name' => $users_info->employee->name
+					'nik' => !empty($users_info->employee) ? $users_info->employee->nik : '',
+					'name' => !empty($users_info->employee) ? $users_info->employee->name : ''
 				],
 				'department' => [
-					'name' => $users_info->structure->nama_struktur
+					'name' => !empty($users_info->structure) ? $users_info->structure->nama_struktur : ''
 				],
 				'potition' => [
-					'name' => $users_info->position->nama_jabatan
+					'name' => !empty($users_info->position) ? $users_info->position->nama_jabatan : ''
 				]
 			];
 		}
@@ -163,6 +163,61 @@ class AuthRepositories extends BaseRepository implements AuthInterface
 		}
 		
 		return ['message' => 'Gagal Logout'];
+	}
+	
+	public function refresh_token($request) 
+	{
+		$guzzle = new Client;
+		$web_client_id = env('GRANT_CLIENT_ID');
+		$web_client_secret = env('GRANT_CLIENT_SECRET');
+		$mobile_client_id = env('MOBILE_CLIENT_ID');
+		$mobile_client_secret = env('MOBILE_CLIENT_SECRET');
+
+		if (isset($request->grant) && $request->grant == 'm') {
+			$client_id = $mobile_client_id;
+			$client_secret = $mobile_client_secret;
+		} else {
+			$client_id = $web_client_id;
+			$client_secret = $web_client_secret;
+		}
+		
+		$response = $guzzle->post(env('APP_LOCAL_URL', 'http://localhost') . '/api/v1/oauth/token', [
+            'form_params' => [
+                'grant_type' => 'refresh_token',
+                'client_id' => $client_id,
+                'client_secret' => $client_secret,
+                'refresh_token' => $request->refresh_token,
+                'scope' => '',
+            ],
+		]);
+		
+		
+		$detail = [];
+        $data = json_decode($response->getBody(), true);
+		
+		if (!empty(Auth::user()->user_core)) {
+			$detail = [
+				'employee' => [
+					'nik' => !empty(Auth::user()->user_core->employee) ? Auth::user()->user_core->employee->nik : '',
+					'name' => !empty(Auth::user()->user_core->employee) ? Auth::user()->user_core->employee->name : ''
+				],
+				'department' => [
+					'name' => !empty(Auth::user()->user_core->structure) ? Auth::user()->user_core->structure->nama_struktur : ''
+				],
+				'potition' => [
+					'name' => !empty(Auth::user()->user_core->position) ? Auth::user()->user_core->position->nama_jabatan : ''
+				]
+			];
+		}
+		
+		$results = [
+			'user_info' => $detail,
+			'token' => $data['access_token'],
+			'refresh_token' => $data['refresh_token'],
+			'message' => 'Berhasil Memulihkan Token',
+		];
+		
+		return $results;
 	}
     
 }
