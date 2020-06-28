@@ -29,6 +29,6 @@ class ReportDispositionController extends BaseController
 	{
 		Authority::check('export');
 		
-		return $this->successResponse($this->reportDispositionRepository->export_data($request), 200);
+		return $this->reportDispositionRepository->export_data($request);
 	}
 }

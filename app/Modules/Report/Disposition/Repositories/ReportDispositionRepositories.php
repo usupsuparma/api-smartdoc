@@ -203,6 +203,6 @@ class ReportDispositionRepositories extends BaseRepository implements ReportDisp
 		
 		PDF::writeHTML($html, true, 0, true, 0);
 		
-		PDF::Output('REPORT_SURAT_DISPOSISI_'.Str::random(self::STR_RANDOM).'.pdf', 'I');
+		PDF::Output('REPORT_SURAT_DISPOSISI_'.Str::random(self::STR_RANDOM).'.pdf', 'D');
 	}
 }

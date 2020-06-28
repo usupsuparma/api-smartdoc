@@ -172,6 +172,6 @@ class ReportOutgoingRepositories extends BaseRepository implements ReportOutgoin
 		
 		PDF::writeHTML($html, true, 0, true, 0);
 		
-		PDF::Output('REPORT_SURAT_KELUAR_'.Str::random(self::STR_RANDOM).'.pdf', 'I');
+		PDF::Output('REPORT_SURAT_KELUAR_'.Str::random(self::STR_RANDOM).'.pdf', 'D');
 	}
 }
