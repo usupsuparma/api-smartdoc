@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Library\Bases\BaseController;
 use App\Modules\Report\Outgoing\Repositories\ReportOutgoingRepositories;
 use Authority, Auth;
+use App\Helpers\BearerToken;
 
 class ReportOutgoingController extends BaseController 
 {
@@ -15,11 +16,11 @@ class ReportOutgoingController extends BaseController
 	public function __construct(ReportOutgoingRepositories $reportOutgoingRepositories)
 	{
 		$this->reportOutgoingRepository = $reportOutgoingRepositories;
-		Authority::acl_access(Auth::user(), 'report-outgoing');
 	}
 	
 	public function data(Request $request)
 	{
+		Authority::acl_access(Auth::user(), 'report-outgoing');
 		Authority::check('read');
 		
 		return $this->showAll($this->reportOutgoingRepository->data($request), 200);
@@ -27,8 +28,10 @@ class ReportOutgoingController extends BaseController
 	
 	public function export_data(Request $request)
 	{
-		Authority::check('export');
+		$token = BearerToken::get_token($request);
 		
-		return $this->reportOutgoingRepository->export_data($request);
+		if ($token === $request->get('token')) {
+			return $this->reportOutgoingRepository->export_data($request);
+		}
 	}
 }

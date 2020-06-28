@@ -16,9 +16,9 @@ class ReportOutgoingRoutes extends BaseRoutes
 		$app->router->group([
 			'prefix' => $this->route_prefix,
 			'namespace' => $this->controller_ns,
-			'middleware' => 'auth'
 		], function () use ($app) {
 			$app->router->get('/', [
+				'middleware' => 'auth',
 				'as' => $this->route_prefix . '.data',
 				'uses' => 'ReportOutgoingController@data'
 			]);

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Library\Bases\BaseController;
 use App\Modules\Report\Disposition\Repositories\ReportDispositionRepositories;
 use Authority, Auth;
+use App\Helpers\BearerToken;
 
 class ReportDispositionController extends BaseController 
 {
@@ -15,11 +16,11 @@ class ReportDispositionController extends BaseController
 	public function __construct(ReportDispositionRepositories $reportDispositionRepositories)
 	{
 		$this->reportDispositionRepository = $reportDispositionRepositories;
-		Authority::acl_access(Auth::user(), 'report-disposition');
 	}
 	
 	public function data(Request $request)
 	{
+		Authority::acl_access(Auth::user(), 'report-disposition');
 		Authority::check('read');
 		
 		return $this->showAll($this->reportDispositionRepository->data($request), 200);
@@ -27,8 +28,10 @@ class ReportDispositionController extends BaseController
 	
 	public function export_data(Request $request)
 	{
-		Authority::check('export');
+		$token = BearerToken::get_token($request);
 		
-		return $this->reportDispositionRepository->export_data($request);
+		if ($token === $request->get('token')) {
+			return $this->reportDispositionRepository->export_data($request);
+		}
 	}
 }
