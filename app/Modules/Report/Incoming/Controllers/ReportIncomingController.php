@@ -29,6 +29,8 @@ class ReportIncomingController extends BaseController
 	{
 		// Authority::check('export');
 		
-		return $this->successResponse($this->reportIncomingRepository->export_data($request), 200);
+		// return $this->successResponse($this->reportIncomingRepository->export_data($request), 200);
+		return $this->reportIncomingRepository->export_data($request);
+		
 	}
 }

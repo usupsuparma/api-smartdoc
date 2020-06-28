@@ -176,6 +176,6 @@ class ReportIncomingRepositories extends BaseRepository implements ReportIncomin
 		
 		PDF::writeHTML($html, true, 0, true, 0);
 		
-		PDF::Output('REPORT_SURAT_MASUK_'.Str::random(self::STR_RANDOM).'.pdf', 'I');
+		PDF::Output('REPORT_SURAT_MASUK_'.Str::random(self::STR_RANDOM).'.pdf', 'D');
 	}
 }
