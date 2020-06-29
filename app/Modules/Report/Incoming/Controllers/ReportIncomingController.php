@@ -28,10 +28,10 @@ class ReportIncomingController extends BaseController
 	
 	public function export_data(Request $request)
 	{	
-		$token = BearerToken::get_token($request);
+		// $token = BearerToken::get_token($request);
 		
-		if ($request->has('token') && $token === $request->get('token')) {
+		// if ($token === $request->get('token')) {
 			return $this->reportIncomingRepository->export_data($request);
-		}
+		// }
 	}
 }

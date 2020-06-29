@@ -188,7 +188,7 @@ class RoleRepositories extends BaseRepository implements RoleInterface
 	public function create($request)
     {
 		$rules = [
-			'name' => 'required|unique:roles,name',
+			'name' => 'required|unique:roles,name,NULL,id,deleted_at,NULL',
 			'categories' => 'required',
 			'status' => 'required'
 		];
@@ -208,7 +208,7 @@ class RoleRepositories extends BaseRepository implements RoleInterface
     {
 		$input = $request->all();
 		$rules = [
-			'name' => 'required|unique:roles,name,' . $id,
+			'name' => 'required|unique:roles,name,' . $id . ',id,deleted_at,NULL',
 			'categories' => 'required',
 			'status' => 'required'
 		];

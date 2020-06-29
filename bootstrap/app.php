@@ -82,13 +82,13 @@ $app->singleton(
 
 $app->middleware([
     // App\Http\Middleware\CorsMiddleware::class
-    \Fruitcake\Cors\HandleCors::class,
+    \Fruitcake\Cors\HandleCors::class
 ]);
 
 $app->routeMiddleware([
     'auth' => App\Http\Middleware\Authenticate::class,
     'client' => \Laravel\Passport\Http\Middleware\CheckClientCredentials::class,
-    // 'cors' => App\Http\Middleware\CorsMiddleware::class
+    'checkToken' => App\Http\Middleware\CheckApiTokenMiddleware::class
 ]);
 
 /*
