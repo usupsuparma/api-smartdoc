@@ -28,10 +28,6 @@ class ReportDispositionController extends BaseController
 	
 	public function export_data(Request $request)
 	{
-		// $token = BearerToken::get_token($request);
-		
-		// if ($token === $request->get('token')) {
-			return $this->reportDispositionRepository->export_data($request);
-		// }
+		return $this->reportDispositionRepository->export_data($request);
 	}
 }

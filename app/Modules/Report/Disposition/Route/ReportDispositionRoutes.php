@@ -24,6 +24,7 @@ class ReportDispositionRoutes extends BaseRoutes
 			]);
 			
 			$app->router->get('/export', [
+				'middleware' => 'checkToken',
 				'as' => $this->route_prefix . '.export_data',
 				'uses' => 'ReportDispositionController@export_data'
 			]);

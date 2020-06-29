@@ -24,7 +24,7 @@ class ReportIncomingRoutes extends BaseRoutes
 			]);
 			
 			$app->router->get('/export', [
-				// 'middleware' => ['checkToken', 'auth'],
+				'middleware' => 'checkToken',
 				'as' => $this->route_prefix . '.export_data',
 				'uses' => 'ReportIncomingController@export_data'
 			]);
