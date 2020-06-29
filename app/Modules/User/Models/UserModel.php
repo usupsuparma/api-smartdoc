@@ -37,7 +37,7 @@ class UserModel extends Model implements AuthenticatableContract, AuthorizableCo
 	
 	public function user_core()
 	{
-		return $this->belongsTo(ExternalUserModel::class, 'user_core_id', 'user_id');
+		return $this->belongsTo(ExternalUserModel::class, 'user_core_id');
 	}
 	
 	public function role()

@@ -18,7 +18,9 @@ class UserRepositories extends BaseRepository implements UserInterface
 	
     public function data($request)
     {
-		$query = $this->model->where('status', $request->status);
+		$query = $this->model->with(['user_core' => function ($q){
+			$q->with(['employee']);
+		}])->where('status', $request->status);
 		
 		if ($request->has('username') && !empty($request->username)) {
 			$query->where('username', 'like', "%{$request->username}%");
@@ -28,7 +30,14 @@ class UserRepositories extends BaseRepository implements UserInterface
 			$query->where('email', 'like', "%{$request->email}%");
 		}
 		
-        return $query->get();
+		$data = $query->get();
+		if ($request->has('employee') && !empty($request->employee)) {
+			$data = collect($data)->filter(function ($col) use ($request) {
+				return false !== stristr($col->user_core->employee->name, $request->employee);
+			});
+		}
+
+        return $data;
 	}
 	
 	public function show($id)
