@@ -98,7 +98,7 @@ class ApprovalOutgoingMailRepositories extends BaseRepository implements Approva
 			$nextApprovalEmployee = !empty($nextApproval->employee) ? $nextApproval->employee->id_employee : '';
 			$nextApprovalStructure = !empty($nextApproval->employee->user) ? $nextApproval->employee->user->structure->id : '';
 		}
-
+		
 		DB::beginTransaction();
 		
         try {
@@ -117,6 +117,7 @@ class ApprovalOutgoingMailRepositories extends BaseRepository implements Approva
 					$title = 'approval';
 					$receiver_id = $nextApprovalEmployee;
 					$redirect_web = setting_by_code('URL_APPROVAL_OUTGOING_MAIL');
+					$redirect_mobile = serialize(['route_name' => 'Approval']);
 					
 					/* Send Email  next approval */
 					$email = smartdoc_user($nextApprovalEmployee);
@@ -127,7 +128,14 @@ class ApprovalOutgoingMailRepositories extends BaseRepository implements Approva
 						'email' => !empty($email) ? $email->email : NULL,
 						'url' => $redirect_web. '?type=OM&skey='. Crypt::encrypt($id)
 					];
-										
+					
+					push_notif([
+						'device_id' => find_device_mobile($nextApprovalEmployee),
+						'data' => ['route_name' => 'Approval'],
+						'heading' => '[SURAT KELUAR]',
+						'content' => "Approval - {$model->subject_letter} memerlukan persetujuan anda. "
+					]);
+					
 				} else {
 					$data = [
 						'current_approval_employee_id' => NULL,
@@ -138,6 +146,7 @@ class ApprovalOutgoingMailRepositories extends BaseRepository implements Approva
 					$title = 'signed';
 					$receiver_id = $model->from_employee_id;
 					$redirect_web = setting_by_code('URL_SIGNED_OUTGOING_MAIL');
+					$redirect_mobile = serialize(['route_name' => 'Signed']);
 					
 					/* Send Email to Signed */
 					$email = smartdoc_user($model->from_employee->user->user_id);
@@ -148,6 +157,13 @@ class ApprovalOutgoingMailRepositories extends BaseRepository implements Approva
 						'email' => !empty($email) ? $email->email : NULL,
 						'url' => $redirect_web. '?type=OM&skey='. Crypt::encrypt($id)
 					];
+					
+					push_notif([
+						'device_id' => find_device_mobile($model->from_employee_id),
+						'data' => ['route_name' => 'Signed'],
+						'heading' => '[SURAT KELUAR]',
+						'content' => "Signed - {$model->subject_letter} memerlukan tanda tangan anda. "
+					]);
 				}
 				
 				$this->send_email($model, $data_email, $const_email);
@@ -157,7 +173,7 @@ class ApprovalOutgoingMailRepositories extends BaseRepository implements Approva
 					'heading' => MailCategoryConstants::SURAT_KELUAR,
 					'title' => $title,
 					'redirect_web' => $redirect_web,
-					'redirect_mobile' => '',
+					'redirect_mobile' => $redirect_mobile,
 					'receiver' => $receiver_id
 				]);
 				
@@ -222,7 +238,6 @@ class ApprovalOutgoingMailRepositories extends BaseRepository implements Approva
 			'message' => $message,
 			'status' => true
 		];
-		
 	}
 	
 	private function next_approval($outgoing_mail_id)

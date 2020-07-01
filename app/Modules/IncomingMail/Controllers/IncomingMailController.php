@@ -39,7 +39,7 @@ class IncomingMailController extends BaseController
 		$results = $this->incomingMailRepositories->create($request);
 		
 		if (!$results['status']) {
-			return $this->errorResponse($results, 404);
+			return $this->errorResponse($results, 500);
 		}
 		
         return $this->successResponse($results, 200);
@@ -49,7 +49,13 @@ class IncomingMailController extends BaseController
     {
 		Authority::check('update');
 		
-		return $this->successResponse($this->incomingMailRepositories->update($request, $id), 200); 
+		$results = $this->incomingMailRepositories->update($request, $id);
+		
+		if (!$results['status']) {
+			return $this->errorResponse($results, 500);
+		}
+		
+		return $this->successResponse($results, 200); 
 	}
 	
 	public function delete($id)

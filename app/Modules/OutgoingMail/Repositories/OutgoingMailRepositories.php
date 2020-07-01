@@ -173,6 +173,7 @@ class OutgoingMailRepositories extends BaseRepository implements OutgoingMailInt
 			}
 			
 			if ($request->button_action == OutgoingMailStatusConstants::SEND_TO_REVIEW) {
+				/* All Notification */
 				$this->send_email($model);
 				
 				$this->send_notification([
@@ -181,14 +182,19 @@ class OutgoingMailRepositories extends BaseRepository implements OutgoingMailInt
 					'title' => 'approval', 
 					'receiver' => $reviews[0]['employee_id']
 				]);
+				
+				push_notif([
+					'device_id' => find_device_mobile($reviews[0]['employee_id']),
+					'data' => ['route_name' => 'Approval'],
+					'heading' => '[SURAT KELUAR]',
+					'content' => "Approval - {$model->subject_letter} memerlukan persetujuan anda. "
+				]);
 			}
 	
             DB::commit();
         } catch (\Exception $ex) {
 			DB::rollback();
             return ['message' => $ex->getMessage(), 'status' => false];
-			
-			// return ['message' => config('constans.error.created')];
 		}
 
 		created_log($model);
@@ -202,6 +208,8 @@ class OutgoingMailRepositories extends BaseRepository implements OutgoingMailInt
 	
 	public function update($request, $id)
     {
+		$model = $this->model->findOrFail($id);
+		
 		$rules = [
 			'subject_letter' => 'required',
 			'type_id' => 'required',
@@ -219,6 +227,21 @@ class OutgoingMailRepositories extends BaseRepository implements OutgoingMailInt
 			'letter_date.required' => 'tanggal surat wajib diisi',
 		];
 		
+		if (isset($request->attachments)) {
+			foreach ($request->attachments as $key => $attachment) {
+				$rules['attachments.'.$key.'.attachment_name'] = ['required'];
+				$rules['attachments.'.$key.'.file'] = [
+					'required',
+					'mimes:pdf,xlsx,xls,doc,docx',
+					'max:2048'
+				];
+				
+				$message['attachments.'.$key.'.attachment_name.required'] = 'Nama File '.$key. ' wajib diisi';
+				$message['attachments.'.$key.'.file.required'] = 'File '.$key. ' wajib diisi';
+				$message['attachments.'.$key.'.file.mimes'] = 'File '.$key. ' harus berupa berkas berjenis: pdf, xlsx, xls, doc, docx.';
+			}
+		}
+		
 		if (isset($request->copy_of_letter)) {
 			foreach ($request->copy_of_letter as $key => $col) {
 				$rules['copy_of_letter.'.$key] = ['required'];
@@ -227,8 +250,6 @@ class OutgoingMailRepositories extends BaseRepository implements OutgoingMailInt
 		} 
 		
 		Validator::validate($request->all(), $rules, $message);
-		
-		$model = $this->model->findOrFail($id);
 		
 		$hierarchy_orgs = $this->bottom_to_top($request);
 		$check_director_level = $this->structure_from_employee($request);
@@ -249,7 +270,6 @@ class OutgoingMailRepositories extends BaseRepository implements OutgoingMailInt
 				];	
 			}
 		}
-		
 		
 		DB::beginTransaction();
 
@@ -316,6 +336,7 @@ class OutgoingMailRepositories extends BaseRepository implements OutgoingMailInt
 			$model->update($request->all());
 			
 			if ($request->button_action == OutgoingMailStatusConstants::SEND_TO_REVIEW) {
+				/* All Notification */
 				$this->send_email($model);
 				$this->send_notification([
 					'model' => $model, 
@@ -323,14 +344,19 @@ class OutgoingMailRepositories extends BaseRepository implements OutgoingMailInt
 					'title' => 'approval', 
 					'receiver' => $reviews[0]['employee_id']
 				]);
+				
+				push_notif([
+					'device_id' => find_device_mobile($reviews[0]['employee_id']),
+					'data' => ['route_name' => 'Approval'],
+					'heading' => '[SURAT KELUAR]',
+					'content' => "Approval - {$model->subject_letter} memerlukan persetujuan anda. "
+				]);
 			}
 			
             DB::commit();
         } catch (\Exception $ex) {
 			DB::rollback();
-            return response()->json(['error' => $ex->getMessage()], 500);
-			
-			return ['message' => config('constans.error.updated')];
+            return ['message' => $ex->getMessage(), 'status' => false];
 		}
 
 		updated_log($model);
@@ -445,7 +471,9 @@ class OutgoingMailRepositories extends BaseRepository implements OutgoingMailInt
 				'subject_letter' => $notif['model']->subject_letter
 			]),
 			'redirect_web' => setting_by_code('URL_APPROVAL_OUTGOING_MAIL'),
-			'redirect_mobile' => '',
+			'redirect_mobile' => serialize([
+				'route_name' => 'Approval',
+			]),
 			'receiver_id' => $notif['receiver']
 		];
 		

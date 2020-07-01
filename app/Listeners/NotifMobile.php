@@ -23,13 +23,19 @@ class NotifMobile
      */
     public function handle(NotificationMobile $event)
     {
-		OneSignal::sendNotificationCustom([
-			'api_id' => env('ONESIGNAL_APP_ID'),
-			'api_key' => env('ONESIGNAL_API_KEY'),
-			'include_player_ids' => [$event->notifData['device_id']],
-			'data' => $event->notifData['data'],
-			'headings' => ['en' => $event->notifData['heading']],
-			'contents' => ['en' => $event->notifData['content']]
-		]);
+        $device = $event->notifData['device_id'];
+        
+        if ($device) {
+            $ids = is_array($device) ? $device : [$event->notifData['device_id']];
+
+            OneSignal::sendNotificationCustom([
+                'api_id' => env('ONESIGNAL_APP_ID'),
+                'api_key' => env('ONESIGNAL_API_KEY'),
+                'include_player_ids' => $ids,
+                'data' => $event->notifData['data'],
+                'headings' => ['en' => $event->notifData['heading']],
+                'contents' => ['en' => $event->notifData['content']]
+            ]);
+        }
     }
 }

@@ -10,6 +10,8 @@ use App\Modules\Disposition\Models\DispositionModel;
 use App\Modules\Disposition\Transformers\DispositionTransformer;
 use App\Modules\Disposition\Models\DispositionFollowUp;
 use App\Modules\IncomingMail\Constans\IncomingMailStatusConstans;
+use App\Constants\MailCategoryConstants;
+use App\Events\Notif;
 use Validator, Auth;
 use Upload;
 
@@ -51,7 +53,7 @@ class DispositionFollowRepositories extends BaseRepository implements Dispositio
 		$model = $this->model->with('assign')->followUpEmployee()->where('id', $id)->firstOrFail();
 		$employee_id = Auth::user()->user_core->id_employee;
 		$collection = collect($model->assign);
-
+	
 		$filtered = $collection->filter(function ($value, $key) use ($employee_id) {
 			return $value['employee_id'] == $employee_id;
 		});
@@ -110,6 +112,21 @@ class DispositionFollowRepositories extends BaseRepository implements Dispositio
 			]);
 		}
 		
+		/* Notification */
+		push_notif([
+			'device_id' => find_device_mobile($model->from_employee_id),
+			'data' => ['route_name' => 'Disposition'],
+			'heading' => '[SURAT DISPOSISI]',
+			'content' => "Finish Follow Up - {$model->subject_disposition} sudah selesai di tindak lanjuti oleh ". Auth::user()->user_core->employee->name
+		]);
+		
+		$this->send_notification([
+			'model' => $model, 
+			'heading' => MailCategoryConstants::SURAT_DISPOSISI,
+			'title' => 'finish-follow-up-disposition', 
+			'receiver' => $employee_id
+		]);
+		
 		return ['message' => config('constans.success.follow-up'), 'status' => true];
 	}
 	
@@ -122,6 +139,28 @@ class DispositionFollowRepositories extends BaseRepository implements Dispositio
 		}
 		
 		return $model->path_to_file;
+	}
+	
+	private function send_notification($notif)
+	{
+		$data_notif = [
+			'heading' => $notif['heading'],
+			'title'  => $notif['title'],
+			'subject' => $notif['model']->number_disposition,
+			'data' => serialize([
+				'id' => $notif['model']->id,
+				'subject_disposition' => $notif['model']->subject_disposition,
+				'number_disposition' => $notif['model']->number_disposition
+			]),
+			'redirect_web' => setting_by_code('URL_DISPOSITION'),
+			'redirect_mobile' => serialize([
+				'route_name' => 'Disposition',
+			]),
+			'receiver_id' => $notif['receiver'],
+			'employee_name' => Auth::user()->user_core->employee->name,
+		];
+		
+		event(new Notif($data_notif));
 	}
 	
 }

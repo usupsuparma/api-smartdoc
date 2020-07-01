@@ -179,16 +179,24 @@ class DispositionRepositories extends BaseRepository implements DispositionInter
 				
 				if (isset($model->assign)) {
 					foreach ($model->assign as $assign) {
+						/* All Notification */
+						$this->send_email($model, $assign);
+						
 						$this->send_notification([
 							'model' => $model, 
 							'heading' => MailCategoryConstants::SURAT_DISPOSISI,
 							'title' => 'follow-up-disposition', 
 							'receiver' => $assign['employee_id']
 						]);
+						
+						push_notif([
+							'device_id' => find_device_mobile($assign['employee_id']),
+							'data' => ['route_name' => 'DispositionFollowUp'],
+							'heading' => '[SURAT DISPOSISI]',
+							'content' => "Disposition Follow Up - {$model->subject_disposition} memerlukan tindak lanjut anda. "
+						]);
 					}
 				}
-				
-				// $this->send_email($model);
 			}
 	
             DB::commit();
@@ -315,16 +323,24 @@ class DispositionRepositories extends BaseRepository implements DispositionInter
 				
 				if (isset($model->assign)) {
 					foreach ($model->assign as $assign) {
+						/* All Notification */
+						$this->send_email($model, $assign);
+						
 						$this->send_notification([
 							'model' => $model, 
 							'heading' => MailCategoryConstants::SURAT_DISPOSISI,
 							'title' => 'follow-up-disposition', 
 							'receiver' => $assign['employee_id']
 						]);
+						
+						push_notif([
+							'device_id' => find_device_mobile($assign['employee_id']),
+							'data' => ['route_name' => 'DispositionFollowUp'],
+							'heading' => '[SURAT DISPOSISI]',
+							'content' => "Disposition Follow Up - {$model->subject_disposition} memerlukan tindak lanjut anda. "
+						]);
 					}
-				}
-				
-				// $this->send_email($model);
+				}				
 			}
 			
             DB::commit();
@@ -405,17 +421,17 @@ class DispositionRepositories extends BaseRepository implements DispositionInter
 		return $model->path_to_file;
 	}
 	
-	private function send_email($model)
+	private function send_email($model, $assign)
 	{
-		$body = body_email_in($model, setting_name_by_code('SURAT_MASUK'), EmailInConstants::SEND);
-		$email = smartdoc_user($model->to_employee->user->user_id);
+		$body = body_email_in($model, setting_name_by_code('DISPOSISI'), EmailInConstants::SEND);
+		$email = smartdoc_user($assign->employee->user->user_id);
 		$data = [
 			'email' => !empty($email) ? $email->email : NULL,
-			'name'  => $model->to_employee->name,
+			'name'  => $assign->employee->name,
 			'notification_action' => config('constans.notif-email-in.'. EmailInConstants::SEND),
 			'body' => $body,
 			'button' => true,
-			'url' => setting_by_code('URL_SEND_INCOMING_MAIL')
+			'url' => setting_by_code('URL_DISPOSITION_FOLLOW')
 		];
 		
 		dispatch(new SendEmailReminderJob($data));
@@ -433,7 +449,9 @@ class DispositionRepositories extends BaseRepository implements DispositionInter
 				'number_disposition' => $notif['model']->number_disposition
 			]),
 			'redirect_web' => setting_by_code('URL_DISPOSITION_FOLLOW'),
-			'redirect_mobile' => '',
+			'redirect_mobile' => serialize([
+				'route_name' => 'DispositionFollowUp',
+			]),
 			'receiver_id' => $notif['receiver']
 		];
 		

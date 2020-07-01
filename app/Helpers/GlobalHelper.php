@@ -10,6 +10,7 @@ use App\Modules\Review\Models\ReviewModel;
 use App\Modules\User\Models\UserModel;
 use App\Modules\MappingStructure\Models\MappingStructureDetailModel;
 use App\Events\NotificationMobile;
+use App\Modules\Role\Models\RoleModel;
 
 if (!function_exists('setting_by_code')) {
 	
@@ -294,7 +295,7 @@ if (!function_exists('body_email_in')) {
     {
         $body = config('constans.email-in.'. $action_mail);
 		$origin = ['#category#', '#subject#'];
-        $replace   = [$category, $model->subject_letter];
+        $replace   = [$category, $model->subject_disposition];
         
 		return str_replace($origin, $replace, $body);
     }
@@ -326,4 +327,56 @@ if (!function_exists('push_notif')) {
     {
         event(new NotificationMobile($notification_data));
     }
+}
+
+if (!function_exists('find_device_mobile')) {
+	
+    function find_device_mobile($employee_id = '')
+    {
+        $employee =  EmployeeModel::whereHas('user', function ($q) use ($employee_id) {
+                $q->where('id_employee', $employee_id);
+        })->first();
+
+        if (!$employee && !$employee->user) {
+            return null;
+        }
+        
+        $user = smartdoc_user($employee->user->user_id);
+        
+        return $user && !empty($user->device_id) ? $user->device_id : NULL;
+    }   
+}
+
+if (!function_exists('publisher_email')) {
+	
+    function publisher_email()
+    {
+        $d_roles = [];
+        $d_emails = [];
+        $roles =  RoleModel::isPublisher()->get('id');
+        
+        if (!$roles) {
+            return NULL;
+        }
+        
+        foreach ($roles as $role) {
+            $d_roles[] = $role->id;
+        }
+         
+        $users = UserModel::whereIn('role_id', $d_roles)->get();
+        
+        if (!$users) {
+            return NULL;
+        }
+        
+        foreach ($users as $user) {
+            $d_emails[] = [
+                'email' => $user->email,
+                'employee_id' => !empty($user->user_core) ? $user->user_core->id_employee : '',
+            ];
+        }
+        
+        return $d_emails;
+        
+    }   
 }

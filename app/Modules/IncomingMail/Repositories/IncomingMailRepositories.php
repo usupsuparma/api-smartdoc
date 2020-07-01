@@ -147,14 +147,19 @@ class IncomingMailRepositories extends BaseRepository implements IncomingMailInt
 					'title' => 'follow-up-incoming', 
 					'receiver' => $model->to_employee_id
 				]);
+				
+				push_notif([
+					'device_id' => find_device_mobile($model->to_employee_id),
+					'data' => ['route_name' => 'IncomingMail'],
+					'heading' => '[SURAT MASUK]',
+					'content' => "Incoming Mail - {$model->subject_letter} memerlukan tindak lanjut anda. "
+				]);
 			}
 	
             DB::commit();
         } catch (\Exception $ex) {
 			DB::rollback();
-            return response()->json(['error' => $ex->getMessage()], 500);
-			
-			return ['message' => config('constans.error.created')];
+            return ['message' => $ex->getMessage(), 'status' => false];
 		}
 
 		created_log($model);
@@ -245,14 +250,19 @@ class IncomingMailRepositories extends BaseRepository implements IncomingMailInt
 					'title' => 'follow-up-incoming', 
 					'receiver' => $model->to_employee_id
 				]);
+				
+				push_notif([
+					'device_id' => find_device_mobile($model->to_employee_id),
+					'data' => ['route_name' => 'IncomingMail'],
+					'heading' => '[SURAT MASUK]',
+					'content' => "Incoming Mail - {$model->subject_letter} memerlukan tindak lanjut anda. "
+				]);
 			}
 			
             DB::commit();
         } catch (\Exception $ex) {
 			DB::rollback();
-            return response()->json(['error' => $ex->getMessage()], 500);
-			
-			return ['message' => config('constans.error.updated')];
+			return ['message' => $ex->getMessage(), 'status' => false];
 		}
 
 		updated_log($model);
@@ -366,7 +376,9 @@ class IncomingMailRepositories extends BaseRepository implements IncomingMailInt
 				'subject_letter' => $notif['model']->subject_letter
 			]),
 			'redirect_web' => setting_by_code('URL_INCOMING_MAIL'),
-			'redirect_mobile' => '',
+			'redirect_mobile' => serialize([
+				'route_name' => 'IncomingMail',
+			]),
 			'receiver_id' => $notif['receiver']
 		];
 		

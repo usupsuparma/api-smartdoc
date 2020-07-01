@@ -52,8 +52,8 @@ class NotifSender
                 break;
                 
             case 'pre-publish' :
-                $title = 'Publish' ;
-                $message = "({$subject}) memerlukan pemeriksaan anda .";
+                $title = 'Pre Publish' ;
+                $message = "({$subject}) sudah di tandatangani dan sudah siap untuk di terbitkan .";
                 break;
             
             case 'publish' :
@@ -69,6 +69,11 @@ class NotifSender
             case 'follow-up-disposition' :
                 $title = 'Follow Up' ;
                 $message = "({$subject}) memerlukan tindak lanjut anda .";
+                break;
+            
+            case 'finish-follow-up-disposition' :
+                $title = 'Finish Follow Up Disposition' ;
+                $message = "({$subject}) sudah dilakukan tindak lanjut oleh ". $notif['employee_name'];
                 break;
                 
             case 'reject' :

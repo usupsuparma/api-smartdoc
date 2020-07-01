@@ -17,7 +17,7 @@ class RoleModel extends Model
 	protected $table = 'roles';
 	
     protected $fillable   = [
-		'name', 'categories', 'status'
+		'name', 'categories', 'publisher', 'status'
 	];
 	
 	protected $dates = ['deleted_at'];
@@ -50,6 +50,11 @@ class RoleModel extends Model
 		}
 		
 		return $list;
+	}
+	
+	public function scopeIsPublisher($query)
+    {
+        return $query->where('publisher', true);
 	}
 	
 	protected static function boot()

@@ -8,4 +8,5 @@ class EmailConstants
 	const PUBLISH = 5 ;
 	
 	const REJECT = 99 ;
+	const PRE_PUBLISH = 88 ;
 }

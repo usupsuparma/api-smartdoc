@@ -10,8 +10,12 @@ use App\Modules\OutgoingMail\Models\OutgoingMailModel;
 use App\Modules\OutgoingMail\Transformers\OutgoingMailTransformer;
 use App\Modules\Signature\Models\SignatureModel;
 use App\Modules\OutgoingMail\Constans\OutgoingMailStatusConstants;
-use Validator;
-use Upload, DigitalSign, Smartdoc;
+use Validator, Upload, DigitalSign, Smartdoc;
+use App\Constants\EmailConstants;
+use Illuminate\Support\Facades\Crypt;
+use App\Jobs\SendEmailReminderJob;
+use App\Events\Notif;
+use App\Constants\MailCategoryConstants;
 
 class SignedOutgoingMailRepositories extends BaseRepository implements SignedOutgoingMailInterface
 {
@@ -55,7 +59,7 @@ class SignedOutgoingMailRepositories extends BaseRepository implements SignedOut
 	public function update($request, $id)
     {
 		$model = $this->model->signedEmployee()->where('id', $id)->firstOrFail();
-		
+
 		if ($request->signature_available) {
 			$rules = [
 				'credential_key' => 'required',
@@ -91,11 +95,72 @@ class SignedOutgoingMailRepositories extends BaseRepository implements SignedOut
 			'path_to_file' => $document,
 		]);
 		
+		/* Send Email to Publisher */
+		$email = publisher_email();
+		$const_email = EmailConstants::PRE_PUBLISH;
+		$data_email = [
+			'button' => true,
+			'email' => !empty($email) ? $email : NULL,
+			'url' => setting_by_code('URL_PRE_PUBLISH_OUTGOING_MAIL'). '?type=OM&skey='. Crypt::encrypt($id)
+		];
+		
+		$this->send_email($model, $data_email, $const_email);
+		
+		$this->send_notification([
+			'model' => $model, 
+			'heading' => MailCategoryConstants::SURAT_KELUAR,
+			'title' => 'pre-publish',
+			'redirect_web' => setting_by_code('URL_PRE_PUBLISH_OUTGOING_MAIL'),
+			'redirect_mobile' => '',
+			'receiver' => $email
+		]);
+		
 		signed_log($model);
 		
 		return [
 			'message' => config('constans.success.signed'), 
 			'status' => true
 		];
-	} 
+	}
+	
+	private function send_email($model, $data, $email_action)
+	{
+		$body = body_email($model, setting_name_by_code('SURAT_KELUAR'), $email_action);
+		
+		if (empty($data['email'])) {
+			return FALSE;
+		}
+		
+		foreach ($data['email'] as $ds) {
+			dispatch(new SendEmailReminderJob([
+				'name' => '',
+				'button' => true,
+				'email' => $ds['email'],
+				'url' => $data['url'],
+				'body' => $body,
+				'notification_action' => config('constans.notif-email.'. $email_action),
+			]));
+		}
+	}
+	
+	private function send_notification($notif)
+	{
+		if (empty($notif['receiver'])) {
+			return false;
+		}
+		foreach ($notif['receiver'] as $ns) {
+			event(new Notif([
+				'heading' => $notif['heading'],
+				'title'  => $notif['title'],
+				'subject' => $notif['model']->subject_letter,
+				'data' => serialize([
+					'id' => $notif['model']->id,
+					'subject_letter' => $notif['model']->subject_letter
+				]),
+				'redirect_web' => $notif['redirect_web'],
+				'redirect_mobile' => $notif['redirect_mobile'],
+				'receiver_id' => $ns['employee_id']
+			]));
+		}
+	}
 }
