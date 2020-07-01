@@ -70,13 +70,15 @@ class TestController extends BaseController
 		dd('a');
 	}
 	
-	public function notification_signal()
+	public function notification_signal(Request $request)
 	{		
 		push_notif([
-			'device_id' => 'e0aac846-417d-43f6-b236-b70cc2c78c64',
-			'data' => null,
+			'device_id' => $request->get('device_id'),
+			'data' => [
+				'route_name' => $request->get('route_name'),
+			],
 			'heading' => 'Title Heading Test',
-			'content' => 'Ini Testing Message'
+			'content' => "Ini Testing Message {$request->get('route_name')}"
 		]);
 		
 		dd('send');
