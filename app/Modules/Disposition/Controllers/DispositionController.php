@@ -15,26 +15,26 @@ class DispositionController extends BaseController
 	public function __construct(DispositionRepositories $dispositionRepository) 
 	{
 		$this->dispositionRepositories = $dispositionRepository;
-		// Authority::acl_access(Auth::user(), 'dispositions');
+		Authority::acl_access(Auth::user(), 'dispositions');
 	}
 	
 	public function data(Request $request)
 	{
-		// Authority::check('read');
+		Authority::check('read');
 		
 		return $this->showAll($this->dispositionRepositories->data($request),200);
 	}
 	
 	public function show($id)
 	{
-		// Authority::check('read');
+		Authority::check('read');
 		
 		return $this->successResponse($this->dispositionRepositories->show($id),200);
 	}
 	
 	public function create(Request $request)
 	{
-		// Authority::check('create');
+		Authority::check('create');
 		
 		$results = $this->dispositionRepositories->create($request);
 		
@@ -47,7 +47,7 @@ class DispositionController extends BaseController
 	
 	public function update(Request $request,$id)
     {
-		// Authority::check('update');
+		Authority::check('update');
 		
 		$results = $this->dispositionRepositories->update($request, $id);
 		
@@ -60,7 +60,7 @@ class DispositionController extends BaseController
 	
 	public function delete($id)
     {
-		// Authority::check('delete');
+		Authority::check('delete');
 		
         return $this->successResponse($this->dispositionRepositories->delete($id), 200); 
 	}
