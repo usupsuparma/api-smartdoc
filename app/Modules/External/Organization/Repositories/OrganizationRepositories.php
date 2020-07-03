@@ -42,7 +42,10 @@ class OrganizationRepositories extends BaseRepository implements OrganizationInt
 		
 		$search  = $this->_tree($model->toArray(), $user_structure_id);
 
-		if (in_array($user_structure_code, unserialize(setting_by_code('DIRECTOR_LEVEL_STRUCTURE')))) {
+		if (in_array($user_structure_code, array_merge(
+			unserialize(setting_by_code('DIREKTUR_LEVEL_STRUCTURE')), 
+			unserialize(setting_by_code('DIREKSI_LEVEL_STRUCTURE')))
+		)) {
 			/* Search List Director Level */
 			$director = MappingStructureModel::with('details')->where('code', self::DIR_CODES)->firstOrFail();
 			$list_director = $director->details;

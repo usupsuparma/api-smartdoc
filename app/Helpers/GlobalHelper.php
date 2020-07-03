@@ -86,17 +86,19 @@ if (!function_exists('employee_user')) {
 
 if (!function_exists('review_list')) {
 	
-    function review_list($code_review)
+    function review_list($code_review, $type_level)
     {
         $results = [];
         $orgs = [];
         $positions = [];
         
+        $code_review = $type_level == 'DIREKTUR' ? 'OMD' : $code_review;
+
         $review = ReviewModel::where('code', $code_review)->first();
-        
+
         if (!empty($review)) {
             $details = !empty($review->details) ? $review->details : [];
-            
+
             foreach ($details as $dt) {
                 /* check mapping structure top level position */
                 $map_struct = MappingStructureDetailModel::where('structure_id', $dt->organizations->id)->first();

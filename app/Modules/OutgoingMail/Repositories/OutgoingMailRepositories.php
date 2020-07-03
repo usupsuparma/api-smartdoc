@@ -116,7 +116,7 @@ class OutgoingMailRepositories extends BaseRepository implements OutgoingMailInt
 		{
 			if ($check_director_level) {
 				/* check list review hierarchy director*/
-				$reviews = review_list(setting_by_code('SURAT_KELUAR'));
+				$reviews = review_list(setting_by_code('SURAT_KELUAR'), $check_director_level);
 			} else {
 				$reviews = review_list_non_director($hierarchy_orgs);
 			}
@@ -388,10 +388,13 @@ class OutgoingMailRepositories extends BaseRepository implements OutgoingMailInt
 	{
 		$employee = employee_user($request->from_employee_id);
 		
-		$director_level = unserialize(setting_by_code('DIRECTOR_LEVEL_STRUCTURE'));
+		$director_level = unserialize(setting_by_code('DIREKTUR_LEVEL_STRUCTURE'));
+		$direction_level = unserialize(setting_by_code('DIREKSI_LEVEL_STRUCTURE'));
 
 		if (in_array($employee->user->structure->kode_struktur, $director_level)) {
-			return true;
+			return 'DIREKTUR';
+		} else if (in_array($employee->user->structure->kode_struktur, $direction_level)) {
+			return 'DIREKSI';
 		}
 		
 		return false;
@@ -402,13 +405,13 @@ class OutgoingMailRepositories extends BaseRepository implements OutgoingMailInt
 		$parent_id = Auth::user()->user_core->structure->parent_id;
 		$this->parents[] = Auth::user()->user_core->structure->id;
 		$employee = employee_user($request->from_employee_id);
-		
+
 		if ($employee->user->structure->id != Auth::user()->user_core->structure->id) {
 			/* Search Hierarchy Structure Bottom to Top */
 			$this->get_parent(OrganizationModel::find($parent_id), $employee->user->structure->id);
 			/* Search Structure By Hierarchy Code */
 		}
-
+		
 		return OrganizationModel::select('id','kode_struktur')
 				->whereIn('id', $this->parents)
 				->orderBy('id', 'DESC')
