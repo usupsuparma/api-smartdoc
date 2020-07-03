@@ -15,26 +15,26 @@ class MappingFollowOutgoingController extends BaseController
 	public function __construct(MappingFollowOutgoingRepositories $mappingOutgoingRepository) 
 	{
 		$this->mappingOutgoingRepository = $mappingOutgoingRepository;
-		// Authority::acl_access(Auth::user(), 'mapping-follow-outgoing');
+		Authority::acl_access(Auth::user(), 'mapping-follow-outgoing');
 	}
 	
 	public function data(Request $request)
 	{
-		// Authority::check('read');
+		Authority::check('read');
 		
 		return $this->showAll($this->mappingOutgoingRepository->data($request),200);
 	}
 	
 	public function create(Request $request)
 	{
-		// Authority::check('create');
+		Authority::check('create');
 		
         return $this->successResponse($this->mappingOutgoingRepository->create($request), 200); 
 	}
 	
 	public function delete($id)
     {
-		// Authority::check('delete');
+		Authority::check('delete');
 		
         return $this->successResponse($this->mappingOutgoingRepository->delete($id), 200); 
 	}
