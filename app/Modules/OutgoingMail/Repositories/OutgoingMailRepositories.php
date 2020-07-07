@@ -10,6 +10,7 @@ use App\Modules\OutgoingMail\Models\OutgoingMailModel;
 use App\Modules\OutgoingMail\Constans\OutgoingMailStatusConstants;
 use App\Modules\OutgoingMail\Transformers\OutgoingMailTransformer;
 use App\Modules\OutgoingMail\Models\OutgoingMailAttachment;
+use App\Modules\OutgoingMail\Models\OutgoingMailAssign;
 use App\Modules\External\Organization\Models\OrganizationModel;
 use App\Modules\OutgoingMail\Models\OutgoingMailForward;
 use App\Constants\EmailConstants;
@@ -72,7 +73,6 @@ class OutgoingMailRepositories extends BaseRepository implements OutgoingMailInt
 			'classification_id' => 'required',
 			'letter_date' => 'required',
 			'from_employee_id' => 'required',
-			'retension_date' => 'required',
 			'body' => 'required'
 		];
 		
@@ -81,8 +81,7 @@ class OutgoingMailRepositories extends BaseRepository implements OutgoingMailInt
 			'type_id.required' => 'jenis surat wajib diisi',
 			'classification_id.required' => 'klasifikasi surat wajib diisi',
 			'from_employee_id.required' => 'pengirim surat wajib diisi',
-			'letter_date.required' => 'tanggal surat wajib diisi',
-			'retension_date.required' => 'tanggal retensi wajib diisi',
+			'letter_date.required' => 'tanggal surat wajib diisi'
 		];
 		
 		if (isset($request->attachments)) {
@@ -90,13 +89,13 @@ class OutgoingMailRepositories extends BaseRepository implements OutgoingMailInt
 				$rules['attachments.'.$key.'.attachment_name'] = ['required'];
 				$rules['attachments.'.$key.'.file'] = [
 					'required',
-					'mimes:pdf,xlsx,xls,doc,docx',
+					'mimes:pdf,jpg,jpeg,png',
 					'max:2048'
 				];
 				
 				$message['attachments.'.$key.'.attachment_name.required'] = 'Nama File '.$key. ' wajib diisi';
 				$message['attachments.'.$key.'.file.required'] = 'File '.$key. ' wajib diisi';
-				$message['attachments.'.$key.'.file.mimes'] = 'File '.$key. ' harus berupa berkas berjenis: pdf, xlsx, xls, doc, docx.';
+				$message['attachments.'.$key.'.file.mimes'] = 'File '.$key. ' harus berupa berkas berjenis: pdf, jpg, jpeg, png.';
 			}
 		} 
 		
@@ -105,7 +104,17 @@ class OutgoingMailRepositories extends BaseRepository implements OutgoingMailInt
 				$rules['copy_of_letter.'.$key] = ['required'];
 				$message['copy_of_letter.'.$key.'.required'] = 'Tembusan '.$key. ' wajib diisi';
 			}
-		} 
+		}
+		
+		if (isset($request->assigns)) {
+			foreach ($request->assigns as $key => $assign) {
+				$rules['assigns.'.$key.'.structure_id'] = ['required'];
+				$rules['assigns.'.$key.'.employee_id'] = ['required'];
+				
+				$message['assigns.'.$key.'.structure_id.required'] = 'Divisi '.$key. ' wajib diisi';
+				$message['assigns.'.$key.'.employee_id.required'] = 'Pegawai '.$key. ' wajib diisi';
+			}
+		}
 		
 		Validator::validate($request->all(), $rules, $message);
 		
@@ -128,7 +137,7 @@ class OutgoingMailRepositories extends BaseRepository implements OutgoingMailInt
 				];	
 			}
 		}
-
+		
 		DB::beginTransaction();
 
         try {
@@ -137,6 +146,15 @@ class OutgoingMailRepositories extends BaseRepository implements OutgoingMailInt
 				'created_by_employee' => Auth::user()->user_core->id_employee,
 				'created_by_structure' => Auth::user()->user_core->structure->id,
 			])->all());
+			
+			if (isset($request->assigns)) {
+				foreach ($request->assigns as $k => $assign) {
+					$model->assign()->create([
+						'structure_id' => $assign['structure_id'],
+						'employee_id' => $assign['employee_id']
+					]);
+				}
+			}
 			
 			if (isset($request->copy_of_letter)) {
 				foreach ($request->copy_of_letter as $copy) {
@@ -232,13 +250,13 @@ class OutgoingMailRepositories extends BaseRepository implements OutgoingMailInt
 				$rules['attachments.'.$key.'.attachment_name'] = ['required'];
 				$rules['attachments.'.$key.'.file'] = [
 					'required',
-					'mimes:pdf,xlsx,xls,doc,docx',
+					'mimes:pdf,jpg,jpeg,png',
 					'max:2048'
 				];
 				
 				$message['attachments.'.$key.'.attachment_name.required'] = 'Nama File '.$key. ' wajib diisi';
 				$message['attachments.'.$key.'.file.required'] = 'File '.$key. ' wajib diisi';
-				$message['attachments.'.$key.'.file.mimes'] = 'File '.$key. ' harus berupa berkas berjenis: pdf, xlsx, xls, doc, docx.';
+				$message['attachments.'.$key.'.file.mimes'] = 'File '.$key. ' harus berupa berkas berjenis: pdf, jpg, jpeg, png.';
 			}
 		}
 		
@@ -248,6 +266,16 @@ class OutgoingMailRepositories extends BaseRepository implements OutgoingMailInt
 				$message['copy_of_letter.'.$key.'.required'] = 'Tembusan '.$key. ' wajib diisi';
 			}
 		} 
+		
+		if (isset($request->assigns)) {
+			foreach ($request->assigns as $key => $assign) {
+				$rules['assigns.'.$key.'.structure_id'] = ['required'];
+				$rules['assigns.'.$key.'.employee_id'] = ['required'];
+				
+				$message['assigns.'.$key.'.structure_id.required'] = 'Divisi '.$key. ' wajib diisi';
+				$message['assigns.'.$key.'.employee_id.required'] = 'Pegawai '.$key. ' wajib diisi';
+			}
+		}
 		
 		Validator::validate($request->all(), $rules, $message);
 		
@@ -274,6 +302,9 @@ class OutgoingMailRepositories extends BaseRepository implements OutgoingMailInt
 		DB::beginTransaction();
 
         try {	
+			if (isset($request->assigns)) {
+				$this->update_assign($model, $request->assigns);
+			}
 			
 			if (isset($request->copy_of_letter)) {
 				OutgoingMailForward::where('outgoing_mail_id', $model->id)
@@ -365,6 +396,33 @@ class OutgoingMailRepositories extends BaseRepository implements OutgoingMailInt
 			'message' => config('constans.success.updated'),
 			'status' => true
 		];
+	}
+	
+	private function update_assign($model, $dataAssign) 
+	{
+		$ids = [];
+		
+		foreach ($dataAssign as $assign) {
+			$datas = [
+				'outgoing_mail_id' => $model->id,
+				'employee_id' => $assign['employee_id'],
+				'structure_id' => $assign['structure_id']
+			];
+
+			$check_assign = OutgoingMailAssign::where($datas)->first();
+
+			if (!empty($check_assign)) {
+				$q = OutgoingMailAssign::where('id', $check_assign->id)->update($datas);
+				$ids[] = $check_assign->id;
+			}else{
+				$q = OutgoingMailAssign::create($datas);
+				$ids[] = $q->id;
+			}
+		}
+		
+		OutgoingMailAssign::where('outgoing_mail_id', $model->id)
+			->whereNotIn('id', $ids)
+			->delete();
 	}
 	
 	public function delete($id)

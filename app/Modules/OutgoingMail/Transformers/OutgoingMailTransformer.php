@@ -15,17 +15,28 @@ class OutgoingMailTransformer extends TransformerAbstract
 	 public function transform($data) 
 	 {
 		$file = false;
+		$count = 0;
 		
 		if ($data->status == (OutgoingMailStatusConstants::PUBLISH || OutgoingMailStatusConstants::SIGNED)) {
 			$file = true;
 		}
+		
+		if (!empty($data->assign)) {
+			foreach ($data->assign as $assign) {
+				if (!empty($assign->follow_ups[0])) {
+					$count++;
+				}
+			}
+		}
+		
+		$progress = $count .' / '. $data->assign->count();
 		
 		return [
 			'id' => (int) $data->id,
 			'number_letter' => !empty($data->number_letter) ? $data->number_letter : null,
 			'subject_letter' => !empty($data->subject_letter) ? $data->subject_letter : null,
 			'letter_date' => $data->letter_date,
-			'retension_date' => $data->retension_date,
+			'retension_date' => !empty($data->retension_date) ? $data->retension_date->format('d-m-Y') : null,
 			'type' => [
 				'id' => !empty($data->type) ? $data->type->id : null,
 				'name' => !empty($data->type) ? $data->type->name : null,
@@ -33,10 +44,6 @@ class OutgoingMailTransformer extends TransformerAbstract
 			'classification' => [
 				'id' => !empty($data->classification) ? $data->classification->id : null,
 				'name' => !empty($data->classification) ? $data->classification->name : null,
-			],
-			'to_employee' => [
-				'id' => !empty($data->to_employee) ? $data->to_employee->id_employee : null,
-				'name' => !empty($data->to_employee) ? $data->to_employee->name : null,
 			],
 			'from_employee' => [
 				'id' => !empty($data->from_employee) ? $data->from_employee->id_employee : null,
@@ -47,6 +54,7 @@ class OutgoingMailTransformer extends TransformerAbstract
 				'name' => !empty($data->created_by) ? $data->created_by->name : null,
 				'structure_name' => !empty($data->created_by->user->structure) ? $data->created_by->user->structure->nama_struktur : null,
 			],
+			'progress' => $data->assign->count() > 1 ? $progress : '-',
 			'status' => [
 				'action' => config('constans.status-action.'. $data->status),
 				'employee_name' => !empty($data->current_approval_employee) ? $data->current_approval_employee->name : '',
@@ -64,11 +72,29 @@ class OutgoingMailTransformer extends TransformerAbstract
 	 */
 	public static function customTransform($data) 
 	{
-	   	$data_attachments = [];
-	   	$data_forwards = [];
-	   	$history_approvals = [];
+		$data_attachments = [];
+		$data_forwards = [];
+		$history_approvals = [];
+		$data_assigns = [];
 	   
-	   	if (!empty($data->attachments)) {
+	   	if (!empty($data->assign)) {
+			foreach ($data->assign as $assign) {
+				$data_assigns[] = [
+					'id' => $assign['id'],
+					'structure' => [
+						'id' => !empty($assign->structure) ? $assign->structure->id : null,
+						'name' => !empty($assign->structure) ? $assign->structure->nama_struktur : null,
+					],
+					'employee' => [
+						'id' => !empty($assign->employee) ? $assign->employee->id_employee : null,
+						'name' => !empty($assign->employee) ? $assign->employee->name : null,
+					],
+					'follow_up' => !empty($assign->follow_ups[0]) ? $assign->follow_ups[0] : null,
+				];
+			}
+		}
+		
+		if (!empty($data->attachments)) {
 			foreach ($data->attachments as $attach) {
 				$data_attachments[] = [
 					'id_attachment' => $attach['id'],
@@ -123,14 +149,11 @@ class OutgoingMailTransformer extends TransformerAbstract
 				'id' => !empty($data->classification) ? $data->classification->id : null,
 				'name' => !empty($data->classification) ? $data->classification->name : null,
 			],
-			'to_employee' => [
-				'id' => !empty($data->to_employee) ? $data->to_employee->id_employee : null,
-				'name' => !empty($data->to_employee) ? $data->to_employee->name : null,
-			],
 			'from_employee' => [
 				'id' => !empty($data->from_employee) ? $data->from_employee->id_employee : null,
 				'name' => !empty($data->from_employee) ? $data->from_employee->name : null,
 			],
+			'assigns' => !empty($data_assigns) ? $data_assigns : null,
 			'structure_name' => !empty($data->structure_by) ? $data->structure_by->nama_struktur : null,
 			'body' => $data->body,
 			'forwards' => !empty($data_forwards) ? $data_forwards : null,

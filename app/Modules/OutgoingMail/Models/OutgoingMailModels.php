@@ -15,6 +15,7 @@ use App\Modules\External\Employee\Models\EmployeeModel;
 use App\Modules\External\Organization\Models\OrganizationModel;
 use App\Modules\OutgoingMail\Constans\OutgoingMailStatusConstants;
 use App\Modules\Signature\Models\SignatureModel;
+use App\Modules\OutgoingMail\Models\OutgoingMailAssign;
 use Auth, DB;
 
 class OutgoingMailModel extends Model
@@ -31,6 +32,11 @@ class OutgoingMailModel extends Model
 	];
 	
 	protected $dates = ['deleted_at'];
+	
+	public function assign()
+	{
+		return $this->hasMany(OutgoingMailAssign::class, 'outgoing_mail_id', 'id');
+	}
 	
 	public function attachments()
 	{

@@ -91,8 +91,8 @@ class DispositionRepositories extends BaseRepository implements DispositionInter
 				$rules['assigns.'.$key.'.employee_id'] = ['required'];
 				$rules['assigns.'.$key.'.classification_disposition_id'] = ['required'];
 				
-				$message['assigns.'.$key.'.structure_id.required'] = 'Struktur '.$key. ' wajib diisi';
-				$message['assigns.'.$key.'.employee_id.required'] = 'Pegwawai '.$key. ' wajib diisi';
+				$message['assigns.'.$key.'.structure_id.required'] = 'Divisi '.$key. ' wajib diisi';
+				$message['assigns.'.$key.'.employee_id.required'] = 'Pegawai '.$key. ' wajib diisi';
 				$message['assigns.'.$key.'.classification_disposition_id.required'] = 'Klasifikasi Disposisi '.$key. ' wajib diisi';
 			}
 		} else {
