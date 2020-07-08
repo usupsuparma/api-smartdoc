@@ -73,7 +73,6 @@ class IncomingMailRepositories extends BaseRepository implements IncomingMailInt
 			'receiver_name' => 'required',
 			'to_employee_id' => 'required',
 			'structure_id' => 'required',
-			'retension_date' => 'required',
 			'file' => 'required|mimes:pdf,xlsx,xls,doc,docx|max:2048',
 		];
 		
@@ -88,7 +87,6 @@ class IncomingMailRepositories extends BaseRepository implements IncomingMailInt
 			'receiver_name.required' => 'penerima surat wajib diisi',
 			'to_employee_id.required' => 'pegawai wajib diisi',
 			'structure_id.required' => 'struktur wajib diisi',
-			'retension_date.required' => 'tanggal retensi wajib diisi',
 			'file.required' => 'file wajib diisi',
 			'file.mimes' => 'file harus berupa berkas berjenis: pdf, xlsx, xls, doc, docx.',
 		];
@@ -185,8 +183,7 @@ class IncomingMailRepositories extends BaseRepository implements IncomingMailInt
 			'sender_name' => 'required',
 			'receiver_name' => 'required',
 			'to_employee_id' => 'required',
-			'structure_id' => 'required',
-			'retension_date' => 'required'
+			'structure_id' => 'required'
 		];
 		
 		$message = [
@@ -199,8 +196,7 @@ class IncomingMailRepositories extends BaseRepository implements IncomingMailInt
 			'sender_name.required' => 'pengirim surat wajib diisi',
 			'receiver_name.required' => 'penerima surat wajib diisi',
 			'to_employee_id.required' => 'pegawai wajib diisi',
-			'structure_id.required' => 'struktur wajib diisi',
-			'retension_date.required' => 'tanggal retensi wajib diisi'
+			'structure_id.required' => 'struktur wajib diisi'
 		];
 		
 		if ($request->hasFile('file')) {
