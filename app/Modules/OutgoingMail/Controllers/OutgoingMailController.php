@@ -86,4 +86,11 @@ class OutgoingMailController extends BaseController
 
 		return response()->download($path, basename($path));
 	}
+	
+	public function download_follow($follow_up_id)
+    {	
+		$path = storage_path('app/public'. $this->outgoingMailRepository->download_follow($follow_up_id));
+
+		return response()->download($path, basename($path));
+	}
 }

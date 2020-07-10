@@ -16,6 +16,7 @@ use App\Modules\External\Organization\Models\OrganizationModel;
 use App\Modules\OutgoingMail\Constans\OutgoingMailStatusConstants;
 use App\Modules\Signature\Models\SignatureModel;
 use App\Modules\OutgoingMail\Models\OutgoingMailAssign;
+use App\Modules\MappingFollowOutgoing\Models\MappingFollowOutgoingModel;
 use Auth, DB;
 
 class OutgoingMailModel extends Model
@@ -160,6 +161,24 @@ class OutgoingMailModel extends Model
 		];
 		
 		return $query->whereIn('status', $category);
+	}
+	
+	public function scopeFollowUpEmployee($query)
+	{
+		$ids = [];
+		$mapping = MappingFollowOutgoingModel::get('type_id');
+		
+		foreach ($mapping as $map) {
+			$ids[] = $map->type_id;
+		}
+		
+		$employee_id = Auth::user()->user_core->employee->id_employee;
+		
+		return $query->whereHas('assign', function ($q) use ($employee_id) {
+			$q->where('employee_id', $employee_id);
+		})->where([
+			'status' => OutgoingMailStatusConstants::PUBLISH,
+		])->whereIn('type_id', $ids);
 	}
 	
 	protected static function boot() 

@@ -7,6 +7,7 @@
 use Prettus\Repository\Eloquent\BaseRepository;
 use App\Modules\OutgoingMail\Interfaces\OutgoingMailInterface;
 use App\Modules\OutgoingMail\Models\OutgoingMailModel;
+use App\Modules\OutgoingMail\Models\OutgoingMailFollowUp;
 use App\Modules\OutgoingMail\Constans\OutgoingMailStatusConstants;
 use App\Modules\OutgoingMail\Transformers\OutgoingMailTransformer;
 use App\Modules\OutgoingMail\Models\OutgoingMailAttachment;
@@ -500,6 +501,14 @@ class OutgoingMailRepositories extends BaseRepository implements OutgoingMailInt
 	public function download_attachment_main($id)
     {
 		$model = $this->model->findOrFail($id);
+		Upload::download($model->path_to_file);
+		
+		return $model->path_to_file;
+	}
+	
+	public function download_follow($follow_id)
+    {
+		$model = OutgoingMailFollowUp::findOrFail($follow_id);
 		Upload::download($model->path_to_file);
 		
 		return $model->path_to_file;

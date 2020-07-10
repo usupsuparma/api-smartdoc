@@ -119,6 +119,7 @@ $app->register(App\Modules\OutgoingMail\Providers\OutgoingMailServiceProvider::c
 $app->register(App\Modules\OutgoingMail\Providers\AdminOutgoingMailServiceProvider::class);
 $app->register(App\Modules\OutgoingMail\Providers\ApprovalOutgoingMailServiceProvider::class);
 $app->register(App\Modules\OutgoingMail\Providers\SignedOutgoingMailServiceProvider::class);
+$app->register(App\Modules\OutgoingMail\Providers\FollowUpOutgoingMailServiceProvider::class);
 $app->register(App\Modules\IncomingMail\Providers\IncomingMailServiceProvider::class);
 $app->register(App\Modules\Disposition\Providers\DispositionServiceProvider::class);
 $app->register(App\Modules\Disposition\Providers\DispositionFollowServiceProvider::class);

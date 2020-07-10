@@ -76,8 +76,8 @@ class DispositionFollowRepositories extends BaseRepository implements Dispositio
 		];
 		
 		if ($request->hasFile('file')) {
-			$rules['file'] = ['mimes:pdf,xlsx,xls,doc,docx|max:2048'];
-			$message['file.mimes'] = 'file harus berupa berkas berjenis: pdf, xlsx, xls, doc, docx.';
+			$rules['file'] = ['mimes:pdf,jpg,jpeg,png|max:2048'];
+			$message['file.mimes'] = 'file harus berupa berkas berjenis: pdf, jpg, jpeg, png.';
 		}
 		
 		Validator::validate($request->all(), $rules, $message);
