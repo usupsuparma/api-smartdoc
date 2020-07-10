@@ -17,6 +17,7 @@ use App\Constants\EmailInConstants;
 use App\Jobs\SendEmailReminderJob;
 use Validator, DB, Auth;
 use Upload;
+use Carbon\Carbon;
 
 class IncomingMailRepositories extends BaseRepository implements IncomingMailInterface
 {
@@ -87,7 +88,7 @@ class IncomingMailRepositories extends BaseRepository implements IncomingMailInt
 			'sender_name.required' => 'pengirim surat wajib diisi',
 			'receiver_name.required' => 'penerima surat wajib diisi',
 			'to_employee_id.required' => 'pegawai wajib diisi',
-			'structure_id.required' => 'struktur wajib diisi',
+			'structure_id.required' => 'divisi wajib diisi',
 			'file.required' => 'file wajib diisi',
 			'file.mimes' => 'file harus berupa berkas berjenis: pdf, jpg, jpeg, png.',
 		];
@@ -135,7 +136,8 @@ class IncomingMailRepositories extends BaseRepository implements IncomingMailInt
 			
 			if ($request->button_action == IncomingMailStatusConstans::SEND) {
 				$model->update([
-					'status' => IncomingMailStatusConstans::SEND
+					'status' => IncomingMailStatusConstans::SEND,
+					'retension_date' => Carbon::now()->addMonth(1)->format('Y-m-d')
 				]);
 				
 				$this->send_email($model);
@@ -197,7 +199,7 @@ class IncomingMailRepositories extends BaseRepository implements IncomingMailInt
 			'sender_name.required' => 'pengirim surat wajib diisi',
 			'receiver_name.required' => 'penerima surat wajib diisi',
 			'to_employee_id.required' => 'pegawai wajib diisi',
-			'structure_id.required' => 'struktur wajib diisi'
+			'structure_id.required' => 'divisi wajib diisi'
 		];
 		
 		if ($request->hasFile('file')) {
@@ -236,7 +238,8 @@ class IncomingMailRepositories extends BaseRepository implements IncomingMailInt
 			
 			if ($request->button_action == IncomingMailStatusConstans::SEND) {
 				$model->update([
-					'status' => IncomingMailStatusConstans::SEND
+					'status' => IncomingMailStatusConstans::SEND,
+					'retension_date' => Carbon::now()->addMonth(1)->format('Y-m-d')
 				]);
 				
 				$this->send_email($model);
@@ -300,6 +303,12 @@ class IncomingMailRepositories extends BaseRepository implements IncomingMailInt
 		$model = $this->model->findOrFail($id);
 		Upload::download($model->path_to_file);
 		
+		if ($model->to_employee_id == Auth::user()->user_core->id_employee) {
+			$model->update([
+				'is_read' => true
+			]);
+		}
+		
 		return $model->path_to_file;
 	}
 	
@@ -321,7 +330,7 @@ class IncomingMailRepositories extends BaseRepository implements IncomingMailInt
 	
 	public function follow_up($request, $id)
 	{		
-		$model = $this->model->followUpEmployee()->firstOrFail();
+		$model = $this->model->followUpEmployee()->where('id', $id)->firstOrFail();
 		
 		$rules = [
 			'description' => 'required'

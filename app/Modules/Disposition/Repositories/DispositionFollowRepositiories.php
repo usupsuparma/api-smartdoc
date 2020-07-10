@@ -9,6 +9,7 @@ use App\Modules\Disposition\Interfaces\DispositionFollowInterface;
 use App\Modules\Disposition\Models\DispositionModel;
 use App\Modules\Disposition\Transformers\DispositionTransformer;
 use App\Modules\Disposition\Models\DispositionFollowUp;
+use App\Modules\Disposition\Models\DispositionAssign;
 use App\Modules\IncomingMail\Constans\IncomingMailStatusConstans;
 use App\Constants\MailCategoryConstants;
 use App\Events\Notif;
@@ -44,6 +45,12 @@ class DispositionFollowRepositories extends BaseRepository implements Dispositio
 	public function show($id)
     {
 		$data =  $this->model->followUpEmployee()->where('id', $id)->firstOrFail();
+		$dispo_assign = DispositionAssign::CheckRead($id);
+		if ($dispo_assign) {
+			$dispo_assign->update([
+				'is_read' => true
+			]);
+		}
 		
 		return ['data' => DispositionTransformer::customTransform($data)];
 	}

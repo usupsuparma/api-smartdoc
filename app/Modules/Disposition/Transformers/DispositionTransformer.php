@@ -72,6 +72,7 @@ class DispositionTransformer extends TransformerAbstract
 						'id' => !empty($assign->class_disposition) ? $assign->class_disposition->id : null,
 						'name' => !empty($assign->class_disposition) ? $assign->class_disposition->name : null,
 					],
+					'is_read' => $assign->is_read,
 					'follow_up' => !empty($assign->follow_ups[0]) ? $assign->follow_ups[0] : null,
 				];
 			}

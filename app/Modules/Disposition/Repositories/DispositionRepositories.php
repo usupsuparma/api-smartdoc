@@ -20,6 +20,7 @@ use App\Events\Notif;
 use App\Constants\MailCategoryConstants;
 use Validator, DB, Auth;
 use Upload, DigitalSign, Smartdoc;
+use Carbon\Carbon;
 
 class DispositionRepositories extends BaseRepository implements DispositionInterface
 {
@@ -68,14 +69,12 @@ class DispositionRepositories extends BaseRepository implements DispositionInter
 		$rules = [
 			'incoming_mail_id' => 'required',
 			'subject_disposition' => 'required',
-			'disposition_date' => 'required',
 			'description' => 'required',
 		];
 		
 		$message = [
 			'incoming_mail_id.required' => 'surat masuk wajib diisi',
 			'subject_disposition.required' => 'perihal disposisi wajib diisi',
-			'disposition_date.required' => 'tanggal disposisi surat wajib diisi',
 			'description.required' => 'keterangan surat disposisi wajib diisi',
 		];
 		
@@ -124,6 +123,7 @@ class DispositionRepositories extends BaseRepository implements DispositionInter
 			$model = $this->model->create($request->merge([
 				'status' => IncomingMailStatusConstans::DRAFT,
 				'from_employee_id' => Auth::user()->user_core->id_employee,
+				'disposition_date' => Carbon::now()->format('Y-m-d')
 			])->all());
 
 			if (isset($request->assigns)) {
@@ -174,7 +174,8 @@ class DispositionRepositories extends BaseRepository implements DispositionInter
 				
 				$model->update([
 					'status' => IncomingMailStatusConstans::DISPOSITION,
-					'path_to_file' => $document
+					'path_to_file' => $document,
+					'disposition_date' => Carbon::now()->format('Y-m-d')
 				]);
 				
 				if (isset($model->assign)) {
@@ -223,14 +224,12 @@ class DispositionRepositories extends BaseRepository implements DispositionInter
 		$rules = [
 			'incoming_mail_id' => 'required',
 			'subject_disposition' => 'required',
-			'disposition_date' => 'required',
 			'description' => 'required',
 		];
 		
 		$message = [
 			'incoming_mail_id.required' => 'surat masuk wajib diisi',
 			'subject_disposition.required' => 'perihal disposisi wajib diisi',
-			'disposition_date.required' => 'tanggal disposisi surat wajib diisi',
 			'description.required' => 'keterangan surat disposisi wajib diisi',
 		];
 		
@@ -318,7 +317,8 @@ class DispositionRepositories extends BaseRepository implements DispositionInter
 				
 				$model->update($request->merge([
 					'status' => IncomingMailStatusConstans::DISPOSITION,
-					'path_to_file' => $document
+					'path_to_file' => $document,
+					'disposition_date' => Carbon::now()->format('Y-m-d')
 				])->all());
 				
 				if (isset($model->assign)) {

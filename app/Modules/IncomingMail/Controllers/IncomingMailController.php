@@ -74,7 +74,7 @@ class IncomingMailController extends BaseController
 	
 	public function download_attachment_main($id)
     {
-		Authority::check('export');
+		// Authority::check('export');
 		
 		$path = storage_path('app/public'. $this->incomingMailRepositories->download_attachment_main($id));
 
@@ -83,14 +83,14 @@ class IncomingMailController extends BaseController
 	
 	public function delete_attachment($attachment_id)
     {
-		Authority::check('delete');
+		// Authority::check('delete');
 		
         return $this->successResponse($this->incomingMailRepositories->delete_attachment($attachment_id), 200); 
 	}
 	
 	public function download_attachment($attachment_id)
     {
-		Authority::check('export');
+		// Authority::check('export');
 		
 		$path = storage_path('app/public'. $this->incomingMailRepositories->download_attachment($attachment_id));
 

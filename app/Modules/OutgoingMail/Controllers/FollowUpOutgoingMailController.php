@@ -15,26 +15,26 @@ class FollowUpOutgoingMailController extends BaseController
 	public function __construct(FollowUpOutgoingMailRepositories $followUpOutgoingMailRepository) 
 	{
 		$this->followUpOutgoingMailRepository = $followUpOutgoingMailRepository;
-		// Authority::acl_access(Auth::user(), 'outgoing-mails-follow');
+		Authority::acl_access(Auth::user(), 'outgoing-mails-follow');
 	}
 	
 	public function data(Request $request)
 	{
-		// Authority::check('read');
+		Authority::check('read');
 		
 		return $this->showAll($this->followUpOutgoingMailRepository->data($request),200);
 	}
 	
 	public function show($id)
 	{
-		// Authority::check('read');
+		Authority::check('read');
 		
 		return $this->successResponse($this->followUpOutgoingMailRepository->show($id),200);
 	}
 	
 	public function follow_up(Request $request, $id)
 	{
-		// Authority::check('create');
+		Authority::check('create');
 		
 		$results = $this->followUpOutgoingMailRepository->follow_up($request, $id);
 		

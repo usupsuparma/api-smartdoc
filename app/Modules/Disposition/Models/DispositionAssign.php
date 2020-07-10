@@ -9,6 +9,7 @@ use App\Modules\Disposition\Models\DispositionModel;
 use App\Modules\External\Organization\Models\OrganizationModel;
 use App\Modules\Disposition\Models\DispositionFollowUp;
 use App\Modules\Master\ClassDisposition\Models\ClassDispositionModel;
+use Auth;
 
 class DispositionAssign extends Model
 {
@@ -16,7 +17,7 @@ class DispositionAssign extends Model
 	protected $table = 'dispositions_assign';
 	
     protected $fillable   = [
-		'disposition_id', 'structure_id', 'employee_id', 'classification_disposition_id'
+		'disposition_id', 'structure_id', 'employee_id', 'classification_disposition_id', 'is_read'
 	];
 	
 	public function disposition()
@@ -44,6 +45,16 @@ class DispositionAssign extends Model
 		return $this->belongsTo(ClassDispositionModel::class, 'classification_disposition_id');
 	}
 	
+	public function scopeCheckRead($query, $disposition_id) 
+	{
+		$employee_id = Auth::user()->user_core->id_employee;
+		
+		return $query->where([
+			'employee_id' => $employee_id,
+			'disposition_id' => $disposition_id
+		])->first();
+		
+	}
 	protected static function boot() 
     {
 		parent::boot();

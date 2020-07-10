@@ -64,6 +64,7 @@ class IncomingMailTransformer extends TransformerAbstract
 				'status_code' => (int) $data->status
 			],
 			'follow_up' => $follow_up,
+			'is_read' => $data->is_read,
 			'disposition' => $disposition,
 			'created_at' => $data->created_at->format('d-m-Y'),
 			'updated_at' => $data->updated_at->format('d-m-Y')
@@ -127,8 +128,9 @@ class IncomingMailTransformer extends TransformerAbstract
 				'name' => !empty($data->structure) ? $data->structure->nama_struktur : null
 			],
 			'follows' => !empty($data_follow_ups) ? $data_follow_ups : null,
-		   	'attachments' => !empty($data_attachments) ? $data_attachments : null,
-			'status' => $data->status,
-	   	];
+			'attachments' => !empty($data_attachments) ? $data_attachments : null,
+			'is_read' => $data->is_read,
+			'status' => $data->status
+		];
 	}
 }
