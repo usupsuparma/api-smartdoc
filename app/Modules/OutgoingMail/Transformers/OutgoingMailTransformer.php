@@ -6,6 +6,8 @@
 use League\Fractal\TransformerAbstract;
 use App\Modules\OutgoingMail\Constans\OutgoingMailStatusConstants;
 use Carbon\Carbon;
+use App\Modules\MappingFollowOutgoing\Models\MappingFollowOutgoingModel;
+
 class OutgoingMailTransformer extends TransformerAbstract
 {
 	/** 
@@ -16,6 +18,24 @@ class OutgoingMailTransformer extends TransformerAbstract
 	 {
 		$file = false;
 		$count = 0;
+		$data_assigns = [];
+		
+		if (!empty($data->assign)) {
+			foreach ($data->assign as $assign) {
+				$data_assigns[] = [
+					'id' => $assign['id'],
+					'structure' => [
+						'id' => !empty($assign->structure) ? $assign->structure->id : null,
+						'name' => !empty($assign->structure) ? $assign->structure->nama_struktur : null,
+					],
+					'employee' => [
+						'id' => !empty($assign->employee) ? $assign->employee->id_employee : null,
+						'name' => !empty($assign->employee) ? $assign->employee->name : null,
+					],
+					'follow_up' => !empty($assign->follow_ups[0]) ? $assign->follow_ups[0] : null,
+				];
+			}
+		}
 		
 		if ($data->status == (OutgoingMailStatusConstants::PUBLISH || OutgoingMailStatusConstants::SIGNED)) {
 			$file = true;
@@ -30,6 +50,8 @@ class OutgoingMailTransformer extends TransformerAbstract
 		}
 		
 		$progress = $count .' / '. $data->assign->count();
+		
+		$checkFollowUp = MappingFollowOutgoingModel::findByType($data->type_id);
 		
 		return [
 			'id' => (int) $data->id,
@@ -54,7 +76,8 @@ class OutgoingMailTransformer extends TransformerAbstract
 				'name' => !empty($data->created_by) ? $data->created_by->name : null,
 				'structure_name' => !empty($data->created_by->user->structure) ? $data->created_by->user->structure->nama_struktur : null,
 			],
-			'progress' => $data->assign->count() > 1 ? $progress : '-',
+			'progress' => $data->assign->count() > 1 && $checkFollowUp ? $progress : null,
+			'assigns' => !empty($data_assigns) ? $data_assigns : null,
 			'status' => [
 				'action' => config('constans.status-action.'. $data->status),
 				'employee_name' => !empty($data->current_approval_employee) ? $data->current_approval_employee->name : '',
@@ -134,6 +157,7 @@ class OutgoingMailTransformer extends TransformerAbstract
 				];
 			}
 		}
+		
 		
 	   	return [
 			'id' => (int) $data->id,

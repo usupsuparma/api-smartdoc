@@ -8,6 +8,7 @@ use App\Constants\EmailConstants;
 use Prettus\Repository\Eloquent\BaseRepository;
 use App\Modules\OutgoingMail\Interfaces\AdminOutgoingMailInterface;
 use App\Modules\OutgoingMail\Models\OutgoingMailModel;
+use App\Modules\MappingFollowOutgoing\Models\MappingFollowOutgoingModel;
 use App\Modules\OutgoingMail\Transformers\OutgoingMailTransformer;
 use App\Modules\OutgoingMail\Constans\OutgoingMailStatusConstants;
 use App\Events\Notif;
@@ -17,7 +18,6 @@ use App\Jobs\SendEmailReminderJob;
 use Upload, DigitalSign, Smartdoc;
 use Validator, Auth;
 use Carbon\Carbon;
-
 
 class AdminOutgoingMailRepositories extends BaseRepository implements AdminOutgoingMailInterface
 {	
@@ -65,7 +65,8 @@ class AdminOutgoingMailRepositories extends BaseRepository implements AdminOutgo
 	public function update($request, $id)
     {
 		$model = $this->model->readyPublish()->where('id', $id)->firstOrFail();
-		
+		$checkFollowUp = MappingFollowOutgoingModel::findByType($model->type_id);
+
 		$rules = [
 			'button_action' => 'required',
 			'signature_available' => 'required',
@@ -77,11 +78,12 @@ class AdminOutgoingMailRepositories extends BaseRepository implements AdminOutgo
 		];
 		
 		Validator::validate($request->all(), $rules, $message);
+		
 
 		if ($request->button_action == OutgoingMailStatusConstants::DRAFT){
 			
 			if ($request->signature_available) {
-				DigitalSign::delete_ca($model->signature);
+				// DigitalSign::delete_ca($model->signature);
 			}
 			
 			/* Remove File in local storage*/
@@ -153,11 +155,12 @@ class AdminOutgoingMailRepositories extends BaseRepository implements AdminOutgo
 			
 			/* Remove certificate */
 			if ($request->signature_available == 'true') {
-				DigitalSign::delete_ca($model->signature);
+				// DigitalSign::delete_ca($model->signature);
 			}
 			
 			$model->update([
 				'status' => OutgoingMailStatusConstants::PUBLISH,
+				'retension_date' => Carbon::now()->addMonth(1)->format('Y-m-d'),
 				'path_to_file' => $document,
 				'publish_by_employee' => Auth::user()->user_core->employee->id_employee,
 				'publish_date' => Carbon::now(),
@@ -171,7 +174,6 @@ class AdminOutgoingMailRepositories extends BaseRepository implements AdminOutgo
 			];
 			
 			$this->send_email($model, $data_email, EmailConstants::PUBLISH);
-			
 			$this->send_notification([
 				'model' => $model, 
 				'heading' => MailCategoryConstants::SURAT_KELUAR,
@@ -180,6 +182,20 @@ class AdminOutgoingMailRepositories extends BaseRepository implements AdminOutgo
 				'redirect_mobile' => '',
 				'receiver' => $model->created_by_employee
 			]);
+			
+			/* Follow Up Notification */
+			if ($model->assign->count() > 1 && $checkFollowUp) {
+			foreach ($model->assign as $assign) {
+				$this->send_notification([
+					'model' => $model, 
+					'heading' => MailCategoryConstants::SURAT_KELUAR,
+					'title' => 'follow-up-outgoing',
+					'redirect_web' => setting_by_code('URL_OUTGOING_FOLLOW'),
+					'redirect_mobile' => '',
+					'receiver' => $assign->employee_id
+				]);
+			}
+		}
 			
 			publish_log($model);
 			

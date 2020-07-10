@@ -9,4 +9,5 @@ class EmailConstants
 	
 	const REJECT = 99 ;
 	const PRE_PUBLISH = 88 ;
+	const FOLLOW_UP = 77 ;
 }

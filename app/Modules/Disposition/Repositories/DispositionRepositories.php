@@ -168,7 +168,7 @@ class DispositionRepositories extends BaseRepository implements DispositionInter
 				/* Remove certificate */
 				if (!empty($signatureModel)) {
 					if (empty($signatureModel->credential_key)) {
-						DigitalSign::delete_ca($model->signature);
+						// DigitalSign::delete_ca($model->signature);
 					}
 				}
 				
@@ -312,7 +312,7 @@ class DispositionRepositories extends BaseRepository implements DispositionInter
 				/* Remove certificate */
 				if (!empty($signatureModel)) {
 					if (empty($signatureModel->credential_key)) {
-						DigitalSign::delete_ca($model->signature);
+						// DigitalSign::delete_ca($model->signature);
 					}
 				}
 				

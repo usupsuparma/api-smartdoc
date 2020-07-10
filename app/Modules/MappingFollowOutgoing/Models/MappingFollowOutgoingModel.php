@@ -25,5 +25,9 @@ class MappingFollowOutgoingModel extends Model
 		return $this->belongsTo(TypeModel::class, 'type_id');
 	}
 	
+	public function scopeFindByType($query, $type_id) {
+		return $query->where('type_id', $type_id)->exists();
+	}
+	
 	protected $dates = ['deleted_at'];
 }

@@ -45,7 +45,8 @@ return [
 		EmailConstants::REJECT => '#category# (#subject#) Telah ditolak / dikembalikan . harap periksa kembali surat tersebut.',
 		EmailConstants::SIGNED => '#category# (#subject#) membutuhkan tanda tangan digital. Jika anda akan memberikan tanda tangan , klik link dibawah ini. ',
 		EmailConstants::PUBLISH => '#category# (#subject#) sudah diterbitkan.',
-		EmailConstants::PRE_PUBLISH => '#category# (#subject#) sudah ditandatangani dan siapditerbitkan.',
+		EmailConstants::PRE_PUBLISH => '#category# (#subject#) sudah ditandatangani dan siap diterbitkan.',
+		EmailConstants::FOLLOW_UP => '#category# (#subject#) memerlukan tindak lanjut anda. ',
 	],
 	'notif-email' => [
 		EmailConstants::REVIEW => 'Pemeriksaan Surat',
@@ -53,7 +54,8 @@ return [
 		EmailConstants::SIGNED => 'Tanda Tangan Digital Surat',
 		EmailConstants::PRE_PUBLISH => 'Persiapan Penerbitan Surat',
 		EmailConstants::PUBLISH => 'Penerbitan Surat',
-		EmailConstants::REJECT => 'Surat Ditolak'
+		EmailConstants::REJECT => 'Surat Ditolak',
+		EmailConstants::FOLLOW_UP => 'Tindak Lanjut Surat',
 	],
 	'status-action-in' => [
 		IncomingMailStatusConstans::DRAFT => 'Draft',

@@ -61,6 +61,11 @@ class NotifSender
                 $message = "({$subject}) sudah diterbitkan .";
                 break;
                 
+            case 'follow-up-outgoing' :
+                $title = 'Follow Up' ;
+                $message = "({$subject}) memerlukan tindak lanjut anda .";
+                break;
+            
             case 'follow-up-incoming' :
                 $title = 'Follow Up' ;
                 $message = "({$subject}) memerlukan tindak lanjut anda .";
