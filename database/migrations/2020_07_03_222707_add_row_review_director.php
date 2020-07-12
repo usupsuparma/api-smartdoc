@@ -14,11 +14,11 @@ class AddRowReviewDirector extends Migration
      */
     public function up()
     {
-        ReviewModel::create([
-            'code' => 'OMD',
-            'name' => 'Approval Surat Keluar Level Direktur',
-            'status' => 1
-        ]);
+        // ReviewModel::create([
+        //     'code' => 'OMD',
+        //     'name' => 'Approval Surat Keluar Level Direktur',
+        //     'status' => 1
+        // ]);
     }
 
     /**

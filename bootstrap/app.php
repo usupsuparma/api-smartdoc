@@ -181,6 +181,9 @@ class_alias(SimpleSoftwareIO\QrCode\Facades\QrCode::class, 'QrCode');
 $app->register(Berkayk\OneSignal\OneSignalServiceProvider::class);
 class_alias(Berkayk\OneSignal\OneSignalFacade::class, 'OneSignal');
 
+/* Iseed */
+// $app->register(Orangehill\Iseed\IseedServiceProvider::class);
+
 /*
 |--------------------------------------------------------------------------
 | Load The Application Routes
