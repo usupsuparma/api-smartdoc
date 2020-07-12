@@ -137,6 +137,9 @@ $app->register(App\Modules\Master\ClassDisposition\Providers\ClassDispositionSer
 $app->register(App\Modules\Master\TypeNote\Providers\TypeNoteServiceProvider::class);
 $app->register(App\Modules\Master\Template\Providers\TemplateServiceProvider::class);
 
+/* Sync */
+$app->register(App\Modules\Sync\Providers\SyncServiceProvider::class);
+
 /* Report */
 $app->register(App\Modules\Report\Outgoing\Providers\ReportOutgoingServiceProvider::class);
 $app->register(App\Modules\Report\Incoming\Providers\ReportIncomingServiceProvider::class);

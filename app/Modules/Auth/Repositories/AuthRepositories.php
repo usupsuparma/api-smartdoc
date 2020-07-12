@@ -26,20 +26,6 @@ class AuthRepositories extends BaseRepository implements AuthInterface
 	
     public function login($request)
     {
-		$guzzle = new Client;
-		
-		$response = $guzzle->post(env('APP_LOCAL_URL', 'http://localhost') . '/api/v1/oauth/token', [
-            'form_params' => [
-                'grant_type' => 'client_credentials',
-                'client_id' => env('BIJB_CLIENT_ID'),
-                'client_secret' => env('BIJB_CLIENT_SECRET'),
-                'scope' => '*',
-            ],
-		]);
-		
-		$data = json_decode($response->getBody(), true);
-		dd($data);
-		
 		$rules = [
 			'username' => 'required',
 			'password' => 'required'
@@ -137,7 +123,11 @@ class AuthRepositories extends BaseRepository implements AuthInterface
 		
 		$detail = [];
 		$user = UserModel::findByEmail($request->username)->first();
-		$users_info = core_user($user->user_core_id);
+		$users_info = [];
+		
+		if (!empty($user->user_core_id)) {
+			$users_info = core_user($user->user_core_id);
+		}
 		
 		if (isset($request->grant) && $request->grant == 'm') {
 			$user->update(['device_id' => $request->device_id]);

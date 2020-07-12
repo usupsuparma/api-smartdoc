@@ -49,4 +49,9 @@ class UserModel extends Model implements AuthenticatableContract, AuthorizableCo
 	{
 		return $query->where('email', $email);
 	}
+	
+	public function scopeFindCoreUser($query, $user_core_id)
+	{
+		return $query->where('user_core_id', $user_core_id);
+	}
 }

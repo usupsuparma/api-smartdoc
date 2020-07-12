@@ -21,6 +21,7 @@ return [
 		'publish' => 'Data berhasil diterbitkan.',
 		'signed' => 'Berhasil melakukan tanda tangan.',
 		'follow-up' => 'Berhasil melakukan tindak lanjut surat.',
+		'sync' => 'Berhasil melakukan Sinkronisasi',
 	], 
 	'error' => [
 		'logout' => 'Gagal melakukan logout.',
