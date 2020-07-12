@@ -26,6 +26,20 @@ class AuthRepositories extends BaseRepository implements AuthInterface
 	
     public function login($request)
     {
+		$guzzle = new Client;
+		
+		$response = $guzzle->post(env('APP_LOCAL_URL', 'http://localhost') . '/api/v1/oauth/token', [
+            'form_params' => [
+                'grant_type' => 'client_credentials',
+                'client_id' => env('BIJB_CLIENT_ID'),
+                'client_secret' => env('BIJB_CLIENT_SECRET'),
+                'scope' => '*',
+            ],
+		]);
+		
+		$data = json_decode($response->getBody(), true);
+		dd($data);
+		
 		$rules = [
 			'username' => 'required',
 			'password' => 'required'
