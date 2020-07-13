@@ -7,6 +7,7 @@ use League\Fractal\TransformerAbstract;
 use App\Modules\OutgoingMail\Constans\OutgoingMailStatusConstants;
 use Carbon\Carbon;
 use App\Modules\MappingFollowOutgoing\Models\MappingFollowOutgoingModel;
+use Auth;
 
 class OutgoingMailTransformer extends TransformerAbstract
 {
@@ -19,6 +20,7 @@ class OutgoingMailTransformer extends TransformerAbstract
 		$file = false;
 		$count = 0;
 		$data_assigns = [];
+		$finish_follow = false;
 		
 		if (!empty($data->assign)) {
 			foreach ($data->assign as $assign) {
@@ -43,6 +45,12 @@ class OutgoingMailTransformer extends TransformerAbstract
 		
 		if (!empty($data->assign)) {
 			foreach ($data->assign as $assign) {
+				if ($assign->employee_id === Auth::user()->user_core->id_employee) {
+					if (!empty($assign->follow_ups[0])) {
+						$finish_follow = true;
+					}
+				}
+				
 				if (!empty($assign->follow_ups[0])) {
 					$count++;
 				}
@@ -77,6 +85,7 @@ class OutgoingMailTransformer extends TransformerAbstract
 				'structure_name' => !empty($data->created_by->user->structure) ? $data->created_by->user->structure->nama_struktur : null,
 			],
 			'progress' => $data->assign->count() > 1 && $checkFollowUp ? $progress : null,
+			'finish_follow' => $finish_follow,
 			'assigns' => !empty($data_assigns) ? $data_assigns : null,
 			'status' => [
 				'action' => config('constans.status-action.'. $data->status),

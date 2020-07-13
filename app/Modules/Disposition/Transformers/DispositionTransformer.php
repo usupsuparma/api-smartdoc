@@ -4,6 +4,7 @@
  */
 
 use League\Fractal\TransformerAbstract;
+use Auth;
 
 class DispositionTransformer extends TransformerAbstract
 {
@@ -14,8 +15,16 @@ class DispositionTransformer extends TransformerAbstract
 	 public function transform($data) 
 	 {
 		$count = 0;
+		$finish_follow = false;
+		
 	   	if (!empty($data->assign)) {
 			foreach ($data->assign as $assign) {
+				if ($assign->employee_id === Auth::user()->user_core->id_employee) {
+					if (!empty($assign->follow_ups[0])) {
+						$finish_follow = true;
+					}
+				}
+				
 				if (!empty($assign->follow_ups[0])) {
 					$count++;
 				}
@@ -43,6 +52,7 @@ class DispositionTransformer extends TransformerAbstract
 				'status_code' => (int) $data->status
 			],
 			'progress' => $progress,
+			'finish_follow' => $finish_follow,
 			'created_at' => $data->created_at->format('d-m-Y'),
 			'updated_at' => $data->updated_at->format('d-m-Y')
 		];
