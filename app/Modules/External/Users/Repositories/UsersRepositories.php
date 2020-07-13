@@ -60,7 +60,6 @@ class UsersRepositories extends BaseRepository implements UsersInterface
 			'email' => $request->email,
 			'username' => $request->email
 		]);
-		dd($model);
 		
 		updated_log($model);
 		
