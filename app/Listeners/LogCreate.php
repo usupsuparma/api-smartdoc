@@ -28,7 +28,7 @@ class LogCreate
         $model = str_replace('Model', '', $name);
 
         LogModel::create([
-            'user_id' => Auth::user()->id,
+            'user_id' => Auth::check() ? Auth::user()->id : NULL,
             'model' => $model,
             'type' => 'created',
             'reference_id' => $event->actionLog->id,

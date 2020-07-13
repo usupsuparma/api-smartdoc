@@ -287,7 +287,7 @@ class OutgoingMailRepositories extends BaseRepository implements OutgoingMailInt
 		{
 			if ($check_director_level) {
 				/* check list review hierarchy director*/
-				$reviews = review_list(setting_by_code('SURAT_KELUAR'));
+				$reviews = review_list(setting_by_code('SURAT_KELUAR'), $check_director_level);
 			} else {
 				$reviews = review_list_non_director($hierarchy_orgs);
 			}

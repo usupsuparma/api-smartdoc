@@ -7,6 +7,7 @@
 use Prettus\Repository\Eloquent\BaseRepository;
 use App\Modules\External\Users\Interfaces\UsersInterface;
 use App\Modules\External\Users\Models\ExternalUserModel;
+use App\Modules\User\Models\UserModel;
 use Validator;
 
 class UsersRepositories extends BaseRepository implements UsersInterface
@@ -20,6 +21,23 @@ class UsersRepositories extends BaseRepository implements UsersInterface
 	
 	public function create($request)
     {
+		$rules = [
+			'user_core_id' => 'required|unique:users,user_core_id',
+			'email' => 'required|unique:users,email',
+			'password' => 'required',
+		];
+		
+		Validator::validate($request->all(), $rules);
+		
+		$model = UserModel::create([
+			'user_core_id' => $request->user_core_id,
+			'email' => $request->email,
+			'username' => $request->email,
+			'password' => app('hash')->make($request->password),
+			'status' => true,
+		]);
+
+		created_log($model);
 		
 		return [
 			'message' => config('constans.success.created'),
@@ -30,8 +48,21 @@ class UsersRepositories extends BaseRepository implements UsersInterface
 	
 	public function update($request, $id)
     {
-		$model = $this->model->findOrFail($id);
+		$model = UserModel::findCoreUser($id)->firstOrFail();
 		
+		$rules = [
+			'email' => 'required|unique:users,email,' . $id . ',id,deleted_at,NULL'
+		];
+		
+		Validator::validate($request->all(), $rules);
+		
+		$model->update([
+			'email' => $request->email,
+			'username' => $request->email
+		]);
+		dd($model);
+		
+		updated_log($model);
 		
 		return [
 			'message' => config('constans.success.updated'),
@@ -41,10 +72,10 @@ class UsersRepositories extends BaseRepository implements UsersInterface
 	
 	public function delete($id)
     {
-		$model = $this->model->findOrFail($id);
-		deleted_log($model);
-		$model->delete();
+		// $model = $this->model->findOrFail($id);
+		// deleted_log($model);
+		// $model->delete();
 		
-		return ['message' => config('constans.success.deleted')];
+		// return ['message' => config('constans.success.deleted')];
 	}
 }
