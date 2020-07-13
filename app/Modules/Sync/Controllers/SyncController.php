@@ -15,7 +15,7 @@ class SyncController extends BaseController
 	public function __construct(SyncRepositories $syncRepository) 
 	{
 		$this->syncRepository = $syncRepository;
-		Authority::acl_access(Auth::user(), 'sync');
+		Authority::acl_access(Auth::user(), 'syncs');
 	}
 	
 	public function data(Request $request)
