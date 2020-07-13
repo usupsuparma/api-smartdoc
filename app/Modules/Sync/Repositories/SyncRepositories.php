@@ -35,7 +35,7 @@ class SyncRepositories extends BaseRepository implements SyncInterface
         try {
 			foreach ($externalUsers as $eUser) {
 				$user = UserModel::findCoreUser($eUser->user_id)->first();
-				$email = $faker->safeEmail;
+				$email = $eUser->user_login;
 				if ($user === null) {
 					$password = !empty($eUser->employee) ? $eUser->employee->nik : 'hello';
 					UserModel::create([
