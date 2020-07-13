@@ -14,5 +14,15 @@ class DatabaseSeeder extends Seeder
         // $this->call(BackdoorSeeder::class);
         // $this->call(TestSeeder::class);
         // $this->call(EmployeeSeeder::class);
+        $this->call(MenusTableSeeder::class);
+        $this->call(RolesTableSeeder::class);
+        $this->call(MenuRolesTableSeeder::class);
+        $this->call(SettingsTableSeeder::class);
+        $this->call(TemplatesTableSeeder::class);
+        $this->call(TypesTableSeeder::class);
+        $this->call(ReviewsTableSeeder::class);
+        $this->call(ClassificationTableSeeder::class);
+        $this->call(ClassDispositionTableSeeder::class);
+        $this->call(UsersTableSeeder::class);
     }
 }

@@ -81,13 +81,12 @@ $app->singleton(
 */
 
 $app->middleware([
-    // App\Http\Middleware\CorsMiddleware::class,
     \Fruitcake\Cors\HandleCors::class
 ]);
 
 $app->routeMiddleware([
     'auth' => App\Http\Middleware\Authenticate::class,
-    'client' => \Laravel\Passport\Http\Middleware\CheckClientCredentials::class,
+    'client_credentials' => \Laravel\Passport\Http\Middleware\CheckClientCredentials::class,
     'checkToken' => App\Http\Middleware\CheckApiTokenMiddleware::class
 ]);
 
@@ -138,6 +137,9 @@ $app->register(App\Modules\Master\ClassDisposition\Providers\ClassDispositionSer
 $app->register(App\Modules\Master\TypeNote\Providers\TypeNoteServiceProvider::class);
 $app->register(App\Modules\Master\Template\Providers\TemplateServiceProvider::class);
 
+/* Sync */
+$app->register(App\Modules\Sync\Providers\SyncServiceProvider::class);
+
 /* Report */
 $app->register(App\Modules\Report\Outgoing\Providers\ReportOutgoingServiceProvider::class);
 $app->register(App\Modules\Report\Incoming\Providers\ReportIncomingServiceProvider::class);
@@ -147,6 +149,7 @@ $app->register(App\Modules\Report\Disposition\Providers\ReportDispositionService
 $app->register(App\Modules\External\Employee\Providers\EmployeeServiceProvider::class);
 $app->register(App\Modules\External\Organization\Providers\OrganizationServiceProvider::class);
 $app->register(App\Modules\External\Position\Providers\PositionServiceProvider::class);
+$app->register(App\Modules\External\Users\Providers\UsersServiceProvider::class);
 
 /* Core */
 $app->register(App\Providers\AppServiceProvider::class);
@@ -180,6 +183,9 @@ class_alias(SimpleSoftwareIO\QrCode\Facades\QrCode::class, 'QrCode');
 /* OneSignal */
 $app->register(Berkayk\OneSignal\OneSignalServiceProvider::class);
 class_alias(Berkayk\OneSignal\OneSignalFacade::class, 'OneSignal');
+
+/* Iseed */
+// $app->register(Orangehill\Iseed\IseedServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------

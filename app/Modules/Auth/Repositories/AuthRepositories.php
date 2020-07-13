@@ -123,7 +123,11 @@ class AuthRepositories extends BaseRepository implements AuthInterface
 		
 		$detail = [];
 		$user = UserModel::findByEmail($request->username)->first();
-		$users_info = core_user($user->user_core_id);
+		$users_info = [];
+		
+		if (!empty($user->user_core_id)) {
+			$users_info = core_user($user->user_core_id);
+		}
 		
 		if (isset($request->grant) && $request->grant == 'm') {
 			$user->update(['device_id' => $request->device_id]);

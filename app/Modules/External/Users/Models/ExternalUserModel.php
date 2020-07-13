@@ -43,4 +43,8 @@ class ExternalUserModel extends Model
 		
 	}
 	
+	public function scopeReadySyncUser($query)
+	{
+		return $query->where('is_active', 1);
+	}
 }
