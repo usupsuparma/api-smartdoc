@@ -557,6 +557,24 @@ class MenusTableSeeder extends Seeder
                 'updated_at' => '2020-07-12 13:27:53',
                 'deleted_at' => NULL,
             ),
+            30 => 
+            array (
+                'id' => 39,
+                'parent_id' => 1,
+                'name' => 'Sinkronisasi',
+                'url' => '/settings/syncs',
+                'component' => 'Sync',
+                'modules' => 'syncs',
+                'show' => 0,
+                'categories' => 'web',
+                'icon' => 'icon-refresh',
+                'order' => 31,
+                'function' => 'R,C,U,D',
+                'status' => 1,
+                'created_at' => '2020-07-15 22:06:06',
+                'updated_at' => '2020-07-15 22:06:06',
+                'deleted_at' => NULL,
+            ),
         ));
         
         

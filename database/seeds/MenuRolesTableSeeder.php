@@ -47,7 +47,7 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-03-10 08:47:09',
-                'updated_at' => '2020-07-12 13:25:21',
+                'updated_at' => '2020-07-15 22:06:33',
             ),
             2 => 
             array (
@@ -79,7 +79,7 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 1,
                 'authority_data' => NULL,
                 'created_at' => '2020-03-10 08:47:09',
-                'updated_at' => '2020-07-12 13:25:21',
+                'updated_at' => '2020-07-15 22:06:33',
             ),
             4 => 
             array (
@@ -111,7 +111,7 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-03-12 06:35:08',
-                'updated_at' => '2020-07-12 13:25:21',
+                'updated_at' => '2020-07-15 22:06:33',
             ),
             6 => 
             array (
@@ -143,7 +143,7 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-03-12 10:51:08',
-                'updated_at' => '2020-07-12 13:25:21',
+                'updated_at' => '2020-07-15 22:06:34',
             ),
             8 => 
             array (
@@ -175,7 +175,7 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-03-10 08:47:09',
-                'updated_at' => '2020-07-12 13:25:21',
+                'updated_at' => '2020-07-15 22:06:34',
             ),
             10 => 
             array (
@@ -207,7 +207,7 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-06-29 08:37:14',
-                'updated_at' => '2020-06-29 19:05:04',
+                'updated_at' => '2020-07-13 14:59:35',
             ),
             12 => 
             array (
@@ -255,7 +255,7 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-06-29 08:46:38',
-                'updated_at' => '2020-06-30 04:50:06',
+                'updated_at' => '2020-07-13 15:11:31',
             ),
             15 => 
             array (
@@ -287,7 +287,7 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-03-10 08:47:09',
-                'updated_at' => '2020-07-12 13:25:21',
+                'updated_at' => '2020-07-15 22:06:34',
             ),
             17 => 
             array (
@@ -303,7 +303,7 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-03-12 10:51:08',
-                'updated_at' => '2020-07-12 13:25:21',
+                'updated_at' => '2020-07-15 22:06:34',
             ),
             18 => 
             array (
@@ -319,7 +319,7 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-03-12 10:51:08',
-                'updated_at' => '2020-07-12 13:25:21',
+                'updated_at' => '2020-07-15 22:06:34',
             ),
             19 => 
             array (
@@ -335,7 +335,7 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-03-12 10:51:08',
-                'updated_at' => '2020-07-12 13:25:21',
+                'updated_at' => '2020-07-15 22:06:34',
             ),
             20 => 
             array (
@@ -351,7 +351,7 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-03-12 10:51:08',
-                'updated_at' => '2020-07-12 13:25:21',
+                'updated_at' => '2020-07-15 22:06:34',
             ),
             21 => 
             array (
@@ -367,7 +367,7 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-03-13 11:00:15',
-                'updated_at' => '2020-07-12 13:25:21',
+                'updated_at' => '2020-07-15 22:06:34',
             ),
             22 => 
             array (
@@ -383,7 +383,7 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-03-21 11:00:09',
-                'updated_at' => '2020-07-12 13:25:21',
+                'updated_at' => '2020-07-15 22:06:34',
             ),
             23 => 
             array (
@@ -399,7 +399,7 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 1,
                 'authority_data' => NULL,
                 'created_at' => '2020-03-23 20:07:31',
-                'updated_at' => '2020-07-12 13:25:21',
+                'updated_at' => '2020-07-15 22:06:34',
             ),
             24 => 
             array (
@@ -422,8 +422,8 @@ class MenuRolesTableSeeder extends Seeder
                 'menu_id' => 20,
                 'role_id' => 11,
                 'authority_read' => 1,
-                'authority_create' => 0,
-                'authority_update' => 0,
+                'authority_create' => 1,
+                'authority_update' => 1,
                 'authority_delete' => 0,
                 'authority_import' => 0,
                 'authority_export' => 0,
@@ -431,7 +431,7 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-06-29 08:37:14',
-                'updated_at' => '2020-06-29 19:05:04',
+                'updated_at' => '2020-07-13 14:59:35',
             ),
             26 => 
             array (
@@ -479,7 +479,7 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 1,
                 'authority_data' => NULL,
                 'created_at' => '2020-06-29 08:46:38',
-                'updated_at' => '2020-06-30 04:50:06',
+                'updated_at' => '2020-07-13 15:11:31',
             ),
             29 => 
             array (
@@ -495,7 +495,7 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-03-30 15:15:11',
-                'updated_at' => '2020-07-12 13:25:21',
+                'updated_at' => '2020-07-15 22:06:34',
             ),
             30 => 
             array (
@@ -511,7 +511,7 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-04-02 06:17:56',
-                'updated_at' => '2020-07-12 13:25:21',
+                'updated_at' => '2020-07-15 22:06:34',
             ),
             31 => 
             array (
@@ -527,7 +527,7 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-04-24 14:57:31',
-                'updated_at' => '2020-07-12 13:25:21',
+                'updated_at' => '2020-07-15 22:06:34',
             ),
             32 => 
             array (
@@ -559,7 +559,7 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-06-29 08:37:14',
-                'updated_at' => '2020-06-29 19:05:04',
+                'updated_at' => '2020-07-13 14:59:35',
             ),
             34 => 
             array (
@@ -607,7 +607,7 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-06-29 08:46:38',
-                'updated_at' => '2020-06-30 04:50:06',
+                'updated_at' => '2020-07-13 15:11:31',
             ),
             37 => 
             array (
@@ -623,7 +623,7 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-04-24 14:57:31',
-                'updated_at' => '2020-07-12 13:25:21',
+                'updated_at' => '2020-07-15 22:06:34',
             ),
             38 => 
             array (
@@ -639,7 +639,7 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-06-29 08:37:14',
-                'updated_at' => '2020-06-29 19:05:04',
+                'updated_at' => '2020-07-13 14:59:35',
             ),
             39 => 
             array (
@@ -687,7 +687,7 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-06-29 08:46:38',
-                'updated_at' => '2020-06-30 04:50:06',
+                'updated_at' => '2020-07-13 15:11:31',
             ),
             42 => 
             array (
@@ -703,9 +703,25 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-04-24 14:57:31',
-                'updated_at' => '2020-07-12 13:25:21',
+                'updated_at' => '2020-07-15 22:06:34',
             ),
             43 => 
+            array (
+                'menu_id' => 25,
+                'role_id' => 11,
+                'authority_read' => 1,
+                'authority_create' => 0,
+                'authority_update' => 1,
+                'authority_delete' => 0,
+                'authority_import' => 0,
+                'authority_export' => 0,
+                'authority_approve' => 1,
+                'authority_disposition' => 0,
+                'authority_data' => NULL,
+                'created_at' => '2020-07-13 14:59:35',
+                'updated_at' => '2020-07-13 14:59:35',
+            ),
+            44 => 
             array (
                 'menu_id' => 25,
                 'role_id' => 13,
@@ -721,7 +737,7 @@ class MenuRolesTableSeeder extends Seeder
                 'created_at' => '2020-06-29 08:43:58',
                 'updated_at' => '2020-06-30 04:34:10',
             ),
-            44 => 
+            45 => 
             array (
                 'menu_id' => 26,
                 'role_id' => 5,
@@ -735,9 +751,9 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-04-24 14:57:31',
-                'updated_at' => '2020-07-12 13:25:21',
+                'updated_at' => '2020-07-15 22:06:34',
             ),
-            45 => 
+            46 => 
             array (
                 'menu_id' => 26,
                 'role_id' => 14,
@@ -751,9 +767,9 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-06-29 08:46:38',
-                'updated_at' => '2020-06-30 04:50:06',
+                'updated_at' => '2020-07-13 15:11:31',
             ),
-            46 => 
+            47 => 
             array (
                 'menu_id' => 27,
                 'role_id' => 5,
@@ -767,27 +783,27 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-04-24 15:05:48',
-                'updated_at' => '2020-07-12 13:25:21',
-            ),
-            47 => 
-            array (
-                'menu_id' => 27,
-                'role_id' => 10,
-                'authority_read' => 1,
-                'authority_create' => 0,
-                'authority_update' => 0,
-                'authority_delete' => 0,
-                'authority_import' => 0,
-                'authority_export' => 0,
-                'authority_approve' => 0,
-                'authority_disposition' => 0,
-                'authority_data' => NULL,
-                'created_at' => '2020-06-29 08:48:36',
-                'updated_at' => '2020-06-29 08:48:36',
+                'updated_at' => '2020-07-15 22:06:34',
             ),
             48 => 
             array (
                 'menu_id' => 27,
+                'role_id' => 10,
+                'authority_read' => 1,
+                'authority_create' => 0,
+                'authority_update' => 0,
+                'authority_delete' => 0,
+                'authority_import' => 0,
+                'authority_export' => 0,
+                'authority_approve' => 0,
+                'authority_disposition' => 0,
+                'authority_data' => NULL,
+                'created_at' => '2020-06-29 08:48:36',
+                'updated_at' => '2020-06-29 08:48:36',
+            ),
+            49 => 
+            array (
+                'menu_id' => 27,
                 'role_id' => 11,
                 'authority_read' => 1,
                 'authority_create' => 0,
@@ -799,9 +815,9 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-06-29 08:37:14',
-                'updated_at' => '2020-06-29 19:05:04',
+                'updated_at' => '2020-07-13 14:59:35',
             ),
-            49 => 
+            50 => 
             array (
                 'menu_id' => 27,
                 'role_id' => 12,
@@ -817,7 +833,7 @@ class MenuRolesTableSeeder extends Seeder
                 'created_at' => '2020-06-29 08:41:40',
                 'updated_at' => '2020-06-29 19:05:20',
             ),
-            50 => 
+            51 => 
             array (
                 'menu_id' => 27,
                 'role_id' => 13,
@@ -833,7 +849,7 @@ class MenuRolesTableSeeder extends Seeder
                 'created_at' => '2020-06-29 08:43:58',
                 'updated_at' => '2020-06-30 04:34:10',
             ),
-            51 => 
+            52 => 
             array (
                 'menu_id' => 27,
                 'role_id' => 14,
@@ -847,9 +863,9 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-06-29 08:46:38',
-                'updated_at' => '2020-06-30 04:50:06',
+                'updated_at' => '2020-07-13 15:11:31',
             ),
-            52 => 
+            53 => 
             array (
                 'menu_id' => 28,
                 'role_id' => 5,
@@ -863,9 +879,9 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-04-24 15:05:49',
-                'updated_at' => '2020-07-12 13:25:21',
+                'updated_at' => '2020-07-15 22:06:34',
             ),
-            53 => 
+            54 => 
             array (
                 'menu_id' => 28,
                 'role_id' => 10,
@@ -881,7 +897,7 @@ class MenuRolesTableSeeder extends Seeder
                 'created_at' => '2020-06-29 08:48:36',
                 'updated_at' => '2020-06-29 08:48:36',
             ),
-            54 => 
+            55 => 
             array (
                 'menu_id' => 28,
                 'role_id' => 11,
@@ -895,9 +911,9 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 1,
                 'authority_data' => NULL,
                 'created_at' => '2020-06-29 08:37:14',
-                'updated_at' => '2020-06-29 19:05:04',
+                'updated_at' => '2020-07-13 14:59:35',
             ),
-            55 => 
+            56 => 
             array (
                 'menu_id' => 28,
                 'role_id' => 12,
@@ -913,7 +929,7 @@ class MenuRolesTableSeeder extends Seeder
                 'created_at' => '2020-06-29 08:41:40',
                 'updated_at' => '2020-06-29 19:05:20',
             ),
-            56 => 
+            57 => 
             array (
                 'menu_id' => 28,
                 'role_id' => 13,
@@ -929,7 +945,7 @@ class MenuRolesTableSeeder extends Seeder
                 'created_at' => '2020-06-29 08:43:58',
                 'updated_at' => '2020-06-30 04:34:10',
             ),
-            57 => 
+            58 => 
             array (
                 'menu_id' => 28,
                 'role_id' => 14,
@@ -943,9 +959,9 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 1,
                 'authority_data' => NULL,
                 'created_at' => '2020-06-29 08:46:38',
-                'updated_at' => '2020-06-30 04:50:06',
+                'updated_at' => '2020-07-13 15:11:32',
             ),
-            58 => 
+            59 => 
             array (
                 'menu_id' => 29,
                 'role_id' => 5,
@@ -959,9 +975,9 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-04-24 15:05:49',
-                'updated_at' => '2020-07-12 13:25:21',
+                'updated_at' => '2020-07-15 22:06:34',
             ),
-            59 => 
+            60 => 
             array (
                 'menu_id' => 29,
                 'role_id' => 11,
@@ -975,9 +991,9 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-06-29 08:37:14',
-                'updated_at' => '2020-06-29 19:05:04',
+                'updated_at' => '2020-07-13 14:59:35',
             ),
-            60 => 
+            61 => 
             array (
                 'menu_id' => 29,
                 'role_id' => 12,
@@ -993,7 +1009,7 @@ class MenuRolesTableSeeder extends Seeder
                 'created_at' => '2020-06-29 08:41:40',
                 'updated_at' => '2020-06-29 19:05:20',
             ),
-            61 => 
+            62 => 
             array (
                 'menu_id' => 29,
                 'role_id' => 13,
@@ -1009,7 +1025,7 @@ class MenuRolesTableSeeder extends Seeder
                 'created_at' => '2020-06-29 08:43:58',
                 'updated_at' => '2020-06-30 04:34:10',
             ),
-            62 => 
+            63 => 
             array (
                 'menu_id' => 29,
                 'role_id' => 14,
@@ -1023,9 +1039,9 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-06-29 08:46:38',
-                'updated_at' => '2020-06-30 04:50:06',
+                'updated_at' => '2020-07-13 15:11:32',
             ),
-            63 => 
+            64 => 
             array (
                 'menu_id' => 30,
                 'role_id' => 5,
@@ -1039,9 +1055,9 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-05-05 16:35:38',
-                'updated_at' => '2020-07-12 13:25:21',
+                'updated_at' => '2020-07-15 22:06:34',
             ),
-            64 => 
+            65 => 
             array (
                 'menu_id' => 30,
                 'role_id' => 11,
@@ -1055,9 +1071,9 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-06-29 08:37:14',
-                'updated_at' => '2020-06-29 19:05:04',
+                'updated_at' => '2020-07-13 14:59:35',
             ),
-            65 => 
+            66 => 
             array (
                 'menu_id' => 30,
                 'role_id' => 12,
@@ -1073,7 +1089,7 @@ class MenuRolesTableSeeder extends Seeder
                 'created_at' => '2020-06-29 08:41:40',
                 'updated_at' => '2020-06-29 19:05:20',
             ),
-            66 => 
+            67 => 
             array (
                 'menu_id' => 30,
                 'role_id' => 13,
@@ -1089,7 +1105,7 @@ class MenuRolesTableSeeder extends Seeder
                 'created_at' => '2020-06-29 08:43:58',
                 'updated_at' => '2020-06-30 04:34:10',
             ),
-            67 => 
+            68 => 
             array (
                 'menu_id' => 30,
                 'role_id' => 14,
@@ -1103,9 +1119,9 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-06-29 08:46:38',
-                'updated_at' => '2020-06-30 04:50:06',
+                'updated_at' => '2020-07-13 15:11:32',
             ),
-            68 => 
+            69 => 
             array (
                 'menu_id' => 31,
                 'role_id' => 5,
@@ -1119,9 +1135,9 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-05-08 06:42:02',
-                'updated_at' => '2020-07-12 13:25:21',
+                'updated_at' => '2020-07-15 22:06:34',
             ),
-            69 => 
+            70 => 
             array (
                 'menu_id' => 33,
                 'role_id' => 5,
@@ -1135,9 +1151,9 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-05-30 16:52:43',
-                'updated_at' => '2020-07-12 13:25:21',
+                'updated_at' => '2020-07-15 22:06:34',
             ),
-            70 => 
+            71 => 
             array (
                 'menu_id' => 33,
                 'role_id' => 10,
@@ -1153,7 +1169,7 @@ class MenuRolesTableSeeder extends Seeder
                 'created_at' => '2020-06-29 08:34:06',
                 'updated_at' => '2020-06-29 08:48:36',
             ),
-            71 => 
+            72 => 
             array (
                 'menu_id' => 33,
                 'role_id' => 11,
@@ -1167,9 +1183,9 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-06-29 08:37:14',
-                'updated_at' => '2020-06-29 19:05:04',
+                'updated_at' => '2020-07-13 14:59:35',
             ),
-            72 => 
+            73 => 
             array (
                 'menu_id' => 33,
                 'role_id' => 12,
@@ -1185,7 +1201,7 @@ class MenuRolesTableSeeder extends Seeder
                 'created_at' => '2020-06-29 08:41:40',
                 'updated_at' => '2020-06-29 19:05:20',
             ),
-            73 => 
+            74 => 
             array (
                 'menu_id' => 33,
                 'role_id' => 13,
@@ -1201,7 +1217,7 @@ class MenuRolesTableSeeder extends Seeder
                 'created_at' => '2020-06-29 08:43:58',
                 'updated_at' => '2020-06-30 04:34:10',
             ),
-            74 => 
+            75 => 
             array (
                 'menu_id' => 33,
                 'role_id' => 14,
@@ -1215,9 +1231,9 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-06-29 08:46:38',
-                'updated_at' => '2020-06-30 04:50:06',
+                'updated_at' => '2020-07-13 15:11:32',
             ),
-            75 => 
+            76 => 
             array (
                 'menu_id' => 34,
                 'role_id' => 5,
@@ -1231,9 +1247,9 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-05-30 16:52:43',
-                'updated_at' => '2020-07-12 13:25:21',
+                'updated_at' => '2020-07-15 22:06:34',
             ),
-            76 => 
+            77 => 
             array (
                 'menu_id' => 34,
                 'role_id' => 10,
@@ -1249,7 +1265,7 @@ class MenuRolesTableSeeder extends Seeder
                 'created_at' => '2020-06-29 08:48:36',
                 'updated_at' => '2020-06-29 08:48:36',
             ),
-            77 => 
+            78 => 
             array (
                 'menu_id' => 34,
                 'role_id' => 13,
@@ -1265,7 +1281,7 @@ class MenuRolesTableSeeder extends Seeder
                 'created_at' => '2020-06-29 08:43:58',
                 'updated_at' => '2020-06-30 04:34:10',
             ),
-            78 => 
+            79 => 
             array (
                 'menu_id' => 34,
                 'role_id' => 14,
@@ -1279,9 +1295,9 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-06-29 08:46:38',
-                'updated_at' => '2020-06-30 04:50:06',
+                'updated_at' => '2020-07-13 15:11:32',
             ),
-            79 => 
+            80 => 
             array (
                 'menu_id' => 35,
                 'role_id' => 5,
@@ -1295,9 +1311,9 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-05-30 16:52:43',
-                'updated_at' => '2020-07-12 13:25:21',
+                'updated_at' => '2020-07-15 22:06:34',
             ),
-            80 => 
+            81 => 
             array (
                 'menu_id' => 35,
                 'role_id' => 10,
@@ -1313,7 +1329,7 @@ class MenuRolesTableSeeder extends Seeder
                 'created_at' => '2020-06-29 08:34:06',
                 'updated_at' => '2020-06-29 08:48:36',
             ),
-            81 => 
+            82 => 
             array (
                 'menu_id' => 35,
                 'role_id' => 11,
@@ -1327,9 +1343,9 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-06-29 08:37:14',
-                'updated_at' => '2020-06-29 19:05:04',
+                'updated_at' => '2020-07-13 14:59:35',
             ),
-            82 => 
+            83 => 
             array (
                 'menu_id' => 35,
                 'role_id' => 12,
@@ -1345,7 +1361,7 @@ class MenuRolesTableSeeder extends Seeder
                 'created_at' => '2020-06-29 08:41:40',
                 'updated_at' => '2020-06-29 19:05:20',
             ),
-            83 => 
+            84 => 
             array (
                 'menu_id' => 35,
                 'role_id' => 13,
@@ -1361,7 +1377,7 @@ class MenuRolesTableSeeder extends Seeder
                 'created_at' => '2020-06-29 08:43:58',
                 'updated_at' => '2020-06-30 04:34:10',
             ),
-            84 => 
+            85 => 
             array (
                 'menu_id' => 35,
                 'role_id' => 14,
@@ -1375,9 +1391,9 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-06-29 08:46:38',
-                'updated_at' => '2020-06-30 04:50:06',
+                'updated_at' => '2020-07-13 15:11:32',
             ),
-            85 => 
+            86 => 
             array (
                 'menu_id' => 36,
                 'role_id' => 5,
@@ -1391,9 +1407,9 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-05-30 16:52:43',
-                'updated_at' => '2020-07-12 13:25:21',
+                'updated_at' => '2020-07-15 22:06:34',
             ),
-            86 => 
+            87 => 
             array (
                 'menu_id' => 36,
                 'role_id' => 11,
@@ -1407,9 +1423,9 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-06-29 08:37:14',
-                'updated_at' => '2020-06-29 19:05:04',
+                'updated_at' => '2020-07-13 14:59:35',
             ),
-            87 => 
+            88 => 
             array (
                 'menu_id' => 36,
                 'role_id' => 12,
@@ -1425,7 +1441,7 @@ class MenuRolesTableSeeder extends Seeder
                 'created_at' => '2020-06-29 08:41:40',
                 'updated_at' => '2020-06-29 19:05:20',
             ),
-            88 => 
+            89 => 
             array (
                 'menu_id' => 36,
                 'role_id' => 13,
@@ -1441,7 +1457,7 @@ class MenuRolesTableSeeder extends Seeder
                 'created_at' => '2020-06-29 08:43:58',
                 'updated_at' => '2020-06-30 04:34:10',
             ),
-            89 => 
+            90 => 
             array (
                 'menu_id' => 36,
                 'role_id' => 14,
@@ -1455,9 +1471,9 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-06-29 08:46:38',
-                'updated_at' => '2020-06-30 04:50:06',
+                'updated_at' => '2020-07-13 15:11:32',
             ),
-            90 => 
+            91 => 
             array (
                 'menu_id' => 37,
                 'role_id' => 5,
@@ -1471,9 +1487,9 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-07-12 13:25:21',
-                'updated_at' => '2020-07-12 13:25:21',
+                'updated_at' => '2020-07-15 22:06:34',
             ),
-            91 => 
+            92 => 
             array (
                 'menu_id' => 38,
                 'role_id' => 5,
@@ -1487,7 +1503,23 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-07-12 13:25:21',
-                'updated_at' => '2020-07-12 13:25:21',
+                'updated_at' => '2020-07-15 22:06:34',
+            ),
+            93 => 
+            array (
+                'menu_id' => 39,
+                'role_id' => 5,
+                'authority_read' => 1,
+                'authority_create' => 1,
+                'authority_update' => 1,
+                'authority_delete' => 1,
+                'authority_import' => 0,
+                'authority_export' => 0,
+                'authority_approve' => 0,
+                'authority_disposition' => 0,
+                'authority_data' => NULL,
+                'created_at' => '2020-07-15 22:06:34',
+                'updated_at' => '2020-07-15 22:06:34',
             ),
         ));
         

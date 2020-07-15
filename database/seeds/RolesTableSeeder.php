@@ -43,7 +43,7 @@ class RolesTableSeeder extends Seeder
             array (
                 'id' => 10,
                 'name' => 'Staff Drafter',
-                'categories' => 'admin',
+                'categories' => 'management',
                 'publisher' => 0,
                 'status' => 1,
                 'created_at' => '2020-06-29 08:34:06',
@@ -88,10 +88,10 @@ class RolesTableSeeder extends Seeder
                 'id' => 14,
                 'name' => 'Admin Surat',
                 'categories' => 'admin',
-                'publisher' => 0,
+                'publisher' => 1,
                 'status' => 1,
                 'created_at' => '2020-06-29 08:46:38',
-                'updated_at' => '2020-06-29 08:46:38',
+                'updated_at' => '2020-07-13 15:11:31',
                 'deleted_at' => NULL,
             ),
         ));
