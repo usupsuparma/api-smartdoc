@@ -185,7 +185,7 @@ $app->register(Berkayk\OneSignal\OneSignalServiceProvider::class);
 class_alias(Berkayk\OneSignal\OneSignalFacade::class, 'OneSignal');
 
 /* Iseed */
-$app->register(Orangehill\Iseed\IseedServiceProvider::class);
+// $app->register(Orangehill\Iseed\IseedServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------
