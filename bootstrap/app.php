@@ -125,6 +125,7 @@ $app->register(App\Modules\Disposition\Providers\DispositionFollowServiceProvide
 $app->register(App\Modules\Notification\Providers\NotificationServiceProvider::class);
 $app->register(App\Modules\Verification\Providers\VerificationServiceProvider::class);
 $app->register(App\Modules\Account\Providers\AccountServiceProvider::class);
+$app->register(App\Modules\Dashboard\Providers\DashboardServiceProvider::class);
 
 $app->register(App\Modules\Review\Providers\ReviewServiceProvider::class);
 $app->register(App\Modules\Signature\Providers\SignatureServiceProvider::class);
