@@ -138,6 +138,11 @@ $app->register(App\Modules\Master\ClassDisposition\Providers\ClassDispositionSer
 $app->register(App\Modules\Master\TypeNote\Providers\TypeNoteServiceProvider::class);
 $app->register(App\Modules\Master\Template\Providers\TemplateServiceProvider::class);
 
+/* Archive */
+$app->register(App\Modules\Archive\Providers\ArchiveDispositionServiceProvider::class);
+$app->register(App\Modules\Archive\Providers\ArchiveIncomingServiceProvider::class);
+$app->register(App\Modules\Archive\Providers\ArchiveOutgoingServiceProvider::class);
+
 /* Sync */
 $app->register(App\Modules\Sync\Providers\SyncServiceProvider::class);
 
