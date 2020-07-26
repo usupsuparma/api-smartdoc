@@ -27,7 +27,7 @@ class IncomingMailModel extends Model
     protected $fillable   = [
 		'subject_letter', 'number_letter', 'type_id', 'classification_id', 'letter_date', 'recieved_date',
 		'sender_name', 'receiver_name', 'structure_id', 'to_employee_id', 'status', 'is_recieved', 'retension_date', 
-		'path_to_file', 'is_read'
+		'is_archive', 'path_to_file', 'is_read'
 	];
 	
 	protected $dates = ['deleted_at'];
@@ -111,7 +111,17 @@ class IncomingMailModel extends Model
 		}
         
         return $list;
-    }
+	}
+	
+	public function scopeIsArchive($query) 
+	{
+		return $query->where('is_archive', IncomingMailStatusConstans::IS_ARCHIVE);
+	}
+	
+	public function scopeIsNotArchive($query) 
+	{
+		return $query->where('is_archive', IncomingMailStatusConstans::IS_NOT_ARCHIVE);
+	}
 	
 	protected static function boot() 
     {

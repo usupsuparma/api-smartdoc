@@ -10,4 +10,7 @@ class IncomingMailStatusConstans
 	const DISPOSITION = 2;
 	const FOLLOW_UP = 3;
 	const DONE = 4;
+	
+	const IS_NOT_ARCHIVE = 0 ;
+	const IS_ARCHIVE = 1 ;
 }

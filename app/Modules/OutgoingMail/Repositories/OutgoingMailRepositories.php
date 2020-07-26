@@ -32,7 +32,7 @@ class OutgoingMailRepositories extends BaseRepository implements OutgoingMailInt
 	
     public function data($request)
     {
-		$query = $this->model->authorityData();
+		$query = $this->model->authorityData()->isNotArchive();
 		
 		if ($request->has('keyword') && !empty($request->keyword)) {
 			$query->where('subject_letter', 'like', "%{$request->keyword}%");

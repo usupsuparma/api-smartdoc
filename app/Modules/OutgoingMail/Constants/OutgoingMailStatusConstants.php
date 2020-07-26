@@ -8,4 +8,8 @@ class OutgoingMailStatusConstants
 	const APPROVED = 3 ;
 	const SIGNED = 4 ;
 	const PUBLISH = 5 ;
+	
+	const IS_NOT_ARCHIVE = 0 ;
+	const IS_ARCHIVE = 1 ;
+	
 }

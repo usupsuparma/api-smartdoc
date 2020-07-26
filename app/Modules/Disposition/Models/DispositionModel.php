@@ -23,7 +23,7 @@ class DispositionModel extends Model
 	
     protected $fillable   = [
 		'incoming_mail_id', 'number_disposition', 'subject_disposition', 'disposition_date', 'from_employee_id',
-		'description', 'status', 'path_to_file'
+		'description', 'status', 'is_archive', 'path_to_file'
 	];
 	
 	protected $dates = ['deleted_at'];
@@ -98,6 +98,17 @@ class DispositionModel extends Model
 		
 		return $query->whereIn('status', $category);
 	}
+	
+	public function scopeIsArchive($query) 
+	{
+		return $query->where('is_archive', IncomingMailStatusConstans::IS_ARCHIVE);
+	}
+	
+	public function scopeIsNotArchive($query) 
+	{
+		return $query->where('is_archive', IncomingMailStatusConstans::IS_NOT_ARCHIVE);
+	}
+	
 	
 	protected static function boot() 
     {
