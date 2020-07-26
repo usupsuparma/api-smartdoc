@@ -123,6 +123,11 @@ class IncomingMailModel extends Model
 		return $query->where('is_archive', IncomingMailStatusConstans::IS_NOT_ARCHIVE);
 	}
 	
+	public function scopeIsDone($query) 
+	{
+		return $query->where('status', IncomingMailStatusConstans::DONE);
+	}
+	
 	protected static function boot() 
     {
 		parent::boot();

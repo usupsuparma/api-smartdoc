@@ -13,7 +13,9 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        Commands\CreateArchiveOutgoingCommand::class,
+        Commands\CreateArchiveIncomingCommand::class,
+        Commands\CreateArchiveDispositionCommand::class,
     ];
 
     /**
