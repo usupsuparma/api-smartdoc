@@ -15,19 +15,19 @@ class ArchiveIncomingController extends BaseController
 	public function __construct(ArchiveIncomingRepositories $archiveIncomingRepository) 
 	{
 		$this->archiveIncomingRepository = $archiveIncomingRepository;
-		// Authority::acl_access(Auth::user(), 'archive-incomings');
+		Authority::acl_access(Auth::user(), 'archive-incomings');
 	}
 	
 	public function data(Request $request)
 	{
-		// Authority::check('read');
+		Authority::check('read');
 		
 		return $this->showAll($this->archiveIncomingRepository->data($request),200);
 	}
 	
 	public function show($id)
 	{
-		// Authority::check('read');
+		Authority::check('read');
 		
 		return $this->successResponse($this->archiveIncomingRepository->show($id),200);
 	}

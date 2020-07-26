@@ -15,19 +15,19 @@ class ArchiveDispositionController extends BaseController
 	public function __construct(ArchiveDispositionRepositories $archiveDispositionRepository) 
 	{
 		$this->archiveDispositionRepository = $archiveDispositionRepository;
-		// Authority::acl_access(Auth::user(), 'archive-dispositions');
+		Authority::acl_access(Auth::user(), 'archive-dispositions');
 	}
 	
 	public function data(Request $request)
 	{
-		// Authority::check('read');
+		Authority::check('read');
 		
 		return $this->showAll($this->archiveDispositionRepository->data($request),200);
 	}
 	
 	public function show($id)
 	{
-		// Authority::check('read');
+		Authority::check('read');
 		
 		return $this->successResponse($this->archiveDispositionRepository->show($id),200);
 	}

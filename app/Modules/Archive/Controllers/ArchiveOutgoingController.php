@@ -15,19 +15,19 @@ class ArchiveOutgoingController extends BaseController
 	public function __construct(ArchiveOutgoingRepositories $archiveOutgoingRepository) 
 	{
 		$this->archiveOutgoingRepository = $archiveOutgoingRepository;
-		// Authority::acl_access(Auth::user(), 'archive-outgoings');
+		Authority::acl_access(Auth::user(), 'archive-outgoings');
 	}
 	
 	public function data(Request $request)
 	{
-		// Authority::check('read');
+		Authority::check('read');
 		
 		return $this->showAll($this->archiveOutgoingRepository->data($request),200);
 	}
 	
 	public function show($id)
 	{
-		// Authority::check('read');
+		Authority::check('read');
 		
 		return $this->successResponse($this->archiveOutgoingRepository->show($id),200);
 	}
