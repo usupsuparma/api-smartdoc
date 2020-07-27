@@ -26,8 +26,11 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('archive:outgoing');
-        $schedule->command('archive:incoming');
-        $schedule->command('archive:disposition');
+        $schedule->command('archive:outgoing')->timezone('Asia/Jakarta')
+        ->at('01:00');
+        $schedule->command('archive:incoming')->timezone('Asia/Jakarta')
+        ->at('03:00');
+        $schedule->command('archive:disposition')->timezone('Asia/Jakarta')
+        ->at('03:00');
     }
 }
