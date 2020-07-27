@@ -29,7 +29,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('archive:outgoing')->timezone('Asia/Jakarta')
         ->at('01:00');
         $schedule->command('archive:incoming')->timezone('Asia/Jakarta')
-        ->at('03:00');
+        ->at('02:00');
         $schedule->command('archive:disposition')->timezone('Asia/Jakarta')
         ->at('03:00');
     }
