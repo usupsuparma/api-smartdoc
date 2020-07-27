@@ -26,6 +26,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        //
+        $schedule->command('archive:outgoing');
+        $schedule->command('archive:incoming');
+        $schedule->command('archive:disposition');
     }
 }
