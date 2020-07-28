@@ -26,10 +26,10 @@ class DashboardRepositories extends BaseRepository implements DashboardInterface
 		$outgoingMail = $this->model->select(
 			DB::raw(
 				'count(*) as total, 
-				CAST(SUM(status = '.OutgoingMailStatusConstants::REVIEW.') as UNSIGNED) as totalReview,
-				CAST(SUM(status = '.OutgoingMailStatusConstants::APPROVED.') as UNSIGNED) as totalApproved,
-				CAST(SUM(status = '.OutgoingMailStatusConstants::SIGNED.') as UNSIGNED) as totalSigned,
-				CAST(SUM(status = '.OutgoingMailStatusConstants::PUBLISH.') as UNSIGNED) as totalPublish'
+				IFNULL(CAST(SUM(status = '.OutgoingMailStatusConstants::REVIEW.') as UNSIGNED), 0) as totalReview,
+				IFNULL(CAST(SUM(status = '.OutgoingMailStatusConstants::APPROVED.') as UNSIGNED), 0) as totalApproved,
+				IFNULL(CAST(SUM(status = '.OutgoingMailStatusConstants::SIGNED.') as UNSIGNED), 0) as totalSigned,
+				IFNULL(CAST(SUM(status = '.OutgoingMailStatusConstants::PUBLISH.') as UNSIGNED), 0) as totalPublish'
 			)
 		)
 		->categoryReport()
@@ -42,10 +42,10 @@ class DashboardRepositories extends BaseRepository implements DashboardInterface
 		$incomingMail = IncomingMailModel::select(
 			DB::raw(
 				'count(*) as total, 
-				CAST(SUM(status = '.IncomingMailStatusConstans::SEND.') as UNSIGNED) as totalOnProgress,
-				CAST(SUM(status = '.IncomingMailStatusConstans::DONE.') as UNSIGNED) as totalDone,
-				CAST(SUM(is_read = 1) as UNSIGNED) as totalIsRead,
-				CAST(SUM(is_read = 0) as UNSIGNED) as totalIsNotRead'
+				IFNULL(CAST(SUM(status = '.IncomingMailStatusConstans::SEND.') as UNSIGNED), 0) as totalOnProgress,
+				IFNULL(CAST(SUM(status = '.IncomingMailStatusConstans::DONE.') as UNSIGNED), 0) as totalDone,
+				IFNULL(CAST(SUM(is_read = 1) as UNSIGNED), 0) as totalIsRead,
+				IFNULL(CAST(SUM(is_read = 0) as UNSIGNED), 0) as totalIsNotRead'
 			)
 		)
 		->whereIn('status', [
@@ -61,10 +61,10 @@ class DashboardRepositories extends BaseRepository implements DashboardInterface
 		$dispositionMail = DispositionModel::select(
 			DB::raw(
 				'count(*) as total, 
-				CAST(SUM(status = '.IncomingMailStatusConstans::DISPOSITION.') as UNSIGNED) as totalOnProgress,
-				CAST(SUM(status = '.IncomingMailStatusConstans::DONE.') as UNSIGNED) as totalDone,
-				(SELECT CAST(SUM(is_read = true) as UNSIGNED) FROM smc_dispositions_assign) as totalPeopleIsRead,
-				(SELECT CAST(SUM(is_read = false) as UNSIGNED) FROM smc_dispositions_assign) as totalPeopleIsNotRead'
+				IFNULL(CAST(SUM(status = '.IncomingMailStatusConstans::DISPOSITION.') as UNSIGNED), 0) as totalOnProgress,
+				IFNULL(CAST(SUM(status = '.IncomingMailStatusConstans::DONE.') as UNSIGNED), 0) as totalDone,
+				IFNULL((SELECT CAST(SUM(is_read = true) as UNSIGNED) FROM smc_dispositions_assign), 0) as totalPeopleIsRead,
+				IFNULL((SELECT CAST(SUM(is_read = false) as UNSIGNED) FROM smc_dispositions_assign), 0) as totalPeopleIsNotRead'
 			)
 		)
 		->whereIn('status', [
