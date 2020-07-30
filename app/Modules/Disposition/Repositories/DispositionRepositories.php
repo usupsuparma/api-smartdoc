@@ -21,6 +21,7 @@ use App\Constants\MailCategoryConstants;
 use Validator, DB, Auth;
 use Upload, DigitalSign, Smartdoc;
 use Carbon\Carbon;
+use App\Helpers\SmartdocHelper;
 
 class DispositionRepositories extends BaseRepository implements DispositionInterface
 {
@@ -115,7 +116,7 @@ class DispositionRepositories extends BaseRepository implements DispositionInter
 		}
 
 		$structure_code_user = Auth::user()->user_core->structure->kode_struktur;
-		
+
 		DB::beginTransaction();
 
         try {
@@ -137,6 +138,11 @@ class DispositionRepositories extends BaseRepository implements DispositionInter
 			}
 			
 			if ($request->button_action == IncomingMailStatusConstans::SEND) {
+				
+				/* Trigger For Update Auto Follow Up Incoming Mail */
+				if (SmartdocHelper::bod_level()) {
+					$this->trigger_follow_incoming_bod_level($request);
+				}
 				
 				$data_qr = [
 					'type' => setting_by_code('DISPOSISI'),
@@ -281,6 +287,11 @@ class DispositionRepositories extends BaseRepository implements DispositionInter
 		
 			if ($request->button_action == IncomingMailStatusConstans::SEND) {
 				
+				/* Trigger For Update Auto Follow Up Incoming Mail */
+				if (SmartdocHelper::bod_level()) {
+					$this->trigger_follow_incoming_bod_level($request);
+				}
+				
 				$data_qr = [
 					'type' => setting_by_code('DISPOSISI'),
 					'url' => setting_by_code('URL_VERIFY_OUTGOING_MAIL'). '?type=DISPO&skey='. Crypt::encrypt($model->id)
@@ -355,6 +366,20 @@ class DispositionRepositories extends BaseRepository implements DispositionInter
 			'message' => config('constans.success.updated'),
 			'status' => true
 		];
+	}
+	
+	private function trigger_follow_incoming_bod_level($request)
+	{
+		$model = IncomingMailModel::followUpEmployee()->where('id', $request->incoming_mail_id)->firstOrFail();
+		$model->update([
+			'status' => IncomingMailStatusConstans::DONE
+		]);
+		
+		$model->follow_ups()->create([
+			'employee_id' => Auth::user()->user_core->id_employee,
+			'description' => 'Tindak lanjut surat masuk ini otomatis dilakukan oleh sistem.',
+			'path_to_file' => null
+		]);
 	}
 	
 	private function update_assign($model, $dataAssign) 

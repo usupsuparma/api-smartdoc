@@ -5,6 +5,7 @@
 
 use League\Fractal\TransformerAbstract;
 use App\Modules\IncomingMail\Constans\IncomingMailStatusConstans;
+use App\Helpers\SmartdocHelper;
 use Auth;
 
 class IncomingMailTransformer extends TransformerAbstract
@@ -18,6 +19,7 @@ class IncomingMailTransformer extends TransformerAbstract
 		$follow_up = false;
 		$disposition = false;
 		$status = false;
+		$bod_level = false;
 		
 		if ($data->status != IncomingMailStatusConstans::DRAFT || $data->status != IncomingMailStatusConstans::SEND) {
 			$status = true;
@@ -31,6 +33,11 @@ class IncomingMailTransformer extends TransformerAbstract
 
 		if ($data->to_employee_id == Auth::user()->user_core->id_employee && empty($data->disposition)) {
 			$disposition = true;
+		}
+		
+		/* Open Disposition IF BOD LEVEL not complete Follow Up */
+		if (SmartdocHelper::bod_level()) {
+			$bod_level = true;
 		}
 		
 		return [
@@ -66,6 +73,7 @@ class IncomingMailTransformer extends TransformerAbstract
 			'follow_up' => $follow_up,
 			'is_read' => $data->is_read,
 			'disposition' => $disposition,
+			'bod_level' => $bod_level,
 			'created_at' => $data->created_at->format('d-m-Y'),
 			'updated_at' => $data->updated_at->format('d-m-Y')
 		];

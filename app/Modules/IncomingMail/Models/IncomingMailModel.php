@@ -14,6 +14,7 @@ use App\Modules\External\Employee\Models\EmployeeModel;
 use App\Modules\External\Organization\Models\OrganizationModel;
 use App\Modules\Disposition\Models\DispositionModel;
 use App\Modules\IncomingMail\Constans\IncomingMailStatusConstans;
+use App\Helpers\SmartdocHelper;
 use Auth, Upload;
 
 class IncomingMailModel extends Model
@@ -90,11 +91,15 @@ class IncomingMailModel extends Model
 	
 	public function scopeOptions($query, $default = NULL)
     {
-        $list = [];
+		$list = [];
 		$query->with('disposition')->where([
-			'to_employee_id' => Auth::user()->user_core->employee->id_employee,
-			'status' => IncomingMailStatusConstans::DONE,
+			'to_employee_id' => Auth::user()->user_core->employee->id_employee
 		]);
+		
+		/* Condition if strukture without BOD LEVEL */
+		if (!SmartdocHelper::bod_level()) {
+			$query->where('status', IncomingMailStatusConstans::DONE);
+		}
 
 		$filtered = $query->orderBy('number_letter')->get()->filter(function ($value, $key) {
 			return empty($value->disposition);
