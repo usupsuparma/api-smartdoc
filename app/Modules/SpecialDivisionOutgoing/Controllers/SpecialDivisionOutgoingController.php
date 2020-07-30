@@ -15,26 +15,26 @@ class SpecialDivisionOutgoingController extends BaseController
 	public function __construct(SpecialDivisionOutgoingRepositories $specialDivisionRepository) 
 	{
 		$this->specialDivisionRepository = $specialDivisionRepository;
-		// Authority::acl_access(Auth::user(), 'special-division-outgoing');
+		Authority::acl_access(Auth::user(), 'special-division-outgoing');
 	}
 	
 	public function data(Request $request)
 	{
-		// Authority::check('read');
+		Authority::check('read');
 		
 		return $this->showAll($this->specialDivisionRepository->data($request),200);
 	}
 	
 	public function create(Request $request)
 	{
-		// Authority::check('create');
+		Authority::check('create');
 		
         return $this->successResponse($this->specialDivisionRepository->create($request), 200); 
 	}
 	
 	public function delete($id)
     {
-		// Authority::check('delete');
+		Authority::check('delete');
 		
         return $this->successResponse($this->specialDivisionRepository->delete($id), 200); 
 	}
