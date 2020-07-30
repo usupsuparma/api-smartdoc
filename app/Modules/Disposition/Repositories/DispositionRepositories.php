@@ -70,13 +70,11 @@ class DispositionRepositories extends BaseRepository implements DispositionInter
 		$rules = [
 			'incoming_mail_id' => 'required',
 			'subject_disposition' => 'required',
-			'description' => 'required',
 		];
 		
 		$message = [
 			'incoming_mail_id.required' => 'surat masuk wajib diisi',
 			'subject_disposition.required' => 'perihal disposisi wajib diisi',
-			'description.required' => 'keterangan surat disposisi wajib diisi',
 		];
 		
 		if ($request->button_action == IncomingMailStatusConstans::SEND && !empty($signatureModel)) {
@@ -230,13 +228,11 @@ class DispositionRepositories extends BaseRepository implements DispositionInter
 		$rules = [
 			'incoming_mail_id' => 'required',
 			'subject_disposition' => 'required',
-			'description' => 'required',
 		];
 		
 		$message = [
 			'incoming_mail_id.required' => 'surat masuk wajib diisi',
 			'subject_disposition.required' => 'perihal disposisi wajib diisi',
-			'description.required' => 'keterangan surat disposisi wajib diisi',
 		];
 		
 		if ($request->button_action == IncomingMailStatusConstans::SEND && !empty($signatureModel)) {
@@ -372,7 +368,8 @@ class DispositionRepositories extends BaseRepository implements DispositionInter
 	{
 		$model = IncomingMailModel::followUpEmployee()->where('id', $request->incoming_mail_id)->firstOrFail();
 		$model->update([
-			'status' => IncomingMailStatusConstans::DONE
+			'status' => IncomingMailStatusConstans::DONE,
+			'is_read' => true
 		]);
 		
 		$model->follow_ups()->create([
