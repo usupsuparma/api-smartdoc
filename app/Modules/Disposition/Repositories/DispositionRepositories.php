@@ -421,6 +421,13 @@ class DispositionRepositories extends BaseRepository implements DispositionInter
 	
 	public function download_main($id)
     {
+		$dispo_assign = DispositionAssign::CheckRead($id);
+		if ($dispo_assign) {
+			$dispo_assign->update([
+				'is_read' => true
+			]);
+		}
+		
 		$model = $this->model->findOrFail($id);
 		Upload::download($model->path_to_file);
 		
