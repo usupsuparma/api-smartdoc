@@ -131,6 +131,7 @@ $app->register(App\Modules\Review\Providers\ReviewServiceProvider::class);
 $app->register(App\Modules\Signature\Providers\SignatureServiceProvider::class);
 $app->register(App\Modules\MappingStructure\Providers\MappingStructureServiceProvider::class);
 $app->register(App\Modules\MappingFollowOutgoing\Providers\MappingFollowOutgoingServiceProvider::class);
+$app->register(App\Modules\SpecialDivisionOutgoing\Providers\SpecialDivisionOutgoingServiceProvider::class);
 
 $app->register(App\Modules\Master\Type\Providers\TypeServiceProvider::class);
 $app->register(App\Modules\Master\Classification\Providers\ClassificationServiceProvider::class);
