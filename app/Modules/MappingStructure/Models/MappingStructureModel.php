@@ -35,6 +35,11 @@ class MappingStructureModel extends Model
 		return $this->belongsToMany(OrganizationModel::class,'smc_mapping_structure_detail','mapping_structure_id','structure_id');
 	}
 	
+	public function scopeGetByCode($query, $code)
+	{
+		return $query->where('code', $code);
+	}
+	
 	public function scopeIsActive($query)
 	{
 		return $query->whereStatus(true);

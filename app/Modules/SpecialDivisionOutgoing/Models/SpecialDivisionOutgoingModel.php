@@ -25,8 +25,8 @@ class SpecialDivisionOutgoingModel extends Model
 		return $this->belongsTo(OrganizationModel::class, 'structure_id');
 	}
 	
-	public function scopeFindByStructure($query, $type_id) {
-		return $query->where('structure_id', $type_id)->exists();
+	public function scopeFindByStructure($query, $structure_id) {
+		return $query->where('structure_id', $structure_id)->exists();
 	}
 	
 	protected $dates = ['deleted_at'];

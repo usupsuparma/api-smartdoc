@@ -11,6 +11,8 @@ use App\Modules\User\Models\UserModel;
 use App\Modules\MappingStructure\Models\MappingStructureDetailModel;
 use App\Events\NotificationMobile;
 use App\Modules\Role\Models\RoleModel;
+use App\Modules\SpecialDivisionOutgoing\Models\SpecialDivisionOutgoingModel;
+use App\Modules\MappingStructure\Models\MappingStructureModel;
 
 if (!function_exists('setting_by_code')) {
 	
@@ -91,8 +93,21 @@ if (!function_exists('review_list')) {
         $results = [];
         $orgs = [];
         $positions = [];
+        $list_direksi = [];
         
         $code_review = $type_level == 'DIREKTUR' ? 'OMD' : $code_review;
+        
+        /* Special Division Bypass */
+        $user_structure_id = Auth::user()->user_core ? Auth::user()->user_core->kode_struktur : '';
+        $special_division = SpecialDivisionOutgoingModel::findByStructure($user_structure_id);
+        
+        /* Get Listt Structure direction level */
+        $structure_direksi_list = MappingStructureModel::getByCode('MS002')->first();
+        if (!empty($structure_direksi_list)) {
+            foreach ($structure_direksi_list->details as $sd) {
+                $list_direksi[] = $sd->id;
+            }
+        }
 
         $review = ReviewModel::where('code', $code_review)->first();
 
@@ -117,6 +132,11 @@ if (!function_exists('review_list')) {
             }
         }
         
+        /* Condition if special division available */
+        if ($special_division) {
+            $orgs = array_diff($orgs, $list_direksi);
+        }
+        
         /* Remove duplicate array position */
         $list_position = collect($positions)->unique()->values()->all();
 
@@ -129,7 +149,7 @@ if (!function_exists('review_list')) {
         }
         
         $collections = $users->orderBy('kode_jabatan', 'DESC')->get();
-        
+
         foreach ($details as $dt) {
             $primary = false;
             $secondary = false;
