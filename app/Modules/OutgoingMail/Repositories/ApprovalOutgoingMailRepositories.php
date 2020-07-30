@@ -72,12 +72,10 @@ class ApprovalOutgoingMailRepositories extends BaseRepository implements Approva
 		
 		$rules = [
 			'status_approval' => 'required',
-			'description' => 'required',
 		];
 		
 		$message = [
 			'status_approval.required' => 'Status Approval wajib diisi',
-			'description.required' => 'Catatan wajib diisi',
 		]; 
 		
 		if ($request->hasFile('file')) {
