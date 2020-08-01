@@ -106,4 +106,9 @@ class IncomingMailController extends BaseController
 	{
 		return $this->successResponse($this->incomingMailRepositories->options(),200);
 	}
+	
+	public function option_redispositions()
+	{
+		return $this->successResponse($this->incomingMailRepositories->option_redispositions(),200);
+	}
 }

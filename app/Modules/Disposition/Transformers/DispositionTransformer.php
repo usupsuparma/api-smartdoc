@@ -4,6 +4,7 @@
  */
 
 use League\Fractal\TransformerAbstract;
+use App\Helpers\SmartdocHelper;
 use Auth;
 
 class DispositionTransformer extends TransformerAbstract
@@ -16,6 +17,7 @@ class DispositionTransformer extends TransformerAbstract
 	 {
 		$count = 0;
 		$finish_follow = false;
+		$open_redispo = false;
 		
 	   	if (!empty($data->assign)) {
 			foreach ($data->assign as $assign) {
@@ -32,6 +34,11 @@ class DispositionTransformer extends TransformerAbstract
 		}
 		
 		$progress = $count .' / '. $data->assign->count();
+		
+		/* Open Disposition IF DIREKSI & VP LEVEL show button redisposisi */
+		if (SmartdocHelper::direksi_vp_level()) {
+			$open_redispo = true;
+		}
 		
 		return [
 			'id' => (int) $data->id,
@@ -53,6 +60,7 @@ class DispositionTransformer extends TransformerAbstract
 			],
 			'progress' => $progress,
 			'finish_follow' => $finish_follow,
+			'open_redispo' => $open_redispo,
 			'created_at' => $data->created_at->format('d-m-Y'),
 			'updated_at' => $data->updated_at->format('d-m-Y')
 		];

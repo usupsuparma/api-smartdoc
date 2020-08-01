@@ -23,7 +23,7 @@ class DispositionModel extends Model
 	
     protected $fillable   = [
 		'incoming_mail_id', 'number_disposition', 'subject_disposition', 'disposition_date', 'from_employee_id',
-		'description', 'status', 'is_archive', 'path_to_file'
+		'description', 'status', 'is_archive', 'is_redisposition', 'path_to_file'
 	];
 	
 	protected $dates = ['deleted_at'];

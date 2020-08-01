@@ -67,6 +67,11 @@ class IncomingMailRoutes extends BaseRoutes
 				'as' => $this->route_prefix . '.options',
 				'uses' => 'IncomingMailController@options'
 			]);
+			
+			$app->router->get('/select/data-redispo', [
+				'as' => $this->route_prefix . '.option_redispositions',
+				'uses' => 'IncomingMailController@option_redispositions'
+			]);
 	
 		});
 	}
