@@ -65,9 +65,12 @@ class DispositionModel extends Model
 		
 		return $query->whereHas('assign', function ($q) use ($employee_id) {
 			$q->where('employee_id', $employee_id);
-		})->where([
-			'status' => IncomingMailStatusConstans::DISPOSITION,
-		]);
+		})->whereIn(
+			'status', [
+				IncomingMailStatusConstans::DISPOSITION,
+				IncomingMailStatusConstans::DONE,
+			]
+		);
 	}
 	
 	public function scopeMaxNumber($query, $format)

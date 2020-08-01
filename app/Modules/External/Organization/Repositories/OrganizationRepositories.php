@@ -8,6 +8,7 @@ use Prettus\Repository\Eloquent\BaseRepository;
 use App\Modules\External\Organization\Interfaces\OrganizationInterface;
 use App\Modules\External\Organization\Models\OrganizationModel;
 use App\Modules\MappingStructure\Models\MappingStructureModel;
+use App\Helpers\SmartdocHelper;
 use Auth;
 
 class OrganizationRepositories extends BaseRepository implements OrganizationInterface
@@ -36,11 +37,14 @@ class OrganizationRepositories extends BaseRepository implements OrganizationInt
 		$user_structure_id = Auth::user()->user_core->structure->id;
 		$user_structure_code = Auth::user()->user_core->structure->kode_struktur;
 		
-		$model = $this->model->isActive()
-					->whereNotIn('id',$list_department)
-					->get();
+		$model = $this->model->isActive();
+		if (SmartdocHelper::bod_level()) {
+			$model->whereNotIn('id',$list_department);
+		}else {
+			$model->whereIn('id',$list_department);
+		}
 		
-		$search  = $this->_tree($model->toArray(), $user_structure_id);
+		$search  = $this->_tree($model->get()->toArray(), $user_structure_id);
 
 		if (in_array($user_structure_code, array_merge(
 			unserialize(setting_by_code('DIREKTUR_LEVEL_STRUCTURE')), 
