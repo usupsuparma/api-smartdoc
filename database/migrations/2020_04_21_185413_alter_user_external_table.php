@@ -13,13 +13,13 @@ class AlterUserExternalTable extends Migration
      */
     public function up()
     {
-        Schema::connection('bijb')->table('users', function (Blueprint $table) {
-            $table->dropColumn('kode_struktur');
-        });
+        // Schema::connection('bijb')->table('users', function (Blueprint $table) {
+        //     $table->dropColumn('kode_struktur');
+        // });
         
-        Schema::connection('bijb')->table('users', function (Blueprint $table) {
-            $table->bigInteger('kode_struktur')->nullable()->after('id_employee');
-        });
+        // Schema::connection('bijb')->table('users', function (Blueprint $table) {
+        //     $table->bigInteger('kode_struktur')->nullable()->after('id_employee');
+        // });
     }
 
     /**
