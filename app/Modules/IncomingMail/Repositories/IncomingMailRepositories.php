@@ -371,6 +371,11 @@ class IncomingMailRepositories extends BaseRepository implements IncomingMailInt
 		return ['data' => $this->model->options()];
 	}
 	
+	public function option_redispositions()
+	{
+		return ['data' => $this->model->optionRedispositions()];
+	}
+	
 	private function send_notification($notif)
 	{
 		$data_notif = [

@@ -26,4 +26,6 @@ interface IncomingMailInterface extends RepositoryInterface
 	public function download_attachment($attachment_id);
 	
 	public function options();
+	
+	public function option_redispositions();
 }

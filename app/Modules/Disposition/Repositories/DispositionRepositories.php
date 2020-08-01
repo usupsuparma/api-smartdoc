@@ -114,7 +114,7 @@ class DispositionRepositories extends BaseRepository implements DispositionInter
 		}
 
 		$structure_code_user = Auth::user()->user_core->structure->kode_struktur;
-
+		
 		DB::beginTransaction();
 
         try {
@@ -122,7 +122,7 @@ class DispositionRepositories extends BaseRepository implements DispositionInter
 			$model = $this->model->create($request->merge([
 				'status' => IncomingMailStatusConstans::DRAFT,
 				'from_employee_id' => Auth::user()->user_core->id_employee,
-				'disposition_date' => Carbon::now()->format('Y-m-d')
+				'disposition_date' => Carbon::now()->format('Y-m-d'),
 			])->all());
 
 			if (isset($request->assigns)) {
@@ -138,7 +138,7 @@ class DispositionRepositories extends BaseRepository implements DispositionInter
 			if ($request->button_action == IncomingMailStatusConstans::SEND) {
 				
 				/* Trigger For Update Auto Follow Up Incoming Mail */
-				if (SmartdocHelper::bod_level()) {
+				if (SmartdocHelper::bod_level() && !$request->is_redisposition) {
 					$this->trigger_follow_incoming_bod_level($request);
 				}
 				
@@ -284,7 +284,7 @@ class DispositionRepositories extends BaseRepository implements DispositionInter
 			if ($request->button_action == IncomingMailStatusConstans::SEND) {
 				
 				/* Trigger For Update Auto Follow Up Incoming Mail */
-				if (SmartdocHelper::bod_level()) {
+				if (SmartdocHelper::bod_level() && !$request->is_redisposition) {
 					$this->trigger_follow_incoming_bod_level($request);
 				}
 				

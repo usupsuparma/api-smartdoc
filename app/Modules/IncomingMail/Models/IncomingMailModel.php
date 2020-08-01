@@ -68,6 +68,13 @@ class IncomingMailModel extends Model
 		return $this->hasOne(DispositionModel::class, 'incoming_mail_id');
 	}
 	
+	public function redisposition()
+	{
+		return $this->hasOne(DispositionModel::class, 'incoming_mail_id')
+					->where('from_employee_id', Auth::user()->user_core->employee->id_employee)
+					->where('is_redisposition', 1);
+	}
+	
 	public function scopeAuthorityData($query)
 	{
 		$employee_id = Auth::user()->user_core->id_employee;
@@ -103,6 +110,32 @@ class IncomingMailModel extends Model
 
 		$filtered = $query->orderBy('number_letter')->get()->filter(function ($value, $key) {
 			return empty($value->disposition);
+		});
+		
+		if (!empty($filtered->all())) {
+			foreach ($filtered->all() as $dt) {
+				$list[] = [
+					'id' => $dt->id,
+					'number_letter' => $dt->number_letter,
+					'subject_letter' => $dt->subject_letter,
+				];
+			}
+		}
+        
+        return $list;
+	}
+	
+	public function scopeOptionRedispositions($query)
+	{
+		$list = [];
+		$query->whereHas('disposition', function ($q){
+			$q->whereHas('assign', function ($assign){
+				$assign->where('employee_id', Auth::user()->user_core->employee->id_employee);
+			});
+		});
+		
+		$filtered = $query->orderBy('number_letter')->get()->filter(function ($value, $key) {
+			return empty($value->redisposition);
 		});
 		
 		if (!empty($filtered->all())) {
