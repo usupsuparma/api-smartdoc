@@ -6,7 +6,7 @@ echo "!CANCEL this operation if not sure!"
 echo "Please enter code setup command ?"
 read -p 'setup: ' setup
 
-if [ "$target" == "letsgo" ]; then
+if [ "$setup" == "letsgo" ]; then
     git remote add upstream git@github.com:aelgees/api-smartdoc-bijb.git
 	echo "!...Fetching latest working copy from UPSTREAM...!"
 	git fetch upstream
