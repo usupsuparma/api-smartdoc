@@ -15,8 +15,6 @@ if [ "$setup" == "letsgo" ]; then
 	echo "!...Finish pulling data from Master...!"
 	composer install
     echo "Composer Install Finished Successfuly"
-	cp .env.example .env
-	echo "Copy File .env.example -> .env Successfuly"
 	php artisan migrate
 	echo "Database Migration Finish Successfuly"
 	php artisan db:seed
@@ -29,7 +27,7 @@ if [ "$setup" == "letsgo" ]; then
 	mkdir -p storage/app/public/disposition
 	mkdir -p storage/app/public/qr_code
 	mkdir -p storage/app/public/digital_signature
-	chown -R www-data:www-data storage
+	chmod -R 777 storage/
 	echo "Finish Create Permission For Storage"
 	php artisan passport:install --force
 	echo "Finish Generate Passport For Website"
