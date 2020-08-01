@@ -112,9 +112,10 @@ class DispositionTransformer extends TransformerAbstract
 				'id' => !empty($data->employee) ? $data->employee->id_employee : null,
 				'name' => !empty($data->employee) ? $data->employee->name : null,
 			],
-		   	'assigns' => !empty($data_assigns) ? $data_assigns : null,
-		   	'signature_available' => !empty($data->signature) ? true : false,
+			'assigns' => !empty($data_assigns) ? $data_assigns : null,
+			'signature_available' => !empty($data->signature) ? true : false,
+			'is_redisposition' => $data->is_redisposition,
 			'status' => $data->status,
-	   	];
+		];
 	}
 }
