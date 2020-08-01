@@ -11,6 +11,8 @@ if [ "$target" == "letsgo" ]; then
 	echo "!...Fetching latest working copy from UPSTREAM...!"
 	git fetch upstream
 	echo "!...Finish fetching from upstream...!"
+	git pull --rebase upstream master
+	echo "!...Finish pulling data from Master...!"
 	composer install
     echo "Composer Install Finished Successfuly"
 	cp .env.example .env
