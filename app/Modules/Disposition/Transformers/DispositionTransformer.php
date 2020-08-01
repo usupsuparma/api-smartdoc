@@ -61,6 +61,7 @@ class DispositionTransformer extends TransformerAbstract
 			'progress' => $progress,
 			'finish_follow' => $finish_follow,
 			'open_redispo' => $open_redispo,
+			'is_redisposition' => $data->is_redisposition,
 			'created_at' => $data->created_at->format('d-m-Y'),
 			'updated_at' => $data->updated_at->format('d-m-Y')
 		];
