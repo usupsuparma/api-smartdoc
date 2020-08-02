@@ -22,4 +22,6 @@ interface DispositionInterface extends RepositoryInterface
 	public function download_main($id);
 	
 	public function download_follow($follow_id);
+	
+	public function detail_disposition($id);
 }

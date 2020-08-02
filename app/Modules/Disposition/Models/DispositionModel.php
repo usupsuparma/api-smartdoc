@@ -22,8 +22,7 @@ class DispositionModel extends Model
 	protected $table = 'dispositions';
 	
     protected $fillable   = [
-		'incoming_mail_id', 'number_disposition', 'subject_disposition', 'disposition_date', 'from_employee_id',
-		'description', 'status', 'is_archive', 'is_redisposition', 'path_to_file'
+		'parent_disposition_id', 'incoming_mail_id', 'number_disposition', 'subject_disposition', 'disposition_date', 'from_employee_id','description', 'status', 'is_archive', 'is_redisposition', 'path_to_file'
 	];
 	
 	protected $dates = ['deleted_at'];
@@ -46,6 +45,19 @@ class DispositionModel extends Model
 	public function signature()
 	{
 		return $this->belongsTo(SignatureModel::class, 'from_employee_id', 'employee_id');
+	}
+	
+	public function redisposition()
+	{
+		return $this->hasMany('App\Modules\Disposition\Models\DispositionModel', 'parent_disposition_id');
+	}
+	
+	public function check_redisposition()
+	{
+		return $this->hasMany('App\Modules\Disposition\Models\DispositionModel', 'parent_disposition_id')
+					->where([
+						'from_employee_id' => Auth::user()->user_core->id_employee
+					]);
 	}
 	
 	public function scopeAuthorityData($query)

@@ -43,6 +43,7 @@ class OrganizationRepositories extends BaseRepository implements OrganizationInt
 		}else {
 			$model->whereIn('id',$list_department);
 		}
+
 		
 		$search  = $this->_tree($model->get()->toArray(), $user_structure_id);
 
@@ -67,7 +68,7 @@ class OrganizationRepositories extends BaseRepository implements OrganizationInt
 			]);
 		}
 		
-		$parsing = collect(flat_array($search))->sortBy('nama_struktur')->values();
+		$parsing = collect(flat_array($search))->unique('id')->sortBy('nama_struktur')->values();
 		
 		return ['data' => $parsing];
 	}
