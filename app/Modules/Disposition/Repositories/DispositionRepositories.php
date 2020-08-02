@@ -137,11 +137,6 @@ class DispositionRepositories extends BaseRepository implements DispositionInter
 			
 			if ($request->button_action == IncomingMailStatusConstans::SEND) {
 				
-				/* Trigger For Update Auto Follow Up Incoming Mail */
-				if (SmartdocHelper::bod_level() && !$request->is_redisposition) {
-					$this->trigger_follow_incoming_bod_level($request);
-				}
-				
 				$data_qr = [
 					'type' => setting_by_code('DISPOSISI'),
 					'url' => setting_by_code('URL_VERIFY_OUTGOING_MAIL'). '?type=DISPO&skey='. Crypt::encrypt($model->id)
@@ -157,6 +152,16 @@ class DispositionRepositories extends BaseRepository implements DispositionInter
 				$model->update([
 					'number_disposition' => Smartdoc::render_code_disposition($structure_code_user),
 				]);
+				
+				/* Trigger For Update Auto Follow Up Incoming Mail */
+				if (SmartdocHelper::bod_level() && !$request->is_redisposition) {
+					$this->trigger_follow_incoming_bod_level($request, $model);
+				}
+				
+				/* Trigger For Update Auto Follow Up Disposition Mail */
+				if (!empty($request->parent_disposition_id)) {
+					$this->trigger_follow_disposition($request, $model);
+				}
 				
 				$document = Smartdoc::disposition_mail($model, $qr_code);
 				
@@ -283,11 +288,6 @@ class DispositionRepositories extends BaseRepository implements DispositionInter
 		
 			if ($request->button_action == IncomingMailStatusConstans::SEND) {
 				
-				/* Trigger For Update Auto Follow Up Incoming Mail */
-				if (SmartdocHelper::bod_level() && !$request->is_redisposition) {
-					$this->trigger_follow_incoming_bod_level($request);
-				}
-				
 				$data_qr = [
 					'type' => setting_by_code('DISPOSISI'),
 					'url' => setting_by_code('URL_VERIFY_OUTGOING_MAIL'). '?type=DISPO&skey='. Crypt::encrypt($model->id)
@@ -303,6 +303,16 @@ class DispositionRepositories extends BaseRepository implements DispositionInter
 					$model->update([
 						'number_disposition' => Smartdoc::render_code_disposition($structure_code_user),
 					]);
+				}
+				
+				/* Trigger For Update Auto Follow Up Incoming Mail */
+				if (SmartdocHelper::bod_level() && !$request->is_redisposition) {
+					$this->trigger_follow_incoming_bod_level($request, $model);
+				}
+				
+				/* Trigger For Update Auto Follow Up Disposition Mail */
+				if (!empty($request->parent_disposition_id)) {
+					$this->trigger_follow_disposition($request, $model);
 				}
 				
 				$document = Smartdoc::disposition_mail($model, $qr_code);
@@ -364,18 +374,79 @@ class DispositionRepositories extends BaseRepository implements DispositionInter
 		];
 	}
 	
-	private function trigger_follow_incoming_bod_level($request)
+	public function detail_disposition($id)
 	{
+		$repository = new DispositionTransformer();
+		
+		$data =  $this->model->findOrFail($id);
+		
+		return ['data' => $repository->detailDispositionTransformer($data)];
+	}
+	
+	private function trigger_follow_incoming_bod_level($request, $disposition)
+	{
+		$follow_up = false;
+		
 		$model = IncomingMailModel::followUpEmployee()->where('id', $request->incoming_mail_id)->firstOrFail();
 		$model->update([
 			'status' => IncomingMailStatusConstans::DONE,
 			'is_read' => true
 		]);
 		
+		if ($model->follow_ups->isEmpty()) {
+			if ($model->to_employee_id == Auth::user()->user_core->id_employee) {
+				$follow_up = true;
+			}
+		}
+		
+		if (!$follow_up) {
+			return;
+		}
+		
 		$model->follow_ups()->create([
 			'employee_id' => Auth::user()->user_core->id_employee,
-			'description' => 'Tindak lanjut surat masuk ini otomatis dilakukan oleh sistem.',
+			'description' => 'Tindak lanjut surat masuk ini otomatis dilakukan oleh sistem. User Melakukan Disposisi dengan nomor surat '. $disposition->number_disposition ,
 			'path_to_file' => null
+		]);
+	}
+	
+	private function trigger_follow_disposition($request, $disposition)
+	{
+		$model = $this->model->followUpEmployee()->where('id', $request->parent_disposition_id)->firstOrFail();
+		$employee_id = Auth::user()->user_core->id_employee;
+		$collection = collect($model->assign);
+	
+		$filtered = $collection->filter(function ($value, $key) use ($employee_id) {
+			return $value['employee_id'] == $employee_id;
+		});
+
+		$results = $filtered->flatten()->all()[0];
+
+		if (!$results->follow_ups->isEmpty()) {
+			return;	
+		}
+	
+		DispositionFollowUp::create([
+			'dispositions_assign_id' => $results->id,
+			'employee_id' => Auth::user()->user_core->id_employee,
+			'description' => 'Tindak lanjut surat masuk ini otomatis dilakukan oleh sistem. User Melakukan Re - Disposisi dengan nomor surat '. $disposition->number_disposition ,
+			'path_to_file' => null,
+			'status' => true,
+		]);
+		
+		/* Notification */
+		push_notif([
+			'device_id' => find_device_mobile($model->from_employee_id),
+			'data' => ['route_name' => 'Disposition'],
+			'heading' => '[SURAT DISPOSISI]',
+			'content' => "Finish Follow Up - {$model->subject_disposition} sudah selesai di tindak lanjuti oleh ". Auth::user()->user_core->employee->name
+		]);
+		
+		$this->send_notification([
+			'model' => $model, 
+			'heading' => MailCategoryConstants::SURAT_DISPOSISI,
+			'title' => 'finish-follow-up-disposition', 
+			'receiver' => $model->from_employee_id
 		]);
 	}
 	
@@ -481,7 +552,8 @@ class DispositionRepositories extends BaseRepository implements DispositionInter
 			'redirect_mobile' => serialize([
 				'route_name' => 'DispositionFollowUp',
 			]),
-			'receiver_id' => $notif['receiver']
+			'receiver_id' => $notif['receiver'],
+			'employee_name' => Auth::user()->user_core->employee->name,
 		];
 		
 		event(new Notif($data_notif));

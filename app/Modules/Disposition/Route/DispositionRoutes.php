@@ -57,6 +57,11 @@ class DispositionRoutes extends BaseRoutes
 				'as' => $this->route_prefix . '.download_follow',
 				'uses' => 'DispositionController@download_follow'
 			]);
+			
+			$app->router->get('/detail/{id}', [
+				'as' => $this->route_prefix . '.detail_disposition',
+				'uses' => 'DispositionController@detail_disposition'
+			]);
 	
 		});
 	}

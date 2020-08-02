@@ -131,7 +131,7 @@ class DispositionFollowRepositories extends BaseRepository implements Dispositio
 			'model' => $model, 
 			'heading' => MailCategoryConstants::SURAT_DISPOSISI,
 			'title' => 'finish-follow-up-disposition', 
-			'receiver' => $employee_id
+			'receiver' => $model->from_employee_id
 		]);
 		
 		return ['message' => config('constans.success.follow-up'), 'status' => true];

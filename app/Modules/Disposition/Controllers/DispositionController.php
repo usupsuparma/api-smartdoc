@@ -91,4 +91,9 @@ class DispositionController extends BaseController
 
 		return response()->download($path, basename($path));
 	}
+	
+	public function detail_disposition($id)
+    {
+		return $this->successResponse($this->dispositionRepositories->detail_disposition($id),200);
+	}
 }
