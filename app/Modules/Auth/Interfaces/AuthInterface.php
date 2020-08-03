@@ -11,5 +11,5 @@ interface AuthInterface extends RepositoryInterface
     
     public function refresh_token($request);
 
-    public function logout();
+    public function logout($request);
 }

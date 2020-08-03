@@ -29,9 +29,9 @@ class AuthController extends BaseController
         return $this->successResponse($results, 200);
 	} 
 	
-	public function logout()
+	public function logout(Request $request)
 	{
-		return $this->successResponse($this->authRepository->logout(), 200);
+		return $this->successResponse($this->authRepository->logout($request), 200);
 	}
 	
 	public function refresh_token(Request $request)

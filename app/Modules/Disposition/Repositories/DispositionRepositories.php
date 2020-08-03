@@ -99,7 +99,7 @@ class DispositionRepositories extends BaseRepository implements DispositionInter
 				'status' => false
 			];	
 		}
-		
+
 		Validator::validate($request->all(), $rules, $message);
 			
 		if (!empty($signatureModel)) {
@@ -154,7 +154,7 @@ class DispositionRepositories extends BaseRepository implements DispositionInter
 				]);
 				
 				/* Trigger For Update Auto Follow Up Incoming Mail */
-				if (SmartdocHelper::bod_level() && $request->is_redisposition !== 0) {
+				if (SmartdocHelper::bod_level() && $request->is_redisposition == 0) {
 					$this->trigger_follow_incoming_bod_level($request, $model);
 				}
 				
@@ -306,7 +306,7 @@ class DispositionRepositories extends BaseRepository implements DispositionInter
 				}
 				
 				/* Trigger For Update Auto Follow Up Incoming Mail */
-				if (SmartdocHelper::bod_level() && $request->is_redisposition !== 0) {
+				if (SmartdocHelper::bod_level() && $request->is_redisposition == 0) {
 					$this->trigger_follow_incoming_bod_level($request, $model);
 				}
 				

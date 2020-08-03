@@ -158,8 +158,14 @@ class AuthRepositories extends BaseRepository implements AuthInterface
 		return $results;
 	}
 	
-	public function logout()
+	public function logout($request)
 	{
+		/* Remove device_id if logout type mobile */
+		if ($request->has('type') && !empty($request->type)) {
+			$model = UserModel::findOrFail(Auth::user()->id);
+			$model->update(['device_id' => null]);
+		}
+
 		if (isset(Auth::user()->id)) {
 			Auth::user()->token()->revoke();
 			
