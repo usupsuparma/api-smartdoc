@@ -429,7 +429,7 @@ class DispositionRepositories extends BaseRepository implements DispositionInter
 		DispositionFollowUp::create([
 			'dispositions_assign_id' => $results->id,
 			'employee_id' => Auth::user()->user_core->id_employee,
-			'description' => 'Tindak lanjut surat masuk ini otomatis dilakukan oleh sistem. User Melakukan Re - Disposisi dengan nomor surat '. $disposition->number_disposition ,
+			'description' => 'Tindak lanjut disposisi ini otomatis dilakukan oleh sistem. User Melakukan Re - Disposisi dengan nomor surat '. $disposition->number_disposition ,
 			'path_to_file' => null,
 			'status' => true,
 		]);
