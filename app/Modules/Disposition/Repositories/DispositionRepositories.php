@@ -159,7 +159,7 @@ class DispositionRepositories extends BaseRepository implements DispositionInter
 				}
 				
 				/* Trigger For Update Auto Follow Up Disposition Mail */
-				if (!empty($request->parent_disposition_id)) {
+				if ($request->parent_disposition_id !== 0) {
 					$this->trigger_follow_disposition($request, $model);
 				}
 				
@@ -311,7 +311,7 @@ class DispositionRepositories extends BaseRepository implements DispositionInter
 				}
 				
 				/* Trigger For Update Auto Follow Up Disposition Mail */
-				if (!empty($request->parent_disposition_id)) {
+				if ($request->parent_disposition_id !== 0) {
 					$this->trigger_follow_disposition($request, $model);
 				}
 				
