@@ -77,7 +77,7 @@ return [
     ],
     'max'                  => [
         'numeric' => ':attribute maskimal bernilai :max.',
-        'file'    => ':attribute maksimal berukuran :max kilobita.',
+        'file'    => ':attribute maksimal berukuran :max kilobita xyzfile',
         'string'  => ':attribute maskimal berisi :max karakter.',
         'array'   => ':attribute maksimal terdiri dari :max anggota.',
     ],
