@@ -75,7 +75,7 @@ class IncomingMailRepositories extends BaseRepository implements IncomingMailInt
 			'receiver_name' => 'required',
 			'to_employee_id' => 'required',
 			'structure_id' => 'required',
-			'file' => 'required|mimes:pdf,jpg,jpeg,png|max:2048',
+			'file' => 'required|mimes:pdf,jpg,jpeg,png|max:4096',
 		];
 		
 		$message = [
@@ -99,7 +99,7 @@ class IncomingMailRepositories extends BaseRepository implements IncomingMailInt
 				$rules['attachments.'.$key.'.file'] = [
 					'required',
 					'mimes:pdf,jpg,jpeg,png',
-					'max:2048'
+					'max:4096'
 				];
 				
 				$message['attachments.'.$key.'.attachment_name.required'] = 'Nama File '.$key. ' wajib diisi';
@@ -203,7 +203,7 @@ class IncomingMailRepositories extends BaseRepository implements IncomingMailInt
 		];
 		
 		if ($request->hasFile('file')) {
-			$rules['file'] = ['mimes:pdf,jpg,jpeg,png|max:2048'];
+			$rules['file'] = ['mimes:pdf,jpg,jpeg,png|max:4096'];
 			$message['file.mimes'] = 'file harus berupa berkas berjenis: pdf, jpg, jpeg, png.';
 		}
 		
@@ -341,7 +341,7 @@ class IncomingMailRepositories extends BaseRepository implements IncomingMailInt
 		];
 		
 		if ($request->hasFile('file')) {
-			$rules['file'] = ['mimes:pdf,jpg,jpeg,png|max:2048'];
+			$rules['file'] = ['mimes:pdf,jpg,jpeg,png|max:4096'];
 			$message['file.mimes'] = 'file harus berupa berkas berjenis: pdf, jpg, jpeg, png.';
 		}
 		

@@ -72,7 +72,7 @@ class FollowUpOutgoingMailRepositories extends BaseRepository implements FollowU
 		];
 		
 		if ($request->hasFile('file')) {
-			$rules['file'] = ['mimes:pdf,jpg,jpeg,png|max:2048'];
+			$rules['file'] = ['mimes:pdf,jpg,jpeg,png|max:4096'];
 			$message['file.mimes'] = 'file harus berupa berkas berjenis: pdf, jpg, jpeg, png.';
 		}
 		

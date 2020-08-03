@@ -91,7 +91,7 @@ class OutgoingMailRepositories extends BaseRepository implements OutgoingMailInt
 				$rules['attachments.'.$key.'.file'] = [
 					'required',
 					'mimes:pdf,jpg,jpeg,png',
-					'max:2048'
+					'max:4096'
 				];
 				
 				$message['attachments.'.$key.'.attachment_name.required'] = 'Nama File '.$key. ' wajib diisi';
@@ -252,7 +252,7 @@ class OutgoingMailRepositories extends BaseRepository implements OutgoingMailInt
 				$rules['attachments.'.$key.'.file'] = [
 					'required',
 					'mimes:pdf,jpg,jpeg,png',
-					'max:2048'
+					'max:4096'
 				];
 				
 				$message['attachments.'.$key.'.attachment_name.required'] = 'Nama File '.$key. ' wajib diisi';
