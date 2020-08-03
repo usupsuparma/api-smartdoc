@@ -115,6 +115,7 @@ class DispositionTransformer extends TransformerAbstract
 			'signature_available' => !empty($data->signature) ? true : false,
 			'is_redisposition' => $data->is_redisposition,
 			'parent_disposition_id' => $data->parent_disposition_id,
+			'available_redisposition' =>  !$data->redisposition->isEmpty() ? true : false,
 			'status' => $data->status,
 		];
 	}
