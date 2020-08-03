@@ -434,6 +434,22 @@ class DispositionRepositories extends BaseRepository implements DispositionInter
 			'status' => true,
 		]);
 		
+		$check = $this->model->findOrFail($request->parent_disposition_id);
+		$count = 0;
+	   	if (!empty($check->assign)) {
+			foreach ($check->assign as $assign) {
+				if (!empty($assign->follow_ups[0])) {
+					$count++;
+				}
+			}
+		}
+
+		if ($count == $check->assign->count()) {
+			$model->update([
+				'status' => IncomingMailStatusConstans::DONE
+			]);
+		}
+		
 		/* Notification */
 		push_notif([
 			'device_id' => find_device_mobile($model->from_employee_id),
@@ -442,7 +458,7 @@ class DispositionRepositories extends BaseRepository implements DispositionInter
 			'content' => "Finish Follow Up - {$model->subject_disposition} sudah selesai di tindak lanjuti oleh ". Auth::user()->user_core->employee->name
 		]);
 		
-		$this->send_notification([
+		$this->send_notification_trigger_auto_follow([
 			'model' => $model, 
 			'heading' => MailCategoryConstants::SURAT_DISPOSISI,
 			'title' => 'finish-follow-up-disposition', 
@@ -551,6 +567,28 @@ class DispositionRepositories extends BaseRepository implements DispositionInter
 			'redirect_web' => setting_by_code('URL_DISPOSITION_FOLLOW'),
 			'redirect_mobile' => serialize([
 				'route_name' => 'DispositionFollowUp',
+			]),
+			'receiver_id' => $notif['receiver'],
+			'employee_name' => Auth::user()->user_core->employee->name,
+		];
+		
+		event(new Notif($data_notif));
+	}
+	
+	private function send_notification_trigger_auto_follow($notif)
+	{
+		$data_notif = [
+			'heading' => $notif['heading'],
+			'title'  => $notif['title'],
+			'subject' => $notif['model']->number_disposition,
+			'data' => serialize([
+				'id' => $notif['model']->id,
+				'subject_disposition' => $notif['model']->subject_disposition,
+				'number_disposition' => $notif['model']->number_disposition
+			]),
+			'redirect_web' => setting_by_code('URL_DISPOSITION'),
+			'redirect_mobile' => serialize([
+				'route_name' => 'Disposition',
 			]),
 			'receiver_id' => $notif['receiver'],
 			'employee_name' => Auth::user()->user_core->employee->name,

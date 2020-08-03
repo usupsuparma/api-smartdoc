@@ -191,7 +191,10 @@ class DispositionTransformer extends TransformerAbstract
 			],
 			'assigns' => !empty($data_assigns) ? $data_assigns : null,
 			'is_redisposition' => $data->is_redisposition,
-			'status' => $data->status,
+			'status' => [
+				'action' => config('constans.status-action-in.'. $data->status),
+				'status_code' => (int) $data->status
+			],
 			'progress' => $progress,
 			'children' => $data->children,
 			
