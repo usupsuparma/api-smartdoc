@@ -96,6 +96,20 @@ class IncomingMailModel extends Model
 		]);
 	}
 	
+	public function scopeFollowUpEmployeeAutoFollow($query)
+	{
+		$employee_id = Auth::user()->user_core->employee->id_employee;
+		
+		return $query->where([
+			'to_employee_id' => $employee_id
+		])->whereIn(
+			'status', [
+				IncomingMailStatusConstans::DISPOSITION,
+				IncomingMailStatusConstans::DONE,
+			]
+		);
+	}
+	
 	public function scopeOptions($query, $default = NULL)
     {
 		$list = [];

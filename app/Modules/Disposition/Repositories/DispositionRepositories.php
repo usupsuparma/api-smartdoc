@@ -387,7 +387,8 @@ class DispositionRepositories extends BaseRepository implements DispositionInter
 	{
 		$follow_up = false;
 		
-		$model = IncomingMailModel::followUpEmployee()->where('id', $request->incoming_mail_id)->firstOrFail();
+		$model = IncomingMailModel::followUpEmployeeAutoFollow()->where('id', $request->incoming_mail_id)->firstOrFail();
+	
 		$model->update([
 			'status' => IncomingMailStatusConstans::DONE,
 			'is_read' => true
