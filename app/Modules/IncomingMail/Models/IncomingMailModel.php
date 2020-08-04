@@ -104,7 +104,7 @@ class IncomingMailModel extends Model
 			'to_employee_id' => $employee_id
 		])->whereIn(
 			'status', [
-				IncomingMailStatusConstans::DISPOSITION,
+				IncomingMailStatusConstans::SEND,
 				IncomingMailStatusConstans::DONE,
 			]
 		);
