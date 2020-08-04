@@ -21,7 +21,7 @@ class NotificationTransformer extends TransformerAbstract
 			'content' => $data->content,
 			'data' => unserialize($data->data),
 			'redirect_web' => $data->redirect_web,
-			'redirect_mobile' => $data->redirect_mobile,
+			'redirect_mobile' => unserialize($data->redirect_mobile),
 			'sender' => [
 				'name' => $data->sender->name,
 				'structure_name' => $data->sender->user->structure->nama_struktur,

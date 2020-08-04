@@ -72,7 +72,7 @@ class Upload
 		$qr_path = setting_by_code('PATH_QR_CODE');
 		
 		$QR = QrCode::format('png')->merge('/public/assets/img/logo_qr.jpg', .2)
-				->size(300)->errorCorrection('H')
+				->size(400)->errorCorrection('H')
 				->generate($data['url']);
 		
 		$output_file = $qr_path. $data['type']. '-' . time() . '.png';
