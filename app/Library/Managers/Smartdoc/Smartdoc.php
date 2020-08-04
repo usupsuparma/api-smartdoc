@@ -90,7 +90,7 @@ class Smartdoc extends PDF
 		if (PDF::getPage() === PDF::getNumPages()) {
 			if (isset($data['image_qr'])) {
 				$image_file = storage_path('app/public'. $data['image_qr']);
-				PDF::Image($image_file, 182, 260, 20, 20, 'PNG');
+				PDF::Image($image_file, 170, 245, 30, 30, 'PNG');
 			}
 		}
 		
@@ -200,7 +200,7 @@ class Smartdoc extends PDF
 		if (PDF::getPage() === PDF::getNumPages()) {
 			if (isset($data['image_qr'])) {
 				$image_file = storage_path('app/public'. $data['image_qr']);
-				PDF::Image($image_file, 182, 260, 20, 20, 'PNG');
+				PDF::Image($image_file, 170, 245, 30, 30, 'PNG');
 			}
 		}
 		
@@ -379,7 +379,7 @@ class Smartdoc extends PDF
 		if (PDF::getPage() === PDF::getNumPages()) {
 			if (isset($data['image_qr'])) {
 				$image_file = storage_path('app/public'. $data['image_qr']);
-				PDF::Image($image_file, 182, 260, 20, 20, 'PNG');
+				PDF::Image($image_file, 170, 245, 30, 30, 'PNG');
 			}
 		}
 		
@@ -516,7 +516,7 @@ class Smartdoc extends PDF
 		if (PDF::getPage() === PDF::getNumPages()) {
 			if (isset($data['image_qr'])) {
 				$image_file = storage_path('app/public'. $data['image_qr']);
-				PDF::Image($image_file, 182, 260, 20, 20, 'PNG');
+				PDF::Image($image_file, 170, 245, 30, 30, 'PNG');
 			}
 		}
 		
