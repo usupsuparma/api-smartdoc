@@ -13,4 +13,7 @@ class IncomingMailStatusConstans
 	
 	const IS_NOT_ARCHIVE = 0 ;
 	const IS_ARCHIVE = 1 ;
+	
+	const INTERNAL = 1 ;
+	const EXTERNAL = 2 ;
 }

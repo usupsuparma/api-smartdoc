@@ -27,6 +27,7 @@ class NotifSender
     { 
         $notif = $event->notif;
         $subject = $notif['subject'];
+        $type = isset($notif['type']) ? $notif['type'] : '';
         
         switch ($notif['heading']) {
             case MailCategoryConstants::SURAT_KELUAR :
@@ -43,48 +44,48 @@ class NotifSender
         switch ($notif['title']) {
             case 'approval' :
                 $title = 'Approval';
-                $message = "({$subject}) memerlukan persetujuan anda .";
+                $message = "{$type} ({$subject}) memerlukan persetujuan anda .";
                 break;
                 
             case 'signed' :
                 $title = 'Signed';
-                $message = "({$subject}) memerlukan tanda tangan anda .";
+                $message = "{$type} ({$subject}) memerlukan tanda tangan anda .";
                 break;
                 
             case 'pre-publish' :
                 $title = 'Pre Publish' ;
-                $message = "({$subject}) sudah di tandatangani dan sudah siap untuk di terbitkan .";
+                $message = "{$type} ({$subject}) sudah di tandatangani dan sudah siap untuk di terbitkan .";
                 break;
             
             case 'publish' :
                 $title = 'Publish' ;
-                $message = "({$subject}) sudah diterbitkan .";
+                $message = "{$type} ({$subject}) sudah diterbitkan .";
                 break;
                 
             case 'follow-up-outgoing' :
                 $title = 'Follow Up' ;
-                $message = "({$subject}) memerlukan tindak lanjut anda .";
+                $message = "{$type} ({$subject}) memerlukan tindak lanjut anda .";
                 break;
             
             case 'follow-up-incoming' :
                 $title = 'Follow Up' ;
-                $message = "({$subject}) memerlukan tindak lanjut anda .";
+                $message = "{$type} ({$subject}) memerlukan tindak lanjut anda .";
                 break;
                 
             case 'follow-up-disposition' :
                 $title = 'Follow Up' ;
-                $message = "({$subject}) memerlukan tindak lanjut anda .";
+                $message = "{$type} ({$subject}) memerlukan tindak lanjut anda .";
                 break;
             
             case 'finish-follow-up-disposition' :
                 $title = 'Finish Follow Up Disposition' ;
-                $message = "({$subject}) sudah dilakukan tindak lanjut oleh ". $notif['employee_name'];
+                $message = "{$type} ({$subject}) sudah dilakukan tindak lanjut oleh ". $notif['employee_name'];
                 break;
                 
             case 'reject' :
                 $title = 'Reject' ;
                 $subject = $notif['subject'];
-                $message = "({$subject}) ditolak , harap periksa kembali umpan balik untuk surat tersebut.";
+                $message = "{$type} ({$subject}) ditolak , harap periksa kembali umpan balik untuk surat tersebut.";
                 break;
         }
 

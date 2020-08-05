@@ -544,6 +544,7 @@ class OutgoingMailRepositories extends BaseRepository implements OutgoingMailInt
 			'redirect_mobile' => serialize([
 				'route_name' => 'Approval',
 			]),
+			'type' => source_type("OM", $notif['model']),
 			'receiver_id' => $notif['receiver']
 		];
 		

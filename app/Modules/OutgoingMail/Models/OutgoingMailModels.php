@@ -29,7 +29,7 @@ class OutgoingMailModel extends Model
 	
     protected $fillable   = [
 		'subject_letter', 'number_letter', 'type_id', 'classification_id', 'letter_date', 'to_employee_id',
-		'from_employee_id','body', 'status', 'signed', 'retension_date', 'is_archive', 'path_to_file', 'current_approval_employee_id', 'current_approval_structure_id', 'created_by_employee','created_by_structure', 'publish_by_employee', 'publish_date'
+		'from_employee_id','body', 'status', 'signed', 'retension_date', 'is_archive', 'source', 'path_to_file', 'current_approval_employee_id', 'current_approval_structure_id', 'created_by_employee','created_by_structure', 'publish_by_employee', 'publish_date'
 	];
 	
 	protected $dates = ['deleted_at'];

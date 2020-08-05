@@ -28,7 +28,7 @@ class IncomingMailModel extends Model
     protected $fillable   = [
 		'subject_letter', 'number_letter', 'type_id', 'classification_id', 'letter_date', 'recieved_date',
 		'sender_name', 'receiver_name', 'structure_id', 'to_employee_id', 'status', 'is_recieved', 'retension_date', 
-		'is_archive', 'path_to_file', 'is_read'
+		'is_archive', 'source', 'path_to_file', 'is_read'
 	];
 	
 	protected $dates = ['deleted_at'];

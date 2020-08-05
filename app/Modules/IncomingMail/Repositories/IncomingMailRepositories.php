@@ -390,6 +390,7 @@ class IncomingMailRepositories extends BaseRepository implements IncomingMailInt
 			'redirect_mobile' => serialize([
 				'route_name' => 'IncomingMail',
 			]),
+			'type' => source_type("IM", $notif['model']),
 			'receiver_id' => $notif['receiver']
 		];
 		

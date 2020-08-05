@@ -74,6 +74,7 @@ class IncomingMailTransformer extends TransformerAbstract
 			'is_read' => $data->is_read,
 			'disposition' => $disposition,
 			'bod_level' => $bod_level,
+			'source' => config('constans.source-incoming.'. $data->source),
 			'created_at' => $data->created_at->format('d-m-Y'),
 			'updated_at' => $data->updated_at->format('d-m-Y')
 		];
@@ -138,6 +139,7 @@ class IncomingMailTransformer extends TransformerAbstract
 			'follows' => !empty($data_follow_ups) ? $data_follow_ups : null,
 			'attachments' => !empty($data_attachments) ? $data_attachments : null,
 			'is_read' => $data->is_read,
+			'source' => config('constans.source-incoming.'. $data->source),
 			'status' => $data->status
 		];
 	}

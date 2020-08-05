@@ -13,6 +13,7 @@ use App\Events\NotificationMobile;
 use App\Modules\Role\Models\RoleModel;
 use App\Modules\SpecialDivisionOutgoing\Models\SpecialDivisionOutgoingModel;
 use App\Modules\MappingStructure\Models\MappingStructureModel;
+use App\Modules\IncomingMail\Constans\IncomingMailStatusConstans;
 
 if (!function_exists('setting_by_code')) {
 	
@@ -400,5 +401,34 @@ if (!function_exists('publisher_email')) {
         
         return $d_emails;
         
-    }   
+    }  
+    
+    if (!function_exists('source_type')) {
+	
+        function source_type($mail_category, $model)
+        {
+            switch ($mail_category) {
+                /* Incoming Mail */
+                case 'IM':
+                    $source = 'incoming';
+                    $type = !empty($model->type) ? $model->type->name : '';
+                    $mos = $model->source;
+                    break;
+                /* Outgoing Mail */
+                case 'OM':
+                    $source = 'outgoing';
+                    $type = !empty($model->type) ? $model->type->name : '';
+                    $mos = $model->source;
+                    break;
+                case 'DI':
+                    $source = 'incoming';
+                    $type = !empty($model->incoming) ? $model->incoming->type->name : '';
+                    $mos = !empty($model->incoming) ? $model->incoming->cource : '';
+                    break;
+            }
+            
+            $src =  config('constans.source-'.$source .'.'.$mos);
+            return "[{$src} - {$type}] -";
+        }
+    }
 }

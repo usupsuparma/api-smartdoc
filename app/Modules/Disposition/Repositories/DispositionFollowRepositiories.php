@@ -164,6 +164,7 @@ class DispositionFollowRepositories extends BaseRepository implements Dispositio
 				'route_name' => 'Disposition',
 			]),
 			'receiver_id' => $notif['receiver'],
+			'type' => source_type("DI", $notif['model']),
 			'employee_name' => Auth::user()->user_core->employee->name,
 		];
 		

@@ -93,6 +93,7 @@ class OutgoingMailTransformer extends TransformerAbstract
 				'status_code' => (int) $data->status
 			],
 			'file' => $file,
+			'source' => config('constans.source-outgoing.'. $data->source),
 			'created_at' => $data->created_at->format('d-m-Y'),
 			'updated_at' => $data->updated_at->format('d-m-Y')
 		];
@@ -192,6 +193,7 @@ class OutgoingMailTransformer extends TransformerAbstract
 			'forwards' => !empty($data_forwards) ? $data_forwards : null,
 		   	'attachments' => !empty($data_attachments) ? $data_attachments : null,
 			'status' => $data->status,
+			'source' => config('constans.source-outgoing.'. $data->source),
 			'history_approvals' => !empty($history_approvals) ? $history_approvals : null,
 			'signature_available' => !empty($data->signature) ? true : false,
 	   	];

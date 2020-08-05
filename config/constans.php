@@ -85,4 +85,12 @@ return [
 		IncomingMailStatusConstans::DISPOSITION => 'In Progress',
 		IncomingMailStatusConstans::DONE => 'Done'
 	],
+	'source-outgoing' => [
+		OutgoingMailStatusConstants::INTERNAL => 'In Progress',
+		OutgoingMailStatusConstants::EXTERNAL => 'Done'
+	],
+	'source-incoming' => [
+		IncomingMailStatusConstans::INTERNAL => 'Internal',
+		IncomingMailStatusConstans::EXTERNAL => 'External'
+	],
 ];

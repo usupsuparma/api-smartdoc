@@ -240,6 +240,7 @@ class AdminOutgoingMailRepositories extends BaseRepository implements AdminOutgo
 			]),
 			'redirect_web' => $notif['redirect_web'],
 			'redirect_mobile' => $notif['redirect_mobile'],
+			'type' => source_type("OM", $notif['model']),
 			'receiver_id' => $notif['receiver']
 		];
 		

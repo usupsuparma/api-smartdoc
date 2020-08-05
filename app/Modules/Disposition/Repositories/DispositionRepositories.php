@@ -569,6 +569,7 @@ class DispositionRepositories extends BaseRepository implements DispositionInter
 			'redirect_mobile' => serialize([
 				'route_name' => 'DispositionFollowUp',
 			]),
+			'type' => source_type("DI", $notif['model']),
 			'receiver_id' => $notif['receiver'],
 			'employee_name' => Auth::user()->user_core->employee->name,
 		];
@@ -591,6 +592,7 @@ class DispositionRepositories extends BaseRepository implements DispositionInter
 			'redirect_mobile' => serialize([
 				'route_name' => 'Disposition',
 			]),
+			'type' => source_type("DI", $notif['model']),
 			'receiver_id' => $notif['receiver'],
 			'employee_name' => Auth::user()->user_core->employee->name,
 		];
