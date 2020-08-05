@@ -154,12 +154,11 @@ class DispositionRepositories extends BaseRepository implements DispositionInter
 				]);
 				
 				/* Trigger For Update Auto Follow Up Incoming Mail */
-				if (SmartdocHelper::bod_level() && $request->is_redisposition == 0) {
+				if (SmartdocHelper::bod_level() && (int) $request->is_redisposition == 0) {
 					$this->trigger_follow_incoming_bod_level($request, $model);
 				}
-				
 				/* Trigger For Update Auto Follow Up Disposition Mail */
-				if ($request->parent_disposition_id !== 0) {
+				if ((int) $request->parent_disposition_id !== 0) {
 					$this->trigger_follow_disposition($request, $model);
 				}
 				
@@ -306,12 +305,11 @@ class DispositionRepositories extends BaseRepository implements DispositionInter
 				}
 				
 				/* Trigger For Update Auto Follow Up Incoming Mail */
-				if (SmartdocHelper::bod_level() && $request->is_redisposition == 0) {
+				if (SmartdocHelper::bod_level() && (int) $request->is_redisposition == 0) {
 					$this->trigger_follow_incoming_bod_level($request, $model);
 				}
-				
 				/* Trigger For Update Auto Follow Up Disposition Mail */
-				if ($request->parent_disposition_id !== 0) {
+				if ((int) $request->parent_disposition_id !== 0) {
 					$this->trigger_follow_disposition($request, $model);
 				}
 				
@@ -573,7 +571,7 @@ class DispositionRepositories extends BaseRepository implements DispositionInter
 			'receiver_id' => $notif['receiver'],
 			'employee_name' => Auth::user()->user_core->employee->name,
 		];
-		
+
 		event(new Notif($data_notif));
 	}
 	

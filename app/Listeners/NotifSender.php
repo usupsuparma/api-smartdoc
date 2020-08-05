@@ -88,7 +88,7 @@ class NotifSender
                 $message = "{$type} ({$subject}) ditolak , harap periksa kembali umpan balik untuk surat tersebut.";
                 break;
         }
-
+        
         NotificationModel::create([
             'heading' => $heading,
             'title' => $title,

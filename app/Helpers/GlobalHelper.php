@@ -423,7 +423,7 @@ if (!function_exists('publisher_email')) {
                 case 'DI':
                     $source = 'incoming';
                     $type = !empty($model->incoming) ? $model->incoming->type->name : '';
-                    $mos = !empty($model->incoming) ? $model->incoming->cource : '';
+                    $mos = !empty($model->incoming) ? $model->incoming->source : '';
                     break;
             }
             
