@@ -86,8 +86,8 @@ return [
 		IncomingMailStatusConstans::DONE => 'Done'
 	],
 	'source-outgoing' => [
-		OutgoingMailStatusConstants::INTERNAL => 'In Progress',
-		OutgoingMailStatusConstants::EXTERNAL => 'Done'
+		OutgoingMailStatusConstants::INTERNAL => 'Internal',
+		OutgoingMailStatusConstants::EXTERNAL => 'External'
 	],
 	'source-incoming' => [
 		IncomingMailStatusConstans::INTERNAL => 'Internal',
