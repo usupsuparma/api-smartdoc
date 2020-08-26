@@ -54,7 +54,7 @@ class DispositionFollowRepositories extends BaseRepository implements Dispositio
 		
 		$follow_up = DispositionFollowUp::followUp($dispo_assign->id)->first();
 
-		return ['data' => $follow_up ? DispositionTransformer::followUpTransform($follow_up) : []];
+		return ['data' => $follow_up ? DispositionTransformer::followUpTransform($follow_up) : null];
 	}
 	
 	public function follow_up($request, $id)
