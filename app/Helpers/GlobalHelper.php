@@ -214,32 +214,35 @@ if (!function_exists('review_list')) {
                     /* If list organizations same with list get user */
                     if ($dt === $col->structure->id) {
                         $map_struct = MappingStructureDetailModel::where('structure_id', $dt)->first();
-                        $structure = $map_struct->map_structure;
                         
                         if (!empty($map_struct)) {
+                            $structure = $map_struct->map_structure;
                             
-                            if (!empty($structure->primary_top_level_id)) {
-                                if ($structure->primary_top_level_id == $col->kode_jabatan) {
-                                    $pr = [
-                                        'structure_id' => $dt,
-                                        'employee_id' => $col->id_employee
-                                    ];
+                            if (!empty($map_struct)) {
+                                
+                                if (!empty($structure->primary_top_level_id)) {
+                                    if ($structure->primary_top_level_id == $col->kode_jabatan) {
+                                        $pr = [
+                                            'structure_id' => $dt,
+                                            'employee_id' => $col->id_employee
+                                        ];
+                                        
+                                        $primary = true;
+                                        $arr_primary[] = $pr;
+                                    }
                                     
-                                    $primary = true;
-                                    $arr_primary[] = $pr;
                                 }
                                 
-                            }
-                            
-                            if (!empty($structure->primary_top_level_id)) {
-                                if ($structure->secondary_top_level_id == $col->kode_jabatan) {
-                                    $sr = [
-                                        'structure_id' => $dt,
-                                        'employee_id' => $col->id_employee
-                                    ];
-                                    
-                                    $secondary = true;
-                                    $arr_secondary[] = $sr;
+                                if (!empty($structure->primary_top_level_id)) {
+                                    if ($structure->secondary_top_level_id == $col->kode_jabatan) {
+                                        $sr = [
+                                            'structure_id' => $dt,
+                                            'employee_id' => $col->id_employee
+                                        ];
+                                        
+                                        $secondary = true;
+                                        $arr_secondary[] = $sr;
+                                    }
                                 }
                             }
                         }

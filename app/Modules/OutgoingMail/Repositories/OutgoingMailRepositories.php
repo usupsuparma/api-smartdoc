@@ -142,7 +142,7 @@ class OutgoingMailRepositories extends BaseRepository implements OutgoingMailInt
 				];	
 			}
 		}
-
+		
 		DB::beginTransaction();
 
         try {
