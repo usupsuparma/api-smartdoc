@@ -5,6 +5,7 @@
 
 use League\Fractal\TransformerAbstract;
 use App\Helpers\SmartdocHelper;
+use App\Modules\IncomingMail\Constans\IncomingMailStatusConstans;
 use Auth;
 
 class DispositionTransformer extends TransformerAbstract
@@ -13,21 +14,28 @@ class DispositionTransformer extends TransformerAbstract
 	 * Disposition Transformer
 	 * @return array
 	 */
-	 public function transform($data) 
-	 {
+	public function transform($data) 
+	{
 		$count = 0;
 		$finish_follow = false;
 		$open_redispo = false;
 		
-	   	if (!empty($data->assign)) {
+		if (!empty($data->assign)) {
 			foreach ($data->assign as $assign) {
 				if ($assign->employee_id === Auth::user()->user_core->id_employee) {
-					if (!empty($assign->follow_ups[0])) {
+					/* Check if follow up is not finish */
+					if (
+						!empty($assign->follow_ups[0]) &&
+						$assign->follow_ups[0]->progress === IncomingMailStatusConstans::FOLLOW_UP_FINISH
+						) {
 						$finish_follow = true;
 					}
 				}
 				
-				if (!empty($assign->follow_ups[0])) {
+				if (
+					!empty($assign->follow_ups[0]) &&
+					$assign->follow_ups[0]->progress === IncomingMailStatusConstans::FOLLOW_UP_FINISH
+				) {
 					$count++;
 				}
 			}
@@ -66,16 +74,15 @@ class DispositionTransformer extends TransformerAbstract
 			'updated_at' => $data->updated_at->format('d-m-Y')
 		];
 	}
-	 
+	
 	/** 
 	 * Disposition Transformer Custom
 	 * @return array
 	 */
 	public static function customTransform($data) 
 	{
-	   	$data_assigns = [];
-	   
-	   	if (!empty($data->assign)) {
+		$data_assigns = [];
+		if (!empty($data->assign)) {
 			foreach ($data->assign as $assign) {
 				$data_assigns[] = [
 					'id' => $assign['id'],
@@ -92,12 +99,12 @@ class DispositionTransformer extends TransformerAbstract
 						'name' => !empty($assign->class_disposition) ? $assign->class_disposition->name : null,
 					],
 					'is_read' => $assign->is_read,
-					'follow_up' => !empty($assign->follow_ups[0]) ? $assign->follow_ups[0] : null,
+					'follow_up' => !empty($assign->follow_ups[0]) && $assign->follow_ups[0]->progress === IncomingMailStatusConstans::FOLLOW_UP_FINISH ? $assign->follow_ups[0] : null,
 				];
 			}
 		}
 		
-	   	return [
+		return [
 			'id' => (int) $data->id,
 			'incoming_mail' => [
 				'id' => !empty($data->incoming) ? $data->incoming->id : null,
@@ -119,6 +126,22 @@ class DispositionTransformer extends TransformerAbstract
 			'parent_disposition_id' => $data->parent_disposition_id,
 			'available_redisposition' =>  !$data->redisposition->isEmpty() ? true : false,
 			'status' => $data->status,
+		];
+	}
+	
+	/** 
+	 * Disposition Transformer FollowUp
+	 * @return array
+	 */
+	public static function followUpTransform($data) 
+	{
+		return [
+			'id' => (int) $data->id,
+			'progress' => [
+				'action' => config('constans.progress-follow-up.'. $data->progress),
+				'progress_code' => (int) $data->progress
+			],
+			'description' => $data->description
 		];
 	}
 	
@@ -168,7 +191,10 @@ class DispositionTransformer extends TransformerAbstract
 					'follow_up' => !empty($assign->follow_ups[0]) ? $assign->follow_ups[0]->toArray() : null,
 				];
 				
-				if (!empty($assign->follow_ups[0])) {
+				if (
+					!empty($assign->follow_ups[0]) &&
+					$assign->follow_ups[0]->progress === IncomingMailStatusConstans::FOLLOW_UP_FINISH
+				) {
 					$count++;
 				}
 			}
@@ -176,7 +202,7 @@ class DispositionTransformer extends TransformerAbstract
 		
 		$progress = $count .' / '. $data->assign->count();
 		
-	   	return [
+		return [
 			'id' => (int) $data->id,
 			'incoming_mail' => [
 				'id' => !empty($data->incoming) ? $data->incoming->id : null,

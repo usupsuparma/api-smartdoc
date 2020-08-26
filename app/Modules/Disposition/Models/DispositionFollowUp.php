@@ -6,7 +6,7 @@
 use Illuminate\Database\Eloquent\Model;
 use App\Modules\External\Employee\Models\EmployeeModel;
 use App\Modules\Disposition\Models\DispositionAssign;
-use Upload;
+use Upload, Auth;
 
 class DispositionFollowUp extends Model
 {
@@ -14,7 +14,7 @@ class DispositionFollowUp extends Model
 	protected $table = 'dispositions_follow_up';
 	
     protected $fillable   = [
-		'dispositions_assign_id', 'employee_id', 'description', 'path_to_file', 'status'
+		'dispositions_assign_id', 'employee_id', 'description', 'path_to_file', 'progress', 'status'
 	];
 	
 	public function employee()
@@ -25,6 +25,14 @@ class DispositionFollowUp extends Model
 	public function assign()
 	{
 		return $this->belongsTo(DispositionAssign::class, 'disposition_assign_id');
+	}
+	
+	public function scopeFollowUp($query, $disposition_assign_id)
+	{
+		$query->where([
+			'dispositions_assign_id' => $disposition_assign_id,
+			'employee_id' => Auth::user()->user_core->employee->id_employee,
+		]);
 	}
 	
 	protected static function boot() 

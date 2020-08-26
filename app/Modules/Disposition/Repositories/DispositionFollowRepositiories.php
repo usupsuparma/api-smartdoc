@@ -52,7 +52,9 @@ class DispositionFollowRepositories extends BaseRepository implements Dispositio
 			]);
 		}
 		
-		return ['data' => DispositionTransformer::customTransform($data)];
+		$follow_up = DispositionFollowUp::followUp($dispo_assign->id)->first();
+
+		return ['data' => $follow_up ? DispositionTransformer::followUpTransform($follow_up) : []];
 	}
 	
 	public function follow_up($request, $id)
@@ -66,13 +68,13 @@ class DispositionFollowRepositories extends BaseRepository implements Dispositio
 		});
 
 		$results = $filtered->flatten()->all()[0];
-
-		if (!$results->follow_ups->isEmpty()) {
-			return [
-				'message' => 'Maaf anda sudah memberikan tindak lanjut !',
-				'status' => false
-			];	
-		}
+		
+		// if (!$results->follow_ups->isEmpty()) {
+		// 	return [
+		// 		'message' => 'Maaf anda sudah memberikan tindak lanjut !',
+		// 		'status' => false
+		// 	];	
+		// }
 
 		$rules = [
 			'description' => 'required'
@@ -89,25 +91,33 @@ class DispositionFollowRepositories extends BaseRepository implements Dispositio
 		
 		Validator::validate($request->all(), $rules, $message);
 		
+		$data_follow_up = [
+			'description' => $request->description,
+			'progress' => $request->progress,
+			'status' => true,
+		];
+		
 		$upload = null;
 		
 		if ($request->hasFile('file')) {
 			$upload = Upload::uploads(setting_by_code('PATH_DIGITAL_DISPOSITION'), $request->file);
+			$data_follow_up['path_to_file'] = !empty($upload) ? $upload : null;
 		}
 		
-		DispositionFollowUp::create([
+		DispositionFollowUp::updateOrCreate([
 			'dispositions_assign_id' => $results->id,
 			'employee_id' => Auth::user()->user_core->id_employee,
-			'description' => $request->description,
-			'path_to_file' => !empty($upload) ? $upload : null,
-			'status' => true,
-		]);
+		], $data_follow_up);
+		
 		
 		$check = $this->model->findOrFail($id);
 		$count = 0;
 	   	if (!empty($check->assign)) {
 			foreach ($check->assign as $assign) {
-				if (!empty($assign->follow_ups[0])) {
+				if (
+					!empty($assign->follow_ups[0]) && 
+					$assign->follow_ups[0]->progress === IncomingMailStatusConstans::FOLLOW_UP_FINISH
+				) {
 					$count++;
 				}
 			}

@@ -82,6 +82,11 @@ class NotifSender
                 $message = "{$type} ({$subject}) sudah dilakukan tindak lanjut oleh ". $notif['employee_name'];
                 break;
                 
+            case 'finish-follow-up-outgoing' :
+                $title = 'Finish Follow Up Outgoing Mail' ;
+                $message = "{$type} ({$subject}) sudah dilakukan tindak lanjut oleh ". $notif['employee_name'];
+                break;
+                
             case 'reject' :
                 $title = 'Reject' ;
                 $subject = $notif['subject'];

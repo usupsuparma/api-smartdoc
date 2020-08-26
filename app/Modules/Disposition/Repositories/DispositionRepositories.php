@@ -425,19 +425,26 @@ class DispositionRepositories extends BaseRepository implements DispositionInter
 			return;	
 		}
 	
-		DispositionFollowUp::create([
+		DispositionFollowUp::updateOrCreate([
 			'dispositions_assign_id' => $results->id,
 			'employee_id' => Auth::user()->user_core->id_employee,
+		],
+		[
 			'description' => 'Tindak lanjut disposisi ini otomatis dilakukan oleh sistem. User Melakukan Re - Disposisi dengan nomor surat '. $disposition->number_disposition ,
 			'path_to_file' => null,
+			'progress' => IncomingMailStatusConstans::FOLLOW_UP_ON_PROGRESS,
 			'status' => true,
 		]);
 		
 		$check = $this->model->findOrFail($request->parent_disposition_id);
 		$count = 0;
-	   	if (!empty($check->assign)) {
+		
+		if (!empty($check->assign)) {
 			foreach ($check->assign as $assign) {
-				if (!empty($assign->follow_ups[0])) {
+				if (
+					!empty($assign->follow_ups[0]) && 
+					$assign->follow_ups[0]->progress === IncomingMailStatusConstans::FOLLOW_UP_FINISH
+				) {
 					$count++;
 				}
 			}

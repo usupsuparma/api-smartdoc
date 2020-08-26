@@ -10,7 +10,8 @@ use App\Modules\OutgoingMail\Models\OutgoingMailModel;
 use App\Modules\OutgoingMail\Transformers\OutgoingMailTransformer;
 use App\Modules\OutgoingMail\Models\OutgoingMailFollowUp;
 use Validator, Upload, Auth;
-
+use App\Events\Notif;
+use App\Constants\MailCategoryConstants;
 
 class FollowUpOutgoingMailRepositories extends BaseRepository implements FollowUpOutgoingMailInterface
 {	
@@ -92,6 +93,15 @@ class FollowUpOutgoingMailRepositories extends BaseRepository implements FollowU
 			'status' => true,
 		]);
 		
+		$this->send_notification([
+			'model' => $model, 
+			'heading' => MailCategoryConstants::SURAT_KELUAR,
+			'title' => 'finish-follow-up-outgoing',
+			'redirect_web' => setting_by_code('URL_OUTGOING_MAIL'),
+			'redirect_mobile' => '',
+			'receiver' => $model->created_by_employee
+		]);
+		
 		return ['message' => config('constans.success.follow-up'), 'status' => true];
 	}
 	
@@ -104,5 +114,25 @@ class FollowUpOutgoingMailRepositories extends BaseRepository implements FollowU
 		}
 		
 		return $model->path_to_file;
+	}
+	
+	private function send_notification($notif)
+	{
+		$data_notif = [
+			'heading' => $notif['heading'],
+			'title'  => $notif['title'],
+			'subject' => $notif['model']->subject_letter,
+			'data' => serialize([
+				'id' => $notif['model']->id,
+				'subject_letter' => $notif['model']->subject_letter
+			]),
+			'redirect_web' => $notif['redirect_web'],
+			'redirect_mobile' => $notif['redirect_mobile'],
+			'type' => source_type("OM", $notif['model']),
+			'receiver_id' => $notif['receiver'],
+			'employee_name' => Auth::user()->user_core->employee->name
+		];
+		
+		event(new Notif($data_notif));
 	}
 }

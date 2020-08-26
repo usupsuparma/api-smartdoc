@@ -16,4 +16,7 @@ class IncomingMailStatusConstans
 	
 	const INTERNAL = 1 ;
 	const EXTERNAL = 2 ;
+	
+	const FOLLOW_UP_ON_PROGRESS = 1;
+	const FOLLOW_UP_FINISH = 2;
 }

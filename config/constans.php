@@ -93,4 +93,8 @@ return [
 		IncomingMailStatusConstans::INTERNAL => 'Internal',
 		IncomingMailStatusConstans::EXTERNAL => 'External'
 	],
+	'progress-follow-up' => [
+		IncomingMailStatusConstans::FOLLOW_UP_ON_PROGRESS => 'Dalam Proses',
+		IncomingMailStatusConstans::FOLLOW_UP_FINISH => 'Selesai'
+	],
 ];
