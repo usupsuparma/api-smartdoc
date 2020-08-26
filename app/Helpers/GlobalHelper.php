@@ -14,6 +14,7 @@ use App\Modules\Role\Models\RoleModel;
 use App\Modules\SpecialDivisionOutgoing\Models\SpecialDivisionOutgoingModel;
 use App\Modules\MappingStructure\Models\MappingStructureModel;
 use App\Modules\IncomingMail\Constans\IncomingMailStatusConstans;
+use App\Modules\External\Organization\Models\OrganizationModel;
 
 if (!function_exists('setting_by_code')) {
 	
@@ -89,15 +90,15 @@ if (!function_exists('employee_user')) {
 
 if (!function_exists('review_list')) {
 	
-    function review_list($code_review, $type_level)
+    function review_list($code_review, $type_level, $hierarchy_orgs)
     {
         $results = [];
         $orgs = [];
         $positions = [];
         $list_direksi = [];
+        $hierarchies = [];
         
         $code_review = $type_level == 'DIREKTUR' ? 'OMD' : $code_review;
-        
         /* Special Division Bypass */
         $user_structure_id = Auth::user()->user_core ? Auth::user()->user_core->kode_struktur : '';
         $special_division = SpecialDivisionOutgoingModel::findByStructure($user_structure_id);
@@ -109,7 +110,51 @@ if (!function_exists('review_list')) {
                 $list_direksi[] = $sd->id;
             }
         }
-
+        
+        /* Hierarchy Organization */
+        if (!empty($hierarchy_orgs)) {
+            
+            /* Get Hierarchy VP to Bottom */
+            foreach ($hierarchy_orgs as $sd) {
+                if (!in_array($sd->kode_struktur, array_merge(
+                    unserialize(setting_by_code('DIREKTUR_LEVEL_STRUCTURE')), 
+                    unserialize(setting_by_code('DIREKSI_LEVEL_STRUCTURE')))
+                )) {
+                    $hierarchies[] = $sd->kode_struktur;
+                    $organization = OrganizationModel::where('kode_struktur', $sd->kode_struktur)->first();
+                    
+                    if ($organization) {
+                        /* check mapping structure top level position */
+                        $map_struct = MappingStructureDetailModel::where('structure_id', $organization->id)->first();
+                        if (!empty($map_struct)) {
+                            $structure = $map_struct->map_structure;
+                            
+                            if (!empty($structure->primary_top_level_id)) {
+                                array_push($positions, $structure->primary_top_level_id);
+                            }
+                            
+                            if (!empty($structure->secondary_top_level_id)) {
+                                array_push($positions, $structure->secondary_top_level_id);
+                            }
+                        }
+                        
+                        $orgs[] = $organization->id;
+                    }
+                }
+            }
+            
+            $available_direksi = null;
+            /* Get Hierarchy Director line to top */
+            foreach ($hierarchy_orgs as $sd) {
+                if (
+                    in_array($sd->kode_struktur,unserialize(setting_by_code('DIREKSI_LEVEL_STRUCTURE')))
+                ){
+                    $organization = OrganizationModel::where('kode_struktur', $sd->kode_struktur)->first();
+                    $available_direksi = $organization->id;
+                }
+            }
+        } 
+        
         $review = ReviewModel::where('code', $code_review)->first();
 
         if (!empty($review)) {
@@ -129,7 +174,15 @@ if (!function_exists('review_list')) {
                         array_push($positions, $structure->secondary_top_level_id);
                     }
                 }
+                
                 $orgs[] = $dt->organizations->id;
+            }
+        }
+        
+        if ($available_direksi) {
+            /* HAPUS DIREKSI YANG TIDAK SESUAI DENGAN GARIS LURUS */
+            if (($key = array_search($available_direksi, $orgs)) !== false) {
+                unset($orgs[$key]);
             }
         }
         
@@ -149,17 +202,18 @@ if (!function_exists('review_list')) {
             return false;
         }
         
-        $collections = $users->orderBy('kode_jabatan', 'DESC')->get();
-
-        foreach ($details as $dt) {
+        $collections = $users->orderBy('kode_struktur', 'DESC')->get();
+        
+        foreach ($orgs as $dt) {
             $primary = false;
             $secondary = false;
             $arr_primary = [];
             $arr_secondary = [];
             if (!empty($collections)) {
                 foreach ($collections as $key => $col) {
-                    if ($dt->organizations->kode_struktur === $col->structure->kode_struktur) {
-                        $map_struct = MappingStructureDetailModel::where('structure_id', $dt->organizations->id)->first();
+                    /* If list organizations same with list get user */
+                    if ($dt === $col->structure->id) {
+                        $map_struct = MappingStructureDetailModel::where('structure_id', $dt)->first();
                         $structure = $map_struct->map_structure;
                         
                         if (!empty($map_struct)) {
@@ -167,7 +221,7 @@ if (!function_exists('review_list')) {
                             if (!empty($structure->primary_top_level_id)) {
                                 if ($structure->primary_top_level_id == $col->kode_jabatan) {
                                     $pr = [
-                                        'structure_id' => $dt->structure_id,
+                                        'structure_id' => $dt,
                                         'employee_id' => $col->id_employee
                                     ];
                                     
@@ -180,7 +234,7 @@ if (!function_exists('review_list')) {
                             if (!empty($structure->primary_top_level_id)) {
                                 if ($structure->secondary_top_level_id == $col->kode_jabatan) {
                                     $sr = [
-                                        'structure_id' => $dt->structure_id,
+                                        'structure_id' => $dt,
                                         'employee_id' => $col->id_employee
                                     ];
                                     
