@@ -42,7 +42,7 @@ class DispositionFollowRepositories extends BaseRepository implements Dispositio
 		return $query->get(); 
 	}
 	
-	public function show($id)
+	public function show_follow_up($id)
     {
 		$data =  $this->model->followUpEmployee()->where('id', $id)->firstOrFail();
 		$dispo_assign = DispositionAssign::CheckRead($id);
@@ -55,7 +55,7 @@ class DispositionFollowRepositories extends BaseRepository implements Dispositio
 		return ['data' => DispositionTransformer::customTransform($data);
 	}
 	
-	public function show_follow_up($id)
+	public function show($id)
     {
 		$dispo_assign = DispositionAssign::CheckRead($id);
 		if ($dispo_assign) {
