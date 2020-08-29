@@ -51,6 +51,18 @@ class DispositionFollowRepositories extends BaseRepository implements Dispositio
 				'is_read' => true
 			]);
 		}
+
+		return ['data' => DispositionTransformer::customTransform($data);
+	}
+	
+	public function show_follow_up($id)
+    {
+		$dispo_assign = DispositionAssign::CheckRead($id);
+		if ($dispo_assign) {
+			$dispo_assign->update([
+				'is_read' => true
+			]);
+		}
 		
 		$follow_up = DispositionFollowUp::followUp($dispo_assign->id)->first();
 
