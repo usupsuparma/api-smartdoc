@@ -52,7 +52,7 @@ class DispositionFollowRepositories extends BaseRepository implements Dispositio
 			]);
 		}
 
-		return ['data' => DispositionTransformer::customTransform($data);
+		return ['data' => DispositionTransformer::customTransform($data)];
 	}
 	
 	public function show($id)

@@ -29,7 +29,7 @@ class DispositionFollowRoutes extends BaseRoutes
 			]);
 			
 			$app->router->get('detail/{id}', [
-				'as' => $this->route_prefix . '.show_detail',
+				'as' => $this->route_prefix . '.show_follow',
 				'uses' => 'DispositionFollowController@show_follow'
 			]);
 			

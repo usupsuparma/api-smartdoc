@@ -32,6 +32,13 @@ class DispositionFollowController extends BaseController
 		return $this->successResponse($this->dispositionFollowRepository->show($id),200);
 	}
 	
+	public function show_follow($id)
+	{
+		Authority::check('read');
+		
+		return $this->successResponse($this->dispositionFollowRepository->show_follow_up($id),200);
+	}
+	
 	public function follow_up(Request $request, $id)
 	{
 		Authority::check('create');
