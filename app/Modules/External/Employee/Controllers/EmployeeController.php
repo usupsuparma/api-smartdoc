@@ -5,7 +5,6 @@
 
 use Illuminate\Http\Request;
 use App\Library\Bases\BaseController;
-use App\Modules\External\Employee\Models\EmployeeModel;
 use App\Modules\External\Employee\Repositories\EmployeeRepositories;
 use Authority, Auth;
 
