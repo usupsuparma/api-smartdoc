@@ -40,7 +40,7 @@ class PositionRepositories extends BaseRepository implements PositionInterface
 	public function create($request)
     {
 		$rules = [
-			'nama_jabatan' => 'required|unique:external_positions,nama_jabatan,NULL,id',
+			'nama_jabatan' => 'required|unique:external_positions,nama_jabatan,NULL,id,deleted_at,NULL',
 			'status' => 'required'
 		];
 		
@@ -57,7 +57,7 @@ class PositionRepositories extends BaseRepository implements PositionInterface
     {
 		$input = $request->all();
 		$rules = [
-			'nama_jabatan' => 'required|unique:external_positions,nama_jabatan,' . $id . ',id',
+			'nama_jabatan' => 'required|unique:external_positions,nama_jabatan,' . $id . ',id,deleted_at,NULL',
 			'status' => 'required'
 		];
 		

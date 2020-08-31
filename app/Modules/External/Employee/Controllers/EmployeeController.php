@@ -31,4 +31,49 @@ class EmployeeController extends BaseController
 	{
 		return $this->successResponse($this->employeeRepository->option_structure($id),200);
 	}
+	
+	public function data(Request $request)
+	{
+		Authority::acl_access(Auth::user(), 'employees');
+		
+		Authority::check('read');
+		
+		return $this->showAll($this->employeeRepository->data($request),200);
+	}
+	
+	public function show($id)
+	{
+		Authority::acl_access(Auth::user(), 'employees');
+		
+		Authority::check('read');
+		
+		return $this->showOne($this->employeeRepository->show($id),200);
+	}
+	
+	public function create(Request $request)
+	{
+		Authority::acl_access(Auth::user(), 'employees');
+		
+		Authority::check('create');
+		
+        return $this->successResponse($this->employeeRepository->create($request), 200); 
+	}
+	
+	public function update(Request $request,$id)
+    {
+		Authority::acl_access(Auth::user(), 'employees');
+		
+		Authority::check('update');
+		
+		return $this->successResponse($this->employeeRepository->update($request, $id), 200); 
+	}
+	
+	public function delete($id)
+    {
+		Authority::acl_access(Auth::user(), 'employees');
+		
+		Authority::check('delete');
+		
+        return $this->successResponse($this->employeeRepository->delete($id), 200); 
+	}
 }
