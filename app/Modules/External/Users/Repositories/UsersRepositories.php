@@ -113,7 +113,7 @@ class UsersRepositories extends BaseRepository implements UsersInterface
 	public function create_ex($request)
     {
 		$rules = [
-			'email' => 'required|unique:external_users,email,NULL,user_id,deleted_at,NULL',
+			'email' => 'required|regex:/(.+)@(.+)\.(.+)/i|unique:external_users,email,NULL,user_id,deleted_at,NULL',
 			'id_employee' => 'required|unique:external_users,id_employee,NULL,user_id,deleted_at,NULL',
 			'kode_struktur' => 'required',
 			'kode_jabatan' => 'required',
@@ -133,7 +133,7 @@ class UsersRepositories extends BaseRepository implements UsersInterface
     {
 		$input = $request->all();
 		$rules = [
-			'email' => 'required|unique:external_employees,email,' . $id . ',user_id,deleted_at,NULL',
+			'email' => 'required|regex:/(.+)@(.+)\.(.+)/i|unique:external_employees,email,' . $id . ',user_id,deleted_at,NULL',
 			'id_employee' => 'required|unique:external_employees,id_employee,' . $id . ',user_id,deleted_at,NULL',
 			'kode_struktur' => 'required',
 			'kode_jabatan' => 'required',
