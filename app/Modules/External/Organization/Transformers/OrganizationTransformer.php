@@ -16,9 +16,11 @@ class OrganizationTransformer extends TransformerAbstract
 	 {
 		return [
 			'id' => (int) $data->id,
-			'nama_struktur' => (string) $data->nama_struktur,
 			'parent_id' => $data->parent_id,
+			'nama_struktur' => (string) $data->nama_struktur,
 			'kode_struktur' => (int) $data->kode_struktur,
+			'order' => (int) $data->order,
+			'status' => $data->status,
 		];
 	 }
 }
