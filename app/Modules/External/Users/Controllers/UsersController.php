@@ -27,8 +27,48 @@ class UsersController extends BaseController
 		return $this->successResponse($this->usersRepository->update($request, $id),200);
 	}
 	
-	public function delete($id)
+	public function data_ex(Request $request)
 	{
-		// return $this->successResponse($this->dispositionFollowRepository->show($id),200);
+		// Authority::acl_access(Auth::user(), 'external-users');
+		
+		// Authority::check('read');
+		
+		return $this->showAll($this->usersRepository->data_ex($request),200);
+	}
+	
+	public function show_ex($id)
+	{
+		// Authority::acl_access(Auth::user(), 'external-users');
+		
+		// Authority::check('read');
+		
+		return $this->showOne($this->usersRepository->show_ex($id),200);
+	}
+	
+	public function create_ex(Request $request)
+	{
+		// Authority::acl_access(Auth::user(), 'external-users');
+		
+		// Authority::check('create');
+		
+        return $this->successResponse($this->usersRepository->create_ex($request), 200); 
+	}
+	
+	public function update_ex(Request $request,$id)
+    {
+		// Authority::acl_access(Auth::user(), 'external-users');
+		
+		// Authority::check('update');
+		
+		return $this->successResponse($this->usersRepository->update_ex($request, $id), 200); 
+	}
+	
+	public function delete_ex($id)
+    {
+		// Authority::acl_access(Auth::user(), 'external-users');
+		
+		// Authority::check('delete');
+		
+        return $this->successResponse($this->usersRepository->delete($id), 200); 
 	}
 }

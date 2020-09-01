@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateExternalOrganizationsTable extends Migration
+class CreateExternalUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateExternalOrganizationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('external_organizations', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->integer('parent_id')->nullable();
-            $table->string('kode_struktur',100);
-            $table->string('nama_struktur',100);
-            $table->integer('order')->nullable();
+        Schema::create('external_users', function (Blueprint $table) {
+            $table->bigIncrements('user_id');
+            $table->string('email', 100);
+            $table->bigInteger('id_employee')->unsigned();
+            $table->bigInteger('kode_struktur')->unsigned();
+            $table->bigInteger('kode_jabatan')->unsigned();
             $table->boolean('status')->deafult(1);
             $table->timestamps();
             $table->softDeletes();
@@ -32,6 +32,6 @@ class CreateExternalOrganizationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('external_organizations');
+        Schema::dropIfExists('external_users');
     }
 }
