@@ -23,6 +23,31 @@ class PositionRoutes extends BaseRoutes
 				'as' => $this->route_prefix . '.options',
 				'uses' => 'PositionController@options'
 			]);
+			
+			$app->router->get('/', [
+				'as' => $this->route_prefix . '.data',
+				'uses' => 'PositionController@data'
+			]);
+			
+			$app->router->get('/{id}', [
+				'as' => $this->route_prefix . '.data',
+				'uses' => 'PositionController@show'
+			]);
+			
+			$app->router->post('/', [
+				'as' => $this->route_prefix . '.create',
+				'uses' => 'PositionController@create'
+			]);
+			
+			$app->router->put('/{id}', [
+				'as' => $this->route_prefix . '.update',
+				'uses' => 'PositionController@update'
+			]);
+			
+			$app->router->delete('/{id}', [
+				'as' => $this->route_prefix . '.delete',
+				'uses' => 'PositionController@delete'
+			]);
 	
 		});
 	}

@@ -4,16 +4,23 @@
  */
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Modules\External\Employee\Transformers\EmployeeTransformer;
 
 class EmployeeModel extends Model 
 {
-	public $timestamps = false;
-	protected $connection = 'bijb';
-	protected $table = 'employee';
-	
+	use SoftDeletes;
+
+	public $transformer = EmployeeTransformer::class;
+
+	protected $table = 'external_employees';
+	protected $primaryKey = 'id_employee';
+
     protected $fillable   = [
-		'nik', 'name'
+		'nik', 'name', 'status'
 	];
+	
+	protected $dates = ['deleted_at'];
 	
 	public function user()
 	{

@@ -16,6 +16,7 @@ class Kernel extends ConsoleKernel
         Commands\CreateArchiveOutgoingCommand::class,
         Commands\CreateArchiveIncomingCommand::class,
         Commands\CreateArchiveDispositionCommand::class,
+        Commands\ReplicateStructureCommand::class,
     ];
 
     /**

@@ -5,19 +5,24 @@
 
 use Illuminate\Database\Eloquent\Model;
 use App\Modules\External\Employee\Models\EmployeeModel;
+use App\Modules\External\ExternalUser\Transformers\ExternalUserTransformer;
 use App\Modules\External\Organization\Models\OrganizationModel;
 use App\Modules\External\Position\Models\PositionModel;
 use App\Modules\User\Models\UserModel;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ExternalUserModel extends Model 
 {
-	public $timestamps = false;
+	use SoftDeletes;
+	
+	public $transformer = ExternalUserTransformer::class;
+	
 	protected $primaryKey = 'user_id';
-	protected $connection = 'bijb';
-	protected $table = 'users';
+	
+	protected $table = 'external_users';
 	
     protected $fillable   = [
-		'id_employee', 'user_login', 'user_password', 'kode_struktur', 'kode_jabatan', 'is_active'
+		'id_employee', 'email', 'kode_struktur', 'kode_jabatan', 'status'
 	];
 	
 	public function employee()
@@ -45,6 +50,6 @@ class ExternalUserModel extends Model
 	
 	public function scopeReadySyncUser($query)
 	{
-		return $query->where('is_active', 1);
+		return $query->where('status', 1);
 	}
 }

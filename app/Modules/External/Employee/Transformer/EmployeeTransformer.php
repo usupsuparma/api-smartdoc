@@ -15,9 +15,9 @@ class EmployeeTransformer extends TransformerAbstract
 	 public function transform($data) 
 	 {
 		return [
-			'id' => (int) $data->id,
+			'id' => (int) $data->id_employee,
 			'nik' => (string) $data->nik,
-			'name' => (int) $data->name,
+			'name' => (string) $data->name,
 		];
 	 }
 }

@@ -28,6 +28,36 @@ class OrganizationRoutes extends BaseRoutes
 				'as' => $this->route_prefix . '.option_disposition',
 				'uses' => 'OrganizationController@option_disposition'
 			]);
+			
+			$app->router->get('/', [
+				'as' => $this->route_prefix . '.data',
+				'uses' => 'OrganizationController@data'
+			]);
+			
+			$app->router->get('/{id}', [
+				'as' => $this->route_prefix . '.show',
+				'uses' => 'OrganizationController@show'
+			]);
+			
+			$app->router->post('/', [
+				'as' => $this->route_prefix . '.create',
+				'uses' => 'OrganizationController@create'
+			]);
+			
+			$app->router->put('/{id}', [
+				'as' => $this->route_prefix . '.update',
+				'uses' => 'OrganizationController@update'
+			]);
+			
+			$app->router->delete('/{id}', [
+				'as' => $this->route_prefix . '.delete',
+				'uses' => 'OrganizationController@delete'
+			]);
+			
+			$app->router->post('/ordering', [
+				'as' => $this->route_prefix . '.ordering',
+				'uses' => 'OrganizationController@ordering'
+			]);
 	
 		});
 	}

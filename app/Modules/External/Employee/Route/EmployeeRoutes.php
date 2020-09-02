@@ -33,6 +33,31 @@ class EmployeeRoutes extends BaseRoutes
 				'as' => $this->route_prefix . '.option_hierarchy',
 				'uses' => 'EmployeeController@option_hierarchy'
 			]);
+			
+			$app->router->get('/', [
+				'as' => $this->route_prefix . '.data',
+				'uses' => 'EmployeeController@data'
+			]);
+			
+			$app->router->get('/{id}', [
+				'as' => $this->route_prefix . '.data',
+				'uses' => 'EmployeeController@show'
+			]);
+			
+			$app->router->post('/', [
+				'as' => $this->route_prefix . '.create',
+				'uses' => 'EmployeeController@create'
+			]);
+			
+			$app->router->put('/{id}', [
+				'as' => $this->route_prefix . '.update',
+				'uses' => 'EmployeeController@update'
+			]);
+			
+			$app->router->delete('/{id}', [
+				'as' => $this->route_prefix . '.delete',
+				'uses' => 'EmployeeController@delete'
+			]);
 	
 		});
 	}

@@ -4,16 +4,22 @@
  */
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Modules\External\Position\Transformers\PositionTransformer;
 
 class PositionModel extends Model 
 {
-	public $timestamps = false;
-	protected $connection = 'bijb';
-	protected $table = 'jabatan';
+	use SoftDeletes;
+	
+	public $transformer = PositionTransformer::class;
+	
+	protected $table = 'external_positions';
 	
     protected $fillable   = [
-		'nama_jabatan'
+		'nama_jabatan', 'status'
 	];
+	
+	protected $dates = ['deleted_at'];
 	
 	public function scopeOptions($query, $default = NULL)
     {

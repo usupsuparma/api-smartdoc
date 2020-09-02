@@ -32,7 +32,7 @@ class MappingStructureModel extends Model
 	
 	public function details()
 	{
-		return $this->belongsToMany(OrganizationModel::class,'smc_mapping_structure_detail','mapping_structure_id','structure_id');
+		return $this->belongsToMany(OrganizationModel::class,'mapping_structure_detail','mapping_structure_id','structure_id');
 	}
 	
 	public function scopeGetByCode($query, $code)
