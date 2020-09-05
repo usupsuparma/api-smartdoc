@@ -12,12 +12,13 @@ class EmployeeTransformer extends TransformerAbstract
 	 * @return array
 	 */
 	
-	 public function transform($data) 
-	 {
+	public function transform($data) 
+	{
 		return [
 			'id' => (int) $data->id_employee,
 			'nik' => (string) $data->nik,
 			'name' => (string) $data->name,
+			'status' => $data->status,
 		];
-	 }
+	}
 }

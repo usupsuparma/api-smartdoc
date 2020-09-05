@@ -167,7 +167,7 @@ class OrganizationRepositories extends BaseRepository implements OrganizationInt
             }
 		}
 		
-		return ['message' => config('constans.success.ordering')];
+		return ['message' => config('Berhasil melakukan penyusunan divisi.')];
 	}
 	
 	private function parsing_ordering($nestable, $parent = NULL) 

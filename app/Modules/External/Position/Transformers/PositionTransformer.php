@@ -16,7 +16,8 @@ class PositionTransformer extends TransformerAbstract
 	 {
 		return [
 			'id' => (int) $data->id,
-			'nama_jabatan' => (string) $data->nama_jabatan
+			'nama_jabatan' => (string) $data->nama_jabatan,
+			'status' => $data->status,
 		];
 	 }
 }
