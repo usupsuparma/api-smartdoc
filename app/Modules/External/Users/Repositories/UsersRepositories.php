@@ -8,7 +8,7 @@ use Prettus\Repository\Eloquent\BaseRepository;
 use App\Modules\External\Users\Interfaces\UsersInterface;
 use App\Modules\External\Users\Models\ExternalUserModel;
 use App\Modules\User\Models\UserModel;
-use Validator;
+use Validator, DB;
 
 class UsersRepositories extends BaseRepository implements UsersInterface
 {
@@ -133,7 +133,7 @@ class UsersRepositories extends BaseRepository implements UsersInterface
     {
 		$input = $request->all();
 		$rules = [
-			'email' => 'required|regex:/(.+)@(.+)\.(.+)/i|unique:external_employees,email,' . $id . ',user_id,deleted_at,NULL',
+			'email' => 'required|regex:/(.+)@(.+)\.(.+)/i|unique:external_users,email,' . $id . ',user_id,deleted_at,NULL',
 			'id_employee' => 'required|unique:external_employees,id_employee,' . $id . ',user_id,deleted_at,NULL',
 			'kode_struktur' => 'required',
 			'kode_jabatan' => 'required',
@@ -142,8 +142,25 @@ class UsersRepositories extends BaseRepository implements UsersInterface
 		
 		Validator::validate($input, $rules);
 		
-		$model = $this->model->findOrFail($id);
-		$model->update($input);
+		DB::beginTransaction();
+		try {
+			$model = $this->model->findOrFail($id);
+			$model->update($input);
+			
+			$user = UserModel::findCoreUser($id)->firstOrFail();
+			if ($user) {
+				$user->update([
+					'email' => $request->email,
+					'username' => $request->email
+				]);
+			}
+			
+			DB::commit();
+		} catch (\Exception $ex) {
+			DB::rollback();
+            return ['message' => $ex->getMessage(), 'status' => false];
+		}
+		
 		
 		updated_log($model);
 		
