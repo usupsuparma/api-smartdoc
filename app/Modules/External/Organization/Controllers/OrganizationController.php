@@ -29,54 +29,54 @@ class OrganizationController extends BaseController
 	
 	public function data(Request $request)
 	{	
-		// Authority::acl_access(Auth::user(), 'menu');
+		Authority::acl_access(Auth::user(), 'menu');
 		
-		// Authority::check('read');
+		Authority::check('read');
 		
 		return $this->showAll($this->organizationRepository->data($request), 200, false);
 	}
 	
 	public function show($id)
 	{
-		// Authority::acl_access(Auth::user(), 'menu');
+		Authority::acl_access(Auth::user(), 'menu');
 		
-		// Authority::check('read');
+		Authority::check('read');
 		
 		return $this->showOne($this->organizationRepository->show($id),200);
 	}
 	
 	public function create(Request $request)
 	{
-		// Authority::acl_access(Auth::user(), 'menu');
+		Authority::acl_access(Auth::user(), 'menu');
 		
-		// Authority::check('create');
+		Authority::check('create');
 		
         return $this->successResponse($this->organizationRepository->create($request), 200); 
 	}
 	
 	public function update(Request $request,$id)
     {
-		// Authority::acl_access(Auth::user(), 'menu');
+		Authority::acl_access(Auth::user(), 'menu');
 		
-		// Authority::check('update');
+		Authority::check('update');
 		
 		return $this->successResponse($this->organizationRepository->update($request, $id), 200); 
 	}
 	
 	public function delete($id)
     {
-		// Authority::acl_access(Auth::user(), 'menu');
+		Authority::acl_access(Auth::user(), 'menu');
 		
-		// Authority::check('delete');
+		Authority::check('delete');
 		
         return $this->successResponse($this->organizationRepository->delete($id), 200); 
 	}
 	
 	public function ordering(Request $request)
 	{
-		// Authority::acl_access(Auth::user(), 'menu');
+		Authority::acl_access(Auth::user(), 'menu');
 		
-		// Authority::check('update');
+		Authority::check('update');
 		
         return $this->successResponse($this->organizationRepository->ordering($request), 200); 
 	}

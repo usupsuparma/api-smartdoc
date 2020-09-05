@@ -30,6 +30,7 @@ class ExternalUserTransformer extends TransformerAbstract
 				'id' => (int) $data->position->id,
 				'name' => (string) $data->position->nama_jabatan
 			],
+			'email' => $data->email,
 			'status' => $data->status,
 		];
 	}
