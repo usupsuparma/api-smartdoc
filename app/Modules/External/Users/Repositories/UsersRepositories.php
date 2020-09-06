@@ -147,7 +147,7 @@ class UsersRepositories extends BaseRepository implements UsersInterface
 			$model = $this->model->findOrFail($id);
 			$model->update($input);
 			
-			$user = UserModel::findCoreUser($id)->firstOrFail();
+			$user = UserModel::findCoreUser($id)->first();
 			if ($user) {
 				$user->update([
 					'email' => $request->email,
