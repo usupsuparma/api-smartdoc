@@ -134,7 +134,7 @@ class UsersRepositories extends BaseRepository implements UsersInterface
 		$input = $request->all();
 		$rules = [
 			'email' => 'required|regex:/(.+)@(.+)\.(.+)/i|unique:external_users,email,' . $id . ',user_id,deleted_at,NULL',
-			'id_employee' => 'required|unique:external_employees,id_employee,' . $id . ',user_id,deleted_at,NULL',
+			'id_employee' => 'required|unique:external_users,id_employee,' . $id . ',user_id,deleted_at,NULL',
 			'kode_struktur' => 'required',
 			'kode_jabatan' => 'required',
 			'status' => 'required',
