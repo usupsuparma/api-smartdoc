@@ -124,7 +124,7 @@ class DispositionFollowRepositories extends BaseRepository implements Dispositio
 		
 		$check = $this->model->findOrFail($id);
 		$count = 0;
-	   	if (!empty($check->assign)) {
+		if (!empty($check->assign)) {
 			foreach ($check->assign as $assign) {
 				if (
 					!empty($assign->follow_ups[0]) && 

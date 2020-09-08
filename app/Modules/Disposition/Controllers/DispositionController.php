@@ -25,11 +25,11 @@ class DispositionController extends BaseController
 		return $this->showAll($this->dispositionRepositories->data($request),200);
 	}
 
-	public function show_detail($id)
+	public function show($id)
 	{
 		Authority::check('read');
 		
-		return $this->successResponse($this->dispositionRepositories->show_follow_up($id),200);
+		return $this->successResponse($this->dispositionRepositories->show($id),200);
 	}
 	
 	public function create(Request $request)
