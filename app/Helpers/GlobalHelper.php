@@ -180,12 +180,24 @@ if (!function_exists('review_list')) {
         }
         
         if ($available_direksi) {
-            /* HAPUS DIREKSI YANG TIDAK SESUAI DENGAN GARIS LURUS */
-            if (($key = array_search($available_direksi, $orgs)) !== false) {
-                unset($orgs[$key]);
+            /* CARI DIREKSI YANG AKAN DI TAKEOUT */
+            $takeout_direksi = array_filter(
+                $list_direksi,
+                function ($e) use ($available_direksi) {
+                    return $e !== $available_direksi;
+                }
+            );
+            if ($takeout_direksi) {
+                $remove_direksi = array_values($takeout_direksi)[0];
+                
+                /* HAPUS DIREKSI YANG TIDAK SESUAI DENGAN GARIS LURUS */
+                if (($key = array_search($remove_direksi, $orgs)) !== false) {
+                    
+                    unset($orgs[$key]);
+                }
             }
         }
-        
+
         /* Condition if special division available */
         if ($special_division) {
             $orgs = array_diff($orgs, $list_direksi);
