@@ -333,7 +333,7 @@ class TemplatesTableSeeder extends Seeder
 </tr>
 </tbody>
 </table>
-<p style="font-family: \'Edwardian Script ITC\';"><span style="font-size: 36pt;"><em>Dengan Hormat</em></span></p>
+<p style="font-family: \'Edwardian Script ITC\';"><span style="font-size: 14pt;"><em>Dengan Hormat</em></span></p>
 <p>Saya yang bertanda tangan dibawah ini :</p>
 <table style="border-collapse: collapse; width: 100%;" border="0">
 <tbody>
@@ -368,7 +368,7 @@ class TemplatesTableSeeder extends Seeder
 <p>#TEMBUSAN#</p>',
                 'status' => 1,
                 'created_at' => '2020-04-25 21:47:57',
-                'updated_at' => '2020-07-01 20:31:26',
+                'updated_at' => '2020-08-04 20:36:06',
                 'deleted_at' => NULL,
             ),
             8 => 

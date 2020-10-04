@@ -11,10 +11,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(BackdoorSeeder::class);
-        // $this->call(TestSeeder::class);
-        // $this->call(EmployeeSeeder::class);
-        
         if (\DB::table('menus')->count() === 0) {
             $this->call(MenusTableSeeder::class);
             $this->call(RolesTableSeeder::class);
@@ -23,12 +19,13 @@ class DatabaseSeeder extends Seeder
             $this->call(TemplatesTableSeeder::class);
             $this->call(TypesTableSeeder::class);
             $this->call(ReviewsTableSeeder::class);
+            $this->call(ReviewDetailsTableSeeder::class);
             $this->call(ClassificationTableSeeder::class);
             $this->call(ClassDispositionTableSeeder::class);
-            $this->call(UsersTableSeeder::class);
-            $this->call(MappingStructureTableSeeder::class);
-            $this->call(ExternalPositionsTableSeeder::class);
             $this->call(ExternalOrganizationsTableSeeder::class);
+            $this->call(ExternalPositionsTableSeeder::class);
+            $this->call(MappingStructureTableSeeder::class);
+            $this->call(MappingStructureDetailTableSeeder::class);
         }
-    }
+    }   
 }

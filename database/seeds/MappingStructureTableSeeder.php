@@ -56,10 +56,10 @@ class MappingStructureTableSeeder extends Seeder
                 'code' => 'MS004',
                 'name' => 'Department',
                 'primary_top_level_id' => 5,
-                'secondary_top_level_id' => 6,
+                'secondary_top_level_id' => 9,
                 'status' => 1,
                 'created_at' => '2020-05-07 12:45:46',
-                'updated_at' => '2020-05-08 01:19:08',
+                'updated_at' => '2020-08-13 08:33:03',
             ),
         ));
         

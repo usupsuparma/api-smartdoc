@@ -454,7 +454,7 @@ class SettingsTableSeeder extends Seeder
                 'id' => 37,
                 'name' => 'FRONT END URL OUTGOING FOLLOW',
                 'code' => 'URL_OUTGOING_FOLLOW',
-                'value' => 'http://103.195.30.154:8004/#/outgoing-mails-follow',
+                'value' => 'http://103.195.30.154:8004/#/outgoing-mail-follow',
                 'description' => '',
                 'status' => 1,
                 'created_at' => '2020-07-10 19:39:39',

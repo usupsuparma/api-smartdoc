@@ -127,7 +127,6 @@ trait ApiResponse
 	protected function transformerData($data, $transformer)
 	{
 		$transformation = fractal($data, new $transformer);
-		
         return $transformation->toArray();
 	}
 }

@@ -53,7 +53,7 @@ class RolesTableSeeder extends Seeder
             3 => 
             array (
                 'id' => 11,
-                'name' => 'VP / Manager / Pit. Manager',
+                'name' => 'VP / Manager / Pit. Manager / Ass. Manager',
                 'categories' => 'management',
                 'publisher' => 0,
                 'status' => 1,

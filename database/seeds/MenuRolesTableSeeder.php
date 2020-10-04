@@ -31,7 +31,7 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-03-11 07:22:01',
-                'updated_at' => '2020-06-29 08:32:21',
+                'updated_at' => '2020-10-04 11:38:21',
             ),
             1 => 
             array (
@@ -47,7 +47,7 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-03-10 08:47:09',
-                'updated_at' => '2020-07-31 21:57:28',
+                'updated_at' => '2020-10-04 11:35:08',
             ),
             2 => 
             array (
@@ -63,7 +63,7 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 1,
                 'authority_data' => NULL,
                 'created_at' => '2020-03-09 20:41:09',
-                'updated_at' => '2020-06-29 08:32:21',
+                'updated_at' => '2020-10-04 11:38:21',
             ),
             3 => 
             array (
@@ -79,7 +79,7 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 1,
                 'authority_data' => NULL,
                 'created_at' => '2020-03-10 08:47:09',
-                'updated_at' => '2020-07-31 21:57:28',
+                'updated_at' => '2020-10-04 11:35:08',
             ),
             4 => 
             array (
@@ -95,7 +95,7 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-03-09 20:41:09',
-                'updated_at' => '2020-06-29 08:32:21',
+                'updated_at' => '2020-10-04 11:38:21',
             ),
             5 => 
             array (
@@ -111,7 +111,7 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-03-12 06:35:08',
-                'updated_at' => '2020-07-31 21:57:28',
+                'updated_at' => '2020-10-04 11:35:08',
             ),
             6 => 
             array (
@@ -127,7 +127,7 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-03-11 07:22:01',
-                'updated_at' => '2020-06-29 08:32:21',
+                'updated_at' => '2020-10-04 11:38:21',
             ),
             7 => 
             array (
@@ -143,7 +143,7 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-03-12 10:51:08',
-                'updated_at' => '2020-07-31 21:57:28',
+                'updated_at' => '2020-10-04 11:35:08',
             ),
             8 => 
             array (
@@ -159,7 +159,7 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-03-09 20:41:09',
-                'updated_at' => '2020-06-29 08:32:21',
+                'updated_at' => '2020-10-04 11:38:21',
             ),
             9 => 
             array (
@@ -175,7 +175,7 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-03-10 08:47:09',
-                'updated_at' => '2020-07-31 21:57:28',
+                'updated_at' => '2020-10-04 11:35:08',
             ),
             10 => 
             array (
@@ -191,7 +191,7 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-06-29 08:34:06',
-                'updated_at' => '2020-06-29 08:48:36',
+                'updated_at' => '2020-10-04 11:39:51',
             ),
             11 => 
             array (
@@ -207,7 +207,7 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-06-29 08:37:14',
-                'updated_at' => '2020-07-13 14:59:35',
+                'updated_at' => '2020-10-04 11:39:33',
             ),
             12 => 
             array (
@@ -223,7 +223,7 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-06-29 08:41:40',
-                'updated_at' => '2020-07-29 16:07:11',
+                'updated_at' => '2020-10-04 11:39:22',
             ),
             13 => 
             array (
@@ -255,7 +255,7 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-06-29 08:46:38',
-                'updated_at' => '2020-07-13 15:11:31',
+                'updated_at' => '2020-10-04 11:38:50',
             ),
             15 => 
             array (
@@ -271,7 +271,7 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-03-11 07:22:01',
-                'updated_at' => '2020-06-29 08:32:21',
+                'updated_at' => '2020-10-04 11:38:21',
             ),
             16 => 
             array (
@@ -287,9 +287,25 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-03-10 08:47:09',
-                'updated_at' => '2020-07-31 21:57:28',
+                'updated_at' => '2020-10-04 11:35:08',
             ),
             17 => 
+            array (
+                'menu_id' => 14,
+                'role_id' => 4,
+                'authority_read' => 1,
+                'authority_create' => 1,
+                'authority_update' => 1,
+                'authority_delete' => 1,
+                'authority_import' => 0,
+                'authority_export' => 0,
+                'authority_approve' => 0,
+                'authority_disposition' => 0,
+                'authority_data' => NULL,
+                'created_at' => '2020-10-04 11:38:21',
+                'updated_at' => '2020-10-04 11:38:21',
+            ),
+            18 => 
             array (
                 'menu_id' => 14,
                 'role_id' => 5,
@@ -303,9 +319,25 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-03-12 10:51:08',
-                'updated_at' => '2020-07-31 21:57:28',
+                'updated_at' => '2020-10-04 11:35:08',
             ),
-            18 => 
+            19 => 
+            array (
+                'menu_id' => 15,
+                'role_id' => 4,
+                'authority_read' => 1,
+                'authority_create' => 1,
+                'authority_update' => 1,
+                'authority_delete' => 1,
+                'authority_import' => 0,
+                'authority_export' => 0,
+                'authority_approve' => 0,
+                'authority_disposition' => 0,
+                'authority_data' => NULL,
+                'created_at' => '2020-10-04 11:38:21',
+                'updated_at' => '2020-10-04 11:38:21',
+            ),
+            20 => 
             array (
                 'menu_id' => 15,
                 'role_id' => 5,
@@ -319,9 +351,25 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-03-12 10:51:08',
-                'updated_at' => '2020-07-31 21:57:28',
+                'updated_at' => '2020-10-04 11:35:08',
             ),
-            19 => 
+            21 => 
+            array (
+                'menu_id' => 16,
+                'role_id' => 4,
+                'authority_read' => 1,
+                'authority_create' => 1,
+                'authority_update' => 1,
+                'authority_delete' => 1,
+                'authority_import' => 0,
+                'authority_export' => 0,
+                'authority_approve' => 0,
+                'authority_disposition' => 0,
+                'authority_data' => NULL,
+                'created_at' => '2020-10-04 11:38:21',
+                'updated_at' => '2020-10-04 11:38:21',
+            ),
+            22 => 
             array (
                 'menu_id' => 16,
                 'role_id' => 5,
@@ -335,9 +383,25 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-03-12 10:51:08',
-                'updated_at' => '2020-07-31 21:57:28',
+                'updated_at' => '2020-10-04 11:35:08',
             ),
-            20 => 
+            23 => 
+            array (
+                'menu_id' => 17,
+                'role_id' => 4,
+                'authority_read' => 1,
+                'authority_create' => 1,
+                'authority_update' => 1,
+                'authority_delete' => 1,
+                'authority_import' => 0,
+                'authority_export' => 0,
+                'authority_approve' => 0,
+                'authority_disposition' => 0,
+                'authority_data' => NULL,
+                'created_at' => '2020-10-04 11:38:21',
+                'updated_at' => '2020-10-04 11:38:21',
+            ),
+            24 => 
             array (
                 'menu_id' => 17,
                 'role_id' => 5,
@@ -351,9 +415,25 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-03-12 10:51:08',
-                'updated_at' => '2020-07-31 21:57:28',
+                'updated_at' => '2020-10-04 11:35:08',
             ),
-            21 => 
+            25 => 
+            array (
+                'menu_id' => 18,
+                'role_id' => 4,
+                'authority_read' => 1,
+                'authority_create' => 1,
+                'authority_update' => 1,
+                'authority_delete' => 1,
+                'authority_import' => 0,
+                'authority_export' => 0,
+                'authority_approve' => 0,
+                'authority_disposition' => 0,
+                'authority_data' => NULL,
+                'created_at' => '2020-10-04 11:38:21',
+                'updated_at' => '2020-10-04 11:38:21',
+            ),
+            26 => 
             array (
                 'menu_id' => 18,
                 'role_id' => 5,
@@ -367,9 +447,25 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-03-13 11:00:15',
-                'updated_at' => '2020-07-31 21:57:28',
+                'updated_at' => '2020-10-04 11:35:08',
             ),
-            22 => 
+            27 => 
+            array (
+                'menu_id' => 19,
+                'role_id' => 4,
+                'authority_read' => 1,
+                'authority_create' => 1,
+                'authority_update' => 1,
+                'authority_delete' => 1,
+                'authority_import' => 0,
+                'authority_export' => 0,
+                'authority_approve' => 0,
+                'authority_disposition' => 0,
+                'authority_data' => NULL,
+                'created_at' => '2020-10-04 11:38:21',
+                'updated_at' => '2020-10-04 11:38:21',
+            ),
+            28 => 
             array (
                 'menu_id' => 19,
                 'role_id' => 5,
@@ -383,9 +479,25 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-03-21 11:00:09',
-                'updated_at' => '2020-07-31 21:57:28',
+                'updated_at' => '2020-10-04 11:35:08',
             ),
-            23 => 
+            29 => 
+            array (
+                'menu_id' => 20,
+                'role_id' => 4,
+                'authority_read' => 1,
+                'authority_create' => 1,
+                'authority_update' => 1,
+                'authority_delete' => 1,
+                'authority_import' => 1,
+                'authority_export' => 1,
+                'authority_approve' => 1,
+                'authority_disposition' => 1,
+                'authority_data' => NULL,
+                'created_at' => '2020-10-04 11:38:21',
+                'updated_at' => '2020-10-04 11:38:21',
+            ),
+            30 => 
             array (
                 'menu_id' => 20,
                 'role_id' => 5,
@@ -399,9 +511,9 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 1,
                 'authority_data' => NULL,
                 'created_at' => '2020-03-23 20:07:31',
-                'updated_at' => '2020-07-31 21:57:28',
+                'updated_at' => '2020-10-04 11:35:08',
             ),
-            24 => 
+            31 => 
             array (
                 'menu_id' => 20,
                 'role_id' => 10,
@@ -415,9 +527,9 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-06-29 08:34:06',
-                'updated_at' => '2020-06-29 08:48:36',
+                'updated_at' => '2020-10-04 11:39:51',
             ),
-            25 => 
+            32 => 
             array (
                 'menu_id' => 20,
                 'role_id' => 11,
@@ -431,9 +543,9 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-06-29 08:37:14',
-                'updated_at' => '2020-07-13 14:59:35',
+                'updated_at' => '2020-10-04 11:39:33',
             ),
-            26 => 
+            33 => 
             array (
                 'menu_id' => 20,
                 'role_id' => 12,
@@ -447,9 +559,9 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-06-29 08:41:40',
-                'updated_at' => '2020-07-29 16:07:11',
+                'updated_at' => '2020-10-04 11:39:22',
             ),
-            27 => 
+            34 => 
             array (
                 'menu_id' => 20,
                 'role_id' => 13,
@@ -465,7 +577,7 @@ class MenuRolesTableSeeder extends Seeder
                 'created_at' => '2020-06-29 08:43:58',
                 'updated_at' => '2020-06-30 04:34:10',
             ),
-            28 => 
+            35 => 
             array (
                 'menu_id' => 20,
                 'role_id' => 14,
@@ -479,9 +591,25 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 1,
                 'authority_data' => NULL,
                 'created_at' => '2020-06-29 08:46:38',
-                'updated_at' => '2020-07-13 15:11:31',
+                'updated_at' => '2020-10-04 11:38:50',
             ),
-            29 => 
+            36 => 
+            array (
+                'menu_id' => 21,
+                'role_id' => 4,
+                'authority_read' => 1,
+                'authority_create' => 1,
+                'authority_update' => 1,
+                'authority_delete' => 1,
+                'authority_import' => 0,
+                'authority_export' => 0,
+                'authority_approve' => 0,
+                'authority_disposition' => 0,
+                'authority_data' => NULL,
+                'created_at' => '2020-10-04 11:38:21',
+                'updated_at' => '2020-10-04 11:38:21',
+            ),
+            37 => 
             array (
                 'menu_id' => 21,
                 'role_id' => 5,
@@ -495,9 +623,25 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-03-30 15:15:11',
-                'updated_at' => '2020-07-31 21:57:28',
+                'updated_at' => '2020-10-04 11:35:08',
             ),
-            30 => 
+            38 => 
+            array (
+                'menu_id' => 22,
+                'role_id' => 4,
+                'authority_read' => 1,
+                'authority_create' => 1,
+                'authority_update' => 1,
+                'authority_delete' => 1,
+                'authority_import' => 0,
+                'authority_export' => 0,
+                'authority_approve' => 0,
+                'authority_disposition' => 0,
+                'authority_data' => NULL,
+                'created_at' => '2020-10-04 11:38:21',
+                'updated_at' => '2020-10-04 11:38:21',
+            ),
+            39 => 
             array (
                 'menu_id' => 22,
                 'role_id' => 5,
@@ -511,9 +655,25 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-04-02 06:17:56',
-                'updated_at' => '2020-07-31 21:57:28',
+                'updated_at' => '2020-10-04 11:35:08',
             ),
-            31 => 
+            40 => 
+            array (
+                'menu_id' => 23,
+                'role_id' => 4,
+                'authority_read' => 1,
+                'authority_create' => 0,
+                'authority_update' => 0,
+                'authority_delete' => 0,
+                'authority_import' => 0,
+                'authority_export' => 0,
+                'authority_approve' => 0,
+                'authority_disposition' => 0,
+                'authority_data' => NULL,
+                'created_at' => '2020-10-04 11:38:21',
+                'updated_at' => '2020-10-04 11:38:21',
+            ),
+            41 => 
             array (
                 'menu_id' => 23,
                 'role_id' => 5,
@@ -527,9 +687,9 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-04-24 14:57:31',
-                'updated_at' => '2020-07-31 21:57:28',
+                'updated_at' => '2020-10-04 11:35:08',
             ),
-            32 => 
+            42 => 
             array (
                 'menu_id' => 23,
                 'role_id' => 10,
@@ -543,9 +703,9 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-06-29 08:34:06',
-                'updated_at' => '2020-06-29 08:48:36',
+                'updated_at' => '2020-10-04 11:39:51',
             ),
-            33 => 
+            43 => 
             array (
                 'menu_id' => 23,
                 'role_id' => 11,
@@ -559,9 +719,9 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-06-29 08:37:14',
-                'updated_at' => '2020-07-13 14:59:35',
+                'updated_at' => '2020-10-04 11:39:33',
             ),
-            34 => 
+            44 => 
             array (
                 'menu_id' => 23,
                 'role_id' => 12,
@@ -575,9 +735,9 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-06-29 08:41:40',
-                'updated_at' => '2020-07-29 16:07:11',
+                'updated_at' => '2020-10-04 11:39:22',
             ),
-            35 => 
+            45 => 
             array (
                 'menu_id' => 23,
                 'role_id' => 13,
@@ -593,7 +753,7 @@ class MenuRolesTableSeeder extends Seeder
                 'created_at' => '2020-06-29 08:43:58',
                 'updated_at' => '2020-06-30 04:34:10',
             ),
-            36 => 
+            46 => 
             array (
                 'menu_id' => 23,
                 'role_id' => 14,
@@ -607,9 +767,25 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-06-29 08:46:38',
-                'updated_at' => '2020-07-13 15:11:31',
+                'updated_at' => '2020-10-04 11:38:50',
             ),
-            37 => 
+            47 => 
+            array (
+                'menu_id' => 24,
+                'role_id' => 4,
+                'authority_read' => 1,
+                'authority_create' => 0,
+                'authority_update' => 1,
+                'authority_delete' => 0,
+                'authority_import' => 0,
+                'authority_export' => 0,
+                'authority_approve' => 1,
+                'authority_disposition' => 0,
+                'authority_data' => NULL,
+                'created_at' => '2020-10-04 11:38:21',
+                'updated_at' => '2020-10-04 11:38:21',
+            ),
+            48 => 
             array (
                 'menu_id' => 24,
                 'role_id' => 5,
@@ -623,9 +799,9 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-04-24 14:57:31',
-                'updated_at' => '2020-07-31 21:57:28',
+                'updated_at' => '2020-10-04 11:35:08',
             ),
-            38 => 
+            49 => 
             array (
                 'menu_id' => 24,
                 'role_id' => 11,
@@ -639,9 +815,9 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-06-29 08:37:14',
-                'updated_at' => '2020-07-13 14:59:35',
+                'updated_at' => '2020-10-04 11:39:33',
             ),
-            39 => 
+            50 => 
             array (
                 'menu_id' => 24,
                 'role_id' => 12,
@@ -655,9 +831,9 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-06-29 08:41:40',
-                'updated_at' => '2020-07-29 16:07:11',
+                'updated_at' => '2020-10-04 11:39:22',
             ),
-            40 => 
+            51 => 
             array (
                 'menu_id' => 24,
                 'role_id' => 13,
@@ -673,7 +849,7 @@ class MenuRolesTableSeeder extends Seeder
                 'created_at' => '2020-06-29 08:43:58',
                 'updated_at' => '2020-06-30 04:34:10',
             ),
-            41 => 
+            52 => 
             array (
                 'menu_id' => 24,
                 'role_id' => 14,
@@ -687,9 +863,25 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-06-29 08:46:38',
-                'updated_at' => '2020-07-13 15:11:31',
+                'updated_at' => '2020-10-04 11:38:50',
             ),
-            42 => 
+            53 => 
+            array (
+                'menu_id' => 25,
+                'role_id' => 4,
+                'authority_read' => 1,
+                'authority_create' => 0,
+                'authority_update' => 1,
+                'authority_delete' => 0,
+                'authority_import' => 0,
+                'authority_export' => 0,
+                'authority_approve' => 1,
+                'authority_disposition' => 0,
+                'authority_data' => NULL,
+                'created_at' => '2020-10-04 11:38:21',
+                'updated_at' => '2020-10-04 11:38:21',
+            ),
+            54 => 
             array (
                 'menu_id' => 25,
                 'role_id' => 5,
@@ -703,9 +895,9 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-04-24 14:57:31',
-                'updated_at' => '2020-07-31 21:57:28',
+                'updated_at' => '2020-10-04 11:35:08',
             ),
-            43 => 
+            55 => 
             array (
                 'menu_id' => 25,
                 'role_id' => 11,
@@ -719,9 +911,25 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-07-13 14:59:35',
-                'updated_at' => '2020-07-13 14:59:35',
+                'updated_at' => '2020-10-04 11:39:33',
             ),
-            44 => 
+            56 => 
+            array (
+                'menu_id' => 25,
+                'role_id' => 12,
+                'authority_read' => 1,
+                'authority_create' => 0,
+                'authority_update' => 1,
+                'authority_delete' => 0,
+                'authority_import' => 0,
+                'authority_export' => 0,
+                'authority_approve' => 1,
+                'authority_disposition' => 0,
+                'authority_data' => NULL,
+                'created_at' => '2020-08-23 15:09:04',
+                'updated_at' => '2020-10-04 11:39:22',
+            ),
+            57 => 
             array (
                 'menu_id' => 25,
                 'role_id' => 13,
@@ -737,7 +945,23 @@ class MenuRolesTableSeeder extends Seeder
                 'created_at' => '2020-06-29 08:43:58',
                 'updated_at' => '2020-06-30 04:34:10',
             ),
-            45 => 
+            58 => 
+            array (
+                'menu_id' => 26,
+                'role_id' => 4,
+                'authority_read' => 1,
+                'authority_create' => 0,
+                'authority_update' => 1,
+                'authority_delete' => 0,
+                'authority_import' => 0,
+                'authority_export' => 1,
+                'authority_approve' => 1,
+                'authority_disposition' => 0,
+                'authority_data' => NULL,
+                'created_at' => '2020-10-04 11:38:21',
+                'updated_at' => '2020-10-04 11:38:21',
+            ),
+            59 => 
             array (
                 'menu_id' => 26,
                 'role_id' => 5,
@@ -751,9 +975,9 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-04-24 14:57:31',
-                'updated_at' => '2020-07-31 21:57:28',
+                'updated_at' => '2020-10-04 11:35:08',
             ),
-            46 => 
+            60 => 
             array (
                 'menu_id' => 26,
                 'role_id' => 14,
@@ -767,9 +991,25 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-06-29 08:46:38',
-                'updated_at' => '2020-07-13 15:11:31',
+                'updated_at' => '2020-10-04 11:38:50',
             ),
-            47 => 
+            61 => 
+            array (
+                'menu_id' => 27,
+                'role_id' => 4,
+                'authority_read' => 1,
+                'authority_create' => 0,
+                'authority_update' => 0,
+                'authority_delete' => 0,
+                'authority_import' => 0,
+                'authority_export' => 0,
+                'authority_approve' => 0,
+                'authority_disposition' => 0,
+                'authority_data' => NULL,
+                'created_at' => '2020-10-04 11:38:21',
+                'updated_at' => '2020-10-04 11:38:21',
+            ),
+            62 => 
             array (
                 'menu_id' => 27,
                 'role_id' => 5,
@@ -783,250 +1023,282 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-04-24 15:05:48',
-                'updated_at' => '2020-07-31 21:57:28',
-            ),
-            48 => 
-            array (
-                'menu_id' => 27,
-                'role_id' => 10,
-                'authority_read' => 1,
-                'authority_create' => 0,
-                'authority_update' => 0,
-                'authority_delete' => 0,
-                'authority_import' => 0,
-                'authority_export' => 0,
-                'authority_approve' => 0,
-                'authority_disposition' => 0,
-                'authority_data' => NULL,
-                'created_at' => '2020-06-29 08:48:36',
-                'updated_at' => '2020-06-29 08:48:36',
-            ),
-            49 => 
-            array (
-                'menu_id' => 27,
-                'role_id' => 11,
-                'authority_read' => 1,
-                'authority_create' => 0,
-                'authority_update' => 0,
-                'authority_delete' => 0,
-                'authority_import' => 0,
-                'authority_export' => 0,
-                'authority_approve' => 0,
-                'authority_disposition' => 0,
-                'authority_data' => NULL,
-                'created_at' => '2020-06-29 08:37:14',
-                'updated_at' => '2020-07-13 14:59:35',
-            ),
-            50 => 
-            array (
-                'menu_id' => 27,
-                'role_id' => 12,
-                'authority_read' => 1,
-                'authority_create' => 0,
-                'authority_update' => 0,
-                'authority_delete' => 0,
-                'authority_import' => 0,
-                'authority_export' => 0,
-                'authority_approve' => 0,
-                'authority_disposition' => 0,
-                'authority_data' => NULL,
-                'created_at' => '2020-06-29 08:41:40',
-                'updated_at' => '2020-07-29 16:07:11',
-            ),
-            51 => 
-            array (
-                'menu_id' => 27,
-                'role_id' => 13,
-                'authority_read' => 1,
-                'authority_create' => 0,
-                'authority_update' => 0,
-                'authority_delete' => 0,
-                'authority_import' => 0,
-                'authority_export' => 0,
-                'authority_approve' => 0,
-                'authority_disposition' => 0,
-                'authority_data' => NULL,
-                'created_at' => '2020-06-29 08:43:58',
-                'updated_at' => '2020-06-30 04:34:10',
-            ),
-            52 => 
-            array (
-                'menu_id' => 27,
-                'role_id' => 14,
-                'authority_read' => 1,
-                'authority_create' => 0,
-                'authority_update' => 0,
-                'authority_delete' => 0,
-                'authority_import' => 0,
-                'authority_export' => 0,
-                'authority_approve' => 0,
-                'authority_disposition' => 0,
-                'authority_data' => NULL,
-                'created_at' => '2020-06-29 08:46:38',
-                'updated_at' => '2020-07-13 15:11:31',
-            ),
-            53 => 
-            array (
-                'menu_id' => 28,
-                'role_id' => 5,
-                'authority_read' => 1,
-                'authority_create' => 1,
-                'authority_update' => 1,
-                'authority_delete' => 1,
-                'authority_import' => 1,
-                'authority_export' => 1,
-                'authority_approve' => 0,
-                'authority_disposition' => 0,
-                'authority_data' => NULL,
-                'created_at' => '2020-04-24 15:05:49',
-                'updated_at' => '2020-07-31 21:57:28',
-            ),
-            54 => 
-            array (
-                'menu_id' => 28,
-                'role_id' => 10,
-                'authority_read' => 1,
-                'authority_create' => 0,
-                'authority_update' => 0,
-                'authority_delete' => 0,
-                'authority_import' => 0,
-                'authority_export' => 1,
-                'authority_approve' => 0,
-                'authority_disposition' => 0,
-                'authority_data' => NULL,
-                'created_at' => '2020-06-29 08:48:36',
-                'updated_at' => '2020-06-29 08:48:36',
-            ),
-            55 => 
-            array (
-                'menu_id' => 28,
-                'role_id' => 11,
-                'authority_read' => 1,
-                'authority_create' => 0,
-                'authority_update' => 0,
-                'authority_delete' => 0,
-                'authority_import' => 0,
-                'authority_export' => 0,
-                'authority_approve' => 0,
-                'authority_disposition' => 1,
-                'authority_data' => NULL,
-                'created_at' => '2020-06-29 08:37:14',
-                'updated_at' => '2020-07-13 14:59:35',
-            ),
-            56 => 
-            array (
-                'menu_id' => 28,
-                'role_id' => 12,
-                'authority_read' => 1,
-                'authority_create' => 0,
-                'authority_update' => 0,
-                'authority_delete' => 0,
-                'authority_import' => 0,
-                'authority_export' => 0,
-                'authority_approve' => 0,
-                'authority_disposition' => 1,
-                'authority_data' => NULL,
-                'created_at' => '2020-06-29 08:41:40',
-                'updated_at' => '2020-07-29 16:07:11',
-            ),
-            57 => 
-            array (
-                'menu_id' => 28,
-                'role_id' => 13,
-                'authority_read' => 1,
-                'authority_create' => 0,
-                'authority_update' => 0,
-                'authority_delete' => 0,
-                'authority_import' => 0,
-                'authority_export' => 0,
-                'authority_approve' => 0,
-                'authority_disposition' => 1,
-                'authority_data' => NULL,
-                'created_at' => '2020-06-29 08:43:58',
-                'updated_at' => '2020-06-30 04:34:10',
-            ),
-            58 => 
-            array (
-                'menu_id' => 28,
-                'role_id' => 14,
-                'authority_read' => 1,
-                'authority_create' => 1,
-                'authority_update' => 1,
-                'authority_delete' => 1,
-                'authority_import' => 1,
-                'authority_export' => 1,
-                'authority_approve' => 0,
-                'authority_disposition' => 1,
-                'authority_data' => NULL,
-                'created_at' => '2020-06-29 08:46:38',
-                'updated_at' => '2020-07-13 15:11:32',
-            ),
-            59 => 
-            array (
-                'menu_id' => 29,
-                'role_id' => 5,
-                'authority_read' => 1,
-                'authority_create' => 1,
-                'authority_update' => 1,
-                'authority_delete' => 0,
-                'authority_import' => 0,
-                'authority_export' => 0,
-                'authority_approve' => 0,
-                'authority_disposition' => 0,
-                'authority_data' => NULL,
-                'created_at' => '2020-04-24 15:05:49',
-                'updated_at' => '2020-07-31 21:57:28',
-            ),
-            60 => 
-            array (
-                'menu_id' => 29,
-                'role_id' => 11,
-                'authority_read' => 1,
-                'authority_create' => 1,
-                'authority_update' => 1,
-                'authority_delete' => 1,
-                'authority_import' => 0,
-                'authority_export' => 0,
-                'authority_approve' => 0,
-                'authority_disposition' => 0,
-                'authority_data' => NULL,
-                'created_at' => '2020-06-29 08:37:14',
-                'updated_at' => '2020-07-13 14:59:35',
-            ),
-            61 => 
-            array (
-                'menu_id' => 29,
-                'role_id' => 12,
-                'authority_read' => 1,
-                'authority_create' => 1,
-                'authority_update' => 1,
-                'authority_delete' => 1,
-                'authority_import' => 0,
-                'authority_export' => 0,
-                'authority_approve' => 0,
-                'authority_disposition' => 0,
-                'authority_data' => NULL,
-                'created_at' => '2020-06-29 08:41:40',
-                'updated_at' => '2020-07-29 16:07:11',
-            ),
-            62 => 
-            array (
-                'menu_id' => 29,
-                'role_id' => 13,
-                'authority_read' => 1,
-                'authority_create' => 1,
-                'authority_update' => 1,
-                'authority_delete' => 1,
-                'authority_import' => 0,
-                'authority_export' => 0,
-                'authority_approve' => 0,
-                'authority_disposition' => 0,
-                'authority_data' => NULL,
-                'created_at' => '2020-06-29 08:43:58',
-                'updated_at' => '2020-06-30 04:34:10',
+                'updated_at' => '2020-10-04 11:35:08',
             ),
             63 => 
             array (
+                'menu_id' => 27,
+                'role_id' => 10,
+                'authority_read' => 1,
+                'authority_create' => 0,
+                'authority_update' => 0,
+                'authority_delete' => 0,
+                'authority_import' => 0,
+                'authority_export' => 0,
+                'authority_approve' => 0,
+                'authority_disposition' => 0,
+                'authority_data' => NULL,
+                'created_at' => '2020-06-29 08:48:36',
+                'updated_at' => '2020-10-04 11:39:51',
+            ),
+            64 => 
+            array (
+                'menu_id' => 27,
+                'role_id' => 11,
+                'authority_read' => 1,
+                'authority_create' => 0,
+                'authority_update' => 0,
+                'authority_delete' => 0,
+                'authority_import' => 0,
+                'authority_export' => 0,
+                'authority_approve' => 0,
+                'authority_disposition' => 0,
+                'authority_data' => NULL,
+                'created_at' => '2020-06-29 08:37:14',
+                'updated_at' => '2020-10-04 11:39:33',
+            ),
+            65 => 
+            array (
+                'menu_id' => 27,
+                'role_id' => 12,
+                'authority_read' => 1,
+                'authority_create' => 0,
+                'authority_update' => 0,
+                'authority_delete' => 0,
+                'authority_import' => 0,
+                'authority_export' => 0,
+                'authority_approve' => 0,
+                'authority_disposition' => 0,
+                'authority_data' => NULL,
+                'created_at' => '2020-06-29 08:41:40',
+                'updated_at' => '2020-10-04 11:39:22',
+            ),
+            66 => 
+            array (
+                'menu_id' => 27,
+                'role_id' => 13,
+                'authority_read' => 1,
+                'authority_create' => 0,
+                'authority_update' => 0,
+                'authority_delete' => 0,
+                'authority_import' => 0,
+                'authority_export' => 0,
+                'authority_approve' => 0,
+                'authority_disposition' => 0,
+                'authority_data' => NULL,
+                'created_at' => '2020-06-29 08:43:58',
+                'updated_at' => '2020-06-30 04:34:10',
+            ),
+            67 => 
+            array (
+                'menu_id' => 27,
+                'role_id' => 14,
+                'authority_read' => 1,
+                'authority_create' => 0,
+                'authority_update' => 0,
+                'authority_delete' => 0,
+                'authority_import' => 0,
+                'authority_export' => 0,
+                'authority_approve' => 0,
+                'authority_disposition' => 0,
+                'authority_data' => NULL,
+                'created_at' => '2020-06-29 08:46:38',
+                'updated_at' => '2020-10-04 11:38:50',
+            ),
+            68 => 
+            array (
+                'menu_id' => 28,
+                'role_id' => 4,
+                'authority_read' => 1,
+                'authority_create' => 1,
+                'authority_update' => 1,
+                'authority_delete' => 1,
+                'authority_import' => 1,
+                'authority_export' => 1,
+                'authority_approve' => 0,
+                'authority_disposition' => 1,
+                'authority_data' => NULL,
+                'created_at' => '2020-10-04 11:38:21',
+                'updated_at' => '2020-10-04 11:38:21',
+            ),
+            69 => 
+            array (
+                'menu_id' => 28,
+                'role_id' => 5,
+                'authority_read' => 1,
+                'authority_create' => 1,
+                'authority_update' => 1,
+                'authority_delete' => 1,
+                'authority_import' => 1,
+                'authority_export' => 1,
+                'authority_approve' => 0,
+                'authority_disposition' => 0,
+                'authority_data' => NULL,
+                'created_at' => '2020-04-24 15:05:49',
+                'updated_at' => '2020-10-04 11:35:08',
+            ),
+            70 => 
+            array (
+                'menu_id' => 28,
+                'role_id' => 10,
+                'authority_read' => 1,
+                'authority_create' => 0,
+                'authority_update' => 0,
+                'authority_delete' => 0,
+                'authority_import' => 0,
+                'authority_export' => 1,
+                'authority_approve' => 0,
+                'authority_disposition' => 0,
+                'authority_data' => NULL,
+                'created_at' => '2020-06-29 08:48:36',
+                'updated_at' => '2020-10-04 11:39:51',
+            ),
+            71 => 
+            array (
+                'menu_id' => 28,
+                'role_id' => 11,
+                'authority_read' => 1,
+                'authority_create' => 0,
+                'authority_update' => 0,
+                'authority_delete' => 0,
+                'authority_import' => 0,
+                'authority_export' => 0,
+                'authority_approve' => 0,
+                'authority_disposition' => 1,
+                'authority_data' => NULL,
+                'created_at' => '2020-06-29 08:37:14',
+                'updated_at' => '2020-10-04 11:39:33',
+            ),
+            72 => 
+            array (
+                'menu_id' => 28,
+                'role_id' => 12,
+                'authority_read' => 1,
+                'authority_create' => 0,
+                'authority_update' => 0,
+                'authority_delete' => 0,
+                'authority_import' => 0,
+                'authority_export' => 0,
+                'authority_approve' => 0,
+                'authority_disposition' => 1,
+                'authority_data' => NULL,
+                'created_at' => '2020-06-29 08:41:40',
+                'updated_at' => '2020-10-04 11:39:22',
+            ),
+            73 => 
+            array (
+                'menu_id' => 28,
+                'role_id' => 13,
+                'authority_read' => 1,
+                'authority_create' => 0,
+                'authority_update' => 0,
+                'authority_delete' => 0,
+                'authority_import' => 0,
+                'authority_export' => 0,
+                'authority_approve' => 0,
+                'authority_disposition' => 1,
+                'authority_data' => NULL,
+                'created_at' => '2020-06-29 08:43:58',
+                'updated_at' => '2020-06-30 04:34:10',
+            ),
+            74 => 
+            array (
+                'menu_id' => 28,
+                'role_id' => 14,
+                'authority_read' => 1,
+                'authority_create' => 1,
+                'authority_update' => 1,
+                'authority_delete' => 1,
+                'authority_import' => 1,
+                'authority_export' => 1,
+                'authority_approve' => 0,
+                'authority_disposition' => 1,
+                'authority_data' => NULL,
+                'created_at' => '2020-06-29 08:46:38',
+                'updated_at' => '2020-10-04 11:38:50',
+            ),
+            75 => 
+            array (
+                'menu_id' => 29,
+                'role_id' => 4,
+                'authority_read' => 1,
+                'authority_create' => 1,
+                'authority_update' => 1,
+                'authority_delete' => 1,
+                'authority_import' => 0,
+                'authority_export' => 0,
+                'authority_approve' => 0,
+                'authority_disposition' => 0,
+                'authority_data' => NULL,
+                'created_at' => '2020-10-04 11:38:21',
+                'updated_at' => '2020-10-04 11:38:21',
+            ),
+            76 => 
+            array (
+                'menu_id' => 29,
+                'role_id' => 5,
+                'authority_read' => 1,
+                'authority_create' => 1,
+                'authority_update' => 1,
+                'authority_delete' => 0,
+                'authority_import' => 0,
+                'authority_export' => 0,
+                'authority_approve' => 0,
+                'authority_disposition' => 0,
+                'authority_data' => NULL,
+                'created_at' => '2020-04-24 15:05:49',
+                'updated_at' => '2020-10-04 11:35:08',
+            ),
+            77 => 
+            array (
+                'menu_id' => 29,
+                'role_id' => 11,
+                'authority_read' => 1,
+                'authority_create' => 1,
+                'authority_update' => 1,
+                'authority_delete' => 1,
+                'authority_import' => 0,
+                'authority_export' => 0,
+                'authority_approve' => 0,
+                'authority_disposition' => 0,
+                'authority_data' => NULL,
+                'created_at' => '2020-06-29 08:37:14',
+                'updated_at' => '2020-10-04 11:39:33',
+            ),
+            78 => 
+            array (
+                'menu_id' => 29,
+                'role_id' => 12,
+                'authority_read' => 1,
+                'authority_create' => 1,
+                'authority_update' => 1,
+                'authority_delete' => 1,
+                'authority_import' => 0,
+                'authority_export' => 0,
+                'authority_approve' => 0,
+                'authority_disposition' => 0,
+                'authority_data' => NULL,
+                'created_at' => '2020-06-29 08:41:40',
+                'updated_at' => '2020-10-04 11:39:22',
+            ),
+            79 => 
+            array (
+                'menu_id' => 29,
+                'role_id' => 13,
+                'authority_read' => 1,
+                'authority_create' => 1,
+                'authority_update' => 1,
+                'authority_delete' => 1,
+                'authority_import' => 0,
+                'authority_export' => 0,
+                'authority_approve' => 0,
+                'authority_disposition' => 0,
+                'authority_data' => NULL,
+                'created_at' => '2020-06-29 08:43:58',
+                'updated_at' => '2020-06-30 04:34:10',
+            ),
+            80 => 
+            array (
                 'menu_id' => 29,
                 'role_id' => 14,
                 'authority_read' => 1,
@@ -1039,9 +1311,25 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-06-29 08:46:38',
-                'updated_at' => '2020-07-13 15:11:32',
+                'updated_at' => '2020-10-04 11:38:50',
             ),
-            64 => 
+            81 => 
+            array (
+                'menu_id' => 30,
+                'role_id' => 4,
+                'authority_read' => 1,
+                'authority_create' => 1,
+                'authority_update' => 1,
+                'authority_delete' => 0,
+                'authority_import' => 0,
+                'authority_export' => 0,
+                'authority_approve' => 0,
+                'authority_disposition' => 0,
+                'authority_data' => NULL,
+                'created_at' => '2020-10-04 11:38:21',
+                'updated_at' => '2020-10-04 11:38:21',
+            ),
+            82 => 
             array (
                 'menu_id' => 30,
                 'role_id' => 5,
@@ -1055,9 +1343,9 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-05-05 16:35:38',
-                'updated_at' => '2020-07-31 21:57:28',
+                'updated_at' => '2020-10-04 11:35:08',
             ),
-            65 => 
+            83 => 
             array (
                 'menu_id' => 30,
                 'role_id' => 11,
@@ -1071,9 +1359,9 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-06-29 08:37:14',
-                'updated_at' => '2020-07-13 14:59:35',
+                'updated_at' => '2020-10-04 11:39:33',
             ),
-            66 => 
+            84 => 
             array (
                 'menu_id' => 30,
                 'role_id' => 12,
@@ -1087,9 +1375,9 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-06-29 08:41:40',
-                'updated_at' => '2020-07-29 16:07:11',
+                'updated_at' => '2020-10-04 11:39:22',
             ),
-            67 => 
+            85 => 
             array (
                 'menu_id' => 30,
                 'role_id' => 13,
@@ -1105,7 +1393,7 @@ class MenuRolesTableSeeder extends Seeder
                 'created_at' => '2020-06-29 08:43:58',
                 'updated_at' => '2020-06-30 04:34:10',
             ),
-            68 => 
+            86 => 
             array (
                 'menu_id' => 30,
                 'role_id' => 14,
@@ -1119,9 +1407,25 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-06-29 08:46:38',
-                'updated_at' => '2020-07-13 15:11:32',
+                'updated_at' => '2020-10-04 11:38:50',
             ),
-            69 => 
+            87 => 
+            array (
+                'menu_id' => 31,
+                'role_id' => 4,
+                'authority_read' => 1,
+                'authority_create' => 0,
+                'authority_update' => 1,
+                'authority_delete' => 0,
+                'authority_import' => 0,
+                'authority_export' => 0,
+                'authority_approve' => 0,
+                'authority_disposition' => 0,
+                'authority_data' => NULL,
+                'created_at' => '2020-10-04 11:38:21',
+                'updated_at' => '2020-10-04 11:38:21',
+            ),
+            88 => 
             array (
                 'menu_id' => 31,
                 'role_id' => 5,
@@ -1135,9 +1439,25 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-05-08 06:42:02',
-                'updated_at' => '2020-07-31 21:57:28',
+                'updated_at' => '2020-10-04 11:35:08',
             ),
-            70 => 
+            89 => 
+            array (
+                'menu_id' => 33,
+                'role_id' => 4,
+                'authority_read' => 1,
+                'authority_create' => 1,
+                'authority_update' => 1,
+                'authority_delete' => 1,
+                'authority_import' => 0,
+                'authority_export' => 0,
+                'authority_approve' => 0,
+                'authority_disposition' => 0,
+                'authority_data' => NULL,
+                'created_at' => '2020-10-04 11:38:21',
+                'updated_at' => '2020-10-04 11:38:21',
+            ),
+            90 => 
             array (
                 'menu_id' => 33,
                 'role_id' => 5,
@@ -1151,9 +1471,9 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-05-30 16:52:43',
-                'updated_at' => '2020-07-31 21:57:28',
+                'updated_at' => '2020-10-04 11:35:08',
             ),
-            71 => 
+            91 => 
             array (
                 'menu_id' => 33,
                 'role_id' => 10,
@@ -1167,9 +1487,9 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-06-29 08:34:06',
-                'updated_at' => '2020-06-29 08:48:36',
+                'updated_at' => '2020-10-04 11:39:51',
             ),
-            72 => 
+            92 => 
             array (
                 'menu_id' => 33,
                 'role_id' => 11,
@@ -1183,9 +1503,9 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-06-29 08:37:14',
-                'updated_at' => '2020-07-13 14:59:35',
+                'updated_at' => '2020-10-04 11:39:33',
             ),
-            73 => 
+            93 => 
             array (
                 'menu_id' => 33,
                 'role_id' => 12,
@@ -1199,9 +1519,9 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-06-29 08:41:40',
-                'updated_at' => '2020-07-29 16:07:11',
+                'updated_at' => '2020-10-04 11:39:22',
             ),
-            74 => 
+            94 => 
             array (
                 'menu_id' => 33,
                 'role_id' => 13,
@@ -1217,7 +1537,7 @@ class MenuRolesTableSeeder extends Seeder
                 'created_at' => '2020-06-29 08:43:58',
                 'updated_at' => '2020-06-30 04:34:10',
             ),
-            75 => 
+            95 => 
             array (
                 'menu_id' => 33,
                 'role_id' => 14,
@@ -1231,9 +1551,25 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-06-29 08:46:38',
-                'updated_at' => '2020-07-13 15:11:32',
+                'updated_at' => '2020-10-04 11:38:50',
             ),
-            76 => 
+            96 => 
+            array (
+                'menu_id' => 34,
+                'role_id' => 4,
+                'authority_read' => 1,
+                'authority_create' => 0,
+                'authority_update' => 0,
+                'authority_delete' => 0,
+                'authority_import' => 0,
+                'authority_export' => 1,
+                'authority_approve' => 0,
+                'authority_disposition' => 0,
+                'authority_data' => NULL,
+                'created_at' => '2020-10-04 11:38:21',
+                'updated_at' => '2020-10-04 11:38:21',
+            ),
+            97 => 
             array (
                 'menu_id' => 34,
                 'role_id' => 5,
@@ -1247,9 +1583,9 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-05-30 16:52:43',
-                'updated_at' => '2020-07-31 21:57:28',
+                'updated_at' => '2020-10-04 11:35:08',
             ),
-            77 => 
+            98 => 
             array (
                 'menu_id' => 34,
                 'role_id' => 10,
@@ -1263,9 +1599,9 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-06-29 08:48:36',
-                'updated_at' => '2020-06-29 08:48:36',
+                'updated_at' => '2020-10-04 11:39:51',
             ),
-            78 => 
+            99 => 
             array (
                 'menu_id' => 34,
                 'role_id' => 13,
@@ -1281,7 +1617,7 @@ class MenuRolesTableSeeder extends Seeder
                 'created_at' => '2020-06-29 08:43:58',
                 'updated_at' => '2020-06-30 04:34:10',
             ),
-            79 => 
+            100 => 
             array (
                 'menu_id' => 34,
                 'role_id' => 14,
@@ -1295,9 +1631,25 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-06-29 08:46:38',
-                'updated_at' => '2020-07-13 15:11:32',
+                'updated_at' => '2020-10-04 11:38:50',
             ),
-            80 => 
+            101 => 
+            array (
+                'menu_id' => 35,
+                'role_id' => 4,
+                'authority_read' => 1,
+                'authority_create' => 0,
+                'authority_update' => 0,
+                'authority_delete' => 0,
+                'authority_import' => 0,
+                'authority_export' => 1,
+                'authority_approve' => 0,
+                'authority_disposition' => 0,
+                'authority_data' => NULL,
+                'created_at' => '2020-10-04 11:38:21',
+                'updated_at' => '2020-10-04 11:38:21',
+            ),
+            102 => 
             array (
                 'menu_id' => 35,
                 'role_id' => 5,
@@ -1311,9 +1663,9 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-05-30 16:52:43',
-                'updated_at' => '2020-07-31 21:57:28',
+                'updated_at' => '2020-10-04 11:35:08',
             ),
-            81 => 
+            103 => 
             array (
                 'menu_id' => 35,
                 'role_id' => 10,
@@ -1327,9 +1679,9 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-06-29 08:34:06',
-                'updated_at' => '2020-06-29 08:48:36',
+                'updated_at' => '2020-10-04 11:39:51',
             ),
-            82 => 
+            104 => 
             array (
                 'menu_id' => 35,
                 'role_id' => 11,
@@ -1343,9 +1695,9 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-06-29 08:37:14',
-                'updated_at' => '2020-07-13 14:59:35',
+                'updated_at' => '2020-10-04 11:39:33',
             ),
-            83 => 
+            105 => 
             array (
                 'menu_id' => 35,
                 'role_id' => 12,
@@ -1359,9 +1711,9 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-06-29 08:41:40',
-                'updated_at' => '2020-07-29 16:07:11',
+                'updated_at' => '2020-10-04 11:39:22',
             ),
-            84 => 
+            106 => 
             array (
                 'menu_id' => 35,
                 'role_id' => 13,
@@ -1377,7 +1729,7 @@ class MenuRolesTableSeeder extends Seeder
                 'created_at' => '2020-06-29 08:43:58',
                 'updated_at' => '2020-06-30 04:34:10',
             ),
-            85 => 
+            107 => 
             array (
                 'menu_id' => 35,
                 'role_id' => 14,
@@ -1391,9 +1743,25 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-06-29 08:46:38',
-                'updated_at' => '2020-07-13 15:11:32',
+                'updated_at' => '2020-10-04 11:38:50',
             ),
-            86 => 
+            108 => 
+            array (
+                'menu_id' => 36,
+                'role_id' => 4,
+                'authority_read' => 1,
+                'authority_create' => 0,
+                'authority_update' => 0,
+                'authority_delete' => 0,
+                'authority_import' => 0,
+                'authority_export' => 1,
+                'authority_approve' => 0,
+                'authority_disposition' => 0,
+                'authority_data' => NULL,
+                'created_at' => '2020-10-04 11:38:21',
+                'updated_at' => '2020-10-04 11:38:21',
+            ),
+            109 => 
             array (
                 'menu_id' => 36,
                 'role_id' => 5,
@@ -1407,9 +1775,9 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-05-30 16:52:43',
-                'updated_at' => '2020-07-31 21:57:28',
+                'updated_at' => '2020-10-04 11:35:08',
             ),
-            87 => 
+            110 => 
             array (
                 'menu_id' => 36,
                 'role_id' => 11,
@@ -1423,9 +1791,9 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-06-29 08:37:14',
-                'updated_at' => '2020-07-13 14:59:35',
+                'updated_at' => '2020-10-04 11:39:33',
             ),
-            88 => 
+            111 => 
             array (
                 'menu_id' => 36,
                 'role_id' => 12,
@@ -1439,9 +1807,9 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-06-29 08:41:40',
-                'updated_at' => '2020-07-29 16:07:11',
+                'updated_at' => '2020-10-04 11:39:22',
             ),
-            89 => 
+            112 => 
             array (
                 'menu_id' => 36,
                 'role_id' => 13,
@@ -1457,7 +1825,7 @@ class MenuRolesTableSeeder extends Seeder
                 'created_at' => '2020-06-29 08:43:58',
                 'updated_at' => '2020-06-30 04:34:10',
             ),
-            90 => 
+            113 => 
             array (
                 'menu_id' => 36,
                 'role_id' => 14,
@@ -1471,9 +1839,25 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-06-29 08:46:38',
-                'updated_at' => '2020-07-13 15:11:32',
+                'updated_at' => '2020-10-04 11:38:50',
             ),
-            91 => 
+            114 => 
+            array (
+                'menu_id' => 37,
+                'role_id' => 4,
+                'authority_read' => 1,
+                'authority_create' => 1,
+                'authority_update' => 0,
+                'authority_delete' => 1,
+                'authority_import' => 0,
+                'authority_export' => 0,
+                'authority_approve' => 0,
+                'authority_disposition' => 0,
+                'authority_data' => NULL,
+                'created_at' => '2020-10-04 11:38:21',
+                'updated_at' => '2020-10-04 11:38:21',
+            ),
+            115 => 
             array (
                 'menu_id' => 37,
                 'role_id' => 5,
@@ -1487,9 +1871,25 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-07-12 13:25:21',
-                'updated_at' => '2020-07-31 21:57:28',
+                'updated_at' => '2020-10-04 11:35:08',
             ),
-            92 => 
+            116 => 
+            array (
+                'menu_id' => 38,
+                'role_id' => 4,
+                'authority_read' => 1,
+                'authority_create' => 1,
+                'authority_update' => 1,
+                'authority_delete' => 1,
+                'authority_import' => 0,
+                'authority_export' => 0,
+                'authority_approve' => 0,
+                'authority_disposition' => 0,
+                'authority_data' => NULL,
+                'created_at' => '2020-10-04 11:38:21',
+                'updated_at' => '2020-10-04 11:38:21',
+            ),
+            117 => 
             array (
                 'menu_id' => 38,
                 'role_id' => 5,
@@ -1503,9 +1903,89 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-07-12 13:25:21',
-                'updated_at' => '2020-07-31 21:57:28',
+                'updated_at' => '2020-10-04 11:35:08',
             ),
-            93 => 
+            118 => 
+            array (
+                'menu_id' => 38,
+                'role_id' => 10,
+                'authority_read' => 1,
+                'authority_create' => 1,
+                'authority_update' => 1,
+                'authority_delete' => 1,
+                'authority_import' => 0,
+                'authority_export' => 0,
+                'authority_approve' => 0,
+                'authority_disposition' => 0,
+                'authority_data' => NULL,
+                'created_at' => '2020-10-04 11:39:51',
+                'updated_at' => '2020-10-04 11:39:51',
+            ),
+            119 => 
+            array (
+                'menu_id' => 38,
+                'role_id' => 11,
+                'authority_read' => 1,
+                'authority_create' => 1,
+                'authority_update' => 1,
+                'authority_delete' => 1,
+                'authority_import' => 0,
+                'authority_export' => 0,
+                'authority_approve' => 0,
+                'authority_disposition' => 0,
+                'authority_data' => NULL,
+                'created_at' => '2020-08-14 11:23:48',
+                'updated_at' => '2020-10-04 11:39:33',
+            ),
+            120 => 
+            array (
+                'menu_id' => 38,
+                'role_id' => 12,
+                'authority_read' => 1,
+                'authority_create' => 1,
+                'authority_update' => 1,
+                'authority_delete' => 1,
+                'authority_import' => 0,
+                'authority_export' => 0,
+                'authority_approve' => 0,
+                'authority_disposition' => 0,
+                'authority_data' => NULL,
+                'created_at' => '2020-10-04 11:39:22',
+                'updated_at' => '2020-10-04 11:39:22',
+            ),
+            121 => 
+            array (
+                'menu_id' => 38,
+                'role_id' => 14,
+                'authority_read' => 1,
+                'authority_create' => 1,
+                'authority_update' => 1,
+                'authority_delete' => 1,
+                'authority_import' => 0,
+                'authority_export' => 0,
+                'authority_approve' => 0,
+                'authority_disposition' => 0,
+                'authority_data' => NULL,
+                'created_at' => '2020-10-04 11:38:50',
+                'updated_at' => '2020-10-04 11:38:50',
+            ),
+            122 => 
+            array (
+                'menu_id' => 39,
+                'role_id' => 4,
+                'authority_read' => 1,
+                'authority_create' => 1,
+                'authority_update' => 1,
+                'authority_delete' => 1,
+                'authority_import' => 0,
+                'authority_export' => 0,
+                'authority_approve' => 0,
+                'authority_disposition' => 0,
+                'authority_data' => NULL,
+                'created_at' => '2020-10-04 11:38:21',
+                'updated_at' => '2020-10-04 11:38:21',
+            ),
+            123 => 
             array (
                 'menu_id' => 39,
                 'role_id' => 5,
@@ -1519,9 +1999,25 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-07-15 22:06:34',
-                'updated_at' => '2020-07-31 21:57:28',
+                'updated_at' => '2020-10-04 11:35:08',
             ),
-            94 => 
+            124 => 
+            array (
+                'menu_id' => 40,
+                'role_id' => 4,
+                'authority_read' => 1,
+                'authority_create' => 0,
+                'authority_update' => 0,
+                'authority_delete' => 0,
+                'authority_import' => 0,
+                'authority_export' => 0,
+                'authority_approve' => 0,
+                'authority_disposition' => 0,
+                'authority_data' => NULL,
+                'created_at' => '2020-10-04 11:38:21',
+                'updated_at' => '2020-10-04 11:38:21',
+            ),
+            125 => 
             array (
                 'menu_id' => 40,
                 'role_id' => 5,
@@ -1535,9 +2031,25 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-07-28 08:20:07',
-                'updated_at' => '2020-07-31 21:57:28',
+                'updated_at' => '2020-10-04 11:35:08',
             ),
-            95 => 
+            126 => 
+            array (
+                'menu_id' => 41,
+                'role_id' => 4,
+                'authority_read' => 1,
+                'authority_create' => 0,
+                'authority_update' => 0,
+                'authority_delete' => 0,
+                'authority_import' => 0,
+                'authority_export' => 0,
+                'authority_approve' => 0,
+                'authority_disposition' => 0,
+                'authority_data' => NULL,
+                'created_at' => '2020-10-04 11:38:21',
+                'updated_at' => '2020-10-04 11:38:21',
+            ),
+            127 => 
             array (
                 'menu_id' => 41,
                 'role_id' => 5,
@@ -1551,9 +2063,25 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-07-28 08:20:07',
-                'updated_at' => '2020-07-31 21:57:28',
+                'updated_at' => '2020-10-04 11:35:08',
             ),
-            96 => 
+            128 => 
+            array (
+                'menu_id' => 42,
+                'role_id' => 4,
+                'authority_read' => 1,
+                'authority_create' => 0,
+                'authority_update' => 0,
+                'authority_delete' => 0,
+                'authority_import' => 0,
+                'authority_export' => 0,
+                'authority_approve' => 0,
+                'authority_disposition' => 0,
+                'authority_data' => NULL,
+                'created_at' => '2020-10-04 11:38:21',
+                'updated_at' => '2020-10-04 11:38:21',
+            ),
+            129 => 
             array (
                 'menu_id' => 42,
                 'role_id' => 5,
@@ -1567,9 +2095,25 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-07-28 08:20:07',
-                'updated_at' => '2020-07-31 21:57:28',
+                'updated_at' => '2020-10-04 11:35:08',
             ),
-            97 => 
+            130 => 
+            array (
+                'menu_id' => 43,
+                'role_id' => 4,
+                'authority_read' => 1,
+                'authority_create' => 0,
+                'authority_update' => 0,
+                'authority_delete' => 0,
+                'authority_import' => 0,
+                'authority_export' => 0,
+                'authority_approve' => 0,
+                'authority_disposition' => 0,
+                'authority_data' => NULL,
+                'created_at' => '2020-10-04 11:38:21',
+                'updated_at' => '2020-10-04 11:38:21',
+            ),
+            131 => 
             array (
                 'menu_id' => 43,
                 'role_id' => 5,
@@ -1583,9 +2127,25 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-07-28 08:20:07',
-                'updated_at' => '2020-07-31 21:57:28',
+                'updated_at' => '2020-10-04 11:35:08',
             ),
-            98 => 
+            132 => 
+            array (
+                'menu_id' => 44,
+                'role_id' => 4,
+                'authority_read' => 1,
+                'authority_create' => 1,
+                'authority_update' => 0,
+                'authority_delete' => 1,
+                'authority_import' => 0,
+                'authority_export' => 0,
+                'authority_approve' => 0,
+                'authority_disposition' => 0,
+                'authority_data' => NULL,
+                'created_at' => '2020-10-04 11:38:21',
+                'updated_at' => '2020-10-04 11:38:21',
+            ),
+            133 => 
             array (
                 'menu_id' => 44,
                 'role_id' => 5,
@@ -1599,7 +2159,167 @@ class MenuRolesTableSeeder extends Seeder
                 'authority_disposition' => 0,
                 'authority_data' => NULL,
                 'created_at' => '2020-07-31 21:57:28',
-                'updated_at' => '2020-07-31 21:57:28',
+                'updated_at' => '2020-10-04 11:35:08',
+            ),
+            134 => 
+            array (
+                'menu_id' => 45,
+                'role_id' => 4,
+                'authority_read' => 1,
+                'authority_create' => 0,
+                'authority_update' => 0,
+                'authority_delete' => 0,
+                'authority_import' => 0,
+                'authority_export' => 0,
+                'authority_approve' => 0,
+                'authority_disposition' => 0,
+                'authority_data' => NULL,
+                'created_at' => '2020-10-04 11:38:21',
+                'updated_at' => '2020-10-04 11:38:21',
+            ),
+            135 => 
+            array (
+                'menu_id' => 45,
+                'role_id' => 5,
+                'authority_read' => 1,
+                'authority_create' => 0,
+                'authority_update' => 0,
+                'authority_delete' => 0,
+                'authority_import' => 0,
+                'authority_export' => 0,
+                'authority_approve' => 0,
+                'authority_disposition' => 0,
+                'authority_data' => NULL,
+                'created_at' => '2020-10-04 11:35:08',
+                'updated_at' => '2020-10-04 11:35:08',
+            ),
+            136 => 
+            array (
+                'menu_id' => 46,
+                'role_id' => 4,
+                'authority_read' => 1,
+                'authority_create' => 1,
+                'authority_update' => 1,
+                'authority_delete' => 1,
+                'authority_import' => 0,
+                'authority_export' => 0,
+                'authority_approve' => 0,
+                'authority_disposition' => 0,
+                'authority_data' => NULL,
+                'created_at' => '2020-10-04 11:38:21',
+                'updated_at' => '2020-10-04 11:38:21',
+            ),
+            137 => 
+            array (
+                'menu_id' => 46,
+                'role_id' => 5,
+                'authority_read' => 1,
+                'authority_create' => 1,
+                'authority_update' => 1,
+                'authority_delete' => 1,
+                'authority_import' => 0,
+                'authority_export' => 0,
+                'authority_approve' => 0,
+                'authority_disposition' => 0,
+                'authority_data' => NULL,
+                'created_at' => '2020-10-04 11:35:08',
+                'updated_at' => '2020-10-04 11:35:08',
+            ),
+            138 => 
+            array (
+                'menu_id' => 47,
+                'role_id' => 4,
+                'authority_read' => 1,
+                'authority_create' => 1,
+                'authority_update' => 1,
+                'authority_delete' => 1,
+                'authority_import' => 0,
+                'authority_export' => 0,
+                'authority_approve' => 0,
+                'authority_disposition' => 0,
+                'authority_data' => NULL,
+                'created_at' => '2020-10-04 11:38:21',
+                'updated_at' => '2020-10-04 11:38:21',
+            ),
+            139 => 
+            array (
+                'menu_id' => 47,
+                'role_id' => 5,
+                'authority_read' => 1,
+                'authority_create' => 1,
+                'authority_update' => 1,
+                'authority_delete' => 1,
+                'authority_import' => 0,
+                'authority_export' => 0,
+                'authority_approve' => 0,
+                'authority_disposition' => 0,
+                'authority_data' => NULL,
+                'created_at' => '2020-10-04 11:35:08',
+                'updated_at' => '2020-10-04 11:35:08',
+            ),
+            140 => 
+            array (
+                'menu_id' => 48,
+                'role_id' => 4,
+                'authority_read' => 1,
+                'authority_create' => 1,
+                'authority_update' => 1,
+                'authority_delete' => 1,
+                'authority_import' => 0,
+                'authority_export' => 0,
+                'authority_approve' => 0,
+                'authority_disposition' => 0,
+                'authority_data' => NULL,
+                'created_at' => '2020-10-04 11:38:21',
+                'updated_at' => '2020-10-04 11:38:21',
+            ),
+            141 => 
+            array (
+                'menu_id' => 48,
+                'role_id' => 5,
+                'authority_read' => 1,
+                'authority_create' => 1,
+                'authority_update' => 1,
+                'authority_delete' => 1,
+                'authority_import' => 0,
+                'authority_export' => 0,
+                'authority_approve' => 0,
+                'authority_disposition' => 0,
+                'authority_data' => NULL,
+                'created_at' => '2020-10-04 11:35:08',
+                'updated_at' => '2020-10-04 11:35:08',
+            ),
+            142 => 
+            array (
+                'menu_id' => 49,
+                'role_id' => 4,
+                'authority_read' => 1,
+                'authority_create' => 1,
+                'authority_update' => 1,
+                'authority_delete' => 1,
+                'authority_import' => 0,
+                'authority_export' => 0,
+                'authority_approve' => 0,
+                'authority_disposition' => 0,
+                'authority_data' => NULL,
+                'created_at' => '2020-10-04 11:38:21',
+                'updated_at' => '2020-10-04 11:38:21',
+            ),
+            143 => 
+            array (
+                'menu_id' => 49,
+                'role_id' => 5,
+                'authority_read' => 1,
+                'authority_create' => 1,
+                'authority_update' => 1,
+                'authority_delete' => 1,
+                'authority_import' => 0,
+                'authority_export' => 0,
+                'authority_approve' => 0,
+                'authority_disposition' => 0,
+                'authority_data' => NULL,
+                'created_at' => '2020-10-04 11:35:08',
+                'updated_at' => '2020-10-04 11:35:08',
             ),
         ));
         
