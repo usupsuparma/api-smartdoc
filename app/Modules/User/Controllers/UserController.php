@@ -52,5 +52,12 @@ class UserController extends BaseController
 		Authority::check('delete');
 		
         return $this->successResponse($this->userRepository->delete($id), 200); 
-    }
+	}
+	
+	public function reset_user($id)
+    {
+		Authority::check('update');
+		
+		return $this->successResponse($this->userRepository->reset_user($id), 200); 
+	}
 }

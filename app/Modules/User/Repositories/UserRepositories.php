@@ -123,6 +123,20 @@ class UserRepositories extends BaseRepository implements UserInterface
 		
 		
 		return ['message' => config('constans.success.deleted')];
-    }
+	}
+	
+	public function reset_user($id)
+	{
+		$model = $this->model->findOrFail($id);
+		$model->update([
+			'password' => app('hash')->make('smartDoc'),
+			'status' => true,
+			'count_login' => NULL,
+			'is_banned' => false,
+			'log_date' => NULL,
+		]);
+		
+		return ['message' => 'User berhasil di reset , gunakan password ***smartDoc*** untuk login pertama kali setelah user di reset.'];
+	}
     
 }

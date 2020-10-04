@@ -42,6 +42,11 @@ class UserRoutes extends BaseRoutes
 				'as' => $this->route_prefix . '.delete',
 				'uses' => 'UserController@delete'
 			]);
+			
+			$app->router->get('/reset-user/{id}', [
+				'as' => $this->route_prefix . '.reset_user',
+				'uses' => 'UserController@reset_user'
+			]);
 	
 		});
 	}

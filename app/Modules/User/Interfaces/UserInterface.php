@@ -16,4 +16,6 @@ interface UserInterface extends RepositoryInterface
 	public function update($request, $id);
 	
 	public function delete($id);
+	
+	public function reset_user($id);
 }
