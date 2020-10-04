@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
             $this->call(ExternalPositionsTableSeeder::class);
             $this->call(MappingStructureTableSeeder::class);
             $this->call(MappingStructureDetailTableSeeder::class);
+            $this->call(UsersTableSeeder::class);
         }
     }   
 }
