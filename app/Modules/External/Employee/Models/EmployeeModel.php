@@ -6,6 +6,7 @@
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Modules\External\Employee\Transformers\EmployeeTransformer;
+use App\Modules\External\Users\Models\ExternalUserModel;
 
 class EmployeeModel extends Model 
 {
@@ -24,7 +25,7 @@ class EmployeeModel extends Model
 	
 	public function user()
 	{
-		return $this->belongsTo('App\Modules\External\Users\Models\ExternalUserModel', 'id_employee');
+		return $this->belongsTo(ExternalUserModel::class, 'id_employee', 'id_employee');
 	}
 	
 	public function scopeIsActive($query)
