@@ -118,7 +118,7 @@ class ApprovalOutgoingMailRepositories extends BaseRepository implements Approva
 					$redirect_mobile = serialize(['route_name' => 'Approval']);
 					
 					/* Send Email  next approval */
-					$email = smartdoc_user($nextApprovalEmployee);
+					$email = smartdoc_user($nextApproval->employee->user->user_id);
 					$const_email = EmailConstants::REVIEW;
 					$data_email = [
 						'name'  => $email->user_core->employee->name,
