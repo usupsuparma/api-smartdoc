@@ -119,7 +119,7 @@ class ApprovalOutgoingMailRepositories extends BaseRepository implements Approva
 					
 					/* Send Email  next approval */
 					$email = smartdoc_user($nextApprovalEmployee);
-					$const_email = EmailConstants::APPROVED;
+					$const_email = EmailConstants::REVIEW;
 					$data_email = [
 						'name'  => $email->user_core->employee->name,
 						'button' => true,
