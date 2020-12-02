@@ -33,7 +33,9 @@ class UserRepositories extends BaseRepository implements UserInterface
 		$data = $query->get();
 		if ($request->has('employee') && !empty($request->employee)) {
 			$data = collect($data)->filter(function ($col) use ($request) {
-				return false !== stristr($col->user_core->employee->name, $request->employee);
+                if (isset($col->user_core->employee)) {
+                    return false !== stristr($col->user_core->employee->name, $request->employee);
+                }
 			});
 		}
 
