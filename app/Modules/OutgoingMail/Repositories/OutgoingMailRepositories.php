@@ -504,7 +504,13 @@ class OutgoingMailRepositories extends BaseRepository implements OutgoingMailInt
 	
 	public function download_attachment_main($id)
     {
-		$model = $this->model->findOrFail($id);
+        $model = $this->model->findOrFail($id);
+        
+        if (empty($model->path_to_file)) {
+            $document = \Smartdoc::outgoing_mail($model);
+            return $document;
+        }
+        
 		Upload::download($model->path_to_file);
 		
 		return $model->path_to_file;
