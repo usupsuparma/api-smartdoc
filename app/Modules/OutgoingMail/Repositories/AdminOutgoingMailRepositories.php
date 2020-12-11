@@ -184,7 +184,7 @@ class AdminOutgoingMailRepositories extends BaseRepository implements AdminOutgo
 			]);
 			
 			/* Follow Up Notification */
-			if ($model->assign->count() > 1 && $checkFollowUp) {
+			if ($model->assign->count() > 0 && $checkFollowUp) {
 			foreach ($model->assign as $assign) {
 				$this->send_notification([
 					'model' => $model, 
