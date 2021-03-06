@@ -1,0 +1,17 @@
+version: "3"
+services:
+    api_smartdoc_bijb:
+        build: 
+          context: .
+          dockerfile: ./Dockerfile
+        ports:
+            - 8010:80
+        volumes:
+            - ../../:/srv/www/
+            - ${HOME}/.composer:/root/.composer
+        networks:
+            - api_smartdoc_bijb_network
+            
+networks:
+    api_smartdoc_bijb_network:
+        driver: bridge
