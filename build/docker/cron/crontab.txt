@@ -1,0 +1,1 @@
+50 0 * * * php /srv/www/artisan schedule:run >> /var/log/cron.log 2>&1

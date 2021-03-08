@@ -6,8 +6,10 @@ services:
           dockerfile: ./Dockerfile
         ports:
             - 8010:80
+        restart: always
         volumes:
             - ../../:/srv/www/
+            - ../../build/cron:/srv/www/build/cron
             - ${HOME}/.composer:/root/.composer
         networks:
             - api_smartdoc_bijb_network
