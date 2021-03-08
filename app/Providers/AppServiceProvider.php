@@ -20,8 +20,8 @@ class AppServiceProvider extends ServiceProvider
             return $app->loadComponent('mail', 'Illuminate\Mail\MailServiceProvider', 'mailer'); 
         });
         
-        Storage::extend('sftp', function ($app, $config) {
-            return new Filesystem(new SftpAdapter($config));
-        });
+        // Storage::extend('sftp', function ($app, $config) {
+        //     return new Filesystem(new SftpAdapter($config));
+        // });
     }
 }

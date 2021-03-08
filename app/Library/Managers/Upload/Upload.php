@@ -25,7 +25,7 @@ class Upload
 		$ftp_path = setting_by_code('FTP_DIRECTORY_ROOT');
 		$file_path = $ftp_path. $path;
 		
-		$process = Storage::disk('sftp')->put($file_path. $custom_file_name, file_get_contents($real_path));
+		$process = Storage::disk('ftp')->put($file_path. $custom_file_name, file_get_contents($real_path));
 		
 		$fileUrl = $path. $custom_file_name;
 		
@@ -40,8 +40,8 @@ class Upload
 	{
 		$ftp_path = setting_by_code('FTP_DIRECTORY_ROOT');
 
-		if (Storage::disk('sftp')->exists($ftp_path. $file_path) && !empty($file_path)) {
-			$process = Storage::disk('sftp')->delete($ftp_path. $file_path);
+		if (Storage::disk('ftp')->exists($ftp_path. $file_path) && !empty($file_path)) {
+			$process = Storage::disk('ftp')->delete($ftp_path. $file_path);
 			
 			if ($process) {
 				return true;
@@ -58,11 +58,11 @@ class Upload
 		$ftp_path = setting_by_code('FTP_DIRECTORY_ROOT');
 		/* Check File Exist in FTP */
 		
-		if (Storage::disk('sftp')->exists($ftp_path. $file_path)) {
+		if (Storage::disk('ftp')->exists($ftp_path. $file_path)) {
 			/* Check File Exist in Local Storage */
 			if (!Storage::disk('public')->exists($file_path)) {
 				/* Move file from FTP to Local Storage */
-				Storage::disk('public')->put($file_path, Storage::disk('sftp')->get($ftp_path. $file_path));	
+				Storage::disk('public')->put($file_path, Storage::disk('ftp')->get($ftp_path. $file_path));	
 			}
 		}
 	}
@@ -103,7 +103,7 @@ class Upload
 		
 		if (Storage::disk('public')->exists($file_path)) {
 			/* Move file from FTP to Local Storage */
-			$process = Storage::disk('sftp')->put($ftp_path. $file_path, Storage::disk('public')->get($file_path));	
+			$process = Storage::disk('ftp')->put($ftp_path. $file_path, Storage::disk('public')->get($file_path));	
 			
 			if ($process) {
 				return true;

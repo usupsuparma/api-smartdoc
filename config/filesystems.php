@@ -69,7 +69,7 @@ return [
             'username' => env('FTP_USERNAME'),
             'password' => env('FTP_PASSWORD'),
             // 'root' => env('FTP_PATH', ''),
-            // 'port' => env('FTP_PORT'),
+            'port' => env('FTP_PORT'),
         ],
         'sftp' => [
             'driver' => 'sftp',
