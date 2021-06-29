@@ -51,7 +51,7 @@ return [
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
-            'url' => env('APP_URL').'/storage',
+            'url' => env('APP_URL') . '/storage',
             'visibility' => 'public',
         ],
 
@@ -79,7 +79,7 @@ return [
             'visibility' => 'public',
             'permPublic' => 0755,
             // 'root' => env('FTP_PATH', ''),
-            // 'port' => env('FTP_PORT'),
+            'port' => env('FTP_PORT'),
         ]
     ],
 

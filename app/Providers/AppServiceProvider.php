@@ -16,12 +16,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton('mailer', function ($app) { 
-            return $app->loadComponent('mail', 'Illuminate\Mail\MailServiceProvider', 'mailer'); 
+        $this->app->singleton('mailer', function ($app) {
+            return $app->loadComponent('mail', 'Illuminate\Mail\MailServiceProvider', 'mailer');
         });
-        
-        // Storage::extend('sftp', function ($app, $config) {
-        //     return new Filesystem(new SftpAdapter($config));
-        // });
+
+        Storage::extend('sftp', function ($app, $config) {
+            return new Filesystem(new SftpAdapter($config));
+        });
     }
 }
