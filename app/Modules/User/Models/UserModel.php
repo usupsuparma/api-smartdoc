@@ -1,4 +1,7 @@
-<?php namespace App\Modules\User\Models;
+<?php
+
+namespace App\Modules\User\Models;
+
 /**
  * @author  Adam Lesmana Ganda Saputra <aelgees.dev@gmail.com>
  */
@@ -17,39 +20,39 @@ use App\Modules\Role\Models\RoleModel;
 
 class UserModel extends Model implements AuthenticatableContract, AuthorizableContract
 {
-	
+
 	use SoftDeletes, Authenticatable, Authorizable, HasApiTokens;
 
 	public $transformer = UserTransformer::class;
-	
+
 	protected $table = 'users';
-	
-    protected $fillable   = [
-		'user_core_id', 'employee_id', 'role_id', 'username' , 'email', 'password', 'remember_token', 'public_token',
+
+	protected $fillable   = [
+		'user_core_id', 'employee_id', 'role_id', 'username', 'email', 'password', 'remember_token', 'public_token',
 		'private_token', 'device_id', 'last_login', 'log_date', 'count_login', 'is_banned', 'status',
 	];
-	
+
 	protected $dates = ['deleted_at'];
-	
+
 	protected $hidden = [
-        'password',
+		'password',
 	];
-	
+
 	public function user_core()
 	{
-		return $this->belongsTo(ExternalUserModel::class, 'user_core_id');
+		return $this->belongsTo(ExternalUserModel::class, 'user_id');
 	}
-	
+
 	public function role()
 	{
 		return $this->belongsTo(RoleModel::class, 'role_id')->select('id', 'name', 'categories');
 	}
-	
+
 	public function scopeFindByEmail($query, $email)
 	{
 		return $query->where('email', $email);
 	}
-	
+
 	public function scopeFindCoreUser($query, $user_core_id)
 	{
 		return $query->where('user_core_id', $user_core_id);

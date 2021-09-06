@@ -1,4 +1,7 @@
-<?php namespace App\Modules\External\Users\Models;
+<?php
+
+namespace App\Modules\External\Users\Models;
+
 /**
  * @author  Adam Lesmana Ganda Saputra <aelgees.dev@gmail.com>
  */
@@ -11,43 +14,42 @@ use App\Modules\External\Position\Models\PositionModel;
 use App\Modules\User\Models\UserModel;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class ExternalUserModel extends Model 
+class ExternalUserModel extends Model
 {
 	use SoftDeletes;
-	
+
 	public $transformer = ExternalUserTransformer::class;
-	
+
 	protected $primaryKey = 'user_id';
-	
+
 	protected $table = 'external_users';
-	
-    protected $fillable   = [
-		'id_employee', 'email', 'kode_struktur', 'kode_jabatan', 'status'
+
+	protected $fillable   = [
+		'id_employee', 'email', 'kode_struktur', 'kode_jabatan', 'status', 'fullname', 'user_id'
 	];
-	
+
 	public function employee()
 	{
-		return $this->belongsTo(EmployeeModel::class, 'id_employee', 'id_employee')
-					->select('id_employee', 'nik', 'name');
+		return $this->belongsTo(EmployeeModel::class, 'id_employee', 'nik')
+			->select('id_employee', 'nik', 'name');
 	}
-	
+
 	public function structure()
 	{
 		return $this->belongsTo(OrganizationModel::class, 'kode_struktur', 'id')
-					->select('id', 'nama_struktur', 'kode_struktur', 'parent_id');
+			->select('id', 'nama_struktur', 'kode_struktur', 'parent_id');
 	}
-	
+
 	public function position()
 	{
 		return $this->belongsTo(PositionModel::class, 'kode_jabatan')
-					->select('id', 'nama_jabatan');
+			->select('id', 'nama_jabatan');
 	}
-	
+
 	public function scopeIsActive($query)
 	{
-		
 	}
-	
+
 	public function scopeReadySyncUser($query)
 	{
 		return $query->where('status', 1);

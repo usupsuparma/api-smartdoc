@@ -1,4 +1,6 @@
-<?php namespace App\Modules\Notification\Route;
+<?php
+
+namespace App\Modules\Notification\Route;
 
 use Laravel\Lumen\Application;
 use App\Library\Bases\BaseRoutes;
@@ -22,12 +24,11 @@ class NotificationRoutes extends BaseRoutes
 				'as' => $this->route_prefix . '.notification_user',
 				'uses' => 'NotificationController@notification_user'
 			]);
-			
+
 			$app->router->get('/{id}', [
 				'as' => $this->route_prefix . '.read_notification',
 				'uses' => 'NotificationController@read_notification'
 			]);
-			
 		});
 	}
 }
