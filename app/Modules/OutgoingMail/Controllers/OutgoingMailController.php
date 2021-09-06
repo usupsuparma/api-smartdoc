@@ -39,7 +39,7 @@ class OutgoingMailController extends BaseController
 
 	public function create(Request $request)
 	{
-		Authority::check('create');
+		// Authority::check('create');
 
 		$results = $this->outgoingMailRepository->create($request);
 

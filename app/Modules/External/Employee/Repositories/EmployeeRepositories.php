@@ -127,7 +127,7 @@ class EmployeeRepositories extends BaseRepository implements EmployeeInterfaces
 
 				$results[] = [
 					'id' => $dt->id_employee,
-					'name' => $dt->nik . ' - ' . $dt->name,
+					'name' => $dt->id_employee . ' - ' . $dt->fullname,
 					'structure_name' => $cd_structure . ' - ' . $name_structure,
 					'position_name' => $name_position,
 				];
