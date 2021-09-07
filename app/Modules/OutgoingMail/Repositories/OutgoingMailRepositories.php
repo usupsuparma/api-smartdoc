@@ -188,7 +188,6 @@ class OutgoingMailRepositories extends BaseRepository implements OutgoingMailInt
 						'status' => true
 					]);
 				}
-
 				$model->update([
 					'current_approval_structure_id' => $reviews[0]['structure_id'],
 					'current_approval_employee_id' => $reviews[0]['employee_id'],
@@ -196,6 +195,7 @@ class OutgoingMailRepositories extends BaseRepository implements OutgoingMailInt
 				]);
 			}
 
+			DB::commit();
 			if ($request->button_action == OutgoingMailStatusConstants::SEND_TO_REVIEW) {
 				/* All Notification */
 				$this->send_email($model);
@@ -214,8 +214,6 @@ class OutgoingMailRepositories extends BaseRepository implements OutgoingMailInt
 					'content' => "Approval - {$model->subject_letter} memerlukan persetujuan anda. "
 				]);
 			}
-
-			DB::commit();
 		} catch (\Exception $ex) {
 			DB::rollback();
 			return ['message' => $ex->getMessage(), 'status' => false];
@@ -529,6 +527,7 @@ class OutgoingMailRepositories extends BaseRepository implements OutgoingMailInt
 
 	private function send_email($model)
 	{
+		dd($model->current_approval_employee);
 		$body = body_email($model, setting_name_by_code('SURAT_KELUAR'), EmailConstants::REVIEW);
 		$email = smartdoc_user($model->current_approval_employee->user->user_id);
 		$data = [

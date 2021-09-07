@@ -11,6 +11,7 @@ use App\Library\Bases\BaseController;
 use App\Modules\OutgoingMail\Models\OutgoingMailModel;
 use App\Modules\OutgoingMail\Repositories\OutgoingMailRepositories;
 use Authority, Auth;
+use Exception;
 
 class OutgoingMailController extends BaseController
 {
@@ -41,13 +42,19 @@ class OutgoingMailController extends BaseController
 	{
 		// Authority::check('create');
 
-		$results = $this->outgoingMailRepository->create($request);
+		try {
+			$results = $this->outgoingMailRepository->create($request);
 
-		if (!$results['status']) {
-			return $this->errorResponse($results, 500);
+			if (!$results['status']) {
+				return $this->errorResponse($results, 500);
+			}
+
+			return $this->successResponse($results, 200);
+			//code...
+		} catch (Exception $e) {
+			dd($e);
+			//throw $th;
 		}
-
-		return $this->successResponse($results, 200);
 	}
 
 	public function update(Request $request, $id)
