@@ -198,21 +198,21 @@ class OutgoingMailRepositories extends BaseRepository implements OutgoingMailInt
 			DB::commit();
 			if ($request->button_action == OutgoingMailStatusConstants::SEND_TO_REVIEW) {
 				/* All Notification */
-				$this->send_email($model);
+				// $this->send_email($model);
 
-				$this->send_notification([
-					'model' => $model,
-					'heading' => MailCategoryConstants::SURAT_KELUAR,
-					'title' => 'approval',
-					'receiver' => $reviews[0]['employee_id']
-				]);
+				// $this->send_notification([
+				// 	'model' => $model,
+				// 	'heading' => MailCategoryConstants::SURAT_KELUAR,
+				// 	'title' => 'approval',
+				// 	'receiver' => $reviews[0]['employee_id']
+				// ]);
 
-				push_notif([
-					'device_id' => find_device_mobile($reviews[0]['employee_id']),
-					'data' => ['route_name' => 'Approval'],
-					'heading' => '[SURAT KELUAR]',
-					'content' => "Approval - {$model->subject_letter} memerlukan persetujuan anda. "
-				]);
+				// push_notif([
+				// 	'device_id' => find_device_mobile($reviews[0]['employee_id']),
+				// 	'data' => ['route_name' => 'Approval'],
+				// 	'heading' => '[SURAT KELUAR]',
+				// 	'content' => "Approval - {$model->subject_letter} memerlukan persetujuan anda. "
+				// ]);
 			}
 		} catch (\Exception $ex) {
 			DB::rollback();

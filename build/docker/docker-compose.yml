@@ -40,6 +40,16 @@ services:
             - mysql
         networks:
            - api_smartdoc_bijb_network
+    # phpmyadmin:
+    #     depends_on:
+    #       - mysql
+    #     image: phpmyadmin/phpmyadmin
+    #     restart: always
+    #     ports:
+    #       - 8088:8088
+    #     environment:
+    #       PMA_HOST: db
+    #       MYSQL_ROOT_PASSWORD: password
 
 networks:
     api_smartdoc_bijb_network:
