@@ -69,22 +69,22 @@ class OutgoingMailModel extends Model
 
 	public function to_employee()
 	{
-		return $this->belongsTo(EmployeeModel::class, 'to_employee_id', 'id_employee');
+		return $this->belongsTo(EmployeeModel::class, 'to_employee_id', 'nik');
 	}
 
 	public function from_employee()
 	{
-		return $this->belongsTo(EmployeeModel::class, 'from_employee_id', 'id_employee');
+		return $this->belongsTo(EmployeeModel::class, 'from_employee_id', 'nik');
 	}
 
 	public function current_approval_employee()
 	{
-		return $this->belongsTo(EmployeeModel::class, 'current_approval_employee_id', 'id_employee');
+		return $this->belongsTo(EmployeeModel::class, 'current_approval_employee_id', 'nik');
 	}
 
 	public function created_by()
 	{
-		return $this->belongsTo(EmployeeModel::class, 'created_by_employee', 'id_employee');
+		return $this->belongsTo(EmployeeModel::class, 'created_by_employee', 'nik');
 	}
 
 	public function structure_by()
@@ -131,8 +131,7 @@ class OutgoingMailModel extends Model
 
 	public function scopeSignedEmployee($query)
 	{
-		$employee_id = Auth::user()->user_core->employee->id_employee;
-
+		$employee_id = Auth::user()->user_core->employee->nik;
 		return $query->where([
 			'from_employee_id' => $employee_id,
 			'status' => OutgoingMailStatusConstants::APPROVED,
@@ -174,7 +173,7 @@ class OutgoingMailModel extends Model
 			$ids[] = $map->type_id;
 		}
 
-		$employee_id = Auth::user()->user_core->employee->id_employee;
+		$employee_id = Auth::user()->user_core->employee->nik;
 
 		return $query->whereHas('assign', function ($q) use ($employee_id) {
 			$q->where('employee_id', $employee_id);

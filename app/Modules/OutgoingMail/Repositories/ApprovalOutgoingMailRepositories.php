@@ -68,7 +68,7 @@ class ApprovalOutgoingMailRepositories extends BaseRepository implements Approva
 
 		$modelApproval = OutgoingMailApproval::where([
 			'outgoing_mail_id' => $id,
-			'employee_id' => Auth::user()->user_core->employee->id_employee,
+			'employee_id' => Auth::user()->user_core->employee->nik,
 			'structure_id' => Auth::user()->user_core->structure->id,
 			'status' => true
 		])->firstOrFail();
@@ -96,7 +96,7 @@ class ApprovalOutgoingMailRepositories extends BaseRepository implements Approva
 		$nextApproval = $this->next_approval($id);
 
 		if (!empty($nextApproval)) {
-			$nextApprovalEmployee = !empty($nextApproval->employee) ? $nextApproval->employee->id_employee : '';
+			$nextApprovalEmployee = !empty($nextApproval->employee) ? $nextApproval->employee->nik : '';
 			$nextApprovalStructure = !empty($nextApproval->employee->user) ? $nextApproval->employee->user->structure->id : '';
 		}
 
@@ -114,6 +114,7 @@ class ApprovalOutgoingMailRepositories extends BaseRepository implements Approva
 						'current_approval_employee_id' => $nextApprovalEmployee,
 						'current_approval_structure_id' => $nextApprovalStructure,
 					];
+
 
 					$title = 'approval';
 					$receiver_id = $nextApprovalEmployee;
@@ -242,9 +243,8 @@ class ApprovalOutgoingMailRepositories extends BaseRepository implements Approva
 	private function next_approval($outgoing_mail_id)
 	{
 		$collection = OutgoingMailApproval::nextApproval($outgoing_mail_id);
-
 		$filtered = $collection->filter(function ($value, $key) {
-			return $value->employee_id !== Auth::user()->user_core->employee->id_employee;
+			return $value->employee_id != Auth::user()->user_core->employee->nik;
 		});
 
 		return $filtered->first();

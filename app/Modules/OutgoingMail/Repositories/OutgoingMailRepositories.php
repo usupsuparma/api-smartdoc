@@ -198,21 +198,21 @@ class OutgoingMailRepositories extends BaseRepository implements OutgoingMailInt
 			DB::commit();
 			if ($request->button_action == OutgoingMailStatusConstants::SEND_TO_REVIEW) {
 				/* All Notification */
-				// $this->send_email($model);
+				$this->send_email($model);
 
-				// $this->send_notification([
-				// 	'model' => $model,
-				// 	'heading' => MailCategoryConstants::SURAT_KELUAR,
-				// 	'title' => 'approval',
-				// 	'receiver' => $reviews[0]['employee_id']
-				// ]);
+				$this->send_notification([
+					'model' => $model,
+					'heading' => MailCategoryConstants::SURAT_KELUAR,
+					'title' => 'approval',
+					'receiver' => $reviews[0]['employee_id']
+				]);
 
-				// push_notif([
-				// 	'device_id' => find_device_mobile($reviews[0]['employee_id']),
-				// 	'data' => ['route_name' => 'Approval'],
-				// 	'heading' => '[SURAT KELUAR]',
-				// 	'content' => "Approval - {$model->subject_letter} memerlukan persetujuan anda. "
-				// ]);
+				push_notif([
+					'device_id' => find_device_mobile($reviews[0]['employee_id']),
+					'data' => ['route_name' => 'Approval'],
+					'heading' => '[SURAT KELUAR]',
+					'content' => "Approval - {$model->subject_letter} memerlukan persetujuan anda. "
+				]);
 			}
 		} catch (\Exception $ex) {
 			DB::rollback();
@@ -527,11 +527,10 @@ class OutgoingMailRepositories extends BaseRepository implements OutgoingMailInt
 
 	private function send_email($model)
 	{
-		dd($model->current_approval_employee);
 		$body = body_email($model, setting_name_by_code('SURAT_KELUAR'), EmailConstants::REVIEW);
-		$email = smartdoc_user($model->current_approval_employee->user->user_id);
+		$user = smartdoc_user($model->current_approval_employee->user->user_id);
 		$data = [
-			'email' => !empty($email) ? $email->email : NULL,
+			'email' => !empty($user) ? $user->email : NULL,
 			'name'  => $model->current_approval_employee->name,
 			'notification_action' => config('constans.notif-email.' . EmailConstants::REVIEW),
 			'body' => $body,
