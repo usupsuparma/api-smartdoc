@@ -173,13 +173,14 @@ class OutgoingMailModel extends Model
 			$ids[] = $map->type_id;
 		}
 
-		$employee_id = Auth::user()->user_core->employee->nik;
+		$employee_id = Auth::user()->user_core->employee->id_employee;
 
 		return $query->whereHas('assign', function ($q) use ($employee_id) {
 			$q->where('employee_id', $employee_id);
 		})->where([
 			'status' => OutgoingMailStatusConstants::PUBLISH,
-		])->whereIn('type_id', $ids);
+		])
+			->whereIn('type_id', $ids);
 	}
 
 	public function scopeIsArchive($query)
