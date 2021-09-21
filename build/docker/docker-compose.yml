@@ -1,56 +1,56 @@
 version: "3"
 services:
-    api_smartdoc_bijb:
-        container_name: api
-        build: 
-          context: .
-          dockerfile: ./Dockerfile
-        ports:
-            - 8010:80
-        restart: always
-        volumes:
-            - ../../:/srv/www/
-            - ../../build/cron:/srv/www/build/cron
-            - ${HOME}/.composer:/root/.composer
-        networks:
-            - api_smartdoc_bijb_network
+  api_smartdoc_bijb:
+    container_name: api
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - 8010:80
+    restart: always
+    volumes:
+      - ../../:/srv/www/
+      - ../../build/cron:/srv/www/build/cron
+      - ${HOME}/.composer:/root/.composer
+    networks:
+      - api_smartdoc_bijb_network
 
-    mysql:
-        image: mysql:latest
-        container_name: mysql
-        restart: unless-stopped
-        command: --default-authentication-plugin=mysql_native_password
-        env_file: .env
-        ports: 
-            - 3307:3306
-        environment: 
-           - MYSQL_DATABASE:${MYSQL_DATABASE}
-           - MYSQL_USER:${MYSQL_USER}
-           - MYSQL_PASSWORD:${MYSQL_PASSWORD}
-           - MYSQL_ROOT_PASSWORD:${MYSQL_ROOT_PASSWORD}
-        networks:
-           - api_smartdoc_bijb_network
-    adminer:
-        image: adminer
-        restart: always
-        container_name: adminer
-        ports:
-            - 8080:8080
-        depends_on: 
-            - mysql
-        networks:
-           - api_smartdoc_bijb_network
-    # phpmyadmin:
-    #     depends_on:
-    #       - mysql
-    #     image: phpmyadmin/phpmyadmin
-    #     restart: always
-    #     ports:
-    #       - 8088:8088
-    #     environment:
-    #       PMA_HOST: db
-    #       MYSQL_ROOT_PASSWORD: password
+  mysql:
+    image: mysql:latest
+    container_name: mysql
+    restart: unless-stopped
+    command: --default-authentication-plugin=mysql_native_password
+    env_file: .env
+    ports:
+      - 3307:3306
+    environment:
+      - MYSQL_DATABASE:${MYSQL_DATABASE}
+      - MYSQL_USER:${MYSQL_USER}
+      - MYSQL_PASSWORD:${MYSQL_PASSWORD}
+      - MYSQL_ROOT_PASSWORD:${MYSQL_ROOT_PASSWORD}
+    networks:
+      - api_smartdoc_bijb_network
+  adminer:
+    image: adminer
+    restart: always
+    container_name: adminer
+    ports:
+      - 4000:8080
+    depends_on:
+      - mysql
+    networks:
+      - api_smartdoc_bijb_network
+  # phpmyadmin:
+  #     depends_on:
+  #       - mysql
+  #     image: phpmyadmin/phpmyadmin
+  #     restart: always
+  #     ports:
+  #       - 8088:8088
+  #     environment:
+  #       PMA_HOST: db
+  #       MYSQL_ROOT_PASSWORD: password
 
 networks:
-    api_smartdoc_bijb_network:
-        driver: bridge
+  api_smartdoc_bijb_network:
+    driver: bridge
