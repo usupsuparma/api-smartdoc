@@ -1,19 +1,18 @@
 version: "3"
 services:
   api_smartdoc_bijb:
-    container_name: "api_smartdoc_bijb"
-    build:
-      context: .
-      dockerfile: ./Dockerfile
-    ports:
-      - 8010:80
-    restart: always
-    volumes:
-      - ../../:/srv/www/
-      - ../../build/cron:/srv/www/build/cron
-      - ${HOME}/.composer:/root/.composer
-    networks:
-      - api_smartdoc_bijb_network
+        build: 
+          context: .
+          dockerfile: ./Dockerfile
+        ports:
+            - 8010:80
+        restart: always
+        volumes:
+            - ../../:/srv/www/
+            - ../../build/cron:/srv/www/build/cron
+            - ${HOME}/.composer:/root/.composer
+        networks:
+            - api_smartdoc_bijb_network
   mysql:
     container_name: "mysql"
     image: "mysql:latest"
