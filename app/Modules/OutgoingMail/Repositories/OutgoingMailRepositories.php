@@ -121,6 +121,7 @@ class OutgoingMailRepositories extends BaseRepository implements OutgoingMailInt
 
 		Validator::validate($request->all(), $rules, $message);
 
+
 		$hierarchy_orgs = $this->bottom_to_top($request);
 		$check_director_level = $this->structure_from_employee($request);
 
@@ -199,6 +200,7 @@ class OutgoingMailRepositories extends BaseRepository implements OutgoingMailInt
 			if ($request->button_action == OutgoingMailStatusConstants::SEND_TO_REVIEW) {
 				/* All Notification */
 				$this->send_email($model);
+				
 
 				$this->send_notification([
 					'model' => $model,
@@ -213,6 +215,7 @@ class OutgoingMailRepositories extends BaseRepository implements OutgoingMailInt
 					'heading' => '[SURAT KELUAR]',
 					'content' => "Approval - {$model->subject_letter} memerlukan persetujuan anda. "
 				]);
+
 			}
 		} catch (\Exception $ex) {
 			DB::rollback();

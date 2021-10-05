@@ -428,10 +428,10 @@ if (!function_exists('find_device_mobile')) {
 
     function find_device_mobile($employee_id = '')
     {
-        $nik = EmployeeModel::select('nik')->where('id_employee', $employee_id)->first()->nik;
-
-        $employee =  EmployeeModel::whereHas('user', function ($q) use ($nik) {
-            $q->where('nik', $nik);
+        // $nik = EmployeeModel::select('nik')->where('id_employee', $employee_id)->first();
+        // dd($nik);
+        $employee =  EmployeeModel::whereHas('user', function ($q) use ($employee_id) {
+            $q->where('nik', $employee_id);
         })->first();
 
         if (!$employee && !$employee->user) {

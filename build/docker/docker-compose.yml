@@ -5,8 +5,17 @@ services:
           context: .
           dockerfile: ./Dockerfile
         ports:
-            - 8010:80
+          - 8010:80
         restart: always
+        links:
+          - mysql
+        environment:
+          DB_HOST: mysql
+          DB_DATABASE: smartdoc
+          DB_USERNAME: usup
+          DB_PASSWORD: password
+        depends_on:
+          - mysql
         volumes:
             - ../../:/srv/www/
             - ../../build/cron:/srv/www/build/cron
@@ -21,8 +30,8 @@ services:
     restart: always
     environment:
       - MYSQL_DATABASE=smartdoc
-      - MYSQL_USER=user
-      - MYSQL_PASSWORD=mysql123
+      - MYSQL_USER=usup
+      - MYSQL_PASSWORD=password
       - MYSQL_ROOT_PASSWORD=mysqlroot123
     ports:
       - "3307:3306"

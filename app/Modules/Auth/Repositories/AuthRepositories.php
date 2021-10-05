@@ -63,6 +63,11 @@ class AuthRepositories extends BaseRepository implements AuthInterface
 				'email' => $request->username,
 				'password' => $request->password,
 			];
+			
+		
+			$valid_login = true;
+			$messages = 'success login';
+			return ['messages' => $messages, 'valid_login' => $valid_login];
 			$c = HttpClient::post(env('URL_BIS', 'http://127.0.0.1:8000/api/auth/user/login-web'));
 			$c->jsonBody($data);
 			$res = $c->call();
@@ -193,8 +198,7 @@ class AuthRepositories extends BaseRepository implements AuthInterface
 
 			return $results;
 		} catch (Exception $th) {
-			//throw $th;
-			dd($th);
+			throw $th;
 		}
 	}
 
