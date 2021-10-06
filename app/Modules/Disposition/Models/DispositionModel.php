@@ -39,7 +39,7 @@ class DispositionModel extends Model
 	
 	public function employee()
 	{
-		return $this->belongsTo(EmployeeModel::class, 'from_employee_id', 'id_employee');
+		return $this->belongsTo(EmployeeModel::class, 'from_employee_id', 'nik');
 	}
 	
 	public function signature()

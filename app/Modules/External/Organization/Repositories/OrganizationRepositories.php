@@ -33,6 +33,7 @@ class OrganizationRepositories extends BaseRepository implements OrganizationInt
 	{
 		/* Search List Department */
 		$department = MappingStructureModel::with('details')->where('code', self::DEPT_CODES)->firstOrFail();
+		// return $department;
 		$list_department = $department->details->pluck('id');
 		
 		$user_structure_id = Auth::user()->user_core->structure->id;

@@ -124,7 +124,6 @@ class DispositionRepositories extends BaseRepository implements DispositionInter
 				'from_employee_id' => Auth::user()->user_core->id_employee,
 				'disposition_date' => Carbon::now()->format('Y-m-d'),
 			])->all());
-
 			if (isset($request->assigns)) {
 				foreach ($request->assigns as $k => $assign) {
 					$model->assign()->create([

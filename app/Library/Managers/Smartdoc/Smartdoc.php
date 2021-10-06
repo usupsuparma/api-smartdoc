@@ -334,7 +334,6 @@ class Smartdoc extends PDF
 		});
 		
 		$address = setting_by_code('COMPANY_NAME'). ' '. setting_by_code('COMPANY_ADDRESS_1') .' '.setting_by_code('COMPANY_ADDRESS_1').' '.setting_by_code('COMPANY_ADDRESS_3');
-		
 		PDF::SetCreator(PDF_CREATOR);
 		PDF::SetAuthor(!empty($model->employee) ? $model->employee->name : '');
 		PDF::SetTitle('Disposisi Surat');
