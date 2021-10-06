@@ -149,13 +149,17 @@ class IncomingMailRepositories extends BaseRepository implements IncomingMailInt
 					'title' => 'follow-up-incoming',
 					'receiver' => $model->to_employee_id
 				]);
-
-				push_notif([
-					'device_id' => find_device_mobile($model->to_employee_id),
-					'data' => ['route_name' => 'IncomingMail'],
-					'heading' => '[SURAT MASUK]',
-					'content' => "Incoming Mail - {$model->subject_letter} memerlukan tindak lanjut anda. "
-				]);
+				
+				/**
+				 * disable dulu sementara untuk notifikasi ke mobile device
+				 */
+				// push_notif([
+				// 	'device_id' => find_device_mobile($model->to_employee_id),
+				// 	'data' => ['route_name' => 'IncomingMail'],
+				// 	'heading' => '[SURAT MASUK]',
+				// 	'content' => "Incoming Mail - {$model->subject_letter} memerlukan tindak lanjut anda. "
+				// ]);
+				
 			}
 
 			DB::commit();

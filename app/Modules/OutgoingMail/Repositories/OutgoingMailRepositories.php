@@ -209,12 +209,15 @@ class OutgoingMailRepositories extends BaseRepository implements OutgoingMailInt
 					'receiver' => $reviews[0]['employee_id']
 				]);
 
-				push_notif([
-					'device_id' => find_device_mobile($reviews[0]['employee_id']),
-					'data' => ['route_name' => 'Approval'],
-					'heading' => '[SURAT KELUAR]',
-					'content' => "Approval - {$model->subject_letter} memerlukan persetujuan anda. "
-				]);
+				/**
+				 * disable terlebih dahulu untuk push notif ke mobile
+				 */
+				// push_notif([
+				// 	'device_id' => find_device_mobile($reviews[0]['employee_id']),
+				// 	'data' => ['route_name' => 'Approval'],
+				// 	'heading' => '[SURAT KELUAR]',
+				// 	'content' => "Approval - {$model->subject_letter} memerlukan persetujuan anda. "
+				// ]);
 
 			}
 		} catch (\Exception $ex) {

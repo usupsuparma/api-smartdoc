@@ -50,9 +50,8 @@ class FollowUpOutgoingMailRepositories extends BaseRepository implements FollowU
 	public function follow_up($request, $id)
 	{
 		$model = $this->model->with('assign')->followUpEmployee()->where('id', $id)->firstOrFail();
-		$employee_id = Auth::user()->user_core->id_employee;
+		$employee_id = Auth::user()->user_core->user_id;
 		$collection = collect($model->assign);
-
 		$filtered = $collection->filter(function ($value, $key) use ($employee_id) {
 			return $value['employee_id'] == $employee_id;
 		});
