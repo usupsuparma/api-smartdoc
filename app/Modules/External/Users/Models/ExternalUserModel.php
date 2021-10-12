@@ -54,4 +54,9 @@ class ExternalUserModel extends Model
 	{
 		return $query->where('status', 1);
 	}
+
+	public function scopeGetNikById($query, $id) {
+		$user =  $query->select('id_employee')->where('user_id', $id)->get()->first();
+		return $user->id_employee;
+	}
 }

@@ -10,6 +10,7 @@ use League\Fractal\TransformerAbstract;
 use App\Modules\IncomingMail\Constans\IncomingMailStatusConstans;
 use App\Helpers\SmartdocHelper;
 use Auth;
+use App\Modules\External\Users\Models\ExternalUserModel;
 
 class IncomingMailTransformer extends TransformerAbstract
 {
@@ -23,13 +24,13 @@ class IncomingMailTransformer extends TransformerAbstract
 		$disposition = false;
 		$status = false;
 		$bod_level = false;
-
 		if ($data->status != IncomingMailStatusConstans::DRAFT || $data->status != IncomingMailStatusConstans::SEND) {
 			$status = true;
 		}
 
 		if ($data->follow_ups->isEmpty() && $data->status == IncomingMailStatusConstans::SEND) {
-			if ($data->to_employee_id == Auth::user()->user_core->id_employee) {
+			$nik = ExternalUserModel::GetNikById($data->to_employee_id);
+			if ($nik == Auth::user()->user_core->id_employee) {
 				$follow_up = true;
 			}
 		}
