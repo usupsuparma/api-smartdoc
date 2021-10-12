@@ -122,8 +122,8 @@ class OutgoingMailRepositories extends BaseRepository implements OutgoingMailInt
 
 		Validator::validate($request->all(), $rules, $message);
 
-
 		$hierarchy_orgs = $this->bottom_to_top($request);
+
 		$check_director_level = $this->structure_from_employee($request);
 
 		if ($request->button_action == OutgoingMailStatusConstants::SEND_TO_REVIEW) {
@@ -147,7 +147,6 @@ class OutgoingMailRepositories extends BaseRepository implements OutgoingMailInt
 		}
 
 		DB::beginTransaction();
-
 		try {
 			$model = $this->model->create($request->merge([
 				'status' => OutgoingMailStatusConstants::DRAFT,
@@ -389,7 +388,7 @@ class OutgoingMailRepositories extends BaseRepository implements OutgoingMailInt
 				]);
 
 				/**
-				 * disable dulu notifikasi ke mobile
+				 * disable dulu notifikasi ke
 				 */
 				// push_notif([
 				// 	'device_id' => find_device_mobile($reviews[0]['employee_id']),
@@ -459,8 +458,7 @@ class OutgoingMailRepositories extends BaseRepository implements OutgoingMailInt
 
 	private function structure_from_employee($request)
 	{
-		$nik = ExternalUserModel::GetNikById($request->from_employee_id);
-		$employee = employee_user($nik);
+		$employee = employee_user($request->from_employee_id);
 
 		$director_level = unserialize(setting_by_code('DIREKTUR_LEVEL_STRUCTURE'));
 		$direction_level = unserialize(setting_by_code('DIREKSI_LEVEL_STRUCTURE'));
@@ -478,8 +476,7 @@ class OutgoingMailRepositories extends BaseRepository implements OutgoingMailInt
 	{
 		$parent_id = Auth::user()->user_core->structure->parent_id;
 		$this->parents[] = Auth::user()->user_core->structure->id;
-		$nik = ExternalUserModel::GetNikById($request->from_employee_id);
-		$employee = employee_user($nik);
+		$employee = employee_user($request->from_employee_id);
 
 		if ($employee->user->structure->id != Auth::user()->user_core->structure->id) {
 			/* Search Hierarchy Structure Bottom to Top */

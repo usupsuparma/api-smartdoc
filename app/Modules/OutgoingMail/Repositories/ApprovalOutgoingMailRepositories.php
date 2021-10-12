@@ -65,7 +65,6 @@ class ApprovalOutgoingMailRepositories extends BaseRepository implements Approva
 	public function update($request, $id)
 	{
 		$model = $this->model->byEmployeId()->where('id', $id)->firstOrFail();
-
 		$modelApproval = OutgoingMailApproval::where([
 			'outgoing_mail_id' => $id,
 			'employee_id' => Auth::user()->user_core->employee->nik,
@@ -94,27 +93,24 @@ class ApprovalOutgoingMailRepositories extends BaseRepository implements Approva
 		$nextApprovalStructure = NULL;
 
 		$nextApproval = $this->next_approval($id);
-
 		if (!empty($nextApproval)) {
 			$nextApprovalEmployee = !empty($nextApproval->employee) ? $nextApproval->employee->nik : '';
 			$nextApprovalStructure = !empty($nextApproval->employee->user) ? $nextApproval->employee->user->structure->id : '';
 		}
 		
 		DB::beginTransaction();
-
+		
 		try {
-
+			
 			if ($request->hasFile('file')) {
 				$upload = Upload::uploads(setting_by_code('PATH_DIGITAL_OUTGOING_MAIL'), $request->file);
 			}
-
 			if ((int) $request->status_approval === StatusApprovalConstants::APPROVED) {
 				if (!empty($nextApproval)) {
 					$data = [
 						'current_approval_employee_id' => $nextApprovalEmployee,
 						'current_approval_structure_id' => $nextApprovalStructure,
 					];
-
 
 					$title = 'approval';
 					$receiver_id = $nextApprovalEmployee;

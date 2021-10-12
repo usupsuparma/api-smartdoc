@@ -162,7 +162,7 @@ class AdminOutgoingMailRepositories extends BaseRepository implements AdminOutgo
 				'status' => OutgoingMailStatusConstants::PUBLISH,
 				'retension_date' => Carbon::now()->addMonth(1)->format('Y-m-d'),
 				'path_to_file' => $document,
-				'publish_by_employee' => Auth::user()->user_core->employee->id_employee,
+				'publish_by_employee' => Auth::user()->user_core->employee->nik,
 				'publish_date' => Carbon::now(),
 			]);
 			
