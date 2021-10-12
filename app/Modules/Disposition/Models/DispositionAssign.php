@@ -47,10 +47,10 @@ class DispositionAssign extends Model
 	
 	public function scopeCheckRead($query, $disposition_id) 
 	{
-		$employee_id = Auth::user()->user_core->id_employee;
-		
+		$nik = Auth::user()->user_core->id_employee;
+		$employee = EmployeeModel::GetEmployeeByNik($nik);
 		return $query->where([
-			'employee_id' => $employee_id,
+			'employee_id' => $employee->id_employee,
 			'disposition_id' => $disposition_id
 		])->first();
 		

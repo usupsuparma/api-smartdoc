@@ -29,6 +29,7 @@ class DispositionFollowUp extends Model
 	
 	public function scopeFollowUp($query, $disposition_assign_id)
 	{
+		dd($disposition_assign_id);
 		$query->where([
 			'dispositions_assign_id' => $disposition_assign_id,
 			'employee_id' => Auth::user()->user_core->employee->id_employee,

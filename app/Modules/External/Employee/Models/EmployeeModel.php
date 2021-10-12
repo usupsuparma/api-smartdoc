@@ -36,6 +36,10 @@ class EmployeeModel extends Model
 		// return $query->where('status', 1);
 	}
 
+	public function scopeGetEmployeeByNik($query, $nik) {
+		return $query->where('nik', $nik)->first();
+	}
+
 	public function scopeOptions($query, $default = NULL)
 	{
 		$list = [];

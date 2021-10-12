@@ -99,7 +99,7 @@ class ApprovalOutgoingMailRepositories extends BaseRepository implements Approva
 			$nextApprovalEmployee = !empty($nextApproval->employee) ? $nextApproval->employee->nik : '';
 			$nextApprovalStructure = !empty($nextApproval->employee->user) ? $nextApproval->employee->user->structure->id : '';
 		}
-
+		
 		DB::beginTransaction();
 
 		try {
@@ -131,12 +131,16 @@ class ApprovalOutgoingMailRepositories extends BaseRepository implements Approva
 						'url' => $redirect_web . '?type=OM&skey=' . Crypt::encrypt($id)
 					];
 
-					push_notif([
-						'device_id' => find_device_mobile($nextApprovalEmployee),
-						'data' => ['route_name' => 'Approval'],
-						'heading' => '[SURAT KELUAR]',
-						'content' => "Approval - {$model->subject_letter} memerlukan persetujuan anda. "
-					]);
+					/**
+					 * disable send notif to mobile
+					 */
+
+					// push_notif([
+					// 	'device_id' => find_device_mobile($nextApprovalEmployee),
+					// 	'data' => ['route_name' => 'Approval'],
+					// 	'heading' => '[SURAT KELUAR]',
+					// 	'content' => "Approval - {$model->subject_letter} memerlukan persetujuan anda. "
+					// ]);
 				} else {
 					$data = [
 						'current_approval_employee_id' => NULL,
@@ -159,12 +163,15 @@ class ApprovalOutgoingMailRepositories extends BaseRepository implements Approva
 						'url' => $redirect_web . '?type=OM&skey=' . Crypt::encrypt($id)
 					];
 
-					push_notif([
-						'device_id' => find_device_mobile($model->from_employee_id),
-						'data' => ['route_name' => 'Signed'],
-						'heading' => '[SURAT KELUAR]',
-						'content' => "Signed - {$model->subject_letter} memerlukan tanda tangan anda. "
-					]);
+					/**
+					 * disable dulu send notification to mobile
+					 */
+					// push_notif([
+					// 	'device_id' => find_device_mobile($model->from_employee_id),
+					// 	'data' => ['route_name' => 'Signed'],
+					// 	'heading' => '[SURAT KELUAR]',
+					// 	'content' => "Signed - {$model->subject_letter} memerlukan tanda tangan anda. "
+					// ]);
 				}
 
 				$this->send_email($model, $data_email, $const_email);
