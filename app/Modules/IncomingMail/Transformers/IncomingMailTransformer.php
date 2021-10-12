@@ -24,17 +24,18 @@ class IncomingMailTransformer extends TransformerAbstract
 		$disposition = false;
 		$status = false;
 		$bod_level = false;
+		$nik = ExternalUserModel::GetNikById($data->to_employee_id);
+		
 		if ($data->status != IncomingMailStatusConstans::DRAFT || $data->status != IncomingMailStatusConstans::SEND) {
 			$status = true;
 		}
 
 		if ($data->follow_ups->isEmpty() && $data->status == IncomingMailStatusConstans::SEND) {
-			$nik = ExternalUserModel::GetNikById($data->to_employee_id);
 			if ($nik == Auth::user()->user_core->id_employee) {
 				$follow_up = true;
 			}
 		}
-		
+
 		if ($nik == Auth::user()->user_core->id_employee && empty($data->disposition)) {
 			$disposition = true;
 		}
