@@ -18,6 +18,7 @@ use App\Constants\MailCategoryConstants;
 use App\Events\Notif;
 use Validator, Auth;
 use Upload;
+use App\Modules\External\Users\Models\ExternalUserModel;
 
 
 class DispositionFollowRepositories extends BaseRepository implements DispositionFollowInterface
@@ -76,9 +77,9 @@ class DispositionFollowRepositories extends BaseRepository implements Dispositio
 		$model = $this->model->with('assign')->followUpEmployee()->where('id', $id)->firstOrFail();
 		$employee_id = Auth::user()->user_core->id_employee;
 		$collection = collect($model->assign);
-
 		$filtered = $collection->filter(function ($value, $key) use ($employee_id) {
-			return $value['employee_id'] == $employee_id;
+			$nik = ExternalUserModel::GetNikById($value['employee_id']);
+			return $nik == $employee_id;
 		});
 
 		$results = $filtered->flatten()->all()[0];
@@ -144,12 +145,15 @@ class DispositionFollowRepositories extends BaseRepository implements Dispositio
 		}
 
 		/* Notification */
-		push_notif([
-			'device_id' => find_device_mobile($model->from_employee_id),
-			'data' => ['route_name' => 'Disposition'],
-			'heading' => '[SURAT DISPOSISI]',
-			'content' => "Finish Follow Up - {$model->subject_disposition} sudah selesai di tindak lanjuti oleh " . Auth::user()->user_core->employee->name
-		]);
+		/**
+		 * disable notification send mobile
+		 */
+		// push_notif([
+		// 	'device_id' => find_device_mobile($model->from_employee_id),
+		// 	'data' => ['route_name' => 'Disposition'],
+		// 	'heading' => '[SURAT DISPOSISI]',
+		// 	'content' => "Finish Follow Up - {$model->subject_disposition} sudah selesai di tindak lanjuti oleh " . Auth::user()->user_core->employee->name
+		// ]);
 
 		$this->send_notification([
 			'model' => $model,
