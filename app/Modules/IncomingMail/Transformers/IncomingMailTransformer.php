@@ -34,8 +34,8 @@ class IncomingMailTransformer extends TransformerAbstract
 				$follow_up = true;
 			}
 		}
-
-		if ($data->to_employee_id == Auth::user()->user_core->id_employee && empty($data->disposition)) {
+		
+		if ($nik == Auth::user()->user_core->id_employee && empty($data->disposition)) {
 			$disposition = true;
 		}
 
