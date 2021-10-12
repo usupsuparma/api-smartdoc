@@ -26,7 +26,7 @@ class OutgoingMailController extends BaseController
 	public function data(Request $request)
 	{
 		// dd('test');
-		// Authority::check('read');
+		Authority::check('read');
 
 		return $this->showAll($this->outgoingMailRepository->data($request), 200);
 	}
@@ -40,7 +40,7 @@ class OutgoingMailController extends BaseController
 
 	public function create(Request $request)
 	{
-		// Authority::check('create');
+		Authority::check('create');
 
 		try {
 			$results = $this->outgoingMailRepository->create($request);

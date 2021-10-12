@@ -23,6 +23,7 @@ use App\Constants\MailCategoryConstants;
 use App\Jobs\SendEmailReminderJob;
 use Validator, DB, Auth;
 use Upload;
+use App\Modules\External\Users\Models\ExternalUserModel;
 
 class OutgoingMailRepositories extends BaseRepository implements OutgoingMailInterface
 {
@@ -290,7 +291,6 @@ class OutgoingMailRepositories extends BaseRepository implements OutgoingMailInt
 
 		$hierarchy_orgs = $this->bottom_to_top($request);
 		$check_director_level = $this->structure_from_employee($request);
-
 		if ($request->button_action == OutgoingMailStatusConstants::SEND_TO_REVIEW) {
 			if ($check_director_level) {
 				/* check list review hierarchy director*/
@@ -388,12 +388,15 @@ class OutgoingMailRepositories extends BaseRepository implements OutgoingMailInt
 					'receiver' => $reviews[0]['employee_id']
 				]);
 
-				push_notif([
-					'device_id' => find_device_mobile($reviews[0]['employee_id']),
-					'data' => ['route_name' => 'Approval'],
-					'heading' => '[SURAT KELUAR]',
-					'content' => "Approval - {$model->subject_letter} memerlukan persetujuan anda. "
-				]);
+				/**
+				 * disable dulu notifikasi ke mobile
+				 */
+				// push_notif([
+				// 	'device_id' => find_device_mobile($reviews[0]['employee_id']),
+				// 	'data' => ['route_name' => 'Approval'],
+				// 	'heading' => '[SURAT KELUAR]',
+				// 	'content' => "Approval - {$model->subject_letter} memerlukan persetujuan anda. "
+				// ]);
 			}
 
 			DB::commit();
@@ -456,7 +459,8 @@ class OutgoingMailRepositories extends BaseRepository implements OutgoingMailInt
 
 	private function structure_from_employee($request)
 	{
-		$employee = employee_user($request->from_employee_id);
+		$nik = ExternalUserModel::GetNikById($request->from_employee_id);
+		$employee = employee_user($nik);
 
 		$director_level = unserialize(setting_by_code('DIREKTUR_LEVEL_STRUCTURE'));
 		$direction_level = unserialize(setting_by_code('DIREKSI_LEVEL_STRUCTURE'));
@@ -474,7 +478,8 @@ class OutgoingMailRepositories extends BaseRepository implements OutgoingMailInt
 	{
 		$parent_id = Auth::user()->user_core->structure->parent_id;
 		$this->parents[] = Auth::user()->user_core->structure->id;
-		$employee = employee_user($request->from_employee_id);
+		$nik = ExternalUserModel::GetNikById($request->from_employee_id);
+		$employee = employee_user($nik);
 
 		if ($employee->user->structure->id != Auth::user()->user_core->structure->id) {
 			/* Search Hierarchy Structure Bottom to Top */

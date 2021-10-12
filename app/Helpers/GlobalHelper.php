@@ -83,6 +83,7 @@ if (!function_exists('employee_user')) {
 
     function employee_user($employee_id)
     {
+        // dd($employee_id);
         return EmployeeModel::whereHas('user', function ($q) use ($employee_id) {
             $q->where('id_employee', $employee_id);
         })->firstOrFail();
