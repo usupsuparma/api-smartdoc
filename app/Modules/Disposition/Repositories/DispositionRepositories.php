@@ -197,12 +197,12 @@ class DispositionRepositories extends BaseRepository implements DispositionInter
 							'receiver' => $assign['employee_id']
 						]);
 						
-						push_notif([
-							'device_id' => find_device_mobile($assign['employee_id']),
-							'data' => ['route_name' => 'DispositionFollowUp'],
-							'heading' => '[SURAT DISPOSISI]',
-							'content' => "Disposition Follow Up - {$model->subject_disposition} memerlukan tindak lanjut anda. "
-						]);
+						// push_notif([
+						// 	'device_id' => find_device_mobile($assign['employee_id']),
+						// 	'data' => ['route_name' => 'DispositionFollowUp'],
+						// 	'heading' => '[SURAT DISPOSISI]',
+						// 	'content' => "Disposition Follow Up - {$model->subject_disposition} memerlukan tindak lanjut anda. "
+						// ]);
 					}
 				}
 			}
@@ -347,12 +347,12 @@ class DispositionRepositories extends BaseRepository implements DispositionInter
 							'receiver' => $assign['employee_id']
 						]);
 						
-						push_notif([
-							'device_id' => find_device_mobile($assign['employee_id']),
-							'data' => ['route_name' => 'DispositionFollowUp'],
-							'heading' => '[SURAT DISPOSISI]',
-							'content' => "Disposition Follow Up - {$model->subject_disposition} memerlukan tindak lanjut anda. "
-						]);
+						// push_notif([
+						// 	'device_id' => find_device_mobile($assign['employee_id']),
+						// 	'data' => ['route_name' => 'DispositionFollowUp'],
+						// 	'heading' => '[SURAT DISPOSISI]',
+						// 	'content' => "Disposition Follow Up - {$model->subject_disposition} memerlukan tindak lanjut anda. "
+						// ]);
 					}
 				}				
 			}
@@ -456,12 +456,12 @@ class DispositionRepositories extends BaseRepository implements DispositionInter
 		}
 		
 		/* Notification */
-		push_notif([
-			'device_id' => find_device_mobile($model->from_employee_id),
-			'data' => ['route_name' => 'Disposition'],
-			'heading' => '[SURAT DISPOSISI]',
-			'content' => "Finish Follow Up - {$model->subject_disposition} sudah selesai di tindak lanjuti oleh ". Auth::user()->user_core->employee->name
-		]);
+		// push_notif([
+		// 	'device_id' => find_device_mobile($model->from_employee_id),
+		// 	'data' => ['route_name' => 'Disposition'],
+		// 	'heading' => '[SURAT DISPOSISI]',
+		// 	'content' => "Finish Follow Up - {$model->subject_disposition} sudah selesai di tindak lanjuti oleh ". Auth::user()->user_core->employee->name
+		// ]);
 		
 		$this->send_notification_trigger_auto_follow([
 			'model' => $model, 
