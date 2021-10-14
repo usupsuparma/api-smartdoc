@@ -8,7 +8,7 @@ namespace App\Modules\External\Users\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Modules\External\Employee\Models\EmployeeModel;
-use App\Modules\External\ExternalUser\Transformers\ExternalUserTransformer;
+use App\Modules\External\Users\Transformers\ExternalUserTransformer;
 use App\Modules\External\Organization\Models\OrganizationModel;
 use App\Modules\External\Position\Models\PositionModel;
 use App\Modules\User\Models\UserModel;

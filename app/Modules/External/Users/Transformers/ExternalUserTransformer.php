@@ -1,4 +1,4 @@
-<?php namespace App\Modules\External\ExternalUser\Transformers;
+<?php namespace App\Modules\External\Users\Transformers;
 /**
  * @author  Adam Lesmana Ganda Saputra <aelgees.dev@gmail.com>
  */

@@ -38,7 +38,7 @@ class NotificationModel extends Model
 	public function scopeByUser($query)
 	{
 		return $query->where([
-			'receiver_id' => Auth::user()->user_core->id_employee,
+			'receiver_id' => Auth::user()->user_core->nik,
 			'is_read' => false,
 		]);
 	}
