@@ -5,7 +5,7 @@ services:
       context: .
       dockerfile: ./Dockerfile
     ports:
-      - 8015:80
+      - 8010:80
     restart: always
     links:
       - mysql
