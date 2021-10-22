@@ -7,15 +7,15 @@ services:
     ports:
       - 8010:80
     restart: always
-    links:
-      - mysql
-    environment:
-      DB_HOST: mysql
-      DB_DATABASE: smartdoc
-      DB_USERNAME: usup
-      DB_PASSWORD: password
-    depends_on:
-      - mysql
+    # links:
+    #   - mysql
+    # environment:
+    #   DB_HOST: mysql
+    #   DB_DATABASE: smartdoc
+    #   DB_USERNAME: usup
+    #   DB_PASSWORD: password
+    # depends_on:
+    #   - mysql
     volumes:
       - ../../:/srv/www/
       - ../../build/cron:/srv/www/build/cron
