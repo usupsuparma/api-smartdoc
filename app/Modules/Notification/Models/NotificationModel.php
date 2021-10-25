@@ -22,12 +22,12 @@ class NotificationModel extends Model
 	
 	public function sender() 
 	{
-		return $this->belongsTo(EmployeeModel::class, 'sender_id', 'id_employee');
+		return $this->belongsTo(EmployeeModel::class, 'sender_id', 'nik');
 	}
 	
 	public function receiver() 
 	{
-		return $this->belongsTo(EmployeeModel::class, 'receiver_id', 'id_employee');
+		return $this->belongsTo(EmployeeModel::class, 'receiver_id', 'nik');
 	}
 	
 	public function scopeIsNotRead($query)
@@ -37,8 +37,9 @@ class NotificationModel extends Model
 	
 	public function scopeByUser($query)
 	{
+		// dd(Auth::user()->user_core);
 		return $query->where([
-			'receiver_id' => Auth::user()->user_core->nik,
+			'receiver_id' => Auth::user()->user_core->id_employee,
 			'is_read' => false,
 		]);
 	}
